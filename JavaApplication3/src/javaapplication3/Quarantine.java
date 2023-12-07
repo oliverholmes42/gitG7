@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.time.LocalDate;
 
 public class Quarantine {
+    private String LID;
     private LocalDate start;
     private LocalDate end;
 
@@ -21,6 +22,14 @@ public class Quarantine {
         this.start = start;
         this.end = end;
     }
+    
+   public String getLID() {
+       return LID;
+   }
+   
+   public void setLID(String LID) {
+       this.LID = LID;
+   }
 
     // Getter for start date
     public LocalDate getStart() {
