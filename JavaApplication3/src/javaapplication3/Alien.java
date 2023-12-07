@@ -11,13 +11,12 @@ import java.util.HashMap;
  * @author vilso
  */
 public class Alien {
-    String alien_name;
-    int alien_ID;
-    String alien_gender;
-    String alien_race;
-    HashMap<Double, Double> alien_location = new HashMap<>(); 
-    private int Alien_ID;
-    
+    private String alien_name;
+    private int alien_ID;
+    private String alien_gender;
+    private String alien_race;
+    private HashMap<Double, Double> alien_location = new HashMap<>(); 
+
     public Alien(String alien_name, int alien_ID, String alien_gender, String alien_race){
         this.alien_name = alien_name;
         this.alien_ID = alien_ID;
