@@ -18,6 +18,7 @@ public class JavaApplication3 {
         System.out.println("Hello Worlder!");
         System.out.println("Goodbye world!!");
         System.out.println("Helloer");
+        System.out.print("HEjbiatch");
         
         
         
