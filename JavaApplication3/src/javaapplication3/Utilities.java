@@ -9,13 +9,13 @@ package javaapplication3;
  * @author aiham
  */
 public class Utilities {
-    private int Utility_ID;
+    private String Utility_ID;
     private String Description;
     private String Name;
 
     
     
-    public Utilities(int Utility_ID, String Name, String Description){  
+    public Utilities(String Utility_ID, String Name, String Description){  
         
         this.Utility_ID = Utility_ID;
         this.Name = Name;
@@ -32,7 +32,7 @@ public class Utilities {
     this.Description = Description;
     }
     
-    public void setUtilityID(int Utility_ID){
+    public void setUtilityID(String Utility_ID){
     this.Utility_ID = Utility_ID;
     }
     
@@ -45,7 +45,7 @@ public class Utilities {
     return Description;
     }
     
-    public int getID(){
+    public String getID(){
     return Utility_ID;
     }
 }
