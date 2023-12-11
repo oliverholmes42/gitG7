@@ -9,49 +9,31 @@ package javaapplication3;
  * @author mopaj
  */
 public class Area {
-    private String AID;
-    private String name;
-    private float size;
+   private int AID;
+   private String name;
 
-    // Parameterless constructor
-    public Area() {
-    }
+   // Constructor
+   public Area(int AID, String name) {
+       this.AID = AID;
+       this.name = name;
+   }
 
-    // Constructor with parameters
-    public Area(String AID, String name, float size) {
-        this.AID = AID;
-        this.name = name;
-        this.size = size;
-    }
+   // Getters and Setters
+   public int getAID() {
+       return AID;
+   }
 
-    // Getter for AID
-    public String getAID() {
-        return AID;
-    }
+   public void setAID(int AID) {
+       this.AID = AID;
+   }
 
-    // Setter for AID
-    public void setAID(String AID) {
-        this.AID = AID;
-    }
+   public String getName() {
+       return name;
+   }
 
-    // Getter for name
-    public String getName() {
-        return name;
-    }
-
-    // Setter for name
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    // Getter for size
-    public float getSize() {
-        return size;
-    }
-
-    // Setter for size
-    public void setSize(float size) {
-        this.size = size;
-    }
+   public void setName(String name) {
+       this.name = name;
+   }
 }
+
 

@@ -14,10 +14,10 @@ public class Agent {
     private char Admin;
     private String email;
     private String password;
-    private Location location; 
+    private Area area; 
 
     // Constructor
-    public Agent(int agent_ID, String name, String telephone, LocalDate recruitmentDate, char Admin, String email, String password, Location location) {
+    public Agent(int agent_ID, String name, String telephone, LocalDate recruitmentDate, char Admin, String email, String password, Area area) {
         this.agent_ID = agent_ID;
         this.name = name;
         this.telephone = telephone;
@@ -25,7 +25,7 @@ public class Agent {
         this.Admin = Admin;
         this.email = email;
         this.password = password;
-        this.location = location;
+        this.area = area;
     }
 
     // Getters and Setters
@@ -85,11 +85,11 @@ public class Agent {
         this.password = password;
     }
 
-    public Location getLocation() {
-        return location;
+    public Area getArea() {
+        return area;
     }
 
-    public void setLocation(Location location) {
-        this.location = location;
+    public void setLocation(Area area) {
+        this.area = area;
     }
 }
