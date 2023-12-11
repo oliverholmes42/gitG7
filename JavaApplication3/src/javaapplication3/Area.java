@@ -9,30 +9,30 @@ package javaapplication3;
  * @author mopaj
  */
 public class Area {
-   private int AID;
-   private String name;
+   private int Area_ID;
+   private String Area_name;
 
    // Constructor
-   public Area(int AID, String name) {
-       this.AID = AID;
-       this.name = name;
+   public Area(int Area_ID, String Area_name) {
+       this.Area_ID = Area_ID;
+       this.Area_name = Area_name;
    }
 
    // Getters and Setters
-   public int getAID() {
-       return AID;
+   public int getArea_ID() {
+       return Area_ID;
    }
 
-   public void setAID(int AID) {
-       this.AID = AID;
+   public void setArea_ID(int Area_ID) {
+       this.Area_ID = Area_ID;
    }
 
-   public String getName() {
-       return name;
+   public String getareaName() {
+       return Area_name;
    }
 
-   public void setName(String name) {
-       this.name = name;
+   public void setName(String Area_name) {
+       this.Area_name = Area_name;
    }
 }
 
