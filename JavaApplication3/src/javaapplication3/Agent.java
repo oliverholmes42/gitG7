@@ -4,62 +4,92 @@
  */
 package javaapplication3;
 
-/**
- *
- * @author mopaj
- */
+import java.time.LocalDate;
+
 public class Agent {
+    private int agent_ID;
     private String name;
-    private String AGID;
+    private String telephone;
+    private LocalDate recruitmentDate;
+    private char Admin;
     private String email;
     private String password;
-    
-    public Agent(String name,String ID, String email, String password)
-    {
+    private Location location; 
+
+    // Constructor
+    public Agent(int agent_ID, String name, String telephone, LocalDate recruitmentDate, char Admin, String email, String password, Location location) {
+        this.agent_ID = agent_ID;
         this.name = name;
-        this.AGID = ID;
+        this.telephone = telephone;
+        this.recruitmentDate = recruitmentDate;
+        this.Admin = Admin;
         this.email = email;
         this.password = password;
+        this.location = location;
     }
-    
-    // Getter for name
+
+    // Getters and Setters
+    public int getAgent_ID() {
+        return agent_ID;
+    }
+
+    public void setAgent_ID(int agent_ID) {
+        this.agent_ID = agent_ID;
+    }
+
     public String getName() {
         return name;
     }
 
-    // Setter for name
     public void setName(String name) {
         this.name = name;
     }
 
-    // Getter for AGID
-    public String getAGID() {
-        return AGID;
+    public String getTelephone() {
+        return telephone;
     }
 
-    // Setter for AGID
-    public void setAGID(String AGID) {
-        this.AGID = AGID;
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
     }
 
-    // Getter for email
+    public LocalDate getRecruitmentDate() {
+        return recruitmentDate;
+    }
+
+    public void setRecruitmentDate(LocalDate recruitmentDate) {
+        this.recruitmentDate = recruitmentDate;
+    }
+
+    public char getAdmin() {
+        return Admin;
+    }
+
+    public void setAdmin(char Admin) {
+        this.Admin = Admin;
+    }
+
     public String getEmail() {
         return email;
     }
 
-    // Setter for email
     public void setEmail(String email) {
         this.email = email;
     }
 
-    // Getter for password
     public String getPassword() {
         return password;
     }
 
-    // Setter for password
     public void setPassword(String password) {
         this.password = password;
     }
-    
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
 }
