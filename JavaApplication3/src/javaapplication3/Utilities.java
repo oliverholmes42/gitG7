@@ -9,26 +9,24 @@ package javaapplication3;
  * @author aiham
  */
 public class Utilities {
-    private String Utility_ID;
+    private String UtilityID;
     private String Name;
 
     
     
-    public Utilities(String Utility_ID, String Name, String Description){  
+    public Utilities(String UtilityID, String Name, String Description){  
         
-        this.Utility_ID = Utility_ID;
+        this.UtilityID = UtilityID;
         this.Name = Name;
 
-        
     }
     
     public void setName(String Name){
     this.Name = Name;
     }
     
- 
-    public void setUtilityID(String Utility_ID){
-    this.Utility_ID = Utility_ID;
+    public void setUtilityID(String UtilityID){
+    this.UtilityID = UtilityID;
     }
      
     public String getName(){
@@ -36,6 +34,6 @@ public class Utilities {
     }
     
     public String getID(){
-    return Utility_ID;
+    return UtilityID;
     }
 }
