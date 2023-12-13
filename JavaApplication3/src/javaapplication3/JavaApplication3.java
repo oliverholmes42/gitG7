@@ -10,9 +10,9 @@ import oru.inf.InfDB;
 import oru.inf.InfException;
 
 /**
- * 
+ * Denna fil är huvudprogrammet och hanterar logiken kring hur programmet styrs från start till slut.
  *
- * @author mopaj
+ * @author oliver, aiham, albin, vilson
  */
 public class JavaApplication3 {
 
@@ -20,15 +20,15 @@ public class JavaApplication3 {
     
     public static void main(String[] args) throws InfException{
         
-        //Initializing the connection for the database MiB_DATABASE:
+        //Initialisering utav databasuppkoppling:
         try{
             db = new InfDB("mibdb", "3306", "mibdba", "mibkey");
         }catch(InfException e){
             Logger.getLogger(JavaApplication3.class.getName()).log(Level.SEVERE, null, e);
         }
-        loginInputValidation.db = db;
-        new LoginPage(db).setVisible(true);
         
+        loginInputValidation.db = db; //Kopplar databasen till loginsidan "loginInputValidation".
+        new LoginPage(db).setVisible(true); //Initialiserar loginsidan som förstasida "LoginPage".
         
     }
     

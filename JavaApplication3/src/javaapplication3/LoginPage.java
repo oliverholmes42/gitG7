@@ -4,27 +4,23 @@
  */
 package javaapplication3;
 
-import java.awt.event.ActionListener;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
 import oru.inf.InfDB;
 
 
 /**
- *
- * @author vilso
+ * Detta är filen av klassen JFrame som hanterar loginfönstret som först spelas upp i programmet.
+ * I och med att denna klass till största del formades i IDE:ns inbyggda designlayout har majoriteten av koden 
+ * automatiskt genererats. För att sedan koppla andra klasser med denna behövdes skräddarsydd kod.
+ * @author vilson, aiham, oliver, albin
  */
 public class LoginPage extends javax.swing.JFrame {
 
-    private final InfDB db;
-
     /**
-     * Creates new form LoginPage
+     * Autogenererad kod.
      * @param db
      */
     public LoginPage(InfDB db) {
         initComponents();
-        this.db = db;
         
     }
 
@@ -141,12 +137,13 @@ public class LoginPage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
-
+        
+        //Denna ActionEvent hanterar logiken för knapptrycket av "Logga in"-knappen.
         if (loginInputValidation.isEmailInputEmpty(epostTextField)) {
-            System.out.println("Emailinput korrekt");
+            System.out.println("Emailinput korrekt"); //Om detta villkor stämmer gå till nästa villkor->
 
             if (loginInputValidation.isPasswordInputEmpty(passwordPasswordField)) {
-                System.out.println("Lösenordsinput korrekt");
+                System.out.println("Lösenordsinput korrekt");//Om detta villkor stämmer gå till nästa villkor->
 
                 if (loginInputValidation.isEmailAndPasswordCorrect(epostTextField, passwordPasswordField)) {
                     System.out.println("Inloggning lyckades");
@@ -158,9 +155,12 @@ public class LoginPage extends javax.swing.JFrame {
             }
         } else {
             System.out.println("Emailinput misslyckades");
-        }
+        }   //Om något av dessa villkor inte stämmer kommer korresponderande fel
+            //dyka upp informerande om vad som gick fel internt i programmets output.
+            //Med denna struktur på if-satsen kommer koden heller inte gå vidare förens det första villkoret uppfylls.
     }//GEN-LAST:event_loginButtonActionPerformed
-
+    
+    
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
