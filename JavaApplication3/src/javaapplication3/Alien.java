@@ -10,103 +10,103 @@ import java.time.LocalDate;
  * @author aiham
  */
 public class Alien {
-    private int alien_ID;
-    private LocalDate Registrationdate;
-    private String alien_epost;
-    private String alien_password;
-    private String alien_name;
-    private String alien_phonenumber;
+    private int alienID;
+    private LocalDate RegistrationDate;
+    private String alienEpost;
+    private String alienPassword;
+    private String alienName;
+    private String alienPhonenumber;
     private Location location;
-    private Agent responsible_agent;
+    private Agent responsibleAgent;
 
 
 
-    public Alien(int alien_ID, LocalDate Registrationdate, String alien_epost, 
-            String alien_password, String alien_name, String alien_phonenumber, 
-            Location location, Agent responsible_agent){
+    public Alien(int alienID, LocalDate RegistrationDate, String alienEpost, 
+            String alienPassword, String alienName, String alienPhonenumber, 
+            Location location, Agent responsibleAgent){
         
-        this.alien_ID = alien_ID;
-        this.Registrationdate = Registrationdate;
-        this.alien_epost = alien_epost;
-        this.alien_password = alien_password;
-        this.alien_name = alien_name;
-        this.alien_phonenumber = alien_phonenumber;
+        this.alienID = alienID;
+        this.RegistrationDate = RegistrationDate;
+        this.alienEpost = alienEpost;
+        this.alienPassword = alienPassword;
+        this.alienName = alienName;
+        this.alienPhonenumber = alienPhonenumber;
         this.location = location;
-        this.responsible_agent = responsible_agent;
+        this.responsibleAgent = responsibleAgent;
         
         }
 
 // Setter for name
     
-    public void setalienID(int alien_ID) {
-        this.alien_ID = alien_ID;
+    public void setalienID(int alienID) {
+        this.alienID = alienID;
     }
     
 // Getter for name
     
     public int getalienID() {
-        return alien_ID;
+        return alienID;
     }
     
 // Setter for Registrationdate
     
-    public void setRegistrationDate(LocalDate Registrationdate) {
-        this.Registrationdate = Registrationdate;
+    public void setRegistrationDate(LocalDate RegistrationDate) {
+        this.RegistrationDate = RegistrationDate;
     }
     
 // Getter for Registrationdate
 
     public LocalDate getRegistrationDate() {
-        return Registrationdate;
+        return RegistrationDate;
     }
     
     // Setter for alienEpost
     
-    public void setalienEpost(String alien_epost) {
-        this.alien_epost = alien_epost;
+    public void setalienEpost(String alienEpost) {
+        this.alienEpost = alienEpost;
     }
     
 // Setter for alienEpost
     
     public String getalienEpost() {
-        return alien_epost;
+        return alienEpost;
     }
     
 // Setter for alienPassword
     
-    public void setalienPassword(String alien_password) {
-        this.alien_password = alien_password;
+    public void setalienPassword(String alienPassword) {
+        this.alienPassword = alienPassword;
     }
     
 // Getter for alienPassword
 
     public String getalienPassword() {
-        return alien_password;
+        return alienPassword;
     }
     
 // Setter for alienName
     
-    public void setalienName(String alien_name) {
-        this.alien_name = alien_name;
+    public void setalienName(String alienName) {
+        this.alienName = alienName;
     }
     
 // Getter for alienName
 
     public String getalienName() {
-        return alien_name;
+        return alienName;
     }
     
     
 // Setter for alienPhonenumber
 
-    public void setalienPhonenumber(String alien_phonenumber) {
-        this.alien_phonenumber = alien_phonenumber;
+    public void setalienPhonenumber(String alienPhonenumber) {
+        this.alienPhonenumber = alienPhonenumber;
     }
   
 // Getter for alienPhonenumber
 
     public String getalienPhonenumber() {
-        return alien_phonenumber;
+        return alienPhonenumber;
     }
 
 // Setter for alienLocation
@@ -124,14 +124,14 @@ public class Alien {
 // Setter for agent responsible for alien
 
     
-    public void setalienResponslbleAgent(Agent responsible_agent) {
-        this.responsible_agent =  responsible_agent;
+    public void setalienResponslbleAgent(Agent responsibleAgent) {
+        this.responsibleAgent =  responsibleAgent;
     }
     
 // Getter for agent responsible for alien
 
-    public Agent getresponsible_agent() {
-        return responsible_agent;
+    public Agent getresponsibleAgent() {
+        return responsibleAgent;
     }
     
     
