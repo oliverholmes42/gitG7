@@ -10,7 +10,6 @@ package javaapplication3;
  */
 public class Utilities {
     private String Utility_ID;
-    private String Description;
     private String Name;
 
     
@@ -19,7 +18,6 @@ public class Utilities {
         
         this.Utility_ID = Utility_ID;
         this.Name = Name;
-        this.Description = Description;
 
         
     }
@@ -28,21 +26,13 @@ public class Utilities {
     this.Name = Name;
     }
     
-    public void setDescription(String Description){
-    this.Description = Description;
-    }
-    
+ 
     public void setUtilityID(String Utility_ID){
     this.Utility_ID = Utility_ID;
     }
-    
-    
+     
     public String getName(){
     return Name;
-    }
-    
-    public String getDescription(){
-    return Description;
     }
     
     public String getID(){
