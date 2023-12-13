@@ -7,7 +7,7 @@ package javaapplication3;
 import java.time.LocalDate;
 
 public class Agent {
-    private int agent_ID;
+    private int agentID;
     private String name;
     private String telephone;
     private LocalDate recruitmentDate;
@@ -17,8 +17,8 @@ public class Agent {
     private Area area; 
 
     // Constructor
-    public Agent(int agent_ID, String name, String telephone, LocalDate recruitmentDate, char Admin, String email, String password, Area area) {
-        this.agent_ID = agent_ID;
+    public Agent(int agentID, String name, String telephone, LocalDate recruitmentDate, char Admin, String email, String password, Area area) {
+        this.agentID = agentID;
         this.name = name;
         this.telephone = telephone;
         this.recruitmentDate = recruitmentDate;
@@ -30,11 +30,11 @@ public class Agent {
 
     // Getters and Setters
     public int getAgent_ID() {
-        return agent_ID;
+        return agentID;
     }
 
-    public void setAgent_ID(int agent_ID) {
-        this.agent_ID = agent_ID;
+    public void setAgent_ID(int agentID) {
+        this.agentID = agentID;
     }
 
     public String getName() {
