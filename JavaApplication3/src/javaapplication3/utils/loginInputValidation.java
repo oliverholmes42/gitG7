@@ -4,6 +4,8 @@
  */
 package javaapplication3.utils;
 
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -18,6 +20,8 @@ import oru.inf.InfException;
  * @author vilson, albin, oliver, aiham
  */
 public class loginInputValidation {
+    
+    
     
     public static InfDB db;
     
@@ -51,16 +55,17 @@ public class loginInputValidation {
     
     //För att kunna jämföra epost med lösenord kommer denna metod hjälpa. Här sker en jämförelse mellan angiven email
     //och angivet lösenord och kollar så de stämmer överens innan man kan få tillgång till nästa sida.
-    public static boolean isEmailAndPasswordCorrect(JTextField email, JPasswordField password){
-        
-        boolean isValidated = false;//Flagga för att påvisa om man som användare är validerad.
+    public static Map<String, Object> isEmailAndPasswordCorrect(JTextField email, JPasswordField password) {
+        Map<String, Object> resultMap = new HashMap<>();
+        boolean isValidated = false;
+        int userId = -1;
         
         try {
             String emailInput = email.getText();
             char[] passwordInput = password.getPassword();//JPasswordField lagrar data i en Array av char's och måste konverteras.
             String passwordInputToString = String.valueOf(passwordInput);//String.valueOf() sköter konvertering till String.
             
-            String emailQuery = "SELECT Epost FROM agent WHERE Epost = '" + emailInput + "' AND Losenord = '" + passwordInputToString + "'";
+            String emailQuery = "SELECT Agent_ID FROM agent WHERE Epost = '" + emailInput + "' AND Losenord = '" + passwordInputToString + "'";
             String emailQueryResult = db.fetchSingle(emailQuery);//SQL-frågan sparas i en lokal variabel.
             
             if(emailQueryResult == null){//Denna fråga innebär om resultatet från SQL-frågan resulterar i ingenting.
@@ -69,6 +74,7 @@ public class loginInputValidation {
             }else{
                 JOptionPane.showMessageDialog(null, "Inloggning lyckades!");
                 isValidated = true;//Flaggar för att valideringen är lyckad.
+                userId = Integer.parseInt(emailQueryResult);
             }
             
         }catch(InfException e){
@@ -76,7 +82,10 @@ public class loginInputValidation {
             //För att programmerare ska kunna se felet som kan uppstå kommer ett internt felmeddelande i konsolen.
         }
         
-        return isValidated;
+        resultMap.put("isValidated", isValidated);
+        resultMap.put("userId", userId);
+        
+        return resultMap;
         
     }
 }

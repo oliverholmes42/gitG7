@@ -4,6 +4,8 @@
  */
 package javaapplication3.GUI;
 
+import java.util.Map;
+import javaapplication3.utils.UserSession;
 import javaapplication3.utils.loginInputValidation;
 import oru.inf.InfDB;
 
@@ -15,6 +17,7 @@ import oru.inf.InfDB;
  * @author vilson, aiham, oliver, albin
  */
 public class LoginPage extends javax.swing.JFrame {
+    private static InfDB db;
 
     /**
      * Autogenererad kod.
@@ -22,6 +25,8 @@ public class LoginPage extends javax.swing.JFrame {
      */
     public LoginPage(InfDB db) {
         initComponents();
+        this.db = db;
+        
         
     }
 
@@ -146,11 +151,16 @@ public class LoginPage extends javax.swing.JFrame {
             if (loginInputValidation.isPasswordInputEmpty(passwordPasswordField)) {
                 System.out.println("Lösenordsinput korrekt");//Om detta villkor stämmer gå till nästa villkor->
 
-                if (loginInputValidation.isEmailAndPasswordCorrect(epostTextField, passwordPasswordField)) {
+                 Map<String, Object> loginResult = loginInputValidation.isEmailAndPasswordCorrect(epostTextField, passwordPasswordField);
+                 boolean isValidated = (Boolean) loginResult.get("isValidated");
+
+                if (isValidated) {
+                    int userId = (Integer) loginResult.get("userId");
+                    System.out.println("User ID: " + userId);
+                    UserSession.getInstance().setUserId(userId);
                     System.out.println("Inloggning lyckades");
                     this.dispose(); // Close login window
-                    MainPage mainPage = new MainPage();
-                    mainPage.setVisible(true);
+                    new MainPage(db).setVisible(true);
                 } else {
                     System.out.println("Inloggning misslyckades");
                 }

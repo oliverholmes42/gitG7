@@ -4,17 +4,33 @@
  */
 package javaapplication3.GUI.panels;
 
+import javaapplication3.utils.UserSession;
+import oru.inf.InfDB;
+
 /**
  *
  * @author mopaj
  */
 public class HomePanel extends javax.swing.JPanel {
+    private static InfDB db;
 
     /**
      * Creates new form AgentPanel
      */
-    public HomePanel() {
+    public HomePanel(InfDB db) {
+        this.db = db;
         initComponents();
+        String greeting = "Welcome!";
+        try {
+            String Name = db.fetchSingle("Select NAMN FROM AGENT WHERE AGENT_ID =" + UserSession.getInstance().getUserId());
+            greeting = "Welcome, " + Name;
+            }
+        catch(Exception e)
+        {
+        }
+        
+        jLabel2.setText(greeting);
+        
     }
 
     /**
@@ -26,37 +42,85 @@ public class HomePanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+
+        jMenu1.setText("File");
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Edit");
+        jMenuBar1.add(jMenu2);
 
         setBackground(new java.awt.Color(200, 200, 200));
         setMaximumSize(new java.awt.Dimension(1128, 792));
         setMinimumSize(new java.awt.Dimension(1128, 792));
         setPreferredSize(new java.awt.Dimension(1128, 792));
 
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"U1", "MachineGun DeluxeEdition", "2020-01-01"},
+                {"U2", "Elektrisk Whip", "2019-01-01"},
+                {"U3", "Hand Granat", "2018-01-01"},
+                {"U4", "Skottsäker väst", "2017-01-01"}
+            },
+            new String [] {
+                "UtrustningID", "Namn på Utrustning", "Utkvitteringsdatum"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable2);
+
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("Home");
+        jLabel1.setForeground(new java.awt.Color(50, 50, 50));
+        jLabel1.setText("Din Utrustning");
+        jLabel1.setAutoscrolls(true);
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(30, 30, 30));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Välkommen");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(515, 515, 515)
-                .addComponent(jLabel1)
-                .addContainerGap(610, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(459, 459, 459)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(112, 112, 112)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 977, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(133, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(448, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(444, 444, 444))
+                .addContainerGap(232, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(185, 185, 185)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(168, 168, 168))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable2;
     // End of variables declaration//GEN-END:variables
 }

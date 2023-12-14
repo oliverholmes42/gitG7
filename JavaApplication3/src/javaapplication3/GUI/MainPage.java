@@ -13,6 +13,7 @@ import javaapplication3.GUI.panels.AgentPanel;
 import javaapplication3.GUI.panels.EquipmentPanel;
 import javaapplication3.GUI.panels.HomePanel;
 import javaapplication3.GUI.panels.ProfilePanel;
+import oru.inf.InfDB;
 
 
 
@@ -22,12 +23,14 @@ import javaapplication3.GUI.panels.ProfilePanel;
  * @author mopaj
  */
 public class MainPage extends javax.swing.JFrame {
+    private static InfDB db;
     private CardLayout cardLayout = new CardLayout();
 
     /**
      * Creates new form MainPage
      */
-    public MainPage() {
+    public MainPage(InfDB db) {
+        this.db = db;
         initComponents();
         addMouseListenersToLabel(homeButton);
         addMouseListenersToLabel(alienButton);
@@ -35,7 +38,7 @@ public class MainPage extends javax.swing.JFrame {
         addMouseListenersToLabel(profileButton);
         addMouseListenersToLabel(equipmentButton);
         mainPanelDisplay.setLayout(cardLayout);
-        mainPanelDisplay.add(new HomePanel(), "HomePanel");
+        mainPanelDisplay.add(new HomePanel(db), "HomePanel");
         mainPanelDisplay.add(new AgentPanel(), "AgentPanel");
         mainPanelDisplay.add(new AlienPanel(), "AlienPanel");
         mainPanelDisplay.add(new EquipmentPanel(), "EquipmentPanel");
@@ -261,7 +264,7 @@ private void labelMouseExited(java.awt.event.MouseEvent evt, JLabel label) {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainPage().setVisible(true);
+                new MainPage(db).setVisible(true);
             }
         });
     }
