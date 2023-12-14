@@ -1,4 +1,4 @@
-package javaapplication3;
+package javaapplication3.models;
 
 import java.util.Date;
 

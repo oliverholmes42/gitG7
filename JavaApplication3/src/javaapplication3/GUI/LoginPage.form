@@ -114,7 +114,7 @@
         <Component class="javax.swing.JLabel" name="loginLogoLabel">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/javaapplication3/MiB_Icon.png"/>
+              <Image iconType="3" name="/resources/MiB_Icon.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="jLabel1"/>
           </Properties>

@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package javaapplication3;
+package javaapplication3.GUI;
 
+import javaapplication3.utils.loginInputValidation;
 import oru.inf.InfDB;
 
 
@@ -58,7 +59,7 @@ public class LoginPage extends javax.swing.JFrame {
         loginLabel.setText("LOGIN");
         loginLabel.setToolTipText("");
 
-        loginLogoLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/javaapplication3/MiB_Icon.png"))); // NOI18N
+        loginLogoLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/MiB_Icon.png"))); // NOI18N
         loginLogoLabel.setText("jLabel1");
 
         epostLabel.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -147,6 +148,9 @@ public class LoginPage extends javax.swing.JFrame {
 
                 if (loginInputValidation.isEmailAndPasswordCorrect(epostTextField, passwordPasswordField)) {
                     System.out.println("Inloggning lyckades");
+                    this.dispose(); // Close login window
+                    MainPage mainPage = new MainPage();
+                    mainPage.setVisible(true);
                 } else {
                     System.out.println("Inloggning misslyckades");
                 }
