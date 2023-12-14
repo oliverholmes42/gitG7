@@ -29,6 +29,9 @@ public class EquipmentPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(200, 200, 200));
+        setMaximumSize(new java.awt.Dimension(1128, 792));
+        setMinimumSize(new java.awt.Dimension(1128, 792));
+        setPreferredSize(new java.awt.Dimension(1128, 792));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));

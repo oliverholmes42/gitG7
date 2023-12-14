@@ -29,6 +29,9 @@ public class AgentPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(200, 200, 200));
+        setMaximumSize(new java.awt.Dimension(1128, 792));
+        setMinimumSize(new java.awt.Dimension(1128, 792));
+        setPreferredSize(new java.awt.Dimension(1128, 792));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
@@ -41,12 +44,12 @@ public class AgentPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(515, 515, 515)
                 .addComponent(jLabel1)
-                .addContainerGap(612, Short.MAX_VALUE))
+                .addContainerGap(541, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(448, Short.MAX_VALUE)
+                .addContainerGap(300, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(444, 444, 444))
         );
