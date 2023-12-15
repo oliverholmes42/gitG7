@@ -60,6 +60,8 @@ public class ProfilePanel extends javax.swing.JPanel {
         setMinimumSize(new java.awt.Dimension(1128, 792));
         setPreferredSize(new java.awt.Dimension(1128, 792));
 
+        namnPanel.setPreferredSize(new java.awt.Dimension(557, 40));
+
         namnText.setText("NAMN:");
 
         namnData.setText("Fornamn Efternamn");
@@ -70,20 +72,19 @@ public class ProfilePanel extends javax.swing.JPanel {
             namnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(namnPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(namnText, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(namnText, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 121, Short.MAX_VALUE)
                 .addComponent(namnData, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(85, Short.MAX_VALUE))
+                .addGap(87, 87, 87))
         );
         namnPanelLayout.setVerticalGroup(
             namnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(namnPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(namnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(namnText, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
-                    .addComponent(namnData))
-                .addContainerGap())
+            .addGroup(namnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(namnText, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                .addComponent(namnData))
         );
+
+        telefonPanel.setPreferredSize(new java.awt.Dimension(557, 40));
 
         telefonText.setText("TELEFON:");
 
@@ -95,18 +96,18 @@ public class ProfilePanel extends javax.swing.JPanel {
             telefonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(telefonPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(telefonText, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(telefonText, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(49, 49, 49)
                 .addComponent(telefonData, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         telefonPanelLayout.setVerticalGroup(
             telefonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(telefonPanelLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, telefonPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(telefonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(telefonText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(telefonData, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE))
+                    .addComponent(telefonData, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+                    .addComponent(telefonText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -242,7 +243,7 @@ public class ProfilePanel extends javax.swing.JPanel {
             }
         });
 
-        profilTitel.setFont(new java.awt.Font("Verdana", 0, 36)); // NOI18N
+        profilTitel.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         profilTitel.setText("DIN PROFIL");
 
         profilBild.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/AgentBild.png"))); // NOI18N
@@ -273,7 +274,7 @@ public class ProfilePanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(profilTitel, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(59, 59, 59)
+                .addGap(53, 53, 53)
                 .addComponent(namnPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(epostPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -295,6 +296,8 @@ public class ProfilePanel extends javax.swing.JPanel {
                 .addComponent(profilBild)
                 .addContainerGap(473, Short.MAX_VALUE))
         );
+
+        namnPanel.getAccessibleContext().setAccessibleDescription("");
     }// </editor-fold>//GEN-END:initComponents
 
     private void NyttLösenButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NyttLösenButton1ActionPerformed
