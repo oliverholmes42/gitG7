@@ -28,6 +28,11 @@ public class LoginPage extends javax.swing.JFrame {
         this.db = db;
         
         
+        fastButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    fastLogIn();
+         }
+});
     }
 
 
@@ -48,6 +53,7 @@ public class LoginPage extends javax.swing.JFrame {
         epostTextField = new javax.swing.JTextField();
         passwordPasswordField = new javax.swing.JPasswordField();
         loginButton = new javax.swing.JButton();
+        fastButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(204, 204, 204));
@@ -89,6 +95,8 @@ public class LoginPage extends javax.swing.JFrame {
             }
         });
 
+        fastButton.setText("Fast As Fuck Boi");
+
         javax.swing.GroupLayout loginPanelLayout = new javax.swing.GroupLayout(loginPanel);
         loginPanel.setLayout(loginPanelLayout);
         loginPanelLayout.setHorizontalGroup(
@@ -103,8 +111,11 @@ public class LoginPage extends javax.swing.JFrame {
                     .addComponent(epostLabel)
                     .addComponent(epostTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(passwordPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(34, Short.MAX_VALUE))
+                    .addGroup(loginPanelLayout.createSequentialGroup()
+                        .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(fastButton)))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
         loginPanelLayout.setVerticalGroup(
             loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -122,7 +133,9 @@ public class LoginPage extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(passwordPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(43, 43, 43)
-                        .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(fastButton, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(loginLogoLabel))
                 .addContainerGap(180, Short.MAX_VALUE))
         );
@@ -174,12 +187,20 @@ public class LoginPage extends javax.swing.JFrame {
             //Med denna struktur på if-satsen kommer koden heller inte gå vidare förens det första villkoret uppfylls.
     }//GEN-LAST:event_loginButtonActionPerformed
     
+    private void fastLogIn() {
+        UserSession.getInstance().setUserId(1);
+        this.dispose(); // Close login window
+        new MainPage(db).setVisible(true);   
+    }
+    
+    
     
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel epostLabel;
     private javax.swing.JTextField epostTextField;
+    private javax.swing.JButton fastButton;
     private javax.swing.JButton loginButton;
     private javax.swing.JLabel loginLabel;
     private javax.swing.JLabel loginLogoLabel;
