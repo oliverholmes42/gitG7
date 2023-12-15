@@ -6,6 +6,8 @@ package javaapplication3.GUI;
 
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Image;
+import java.io.IOException;
 import javax.swing.JLabel;
 import javaapplication3.GUI.panels.AlienPanel;
 import javaapplication3.GUI.panels.AgentPanel;
@@ -15,6 +17,7 @@ import javaapplication3.GUI.panels.HomePanel;
 import javaapplication3.GUI.panels.ProfilePanel;
 import javaapplication3.utils.DatabaseConnection;
 import javaapplication3.utils.UserSession;
+import javax.imageio.ImageIO;
 import oru.inf.InfDB;
 
 
@@ -34,14 +37,33 @@ public class MainPage extends javax.swing.JFrame {
     public MainPage() {
         this.db = DatabaseConnection.getInstance();;
         initComponents();
-        addMouseListenersToLabel(homeButton);
-        addMouseListenersToLabel(alienButton);
-        addMouseListenersToLabel(agentButton);
-        addMouseListenersToLabel(profileButton);
-        addMouseListenersToLabel(equipmentButton);
-        addMouseListenersToLabel(areaButton);
-        addMouseListenersToLabel(logOutButton);
-        
+        loadIcon();
+        addListenersToMenu();
+        addNavigationToMenu();
+        createCardLayout();
+        cardLayout.show(mainPanelDisplay, "HomePanel");
+        creatLogOut();
+    }
+
+    private void creatLogOut() {
+        logOutButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                UserSession.getInstance().stopSession(); // Stop the user session
+                MainPage.this.dispose();// Dispose the current frame
+                new LoginPage().setVisible(true); 
+            }
+        }); }
+
+    private void addNavigationToMenu() {
+        addNavigationToButton(homeButton, "HomePanel");
+        addNavigationToButton(alienButton, "AlienPanel");
+        addNavigationToButton(agentButton, "AgentPanel");
+        addNavigationToButton(profileButton, "ProfilePanel");
+        addNavigationToButton(equipmentButton, "EquipmentPanel");
+        addNavigationToButton(areaButton, "AreaPanel");
+    }
+
+    private void createCardLayout() {
         mainPanelDisplay.setLayout(cardLayout);
         mainPanelDisplay.add(new HomePanel(), "HomePanel");
         mainPanelDisplay.add(new AgentPanel(), "AgentPanel");
@@ -49,25 +71,16 @@ public class MainPage extends javax.swing.JFrame {
         mainPanelDisplay.add(new EquipmentPanel(), "EquipmentPanel");
         mainPanelDisplay.add(new ProfilePanel(), "ProfilePanel");
         mainPanelDisplay.add(new AreaPanel(), "AreaPanel");
+    }
 
-        addNavigationToButton(homeButton, "HomePanel");
-        addNavigationToButton(alienButton, "AlienPanel");
-        addNavigationToButton(agentButton, "AgentPanel");
-        addNavigationToButton(profileButton, "ProfilePanel");
-        addNavigationToButton(equipmentButton, "EquipmentPanel");
-        addNavigationToButton(areaButton, "AreaPanel");
-
-        
-        cardLayout.show(mainPanelDisplay, "HomePanel");
-        
-        logOutButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                    UserSession.getInstance().stopSession(); // Stop the user session
-                    MainPage.this.dispose();// Dispose the current frame
-                    new LoginPage().setVisible(true);
-         }
-});
-
+    private void addListenersToMenu() {
+        addMouseListenersToLabel(homeButton);
+        addMouseListenersToLabel(alienButton);
+        addMouseListenersToLabel(agentButton);
+        addMouseListenersToLabel(profileButton);
+        addMouseListenersToLabel(equipmentButton);
+        addMouseListenersToLabel(areaButton);
+        addMouseListenersToLabel(logOutButton);
     }
     
     private void addMouseListenersToLabel(JLabel label) {
@@ -83,6 +96,14 @@ public class MainPage extends javax.swing.JFrame {
         }
     });
 }
+    private void loadIcon() {
+        try {
+            Image icon = ImageIO.read(getClass().getResource("/resources/Icon.png"));
+            setIconImage(icon);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     
     private void addNavigationToButton(JLabel label, String panel) {
         label.addMouseListener(new java.awt.event.MouseAdapter() {

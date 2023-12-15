@@ -4,10 +4,13 @@
  */
 package javaapplication3.GUI;
 
+import java.awt.Image;
+import java.io.IOException;
 import java.util.Map;
 import javaapplication3.utils.DatabaseConnection;
 import javaapplication3.utils.UserSession;
 import javaapplication3.utils.loginInputValidation;
+import javax.imageio.ImageIO;
 import oru.inf.InfDB;
 
 
@@ -26,13 +29,18 @@ public class LoginPage extends javax.swing.JFrame {
      */
     public LoginPage() {
         initComponents();
+        loadIcon();
         this.db = DatabaseConnection.getInstance();
+        createFastButton();
+    }
+
+    private void createFastButton() {
         fastButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                    fastLogIn();
-         }
-});
-    }
+                fastLogIn();
+            }
+            
+        }); }
 
 
     /**
@@ -153,7 +161,14 @@ public class LoginPage extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    private void loadIcon() {
+        try {
+            Image icon = ImageIO.read(getClass().getResource("/resources/Icon.png"));
+            setIconImage(icon);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         
         //Denna ActionEvent hanterar logiken för knapptrycket av "Logga in"-knappen.

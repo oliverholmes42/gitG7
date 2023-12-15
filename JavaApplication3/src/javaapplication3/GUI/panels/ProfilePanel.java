@@ -60,9 +60,13 @@ public class ProfilePanel extends javax.swing.JPanel {
         setMinimumSize(new java.awt.Dimension(1128, 792));
         setPreferredSize(new java.awt.Dimension(1128, 792));
 
+        namnPanel.setMaximumSize(new java.awt.Dimension(557, 40));
+        namnPanel.setMinimumSize(new java.awt.Dimension(557, 40));
         namnPanel.setPreferredSize(new java.awt.Dimension(557, 40));
 
         namnText.setText("NAMN:");
+        namnText.setFocusable(false);
+        namnText.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         namnData.setText("Fornamn Efternamn");
 
@@ -72,21 +76,25 @@ public class ProfilePanel extends javax.swing.JPanel {
             namnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(namnPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(namnText, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 121, Short.MAX_VALUE)
-                .addComponent(namnData, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(87, 87, 87))
+                .addComponent(namnText, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(namnData, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         namnPanelLayout.setVerticalGroup(
             namnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(namnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(namnText, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
-                .addComponent(namnData))
+                .addComponent(namnText, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(namnData, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        telefonPanel.setMaximumSize(new java.awt.Dimension(557, 40));
+        telefonPanel.setMinimumSize(new java.awt.Dimension(557, 40));
         telefonPanel.setPreferredSize(new java.awt.Dimension(557, 40));
 
         telefonText.setText("TELEFON:");
+        telefonText.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        telefonText.setPreferredSize(new java.awt.Dimension(40, 16));
 
         telefonData.setText("07000000000");
 
@@ -96,22 +104,25 @@ public class ProfilePanel extends javax.swing.JPanel {
             telefonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(telefonPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(telefonText, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49)
+                .addComponent(telefonText, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(telefonData, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         telefonPanelLayout.setVerticalGroup(
             telefonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, telefonPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(telefonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(telefonData, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
-                    .addComponent(telefonText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+            .addGroup(telefonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(telefonText, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                .addComponent(telefonData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        epostPanel.setMaximumSize(new java.awt.Dimension(557, 40));
+        epostPanel.setMinimumSize(new java.awt.Dimension(557, 40));
+        epostPanel.setPreferredSize(new java.awt.Dimension(557, 40));
+
         epostText.setText("EPOST:");
+        epostText.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        epostText.setPreferredSize(new java.awt.Dimension(40, 16));
 
         epostData.setText("mail@exempel.com");
 
@@ -128,15 +139,17 @@ public class ProfilePanel extends javax.swing.JPanel {
         );
         epostPanelLayout.setVerticalGroup(
             epostPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, epostPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(epostPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(epostText, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
-                    .addComponent(epostData))
-                .addContainerGap())
+            .addComponent(epostText, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+            .addComponent(epostData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        administratorPanel.setMaximumSize(new java.awt.Dimension(557, 40));
+        administratorPanel.setMinimumSize(new java.awt.Dimension(557, 40));
+        administratorPanel.setPreferredSize(new java.awt.Dimension(557, 40));
+
         administratorText.setText("ADMINISTRATÖR:");
+        administratorText.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        administratorText.setPreferredSize(new java.awt.Dimension(40, 16));
 
         administratorData.setText("JA");
 
@@ -153,15 +166,19 @@ public class ProfilePanel extends javax.swing.JPanel {
         );
         administratorPanelLayout.setVerticalGroup(
             administratorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(administratorText, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
             .addGroup(administratorPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(administratorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(administratorText, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
-                    .addComponent(administratorData))
+                .addComponent(administratorData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
+        tillhorOmradePanel.setMaximumSize(new java.awt.Dimension(557, 40));
+        tillhorOmradePanel.setMinimumSize(new java.awt.Dimension(557, 40));
+        tillhorOmradePanel.setPreferredSize(new java.awt.Dimension(557, 40));
+
         tillhorOmradeText.setText("TILLHÖR OMRÅDE:");
+        tillhorOmradeText.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        tillhorOmradeText.setPreferredSize(new java.awt.Dimension(40, 16));
 
         tillhorOmradeData.setText("Norr");
 
@@ -178,15 +195,17 @@ public class ProfilePanel extends javax.swing.JPanel {
         );
         tillhorOmradePanelLayout.setVerticalGroup(
             tillhorOmradePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(tillhorOmradePanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(tillhorOmradePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tillhorOmradeText, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
-                    .addComponent(tillhorOmradeData))
-                .addContainerGap())
+            .addComponent(tillhorOmradeText, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+            .addComponent(tillhorOmradeData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        anstallningsdatumPanel.setMaximumSize(new java.awt.Dimension(557, 40));
+        anstallningsdatumPanel.setMinimumSize(new java.awt.Dimension(557, 40));
+        anstallningsdatumPanel.setPreferredSize(new java.awt.Dimension(557, 40));
+
         anstallningsdatumText.setText("ANSTÄLLNINGSDATUM:");
+        anstallningsdatumText.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        anstallningsdatumText.setPreferredSize(new java.awt.Dimension(40, 16));
 
         anstallningsDatumData.setText("2023-10-24");
 
@@ -203,15 +222,17 @@ public class ProfilePanel extends javax.swing.JPanel {
         );
         anstallningsdatumPanelLayout.setVerticalGroup(
             anstallningsdatumPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(anstallningsdatumPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(anstallningsdatumPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(anstallningsdatumText, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
-                    .addComponent(anstallningsDatumData))
-                .addContainerGap())
+            .addComponent(anstallningsdatumText, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+            .addComponent(anstallningsDatumData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        losenordPanel.setMaximumSize(new java.awt.Dimension(557, 40));
+        losenordPanel.setMinimumSize(new java.awt.Dimension(557, 40));
+        losenordPanel.setPreferredSize(new java.awt.Dimension(557, 40));
+
         losenordText.setText("LÖSENORD:");
+        losenordText.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        losenordText.setPreferredSize(new java.awt.Dimension(40, 16));
 
         losenordData.setText("*****");
 
@@ -228,12 +249,8 @@ public class ProfilePanel extends javax.swing.JPanel {
         );
         losenordPanelLayout.setVerticalGroup(
             losenordPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(losenordPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(losenordPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(losenordText, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
-                    .addComponent(losenordData))
-                .addContainerGap())
+            .addComponent(losenordText, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+            .addComponent(losenordData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         NyttLösenButton1.setText("NYTT LÖSENORD");
@@ -253,7 +270,7 @@ public class ProfilePanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(83, 83, 83)
+                .addGap(85, 85, 85)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(NyttLösenButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -265,36 +282,37 @@ public class ProfilePanel extends javax.swing.JPanel {
                         .addComponent(epostPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(namnPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(profilTitel, javax.swing.GroupLayout.PREFERRED_SIZE, 538, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(75, 75, 75)
+                .addGap(73, 73, 73)
                 .addComponent(profilBild)
                 .addContainerGap(188, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(profilTitel, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(53, 53, 53)
-                .addComponent(namnPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(epostPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addComponent(telefonPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(anstallningsdatumPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(administratorPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tillhorOmradePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(losenordPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(NyttLösenButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(192, 192, 192))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(95, 95, 95)
-                .addComponent(profilBild)
-                .addContainerGap(473, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(95, 95, 95)
+                        .addComponent(profilBild))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addComponent(profilTitel, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(namnPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(epostPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(telefonPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(anstallningsdatumPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(administratorPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(tillhorOmradePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(losenordPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(NyttLösenButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(237, Short.MAX_VALUE))
         );
 
         namnPanel.getAccessibleContext().setAccessibleDescription("");

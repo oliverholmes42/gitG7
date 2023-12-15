@@ -27,6 +27,7 @@ public class JavaApplication3 {
         loginInputValidation.db = db; //Kopplar databasen till loginsidan "loginInputValidation".
         new LoginPage().setVisible(true); //Initialiserar loginsidan som förstasida "LoginPage".
         
+        
     }
     
 }
