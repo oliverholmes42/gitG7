@@ -11,7 +11,7 @@ import oru.inf.InfException;
  * @author mopaj
  */
 public class DatabaseConnection {
-    private static InfDB dbInstance;
+    public static InfDB dbInstance;
 
     private DatabaseConnection() { 
         // Private constructor to prevent external instantiation
