@@ -9,6 +9,7 @@ import java.awt.Color;
 import javax.swing.JLabel;
 import javaapplication3.GUI.panels.AlienPanel;
 import javaapplication3.GUI.panels.AgentPanel;
+import javaapplication3.GUI.panels.AreaPanel;
 import javaapplication3.GUI.panels.EquipmentPanel;
 import javaapplication3.GUI.panels.HomePanel;
 import javaapplication3.GUI.panels.ProfilePanel;
@@ -38,18 +39,25 @@ public class MainPage extends javax.swing.JFrame {
         addMouseListenersToLabel(agentButton);
         addMouseListenersToLabel(profileButton);
         addMouseListenersToLabel(equipmentButton);
+        addMouseListenersToLabel(areaButton);
         addMouseListenersToLabel(logOutButton);
+        
         mainPanelDisplay.setLayout(cardLayout);
         mainPanelDisplay.add(new HomePanel(), "HomePanel");
         mainPanelDisplay.add(new AgentPanel(), "AgentPanel");
         mainPanelDisplay.add(new AlienPanel(), "AlienPanel");
         mainPanelDisplay.add(new EquipmentPanel(), "EquipmentPanel");
         mainPanelDisplay.add(new ProfilePanel(), "ProfilePanel");
+        mainPanelDisplay.add(new AreaPanel(), "AreaPanel");
+
         addNavigationToButton(homeButton, "HomePanel");
         addNavigationToButton(alienButton, "AlienPanel");
         addNavigationToButton(agentButton, "AgentPanel");
         addNavigationToButton(profileButton, "ProfilePanel");
         addNavigationToButton(equipmentButton, "EquipmentPanel");
+        addNavigationToButton(areaButton, "AreaPanel");
+
+        
         cardLayout.show(mainPanelDisplay, "HomePanel");
         
         logOutButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -115,6 +123,7 @@ private void labelMouseExited(java.awt.event.MouseEvent evt, JLabel label) {
         equipmentButton = new javax.swing.JLabel();
         logOutButton = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        areaButton = new javax.swing.JLabel();
         mainPanelDisplay = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -160,20 +169,18 @@ private void labelMouseExited(java.awt.event.MouseEvent evt, JLabel label) {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/MiB_IconCut.png"))); // NOI18N
 
+        areaButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        areaButton.setForeground(new java.awt.Color(200, 200, 200));
+        areaButton.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        areaButton.setText("AREA");
+        areaButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout menuPanelLayout = new javax.swing.GroupLayout(menuPanel);
         menuPanel.setLayout(menuPanelLayout);
         menuPanelLayout.setHorizontalGroup(
             menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(menuPanelLayout.createSequentialGroup()
                 .addGroup(menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(menuPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(profileButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(equipmentButton, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
-                            .addComponent(agentButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(alienButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(homeButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(menuPanelLayout.createSequentialGroup()
                         .addGroup(menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(menuPanelLayout.createSequentialGroup()
@@ -182,7 +189,16 @@ private void labelMouseExited(java.awt.event.MouseEvent evt, JLabel label) {
                             .addGroup(menuPanelLayout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(jLabel1)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(menuPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(profileButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(equipmentButton, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
+                            .addComponent(agentButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(alienButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(homeButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(areaButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         menuPanelLayout.setVerticalGroup(
@@ -198,6 +214,8 @@ private void labelMouseExited(java.awt.event.MouseEvent evt, JLabel label) {
                 .addComponent(agentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(equipmentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(areaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(profileButton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -283,6 +301,7 @@ private void labelMouseExited(java.awt.event.MouseEvent evt, JLabel label) {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel agentButton;
     private javax.swing.JLabel alienButton;
+    private javax.swing.JLabel areaButton;
     private javax.swing.JLabel equipmentButton;
     private javax.swing.JLabel homeButton;
     private javax.swing.JLabel jLabel1;

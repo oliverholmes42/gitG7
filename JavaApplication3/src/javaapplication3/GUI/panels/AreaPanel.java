@@ -8,12 +8,12 @@ package javaapplication3.GUI.panels;
  *
  * @author aiham
  */
-public class OmradePanel extends javax.swing.JPanel {
+public class AreaPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form OmradePanel
      */
-    public OmradePanel() {
+    public AreaPanel() {
         initComponents();
     }
 
