@@ -41,8 +41,8 @@
                           <Component id="jButton1" min="-2" pref="168" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="utrustningTitel" min="-2" pref="211" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="utrustningTitel" min="-2" pref="201" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                           <Component id="laggTillButton" min="-2" pref="168" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="raderaButton" min="-2" pref="168" max="-2" attributes="0"/>
@@ -68,7 +68,7 @@
                   <Component id="laggTillButton" alignment="3" min="-2" pref="47" max="-2" attributes="0"/>
                   <Component id="raderaButton" alignment="3" min="-2" pref="47" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
               <Component id="sökUtrusningRubrik" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -82,7 +82,7 @@
                   <Component id="lånaButton" alignment="3" min="-2" pref="47" max="-2" attributes="0"/>
                   <Component id="jButton1" alignment="3" min="-2" pref="47" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="222" max="32767" attributes="0"/>
+              <EmptySpace pref="225" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -96,7 +96,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="33" green="33" red="33" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Utrusting"/>
+        <Property name="text" type="java.lang.String" value="Utrustning"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JPanel" name="searchPanel">
@@ -145,7 +145,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="33" green="33" red="33" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="S&#xf6;k Utrusning:"/>
+        <Property name="text" type="java.lang.String" value="S&#xf6;k utrustning:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="laggTillButton">
