@@ -7,12 +7,12 @@ package javaapplication3.GUI;
 import java.awt.CardLayout;
 import java.awt.Color;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javaapplication3.GUI.panels.AlienPanel;
 import javaapplication3.GUI.panels.AgentPanel;
 import javaapplication3.GUI.panels.EquipmentPanel;
 import javaapplication3.GUI.panels.HomePanel;
 import javaapplication3.GUI.panels.ProfilePanel;
+import javaapplication3.utils.DatabaseConnection;
 import javaapplication3.utils.UserSession;
 import oru.inf.InfDB;
 
@@ -30,8 +30,8 @@ public class MainPage extends javax.swing.JFrame {
     /**
      * Creates new form MainPage
      */
-    public MainPage(InfDB db) {
-        this.db = db;
+    public MainPage() {
+        this.db = DatabaseConnection.getInstance();;
         initComponents();
         addMouseListenersToLabel(homeButton);
         addMouseListenersToLabel(alienButton);
@@ -40,7 +40,7 @@ public class MainPage extends javax.swing.JFrame {
         addMouseListenersToLabel(equipmentButton);
         addMouseListenersToLabel(logOutButton);
         mainPanelDisplay.setLayout(cardLayout);
-        mainPanelDisplay.add(new HomePanel(db), "HomePanel");
+        mainPanelDisplay.add(new HomePanel(), "HomePanel");
         mainPanelDisplay.add(new AgentPanel(), "AgentPanel");
         mainPanelDisplay.add(new AlienPanel(), "AlienPanel");
         mainPanelDisplay.add(new EquipmentPanel(), "EquipmentPanel");
@@ -56,7 +56,7 @@ public class MainPage extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                     UserSession.getInstance().stopSession(); // Stop the user session
                     MainPage.this.dispose();// Dispose the current frame
-                    new LoginPage(db).setVisible(true);
+                    new LoginPage().setVisible(true);
          }
 });
 
@@ -275,7 +275,7 @@ private void labelMouseExited(java.awt.event.MouseEvent evt, JLabel label) {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainPage(db).setVisible(true);
+                new MainPage().setVisible(true);
             }
         });
     }

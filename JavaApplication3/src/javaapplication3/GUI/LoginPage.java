@@ -5,6 +5,7 @@
 package javaapplication3.GUI;
 
 import java.util.Map;
+import javaapplication3.utils.DatabaseConnection;
 import javaapplication3.utils.UserSession;
 import javaapplication3.utils.loginInputValidation;
 import oru.inf.InfDB;
@@ -23,11 +24,9 @@ public class LoginPage extends javax.swing.JFrame {
      * Autogenererad kod.
      * @param db
      */
-    public LoginPage(InfDB db) {
+    public LoginPage() {
         initComponents();
-        this.db = db;
-        
-        
+        this.db = DatabaseConnection.getInstance();
         fastButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                     fastLogIn();
@@ -173,7 +172,7 @@ public class LoginPage extends javax.swing.JFrame {
                     UserSession.getInstance().setUserId(userId);
                     System.out.println("Inloggning lyckades");
                     this.dispose(); // Close login window
-                    new MainPage(db).setVisible(true);
+                    new MainPage().setVisible(true);
                 } else {
                     System.out.println("Inloggning misslyckades");
                 }
@@ -190,7 +189,7 @@ public class LoginPage extends javax.swing.JFrame {
     private void fastLogIn() {
         UserSession.getInstance().setUserId(1);
         this.dispose(); // Close login window
-        new MainPage(db).setVisible(true);   
+        new MainPage().setVisible(true);   
     }
     
     

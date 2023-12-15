@@ -6,8 +6,7 @@ package javaapplication3;
 
 import javaapplication3.utils.loginInputValidation;
 import javaapplication3.GUI.LoginPage;
-import java.util.logging.Logger;
-import java.util.logging.Level;
+import javaapplication3.utils.DatabaseConnection;
 import oru.inf.InfDB;
 import oru.inf.InfException;
 
@@ -23,14 +22,10 @@ public class JavaApplication3 {
     public static void main(String[] args) throws InfException{
         
         //Initialisering utav databasuppkoppling:
-        try{
-            db = new InfDB("mibdb", "3306", "mibdba", "mibkey");
-        }catch(InfException e){
-            Logger.getLogger(JavaApplication3.class.getName()).log(Level.SEVERE, null, e);
-        }
+        db = DatabaseConnection.getInstance();
         
         loginInputValidation.db = db; //Kopplar databasen till loginsidan "loginInputValidation".
-        new LoginPage(db).setVisible(true); //Initialiserar loginsidan som förstasida "LoginPage".
+        new LoginPage().setVisible(true); //Initialiserar loginsidan som förstasida "LoginPage".
         
     }
     

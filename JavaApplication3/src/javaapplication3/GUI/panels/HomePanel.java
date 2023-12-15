@@ -4,6 +4,7 @@
  */
 package javaapplication3.GUI.panels;
 
+import javaapplication3.utils.DatabaseConnection;
 import javaapplication3.utils.UserSession;
 import oru.inf.InfDB;
 
@@ -17,8 +18,8 @@ public class HomePanel extends javax.swing.JPanel {
     /**
      * Creates new form AgentPanel
      */
-    public HomePanel(InfDB db) {
-        this.db = db;
+    public HomePanel() {
+        this.db = DatabaseConnection.getInstance();
         initComponents();
         String greeting = "Welcome!";
         try {
