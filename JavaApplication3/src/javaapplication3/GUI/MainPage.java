@@ -13,6 +13,7 @@ import javaapplication3.GUI.panels.AgentPanel;
 import javaapplication3.GUI.panels.EquipmentPanel;
 import javaapplication3.GUI.panels.HomePanel;
 import javaapplication3.GUI.panels.ProfilePanel;
+import javaapplication3.utils.UserSession;
 import oru.inf.InfDB;
 
 
@@ -37,6 +38,7 @@ public class MainPage extends javax.swing.JFrame {
         addMouseListenersToLabel(agentButton);
         addMouseListenersToLabel(profileButton);
         addMouseListenersToLabel(equipmentButton);
+        addMouseListenersToLabel(logOutButton);
         mainPanelDisplay.setLayout(cardLayout);
         mainPanelDisplay.add(new HomePanel(db), "HomePanel");
         mainPanelDisplay.add(new AgentPanel(), "AgentPanel");
@@ -49,6 +51,15 @@ public class MainPage extends javax.swing.JFrame {
         addNavigationToButton(profileButton, "ProfilePanel");
         addNavigationToButton(equipmentButton, "EquipmentPanel");
         cardLayout.show(mainPanelDisplay, "HomePanel");
+        
+        logOutButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    UserSession.getInstance().stopSession(); // Stop the user session
+                    MainPage.this.dispose();// Dispose the current frame
+                    new LoginPage(db).setVisible(true);
+         }
+});
+
     }
     
     private void addMouseListenersToLabel(JLabel label) {

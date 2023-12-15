@@ -24,6 +24,10 @@ public class UserSession {
         }
         return instance;
     }
+    
+    public void stopSession() {
+        userId = -1;
+    }
 
     public void setUserId(int userId) {
         this.userId = userId;
