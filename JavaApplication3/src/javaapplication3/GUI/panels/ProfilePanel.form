@@ -33,20 +33,26 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="85" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="NyttLösenButton1" alignment="0" max="32767" attributes="0"/>
-                      <Component id="losenordPanel" alignment="0" max="32767" attributes="0"/>
-                      <Component id="tillhorOmradePanel" alignment="0" max="32767" attributes="0"/>
-                      <Component id="administratorPanel" alignment="0" max="32767" attributes="0"/>
-                      <Component id="anstallningsdatumPanel" alignment="0" max="32767" attributes="0"/>
-                      <Component id="telefonPanel" alignment="0" max="32767" attributes="0"/>
-                      <Component id="epostPanel" alignment="0" max="32767" attributes="0"/>
-                      <Component id="namnPanel" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Component id="NyttLösenButton1" alignment="0" max="32767" attributes="0"/>
+                          <Component id="losenordPanel" alignment="0" max="32767" attributes="0"/>
+                          <Component id="tillhorOmradePanel" alignment="0" max="32767" attributes="0"/>
+                          <Component id="administratorPanel" alignment="0" max="32767" attributes="0"/>
+                          <Component id="anstallningsdatumPanel" alignment="0" max="32767" attributes="0"/>
+                          <Component id="telefonPanel" alignment="0" max="32767" attributes="0"/>
+                          <Component id="epostPanel" alignment="0" max="32767" attributes="0"/>
+                          <Component id="namnPanel" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
+                      <Component id="profilBild" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="profilTitel" min="-2" pref="538" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="profilTitel" min="-2" pref="538" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="testButton" min="-2" pref="103" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
-              <Component id="profilBild" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="188" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -56,7 +62,9 @@
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="95" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                      <Component id="testButton" min="-2" pref="47" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                       <Component id="profilBild" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -107,10 +115,10 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="namnText" pref="158" max="32767" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="namnData" min="-2" pref="375" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="namnText" pref="152" max="32767" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="namnData" min="-2" pref="146" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="235" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -157,8 +165,8 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="telefonText" min="-2" pref="152" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="telefonData" min="-2" pref="211" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="telefonData" min="-2" pref="169" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -167,7 +175,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                   <Component id="telefonText" alignment="3" pref="40" max="32767" attributes="0"/>
-                  <Component id="telefonData" alignment="3" max="32767" attributes="0"/>
+                  <Component id="telefonData" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -208,8 +216,8 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="epostText" min="-2" pref="160" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="epostData" min="-2" pref="297" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="epostData" min="-2" pref="230" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -257,7 +265,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="administratorText" min="-2" pref="161" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="administratorData" min="-2" pref="64" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -265,10 +273,9 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="administratorText" pref="40" max="32767" attributes="0"/>
-              <Group type="102" alignment="0" attributes="0">
-                  <Component id="administratorData" max="32767" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="administratorText" alignment="3" pref="40" max="32767" attributes="0"/>
+                  <Component id="administratorData" alignment="3" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -309,16 +316,18 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="tillhorOmradeText" min="-2" pref="160" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="tillhorOmradeData" min="-2" pref="228" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="tillhorOmradeData" min="-2" pref="137" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="tillhorOmradeText" pref="40" max="32767" attributes="0"/>
-              <Component id="tillhorOmradeData" alignment="0" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="tillhorOmradeText" alignment="3" pref="40" max="32767" attributes="0"/>
+                  <Component id="tillhorOmradeData" alignment="3" max="32767" attributes="0"/>
+              </Group>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -358,16 +367,18 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="anstallningsdatumText" min="-2" pref="161" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="anstallningsDatumData" min="-2" pref="192" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="anstallningsDatumData" min="-2" pref="159" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="anstallningsdatumText" pref="40" max="32767" attributes="0"/>
-              <Component id="anstallningsDatumData" alignment="0" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="anstallningsdatumText" alignment="3" pref="40" max="32767" attributes="0"/>
+                  <Component id="anstallningsDatumData" alignment="3" max="32767" attributes="0"/>
+              </Group>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -407,16 +418,18 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="losenordText" min="-2" pref="161" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="losenordData" min="-2" pref="321" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="losenordData" min="-2" pref="157" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="losenordText" pref="40" max="32767" attributes="0"/>
-              <Component id="losenordData" alignment="0" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="losenordText" alignment="3" pref="40" max="32767" attributes="0"/>
+                  <Component id="losenordData" alignment="3" max="32767" attributes="0"/>
+              </Group>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -459,6 +472,14 @@
           <Image iconType="3" name="/resources/AgentBild.png"/>
         </Property>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="testButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Test"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="testButtonActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
