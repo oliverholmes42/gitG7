@@ -6,7 +6,9 @@ package javaapplication3.GUI;
 
 import java.awt.event.KeyEvent;
 import java.util.HashMap;
+import javaapplication3.utils.PopupHandler;
 import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -282,7 +284,7 @@ public class RegisterNewAlienDialogPopupV2 extends javax.swing.JDialog {
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
 
         HashMap<String, String> result = new HashMap<>();
-        double spinnerValueToInt = ((Integer) valueSpinner.getValue()).doubleValue();
+        double spinnerValueToInt = (double) valueSpinner.getValue();
 
         if (nameTextField.getText().isEmpty() || emailTextField.getText().isEmpty()
                 || phoneTextField.getText().isEmpty()
@@ -293,13 +295,16 @@ public class RegisterNewAlienDialogPopupV2 extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Vänligen ange information om Alien du vill registrera med detta formulär");
 
         } else {
-            result.put("Namn", nameTextField.getText());
+            
+            //PopupHandler.getInputFromRegisterForm(nameTextField, emailTextField, phoneTextField, agentComboBox, areaComboBox);
+            
+            /*result.put("Namn", nameTextField.getText());
             result.put("Telefon", phoneTextField.getText());
             result.put("Email", emailTextField.getText());
             result.put("Ansvarig Agent", agentComboBox.getEditor().getItem().toString());
             result.put("Område", areaComboBox.getEditor().getItem().toString());
             result.put("Alien Ras", speciesComboBox.getEditor().getItem().toString());
-            result.put("Värde", Double.toString(spinnerValueToInt));
+            result.put("Värde", Double.toString(spinnerValueToInt));*/
         }
     }//GEN-LAST:event_registerButtonActionPerformed
 

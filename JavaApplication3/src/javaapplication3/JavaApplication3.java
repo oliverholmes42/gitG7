@@ -4,6 +4,9 @@
  */
 package javaapplication3;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import javaapplication3.utils.loginInputValidation;
 import javaapplication3.GUI.LoginPage;
 import javaapplication3.models.Area;
@@ -28,8 +31,14 @@ public class JavaApplication3 {
         loginInputValidation.db = db; //Kopplar databasen till loginsidan "loginInputValidation".
         new LoginPage().setVisible(true); //Initialiserar loginsidan som förstasida "LoginPage".
         
-        Area lol = new Area(1);
-        System.out.println(lol.getName());
+        ArrayList<HashMap<String, String>> map = db.fetchRows("SELECT Omrades_ID FROM omrade");
+        
+        for(HashMap<String,String> singleMap : map){
+            for (Map.Entry<String, String> entry: singleMap.entrySet()) {
+                Area item = new Area(Integer.parseInt(entry.getValue()));
+                System.out.println(item.getName());
+            }
+        }
         
     }
     
