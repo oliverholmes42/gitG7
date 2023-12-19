@@ -9,53 +9,53 @@ package javaapplication3.models;
  * @author aiham
  */
 public class Location {
-    private int LocationID;
-    private int ExistsIn;
-    private String LocationName;
+    private int locationID;
+    private int existsIn;
+    private String locationName;
 
     
     public Location(int LocationID, int ExistsIn, String LocationName){
-        this.LocationID = LocationID;
-        this.ExistsIn = ExistsIn;
-        this.LocationName = LocationName;
+        this.locationID = LocationID;
+        this.existsIn = ExistsIn;
+        this.locationName = LocationName;
 
     }
     
     // Setter for Location ID
 
     public void setLocationID(int LocationID) {
-       this.LocationID = LocationID;
+       this.locationID = LocationID;
    }
     // Getter for Location ID
 
      public int getLocationID() {
-       return LocationID;
+       return locationID;
    }
     // Setter for what area the alien exists in
      
      public void setExistsIn(int ExistsIn) {
-       this.ExistsIn = ExistsIn;
+       this.existsIn = ExistsIn;
    }
     
     // Getter for what area the alien exists in
 
      
      public int getExistsIn() {
-       return ExistsIn;
+       return existsIn;
    }
      
     // Setter for name
 
      
      public void setLocation_Name(String LocationName) {
-       this.LocationName = LocationName;
+       this.locationName = LocationName;
    }
     
     // Getter for name
 
      
      public String getLocation_Name() {
-       return LocationName;
+       return locationName;
    }
 
    

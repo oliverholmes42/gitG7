@@ -18,7 +18,7 @@ public class Utilities {
     private HashMap<String, String> Utilities;
     public static InfDB db;
     
-    
+    //Konstruktor
     public Utilities(int utilityID){  
         
         this.utilityID = utilityID;
@@ -39,7 +39,7 @@ public class Utilities {
     public void setName(String name){
    
     try{
-        String nameQuery = "' UPDATE Utrustning SET Namn = '" + name + "' WHERE Utrustnings_ID = '" + utilityID;
+        String nameQuery = "' UPDATE Utrustning SET Benamning = '" + name + "' WHERE Utrustnings_ID = '" + utilityID;
         db.update(nameQuery);
         this.name = name;
        }
@@ -60,7 +60,7 @@ public class Utilities {
     }
      
     public String getName(){
-        String ihb = name;
+
     return name;
     }
     

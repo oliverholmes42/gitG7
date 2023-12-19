@@ -9,7 +9,7 @@ import java.util.Date;
 
 /**
  *
- * @author aiham
+ * @author aiham, albin,oliver, vilson
  */
 public class OwnsUtilities{
     

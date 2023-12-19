@@ -4,35 +4,69 @@
  */
 package javaapplication3.models;
 
+import java.util.HashMap;
+import static javaapplication3.models.Agent.db;
+import static javaapplication3.models.Utilities.db;
+import oru.inf.InfDB;
+import javaapplication3.utils.DatabaseConnection;
+
 /**
  *
- * @author mopaj
+ * @author Albin, Vilson, Oliver, Aiham
  */
 public class Area {
-   private int Area_ID;
-   private String Area_name;
+   private int areaID;
+   private String areaName;
+   private HashMap<String, String> Area;
+   public static InfDB db;
 
    // Constructor
-   public Area(int Area_ID, String Area_name) {
-       this.Area_ID = Area_ID;
-       this.Area_name = Area_name;
+   public Area(int Area_ID){
+       
+       this.areaID = Area_ID;
+       db = DatabaseConnection.getInstance();
+       try{
+       String aQuery = "Select * from omrade where Omrades_ID = " + Area_ID;
+       Area = db.fetchRow(aQuery);
+       this.areaName = Area.get("Benamning");
+       
+       }
+       catch(Exception e){ 
+       }
    }
+   
 
    // Getters and Setters
-   public int getArea_ID() {
-       return Area_ID;
+   public int getAreaID() {
+       return areaID;
    }
 
-   public void setArea_ID(int Area_ID) {
-       this.Area_ID = Area_ID;
+   public void setAreaID(int newAreaID) {
+           try{
+        String aIDQuery= "' UPDATE Omrade SET Omrades_ID = '" + newAreaID + "' WHERE Omrades_ID = '"+ areaID;
+        db.update(aIDQuery);
+        this.areaID = newAreaID;
+    }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
    }
 
-   public String getareaName() {
-       return Area_name;
-   }
 
-   public void setName(String Area_name) {
-       this.Area_name = Area_name;
+   public void setName(String newAreaName) {
+        try{
+        String nameQuery = "' UPDATE omrade SET Benamning = '" + newAreaName + "' WHERE  = '" + areaID;
+        db.update(nameQuery);
+        this.areaName = newAreaName;
+       }
+        catch(Exception e){
+       System.out.println(e.getMessage());
+       } 
+  
+   }
+   
+      public String getName() {
+       return areaName;
    }
 }
 

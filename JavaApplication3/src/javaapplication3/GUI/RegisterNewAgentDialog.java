@@ -76,11 +76,6 @@ public class RegisterNewAgentDialog extends javax.swing.JDialog {
         speciesComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Boglodite", "Squid", "Worm" }));
         speciesComboBox.setSelectedIndex(-1);
         speciesComboBox.setPreferredSize(new java.awt.Dimension(180, 40));
-        speciesComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                speciesComboBoxActionPerformed(evt);
-            }
-        });
 
         inputPhoneLabel.setBackground(new java.awt.Color(204, 204, 204));
         inputPhoneLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -187,30 +182,6 @@ public class RegisterNewAgentDialog extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void speciesComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_speciesComboBoxActionPerformed
-
-        if(evt.getSource() == speciesComboBox){
-            if(speciesComboBox.getSelectedIndex() == 0){
-                dynamicLabel.setText("Antal Boogies:");
-                dynamicLabel.setVisible(true);
-                valueSpinner.setVisible(true);
-                valueSpinner.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, 20.0d, 1d));
-            }
-            if(speciesComboBox.getSelectedIndex() == 1){
-                dynamicLabel.setText("Antal Armar:");
-                dynamicLabel.setVisible(true);
-                valueSpinner.setVisible(true);
-                valueSpinner.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, 20.0d, 1d));
-            }
-            if(speciesComboBox.getSelectedIndex() == 2){
-                dynamicLabel.setText("Ange längd (m):");
-                dynamicLabel.setVisible(true);
-                valueSpinner.setVisible(true);
-                valueSpinner.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, 20.0d, 0.1d));
-            }
-        }
-    }//GEN-LAST:event_speciesComboBoxActionPerformed
 
     /**
      * @param args the command line arguments
