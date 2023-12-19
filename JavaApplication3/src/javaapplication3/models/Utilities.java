@@ -3,37 +3,68 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package javaapplication3.models;
+import java.util.HashMap;
+import static javaapplication3.models.Agent.db;
+import oru.inf.InfDB;
+import javaapplication3.utils.DatabaseConnection;
 
 /**
  *
- * @author aiham
+ * @author aiham, albin, vilson, oliver
  */
 public class Utilities {
-    private String UtilityID;
-    private String Name;
-
+    private int utilityID;
+    private String name;
+    private HashMap<String, String> Utilities;
+    public static InfDB db;
     
     
-    public Utilities(String UtilityID, String Name, String Description){  
+    public Utilities(int utilityID){  
         
-        this.UtilityID = UtilityID;
-        this.Name = Name;
+        this.utilityID = utilityID;
+
+        db = DatabaseConnection.getInstance();
+        try {
+        String uQuery = "select * from utrustning where Utrustnings_ID = " + utilityID;
+        Utilities = db.fetchRow(uQuery);
+        this.name = Utilities.get("Benamning");
+
+
+        }
+        catch(Exception e){
+        }
 
     }
     
-    public void setName(String Name){
-    this.Name = Name;
+    public void setName(String name){
+   
+    try{
+        String nameQuery = "' UPDATE Utrustning SET Namn = '" + name + "' WHERE Utrustnings_ID = '" + utilityID;
+        db.update(nameQuery);
+        this.name = name;
+       }
+        catch(Exception e){
+       System.out.println(e.getMessage());
+       } 
     }
     
-    public void setUtilityID(String UtilityID){
-    this.UtilityID = UtilityID;
+    public void setID(int newUtilityID){
+    try{
+        String utilityQuery= "' UPDATE Utrustning SET Utrustnings_ID = '" + newUtilityID + "' WHERE Utrustnings_ID = '"+ utilityID;
+        db.update(utilityQuery);
+        this.utilityID = utilityID;
+    }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
     }
      
     public String getName(){
-    return Name;
+        String ihb = name;
+    return name;
     }
     
-    public String getID(){
-    return UtilityID;
+    public int getID(){
+    return utilityID;
     }
 }

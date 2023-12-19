@@ -6,6 +6,7 @@ package javaapplication3;
 
 import javaapplication3.utils.loginInputValidation;
 import javaapplication3.GUI.LoginPage;
+import javaapplication3.models.Utilities;
 import javaapplication3.utils.DatabaseConnection;
 import oru.inf.InfDB;
 import oru.inf.InfException;
@@ -27,6 +28,8 @@ public class JavaApplication3 {
         loginInputValidation.db = db; //Kopplar databasen till loginsidan "loginInputValidation".
         new LoginPage().setVisible(true); //Initialiserar loginsidan som förstasida "LoginPage".
         
+        Utilities lol = new Utilities(1);
+        System.out.println(lol.getName());
         
     }
     
