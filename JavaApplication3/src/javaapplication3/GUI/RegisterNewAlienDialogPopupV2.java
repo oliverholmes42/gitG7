@@ -4,6 +4,10 @@
  */
 package javaapplication3.GUI;
 
+import java.awt.event.KeyEvent;
+import java.util.HashMap;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author vilso
@@ -12,6 +16,8 @@ public class RegisterNewAlienDialogPopupV2 extends javax.swing.JDialog {
 
     /**
      * Creates new form RegisterNewAlienDialogPopupV2
+     * @param parent
+     * @param modal
      */
     public RegisterNewAlienDialogPopupV2(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -51,7 +57,6 @@ public class RegisterNewAlienDialogPopupV2 extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(51, 51, 51));
         setForeground(new java.awt.Color(25, 22, 22));
-        setPreferredSize(new java.awt.Dimension(500, 650));
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 51));
@@ -104,12 +109,22 @@ public class RegisterNewAlienDialogPopupV2 extends javax.swing.JDialog {
         abortButton.setForeground(new java.awt.Color(102, 102, 102));
         abortButton.setText("Avbryt");
         abortButton.setPreferredSize(new java.awt.Dimension(180, 55));
+        abortButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                abortButtonActionPerformed(evt);
+            }
+        });
 
         registerButton.setBackground(new java.awt.Color(204, 204, 204));
         registerButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         registerButton.setForeground(new java.awt.Color(102, 102, 102));
         registerButton.setText("Registrera");
         registerButton.setPreferredSize(new java.awt.Dimension(180, 55));
+        registerButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registerButtonActionPerformed(evt);
+            }
+        });
 
         agentComboBox.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         agentComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1 (Agent O)", "2 (Agent K)", "3 (Agent J)", "4 (Agent Z)" }));
@@ -135,6 +150,11 @@ public class RegisterNewAlienDialogPopupV2 extends javax.swing.JDialog {
 
         phoneTextField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         phoneTextField.setPreferredSize(new java.awt.Dimension(180, 40));
+        phoneTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                phoneTextFieldKeyPressed(evt);
+            }
+        });
 
         emailTextField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         emailTextField.setPreferredSize(new java.awt.Dimension(180, 40));
@@ -255,47 +275,55 @@ public class RegisterNewAlienDialogPopupV2 extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_speciesComboBoxActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RegisterNewAlienDialogPopupV2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RegisterNewAlienDialogPopupV2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RegisterNewAlienDialogPopupV2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RegisterNewAlienDialogPopupV2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void abortButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abortButtonActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_abortButtonActionPerformed
 
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                RegisterNewAlienDialogPopupV2 dialog = new RegisterNewAlienDialogPopupV2(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
+    private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
+
+        HashMap<String, String> result = new HashMap<>();
+        double spinnerValueToInt = ((Integer) valueSpinner.getValue()).doubleValue();
+
+        if (nameTextField.getText().isEmpty() || emailTextField.getText().isEmpty()
+                || phoneTextField.getText().isEmpty()
+                || agentComboBox.getEditor().getItem().toString().isEmpty()
+                || areaComboBox.getEditor().getItem().toString().isEmpty()
+                || speciesComboBox.getEditor().getItem().toString().isEmpty()) {
+
+            JOptionPane.showMessageDialog(null, "Vänligen ange information om Alien du vill registrera med detta formulär");
+
+        } else {
+            result.put("Namn", nameTextField.getText());
+            result.put("Telefon", phoneTextField.getText());
+            result.put("Email", emailTextField.getText());
+            result.put("Ansvarig Agent", agentComboBox.getEditor().getItem().toString());
+            result.put("Område", areaComboBox.getEditor().getItem().toString());
+            result.put("Alien Ras", speciesComboBox.getEditor().getItem().toString());
+            result.put("Värde", Double.toString(spinnerValueToInt));
+        }
+    }//GEN-LAST:event_registerButtonActionPerformed
+
+    private void phoneTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_phoneTextFieldKeyPressed
+        String phoneNumber = phoneTextField.getText();
+        int length = phoneNumber.length();
+        char c = evt.getKeyChar();
+        
+        if (evt.getKeyChar() >= '0' && evt.getKeyChar() <= '9'){
+            if (length < 10){
+                phoneTextField.setEditable(true);
+            }else{
+                phoneTextField.setEditable(false);
             }
-        });
-    }
+        }else{
+            if (evt.getExtendedKeyCode() == KeyEvent.VK_BACK_SPACE || evt.getExtendedKeyCode() == KeyEvent.VK_DELETE){
+                phoneTextField.setEditable(true);
+            }else{
+                phoneTextField.setEditable(false);
+            }
+        }
+    }//GEN-LAST:event_phoneTextFieldKeyPressed
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton abortButton;

@@ -67,7 +67,7 @@ public class MainPage extends javax.swing.JFrame {
         mainPanelDisplay.setLayout(cardLayout);
         mainPanelDisplay.add(new HomePanel(), "HomePanel");
         mainPanelDisplay.add(new AgentPanel(), "AgentPanel");
-        mainPanelDisplay.add(new AlienPanel(), "AlienPanel");
+        mainPanelDisplay.add(new AlienPanel(this), "AlienPanel");
         mainPanelDisplay.add(new EquipmentPanel(), "EquipmentPanel");
         mainPanelDisplay.add(new ProfilePanel(), "ProfilePanel");
         mainPanelDisplay.add(new AreaPanel(), "AreaPanel");
@@ -149,6 +149,7 @@ private void labelMouseExited(java.awt.event.MouseEvent evt, JLabel label) {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(200, 200, 200));
+        setResizable(false);
 
         menuPanel.setBackground(new java.awt.Color(51, 51, 51));
         menuPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -280,6 +281,7 @@ private void labelMouseExited(java.awt.event.MouseEvent evt, JLabel label) {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     
     /**

@@ -5,18 +5,21 @@
 package javaapplication3.GUI.panels;
 
 import javaapplication3.GUI.MainPage;
+import javaapplication3.utils.PopupHandler;
 
 /**
  *
  * @author mopaj
  */
 public class AlienPanel extends javax.swing.JPanel {
+    private MainPage Parent;
 
     /**
      * Creates new form AgentPanel
      */
-    public AlienPanel() {
+    public AlienPanel(MainPage Parent) {
         initComponents();
+        this.Parent = Parent;
     }
 
     /**
@@ -31,8 +34,8 @@ public class AlienPanel extends javax.swing.JPanel {
         headerLabel = new javax.swing.JLabel();
         searchbarTextfield = new javax.swing.JTextField();
         searchButton = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        areaComboBox = new javax.swing.JComboBox<>();
+        raceComboBox = new javax.swing.JComboBox<>();
         yearPickerComboBox = new javax.swing.JComboBox<>();
         filterLabel = new javax.swing.JLabel();
         resultScrollPane = new javax.swing.JScrollPane();
@@ -64,17 +67,17 @@ public class AlienPanel extends javax.swing.JPanel {
         searchButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51), 3));
         searchButton.setOpaque(true);
 
-        jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jComboBox1.setForeground(new java.awt.Color(51, 51, 51));
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Område" }));
-        jComboBox1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51), 3));
-        jComboBox1.setPreferredSize(new java.awt.Dimension(180, 45));
+        areaComboBox.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        areaComboBox.setForeground(new java.awt.Color(51, 51, 51));
+        areaComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Område" }));
+        areaComboBox.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51), 3));
+        areaComboBox.setPreferredSize(new java.awt.Dimension(180, 45));
 
-        jComboBox2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jComboBox2.setForeground(new java.awt.Color(51, 51, 51));
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ras" }));
-        jComboBox2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51), 3));
-        jComboBox2.setPreferredSize(new java.awt.Dimension(180, 45));
+        raceComboBox.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        raceComboBox.setForeground(new java.awt.Color(51, 51, 51));
+        raceComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ras" }));
+        raceComboBox.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51), 3));
+        raceComboBox.setPreferredSize(new java.awt.Dimension(180, 45));
 
         yearPickerComboBox.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         yearPickerComboBox.setForeground(new java.awt.Color(51, 51, 51));
@@ -115,6 +118,11 @@ public class AlienPanel extends javax.swing.JPanel {
         addAlienButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         addAlienButton.setText("Lägg till Alien");
         addAlienButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51), 3));
+        addAlienButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addAlienButtonActionPerformed(evt);
+            }
+        });
 
         monthPickerComboBox.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         monthPickerComboBox.setForeground(new java.awt.Color(51, 51, 51));
@@ -137,11 +145,11 @@ public class AlienPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(clearFilterButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(areaComboBox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(raceComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(yearPickerComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
@@ -165,8 +173,8 @@ public class AlienPanel extends javax.swing.JPanel {
                 .addComponent(filterLabel)
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(areaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(raceComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(yearPickerComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(searchbarTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -182,16 +190,21 @@ public class AlienPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void addAlienButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addAlienButtonActionPerformed
+        // TODO add your handling code here:
+        PopupHandler.addNewAlienPopup(Parent);
+    }//GEN-LAST:event_addAlienButtonActionPerformed
+
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addAlienButton;
+    private javax.swing.JComboBox<String> areaComboBox;
     private javax.swing.JButton clearFilterButton;
     private javax.swing.JLabel filterLabel;
     private javax.swing.JLabel headerLabel;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> monthPickerComboBox;
+    private javax.swing.JComboBox<String> raceComboBox;
     private javax.swing.JButton removeAlienButton;
     private javax.swing.JScrollPane resultScrollPane;
     private javax.swing.JTable resultTable;
