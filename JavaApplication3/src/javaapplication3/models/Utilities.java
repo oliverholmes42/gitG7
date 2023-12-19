@@ -52,7 +52,7 @@ public class Utilities {
     try{
         String utilityQuery= "' UPDATE Utrustning SET Utrustnings_ID = '" + newUtilityID + "' WHERE Utrustnings_ID = '"+ utilityID;
         db.update(utilityQuery);
-        this.utilityID = utilityID;
+        this.utilityID = newUtilityID;
     }
         catch(Exception e){
             System.out.println(e.getMessage());

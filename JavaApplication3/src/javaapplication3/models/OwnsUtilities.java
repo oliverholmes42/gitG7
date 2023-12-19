@@ -1,6 +1,10 @@
 package javaapplication3.models;
 
 import java.util.Date;
+import java.util.HashMap;
+import static javaapplication3.models.Agent.db;
+import oru.inf.InfDB;
+import javaapplication3.utils.DatabaseConnection;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
