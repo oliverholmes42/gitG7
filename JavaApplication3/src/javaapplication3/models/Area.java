@@ -40,6 +40,11 @@ public class Area {
    public int getAreaID() {
        return areaID;
    }
+   
+   @Override
+    public String toString() {
+        return areaID + ": " + areaName;
+    }
 
    public void setAreaID(int newAreaID) {
            try{

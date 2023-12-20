@@ -43,7 +43,7 @@ public class ObjectManager {
             if (!areaList.isEmpty()) {
                 areaList.clear();
             }
-            ArrayList<HashMap<String, String>> map = db.fetchRows("SELECT Omrades_ID FROM omrade");
+            ArrayList<HashMap<String, String>> map = db.fetchRows("Select Omrades_ID from omrade order by Omrades_ID asc");
             for(HashMap<String,String> singleMap : map){
                 for (Map.Entry<String, String> entry: singleMap.entrySet()) {
                     Area item = new Area(Integer.parseInt(entry.getValue()));
@@ -69,7 +69,7 @@ public class ObjectManager {
             if (!locationList.isEmpty()) {
                 locationList.clear();
             }
-            ArrayList<HashMap<String, String>> map = db.fetchRows("SELECT Plats_ID FROM plats");
+            ArrayList<HashMap<String, String>> map = db.fetchRows("SELECT Plats_ID FROM plats ORDER BY Plats_ID ASC");
             for(HashMap<String,String> singleMap : map){
                 for (Map.Entry<String, String> entry: singleMap.entrySet()) {
                     Location item = new Location(Integer.parseInt(entry.getValue()));
