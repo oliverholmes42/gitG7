@@ -218,7 +218,7 @@
               <Color blue="c8" green="c8" red="c8" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Omr&#xe5;de"/>
+            <Property name="text" type="java.lang.String" value="OMR&#xc5;DE"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
           </Properties>
         </Component>

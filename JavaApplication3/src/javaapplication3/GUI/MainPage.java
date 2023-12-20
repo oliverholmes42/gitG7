@@ -237,7 +237,7 @@ private void labelMouseExited(java.awt.event.MouseEvent evt, JLabel label) {
         areaButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         areaButton.setForeground(new java.awt.Color(200, 200, 200));
         areaButton.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        areaButton.setText("Område");
+        areaButton.setText("OMRÅDE");
         areaButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         locationButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
