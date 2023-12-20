@@ -25,10 +25,10 @@ public class Location {
         db = DatabaseConnection.getInstance();
         
         try{
-        String LQuery = "SELECT Plats_ID,Finns_I, plats.Benamning as platsNamn, omrade.Benamning from plats join omrade on Omrades_ID = Finns_I where Plats_ID = " + LocationID;
+        String LQuery = "SELECT * from plats where Plats_ID =" + LocationID;
         LocationMap = db.fetchRow(LQuery);
         this.existsIn = Integer.parseInt(LocationMap.get("Finns_I"));
-        this.locationName = LocationMap.get("platsNamn");
+        this.locationName = LocationMap.get("Benamning");
         
         }
                 catch(Exception e){

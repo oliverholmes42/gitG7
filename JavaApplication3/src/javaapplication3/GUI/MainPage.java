@@ -6,18 +6,21 @@ package javaapplication3.GUI;
 
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Image;
 import java.io.IOException;
 import javax.swing.JLabel;
-import javaapplication3.GUI.panels.AlienPanel;
+import javaapplication3.GUI.panels.*;
 import javaapplication3.GUI.panels.AgentPanel;
 import javaapplication3.GUI.panels.AreaPanel;
 import javaapplication3.GUI.panels.EquipmentPanel;
 import javaapplication3.GUI.panels.HomePanel;
 import javaapplication3.GUI.panels.ProfilePanel;
 import javaapplication3.utils.DatabaseConnection;
+import javaapplication3.utils.ObjectManager;
 import javaapplication3.utils.UserSession;
 import javax.imageio.ImageIO;
+import javax.swing.JPanel;
 import oru.inf.InfDB;
 
 
@@ -61,16 +64,12 @@ public class MainPage extends javax.swing.JFrame {
         addNavigationToButton(profileButton, "ProfilePanel");
         addNavigationToButton(equipmentButton, "EquipmentPanel");
         addNavigationToButton(areaButton, "AreaPanel");
+        addNavigationToButton(locationButton, "LocationPanel");
     }
 
     private void createCardLayout() {
         mainPanelDisplay.setLayout(cardLayout);
         mainPanelDisplay.add(new HomePanel(), "HomePanel");
-        mainPanelDisplay.add(new AgentPanel(), "AgentPanel");
-        mainPanelDisplay.add(new AlienPanel(this), "AlienPanel");
-        mainPanelDisplay.add(new EquipmentPanel(), "EquipmentPanel");
-        mainPanelDisplay.add(new ProfilePanel(), "ProfilePanel");
-        mainPanelDisplay.add(new AreaPanel(), "AreaPanel");
     }
 
     private void addListenersToMenu() {
@@ -81,6 +80,7 @@ public class MainPage extends javax.swing.JFrame {
         addMouseListenersToLabel(equipmentButton);
         addMouseListenersToLabel(areaButton);
         addMouseListenersToLabel(logOutButton);
+        addMouseListenersToLabel(locationButton);
     }
     
     private void addMouseListenersToLabel(JLabel label) {
@@ -105,13 +105,48 @@ public class MainPage extends javax.swing.JFrame {
         }
     }
     
-    private void addNavigationToButton(JLabel label, String panel) {
-        label.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cardLayout.show(mainPanelDisplay, panel);
-            }
-        });
+    private void switchToPanel(String panelName) {
+    Component[] components = mainPanelDisplay.getComponents();
+    for (Component comp : components) {
+        if (panelName.equals(comp.getName())) {
+            mainPanelDisplay.remove(comp);
+            break;
+        }
     }
+
+    // Create a new instance of the panel
+    JPanel newPanel = createPanel(panelName);
+    mainPanelDisplay.add(newPanel, panelName);
+
+    // Show the new panel
+    cardLayout.show(mainPanelDisplay, panelName);
+}
+
+    private JPanel createPanel(String panelName) {
+    switch (panelName) {
+        case "HomePanel":
+            return new HomePanel();
+        case "AgentPanel":
+            return new AgentPanel();
+        case "AlienPanel":
+            return new AlienPanel(this);
+        case "LocationPanel":
+            return new LocationPanel();
+        default:
+            return new JPanel(); // Default empty panel
+    }
+}
+
+    
+    private void addNavigationToButton(JLabel label, String panelName) {
+    label.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            ObjectManager.offloadAll();
+            switchToPanel(panelName);
+        }
+    });
+}
+
 
 private void labelMouseEntered(java.awt.event.MouseEvent evt, JLabel label) {
     // Action for mouse  enter
@@ -145,6 +180,7 @@ private void labelMouseExited(java.awt.event.MouseEvent evt, JLabel label) {
         logOutButton = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         areaButton = new javax.swing.JLabel();
+        locationButton = new javax.swing.JLabel();
         mainPanelDisplay = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -197,6 +233,12 @@ private void labelMouseExited(java.awt.event.MouseEvent evt, JLabel label) {
         areaButton.setText("AREA");
         areaButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
+        locationButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        locationButton.setForeground(new java.awt.Color(200, 200, 200));
+        locationButton.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        locationButton.setText("Plats");
+        locationButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout menuPanelLayout = new javax.swing.GroupLayout(menuPanel);
         menuPanel.setLayout(menuPanelLayout);
         menuPanelLayout.setHorizontalGroup(
@@ -220,7 +262,8 @@ private void labelMouseExited(java.awt.event.MouseEvent evt, JLabel label) {
                             .addComponent(agentButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(alienButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(homeButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(areaButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(areaButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(locationButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         menuPanelLayout.setVerticalGroup(
@@ -240,6 +283,8 @@ private void labelMouseExited(java.awt.event.MouseEvent evt, JLabel label) {
                 .addComponent(areaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(profileButton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(locationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(logOutButton)
                 .addGap(45, 45, 45))
@@ -328,6 +373,7 @@ private void labelMouseExited(java.awt.event.MouseEvent evt, JLabel label) {
     private javax.swing.JLabel equipmentButton;
     private javax.swing.JLabel homeButton;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel locationButton;
     private javax.swing.JLabel logOutButton;
     private javax.swing.JPanel mainPanelDisplay;
     private javax.swing.JPanel menuPanel;

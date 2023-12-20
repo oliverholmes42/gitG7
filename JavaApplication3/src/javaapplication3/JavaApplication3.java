@@ -9,8 +9,9 @@ import java.util.HashMap;
 import java.util.Map;
 import javaapplication3.utils.loginInputValidation;
 import javaapplication3.GUI.LoginPage;
-import javaapplication3.models.Area;
+import javaapplication3.models.*;
 import javaapplication3.utils.DatabaseConnection;
+import javaapplication3.utils.ObjectManager;
 import oru.inf.InfDB;
 import oru.inf.InfException;
 
@@ -22,23 +23,19 @@ import oru.inf.InfException;
 public class JavaApplication3 {
 
     private static InfDB db;
+    private static ArrayList<Area> omraden;
     
     public static void main(String[] args) throws InfException{
         
         //Initialisering utav databasuppkoppling:
         db = DatabaseConnection.getInstance();
-        
+        omraden = new ArrayList<Area>();
         loginInputValidation.db = db; //Kopplar databasen till loginsidan "loginInputValidation".
         new LoginPage().setVisible(true); //Initialiserar loginsidan som förstasida "LoginPage".
+
         
-        ArrayList<HashMap<String, String>> map = db.fetchRows("SELECT Omrades_ID FROM omrade");
         
-        for(HashMap<String,String> singleMap : map){
-            for (Map.Entry<String, String> entry: singleMap.entrySet()) {
-                Area item = new Area(Integer.parseInt(entry.getValue()));
-                System.out.println(item.getName());
-            }
-        }
+        
         
     }
     
