@@ -90,9 +90,14 @@ public class PopupHandler {
         new RegisterNewAlienDialogPopupV2(Parent, true).setVisible(true);
     }
     
-    public static void generateRandomPassword(){
-        
-    }
+    //Här kan du fixa med lösenordet yaani
+    /*public static void generateRandomPassword(JTextField alien_ID){
+        try{
+            
+        }catch(InfException e){
+            
+        }
+    }*/
     
     public static void addNewAgentPopup(MainPage Parent){
         new RegisterNewAgentDialog(Parent, true).setVisible(true);
