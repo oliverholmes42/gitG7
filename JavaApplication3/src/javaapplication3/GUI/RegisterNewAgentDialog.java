@@ -44,7 +44,7 @@ public class RegisterNewAgentDialog extends javax.swing.JDialog {
         inputSpeciesLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setBackground(new java.awt.Color(50, 50, 50));
+        setIconImage(null);
 
         abortButton.setBackground(new java.awt.Color(204, 204, 204));
         abortButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
