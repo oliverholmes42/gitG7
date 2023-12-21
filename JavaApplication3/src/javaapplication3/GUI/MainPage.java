@@ -133,8 +133,8 @@ public class MainPage extends javax.swing.JFrame {
             return new EquipmentPanel();
         case "AreaPanel":
             return new AreaPanel();
-        /*case "AgentPanel":
-            return new AgentPanel();*/
+        case "AgentPanel":
+            return new AgentPanel();
         case "AlienPanel":
             return new AlienPanel(this);
         case "LocationPanel":
