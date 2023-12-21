@@ -2,19 +2,28 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
+
 package javaapplication3.GUI.panels;
+
+import javaapplication3.GUI.MainPage;
+import javaapplication3.utils.PopupHandler;
+
 
 /**
  *
  * @author mopaj
  */
 public class AgentPanel extends javax.swing.JPanel {
-
+    private MainPage Parent;
     /**
      * Creates new form AgentPanel
      */
-    public AgentPanel() {
+   
+
+    public AgentPanel(MainPage Parent) {
         initComponents();
+         this.Parent = Parent;
+
     }
 
     /**
@@ -126,6 +135,11 @@ public class AgentPanel extends javax.swing.JPanel {
         addAgentButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         addAgentButton.setText("Lägg till Agent");
         addAgentButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51), 3));
+        addAgentButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addAgentButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -205,6 +219,11 @@ public class AgentPanel extends javax.swing.JPanel {
     private void removeAgentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeAgentButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_removeAgentButtonActionPerformed
+
+    private void addAgentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addAgentButtonActionPerformed
+                PopupHandler.addNewAgentPopup(Parent);
+
+    }//GEN-LAST:event_addAgentButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

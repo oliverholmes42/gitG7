@@ -65,24 +65,19 @@
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="0" pref="23" max="32767" attributes="0"/>
                               </Group>
-                              <Group type="102" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="locationButton" alignment="1" max="32767" attributes="0"/>
-                                      <Component id="equipmentButton" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="agentButton" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="alienButton" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="homeButton" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="areaButton" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="profileButton" alignment="0" max="32767" attributes="0"/>
-                                  </Group>
-                              </Group>
+                              <Component id="locationButton" alignment="1" max="32767" attributes="0"/>
+                              <Component id="equipmentButton" alignment="0" max="32767" attributes="0"/>
+                              <Component id="agentButton" alignment="0" max="32767" attributes="0"/>
+                              <Component id="alienButton" alignment="0" max="32767" attributes="0"/>
+                              <Component id="homeButton" alignment="0" max="32767" attributes="0"/>
+                              <Component id="areaButton" alignment="0" max="32767" attributes="0"/>
+                              <Component id="profileButton" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>

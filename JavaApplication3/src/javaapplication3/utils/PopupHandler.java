@@ -5,6 +5,7 @@
 package javaapplication3.utils;
 
 import javaapplication3.GUI.MainPage;
+import javaapplication3.GUI.RegisterNewAgentDialog;
 import javaapplication3.GUI.RegisterNewAlienDialogPopupV2;
 import javaapplication3.models.Area;
 import javax.swing.JComboBox;
@@ -91,6 +92,10 @@ public class PopupHandler {
     
     public static void generateRandomPassword(){
         
+    }
+    
+    public static void addNewAgentPopup(MainPage Parent){
+        new RegisterNewAgentDialog(Parent, true).setVisible(true);
     }
     
 }
