@@ -4,11 +4,16 @@
  */
 package javaapplication3.GUI.panels;
 
+import javaapplication3.GUI.MainPage;
+import javaapplication3.utils.PopupHandler;
+
 /**
  *
  * @author aiham
  */
 public class AreaPanel extends javax.swing.JPanel {
+
+    private MainPage Parent;
 
     /**
      * Creates new form OmradePanel
@@ -29,10 +34,10 @@ public class AreaPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
-        jTextField1 = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        searchOmradeTextField = new javax.swing.JTextField();
+        changeInfo = new javax.swing.JButton();
+        deleteArea = new javax.swing.JButton();
+        addArea = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(200, 200, 200));
         setPreferredSize(new java.awt.Dimension(1128, 792));
@@ -71,20 +76,24 @@ public class AreaPanel extends javax.swing.JPanel {
         jTable2.setShowGrid(true);
         jScrollPane2.setViewportView(jTable2);
 
-        jTextField1.setText("Sök här!");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        searchOmradeTextField.setText("Sök här!");
+        searchOmradeTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                searchOmradeTextFieldActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Ändra information");
+        changeInfo.setText("Ändra information");
 
-        jButton4.setLabel("Ta bort område");
+        deleteArea.setLabel("Ta bort område");
 
-        jButton5.setText("Lägg till område");
-        jButton5.setToolTipText("");
-        jButton5.setActionCommand("Lägg till område");
+        addArea.setText("Lägg till område");
+        addArea.setToolTipText("");
+        addArea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addAreaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -98,12 +107,12 @@ public class AreaPanel extends javax.swing.JPanel {
                         .addGap(234, 234, 234)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(addArea, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(49, 49, 49)
-                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(deleteArea, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(67, 67, 67)
-                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 566, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(changeInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(searchOmradeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 566, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(68, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -116,30 +125,35 @@ public class AreaPanel extends javax.swing.JPanel {
                 .addGap(74, 74, 74)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(searchOmradeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(addArea, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(deleteArea, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(changeInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(57, 57, 57)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(243, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void searchOmradeTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchOmradeTextFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_searchOmradeTextFieldActionPerformed
+
+    private void addAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addAreaActionPerformed
+        PopupHandler.addNewAreaPopup(Parent);
+
+    }//GEN-LAST:event_addAreaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JButton addArea;
+    private javax.swing.JButton changeInfo;
+    private javax.swing.JButton deleteArea;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField searchOmradeTextField;
     // End of variables declaration//GEN-END:variables
 }
