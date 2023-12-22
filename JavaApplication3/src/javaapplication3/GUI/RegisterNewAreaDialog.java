@@ -69,7 +69,7 @@ public class RegisterNewAreaDialog extends javax.swing.JDialog {
         abortAddArea1.setToolTipText("");
         abortAddArea1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                abortAddArea1ActionPerformed(evt);
+                abortAddAreaActionPerformed(evt);
             }
         });
 
@@ -135,9 +135,9 @@ public class RegisterNewAreaDialog extends javax.swing.JDialog {
 
     }//GEN-LAST:event_confirmAddAreaActionPerformed
 
-    private void abortAddArea1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abortAddArea1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_abortAddArea1ActionPerformed
+    private void abortAddAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abortAddAreaActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_abortAddAreaActionPerformed
 
     private void areaIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_areaIDActionPerformed
         // TODO add your handling code here:
