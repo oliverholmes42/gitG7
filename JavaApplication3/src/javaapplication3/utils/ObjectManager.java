@@ -7,9 +7,9 @@ package javaapplication3.utils;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import javaapplication3.models.*;
 import oru.inf.*;
+import oru.inf.InfException;
 
 /**
  *
@@ -51,6 +51,16 @@ public class ObjectManager {
                 Location location = new Location(singleMap,Areas.areaList.get(id2));
                 locationList.put(id1, location);
                 
+            }
+        }
+        
+        public static void updateField(int id, String column, String newValue){
+            try{
+                String updateQuery = "UPDATE plats SET " + column + " = '" + newValue + "' WHERE Plats_ID = " + id;
+                db.update(updateQuery);
+                System.out.println(updateQuery);
+            } catch(InfException e){
+                System.out.println(e.getMessage());
             }
         }
         /*

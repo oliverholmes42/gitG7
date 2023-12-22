@@ -5,7 +5,7 @@
 package javaapplication3.models;
 
 import java.util.HashMap;
-import javaapplication3.utils.DatabaseConnection;
+import javaapplication3.utils.ObjectManager;
 import oru.inf.InfDB;
 
 /**
@@ -23,6 +23,11 @@ public class Location {
         this.area = area;
         locationName = map.get("Benamning");
     }
+    
+    public void setName(String name) {
+        locationName = name;
+        ObjectManager.Locations.updateField(locationID, "Benamning", locationName);
+    
     
     // Setter for Location ID
 /*
