@@ -93,6 +93,25 @@ public class ObjectManager {
                 alienList.put(id, alien);
             }
         }
+        
+        public static void updateField(int id, String column, String newValue){
+            try{
+                String updateQuery = "UPDATE alien SET " + column + " = '" + newValue + "' WHERE Alien_ID = " + id;
+                db.update(updateQuery);
+            } catch(InfException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        
+        public static void updateField(int id, String column, int newValue){
+            try{
+                String updateQuery = "UPDATE alien SET " + column + " = " + newValue + " WHERE Alien_ID = " + id;
+                db.update(updateQuery);
+            } catch(InfException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        
     }
 
     public static class Agents {
