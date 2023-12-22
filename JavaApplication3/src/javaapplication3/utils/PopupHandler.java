@@ -7,10 +7,9 @@ package javaapplication3.utils;
 import javaapplication3.GUI.MainPage;
 import javaapplication3.GUI.RegisterNewAgentDialog;
 import javaapplication3.GUI.RegisterNewAlienDialogPopupV2;
-import javaapplication3.models.Area;
-import javax.swing.JComboBox;
+import javaapplication3.GUI.RegisterNewAreaDialog;
+import javaapplication3.GUI.RegisterNewUtilitiesDialog;
 import javax.swing.JSpinner;
-import javax.swing.JTextField;
 import oru.inf.InfDB;
 import oru.inf.InfException;
 
@@ -21,6 +20,10 @@ import oru.inf.InfException;
 public class PopupHandler {
     
     public static InfDB db = DatabaseConnection.getInstance();
+
+    public static void addNewUtilitesPopup(MainPage Parent) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
     private PopupHandler(){
     }
@@ -101,6 +104,14 @@ public class PopupHandler {
     
     public static void addNewAgentPopup(MainPage Parent){
         new RegisterNewAgentDialog(Parent, true).setVisible(true);
+    }
+    
+    public static void addNewAreaPopup(MainPage Parent){
+        new RegisterNewAreaDialog(Parent, true).setVisible(true);
+    }
+    
+    public static void addNewUtilitiesPopup(MainPage Parent){
+        new RegisterNewUtilitiesDialog(Parent, true).setVisible(true);
     }
     
 }
