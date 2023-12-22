@@ -20,25 +20,18 @@ public class Agent {
     private String email;
     private String password;
     private Area area;
-    private HashMap<String, String> Results;
     public static InfDB db;
 
     // Constructor
-    public Agent(int agentID) {
+    public Agent(HashMap<String, String> agentMap, LocalDate recruitmentDate, Area area) {
         this.agentID = agentID;
-        db = DatabaseConnection.getInstance();
-        try {
-        String agentQuery = "Select * from agent join omrade on agent.Omrade = omrade.Omrades.ID where Agent_ID =" + agentID;
-        Results = db.fetchRow(agentQuery);
-        this.password = Results.get("Losenord");
-        this.email = Results.get("Epost");
-        this.Admin = Results.get("Administrator");
-        this.recruitmentDate = LocalDate.parse(Results.get("Anstallningsdatum"));
-//        this.area = Results.get("Omrade");
-
-        }
-        catch(Exception e){
-        }
+        this.name = agentMap.get("Namn");
+        this.password = agentMap.get("Losenord");
+        this.telephone = agentMap.get("Telefon");
+        this.email = agentMap.get("Epost");
+        this.Admin = agentMap.get("Administrator");
+        this.recruitmentDate = LocalDate.parse(agentMap.get("Anstallningsdatum"));
+        this.area = area;
     }
 
     // Getters and Setters
@@ -53,8 +46,8 @@ public class Agent {
 
     public void setName(String name) {
        try{
-        String nameQuery = "UPDATE agent SET Namn = '" + name + "' WHERE Agent_ID = " + agentID;
-        db.update(nameQuery);
+        String query = "UPDATE agent SET Namn = '" + name + "' WHERE Agent_ID = " + agentID;
+        db.update(query);
         this.name = name;
        }
         catch(Exception e){
@@ -72,8 +65,8 @@ public class Agent {
 
     public void setTelephone(String telephone) {
         try{
-        String teleQuery = "UPDATE agent SET telefon = '" + telephone + "' WHERE Agent_ID = " + agentID;
-        db.update(teleQuery);
+        String query = "UPDATE agent SET Telefon = '" + telephone + "' WHERE Agent_ID = " + agentID;
+        db.update(query);
         this.telephone = telephone;
        }
        catch(Exception e){
@@ -82,12 +75,19 @@ public class Agent {
         
     }
 
-    public String getRecruitmentDate() {
-        return Results.get("Anstallningsdatum");
+    public LocalDate getRecruitmentDate() {
+        return recruitmentDate;
     }
 
     public void setRecruitmentDate(LocalDate recruitmentDate) {
-        this.recruitmentDate = recruitmentDate;
+        try{
+        String query = "UPDATE agent SET Anstallningsdatum = " + recruitmentDate + " WHERE Agent_ID = " + agentID;
+        db.update(query);
+        this.telephone = telephone;
+       }
+       catch(Exception e){
+       System.out.println(e.getMessage());
+       }
     }
 
     public String getAdmin() {
@@ -96,8 +96,8 @@ public class Agent {
 
     public void setAdmin(String Admin) {
 try{
-        String adminQuery = "UPDATE agent SET Administrator = '" + Admin + "' WHERE Agent_ID = " + agentID;
-        db.update(adminQuery);
+        String query = "UPDATE agent SET Administrator = '" + Admin + "' WHERE Agent_ID = " + agentID;
+        db.update(query);
         this.Admin = Admin;
        }
         catch(Exception e){
@@ -105,7 +105,7 @@ try{
        }     }
 
     public String getEmail() {
-        return Results.get("Epost");
+        return email;
     }
 
     public void setEmail(String email) {
@@ -120,13 +120,13 @@ try{
     }
 
     public String getPassword() {
-        return Results.get("Losenord");
+        return password;
     }
 
     public void setPassword(String password) {
         try{
-        String passwordQuery = "UPDATE agent SET Losenord = '" + password + "' WHERE Agent_ID = " + agentID;
-        db.update(passwordQuery);
+        String query = "UPDATE agent SET Losenord = '" + password + "' WHERE Agent_ID = " + agentID;
+        db.update(query);
         this.password = password;
        }
         catch(Exception e){
@@ -134,11 +134,18 @@ try{
        }  
     }    
 
-    public String getArea() {
-        return Results.get("Benamning");
+    public Area getArea() {
+        return area;
     }
 
     public void setLocation(Area area) {
+        try{
+        String query = "UPDATE agent SET Omrade = " + area + " WHERE Agent_ID = " + agentID;
+        db.update(query);
         this.area = area;
+       }
+       catch(Exception e){
+       System.out.println(e.getMessage());
+       }
     }
 }
