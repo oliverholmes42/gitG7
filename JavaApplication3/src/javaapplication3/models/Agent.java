@@ -30,7 +30,7 @@ public class Agent {
         this.password = agentMap.get("Losenord");
         this.telephone = agentMap.get("Telefon");
         this.email = agentMap.get("Epost");
-        this.Admin = agentMap.get("Administrator");
+        this.admin = agentMap.get("Administrator");
         this.recruitmentDate = LocalDate.parse(agentMap.get("Anstallningsdatum"));
         this.area = area;
     }
@@ -71,7 +71,7 @@ public class Agent {
     }
 
     public void setRecruitmentDate(LocalDate newRecruitmentDate) {
-        ObjectManager.Agents.updateField(agentID,"Anstallningsdatum" , newRecruitmentDate);
+        ObjectManager.Agents.updateField(agentID, "Anstallningsdatum" , newRecruitmentDate);
         recruitmentDate = newRecruitmentDate; 
     }
 
@@ -110,7 +110,7 @@ public class Agent {
     }
 
     public void setLocation(Area newArea) {
-        ObjectManager.Agents.updateField(agentID,"Omrade", newArea);
+        ObjectManager.Agents.updateField(agentID,"Omrade", newArea.getAreaID());
         area = newArea; 
     }
 }

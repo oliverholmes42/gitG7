@@ -5,6 +5,7 @@
 package javaapplication3.utils;
 
 import java.lang.reflect.Method;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javaapplication3.models.*;
@@ -142,6 +143,15 @@ public class ObjectManager {
         public static void updateField(int id, String column, int newValue){
             try{
                 String updateQuery = "UPDATE agent SET " + column + " = " + newValue + " WHERE Agent_ID = " + id;
+                db.update(updateQuery);
+            } catch(InfException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        
+        public static void updateField(int id, String column, LocalDate newValue){
+            try{
+                String updateQuery = "UPDATE agent SET " + column + " = '" + newValue + "' WHERE Agent_ID = " + id;
                 db.update(updateQuery);
             } catch(InfException e){
                 System.out.println(e.getMessage());
