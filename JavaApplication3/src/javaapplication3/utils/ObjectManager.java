@@ -35,7 +35,7 @@ public class ObjectManager {
         }
     }
     
-    public static class Locations{
+    public static class Locations {
         public static HashMap<Integer, Location> locationList = new HashMap<>();
 
         public static void loadList() throws NumberFormatException, InfException {
@@ -94,7 +94,7 @@ public class ObjectManager {
             return newLocation;
         
         }*/
-    }
+    
     /*
     public static class Aliens{
         public static ArrayList<Alien> alienList = new ArrayList<>();
@@ -114,11 +114,21 @@ public class ObjectManager {
         }
     }*/
 
-    public static class Agent {
-        public static ArrayList<Agent> agentList = new ArrayList<>();
+    public static class Agents {
+        public static HashMap<Integer, Agent> agentList = new HashMap<>();
 
         public static void LoadList() throws NumberFormatException, InfException {
-            // Clear and reload the agentList
+            if(!agentList.isEmpty()) {agentList.clear();}
+            
+            Areas.loadList();
+            ArrayList<HashMap<String, String>> map = db.fetchRows("SELECT * FROM agent");
+            for(HashMap<String,String> singleMap : map){
+                int id1 = Integer.parseInt(singleMap.get("Agent_ID"));
+                int id2 = Integer.parseInt(singleMap.get("Omrade"));
+                Agent agent = new Agent(singleMap,Areas.areaList.get(id2));
+                agentList.put(id1,agent);
+            }
+            
         }
     }
 
