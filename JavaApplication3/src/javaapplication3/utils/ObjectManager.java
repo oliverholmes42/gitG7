@@ -58,10 +58,20 @@ public class ObjectManager {
             try{
                 String updateQuery = "UPDATE plats SET " + column + " = '" + newValue + "' WHERE Plats_ID = " + id;
                 db.update(updateQuery);
-                System.out.println(updateQuery);
             } catch(InfException e){
                 System.out.println(e.getMessage());
             }
+        }
+        
+        public static void updateField(int id, String column, int newValue){
+            try{
+                String updateQuery = "UPDATE plats SET " + column + " = " + newValue + " WHERE Plats_ID = " + id;
+                db.update(updateQuery);
+            } catch(InfException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        
         }
         /*
         public static void printList(){
