@@ -71,31 +71,8 @@ public class ObjectManager {
                 System.out.println(e.getMessage());
             }
         }
-        
-        }
-        /*
-        public static void printList(){
-            for(Location item : locationList){
-                System.out.println(item.getName());
-            }
-        }
-        public static void offload(){
-            locationList.clear();
-        }
-        public static Location loadInstance(int ID) {
-            for (Location loc : locationList) {
-                if (loc.getLocationID() == ID) {
-                    return loc;  // Return existing instance
-                }
-            }
-           
-            Location newLocation = new Location(ID);
-            locationList.add(newLocation);
-            return newLocation;
-        
-        }*/
+    }
     
-    /*
     public static class Aliens{
         public static ArrayList<Alien> alienList = new ArrayList<>();
 
@@ -112,7 +89,7 @@ public class ObjectManager {
                 //Alien alien = new Alien(item,Locations.locationList);
             }
         }
-    }*/
+    }
 
     public static class Agents {
         public static HashMap<Integer, Agent> agentList = new HashMap<>();
@@ -128,7 +105,24 @@ public class ObjectManager {
                 Agent agent = new Agent(singleMap,Areas.areaList.get(id2));
                 agentList.put(id1,agent);
             }
-            
+        }
+        
+        public static void updateField(int id, String column, String newValue){
+            try{
+                String updateQuery = "UPDATE agent SET " + column + " = '" + newValue + "' WHERE Agent_ID = " + id;
+                db.update(updateQuery);
+            } catch(InfException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        
+        public static void updateField(int id, String column, int newValue){
+            try{
+                String updateQuery = "UPDATE agent SET " + column + " = " + newValue + " WHERE Agent_ID = " + id;
+                db.update(updateQuery);
+            } catch(InfException e){
+                System.out.println(e.getMessage());
+            }
         }
     }
 
@@ -147,11 +141,18 @@ public class ObjectManager {
         }
     }
 
-    public static class Utilities {
-        public static ArrayList<Utilities> utilitiesList = new ArrayList<>();
+    public static class UtilitiesHandler {
+        public static HashMap<Integer, Utilities> utilitiesList = new HashMap<>();
 
-        public static void LoadList() throws NumberFormatException, InfException {
-            // Clear and reload the utilitiesList
+        public static void loadList() throws NumberFormatException, InfException {
+            if(!utilitiesList.isEmpty()) {utilitiesList.clear();}
+            
+            ArrayList<HashMap<String, String>> map = db.fetchRows("SELECT * FROM utrustning");
+            for(HashMap<String,String> singleMap : map){
+                int id = Integer.parseInt(singleMap.get("Utrustnings_ID"));
+                Utilities util = new Utilities(singleMap);
+                utilitiesList.put(id, util);
+            }
         }
     }
 }
