@@ -4,7 +4,7 @@
  */
 package javaapplication3.models;
 import java.util.HashMap;
-import static javaapplication3.models.Agent.db;
+import static javaapplication3.models.Alien.db;
 import oru.inf.InfDB;
 import javaapplication3.utils.DatabaseConnection;
 
@@ -15,52 +15,40 @@ import javaapplication3.utils.DatabaseConnection;
 public class Utilities {
     private int utilityID;
     private String name;
-    private HashMap<String, String> Utilities;
     public static InfDB db;
     
     //Konstruktor
-    public Utilities(int utilityID){  
+    public Utilities(HashMap<String, String> utilitiesMap){  
         
-        this.utilityID = utilityID;
-
-        db = DatabaseConnection.getInstance();
-        try {
-        String uQuery = "select * from utrustning where Utrustnings_ID = " + utilityID;
-        Utilities = db.fetchRow(uQuery);
-        this.name = Utilities.get("Benamning");
-
-
-        }
-        catch(Exception e){
-        }
+        this.utilityID = Integer.parseInt(utilitiesMap.get("Utrustnings_ID"));
+        this.name = utilitiesMap.get("Benamning");
 
     }
     
     public void setName(String name){
    
-    try{
-        String nameQuery = "' UPDATE Utrustning SET Benamning = '" + name + "' WHERE Utrustnings_ID = '" + utilityID;
-        db.update(nameQuery);
+        try{
+        String query = "UPDATE Utrustning SET Benamning = " + name + " WHERE Utrustnings_ID  = " + utilityID;
+        db.update(query);
         this.name = name;
        }
         catch(Exception e){
        System.out.println(e.getMessage());
-       } 
+       }
     }
     
     public void setID(int newUtilityID){
-    try{
-        String utilityQuery= "' UPDATE Utrustning SET Utrustnings_ID = '" + newUtilityID + "' WHERE Utrustnings_ID = '"+ utilityID;
-        db.update(utilityQuery);
+        try{
+        String query = "UPDATE Utrustning SET Utrustnings_ID  = " + newUtilityID + " WHERE Utrustnings_ID  = " + utilityID;
+        db.update(query);
         this.utilityID = newUtilityID;
-    }
+       }
         catch(Exception e){
-            System.out.println(e.getMessage());
-        }
+       System.out.println(e.getMessage());
+       }
     }
      
     public String getName(){
-
     return name;
     }
     
