@@ -23,17 +23,17 @@ import oru.inf.InfException;
 public class JavaApplication3 {
 
     private static InfDB db;
-    private static ArrayList<Area> omraden;
     
     public static void main(String[] args) throws InfException{
         
         //Initialisering utav databasuppkoppling:
         db = DatabaseConnection.getInstance();
-        omraden = new ArrayList<Area>();
         loginInputValidation.db = db; //Kopplar databasen till loginsidan "loginInputValidation".
         new LoginPage().setVisible(true); //Initialiserar loginsidan som förstasida "LoginPage".
 
-        
+        ObjectManager.Locations.loadList();
+        HashMap<Integer, Location> lol = ObjectManager.Locations.locationList;
+        System.out.println(23);
         
         
         

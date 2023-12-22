@@ -14,29 +14,18 @@ import oru.inf.InfDB;
  */
 public class Location {
     private int locationID;
-    private int existsIn;
+    private Area area;
     private String locationName;
-    private HashMap<String, String> LocationMap;
     public static InfDB db;
     
-    public Location(int LocationID) {
-
-        this.locationID = LocationID;
-        db = DatabaseConnection.getInstance();
-
-        try {
-            String LQuery = "SELECT * from plats where Plats_ID =" + LocationID;
-            LocationMap = db.fetchRow(LQuery);
-            this.existsIn = Integer.parseInt(LocationMap.get("Finns_I"));
-            this.locationName = LocationMap.get("Benamning");
-
-        } catch (Exception e) {
-            
-        }
+    public Location(HashMap<String,String> map, Area area) {
+        locationID = Integer.parseInt(map.get("Plats_ID"));
+        this.area = area;
+        locationName = map.get("Benamning");
     }
     
     // Setter for Location ID
-
+/*
     public void setLocationID(int newLocationID) {
        
        try{
@@ -63,7 +52,7 @@ public class Location {
        try{
         String eQuery= " UPDATE Plats SET Finns_I = " + newExistsIn + " WHERE Plats_ID = "+ locationID;    
         db.update(eQuery);
-        this.existsIn = newExistsIn;
+        //this.existsIn = newExistsIn;
        }
             catch(Exception e){
             System.out.println(e.getMessage());
@@ -99,7 +88,7 @@ public class Location {
      
      public String getName() {
        return locationName;
-   }
+   }*/
 
    
 }

@@ -10,6 +10,7 @@ import javaapplication3.utils.PopupHandler;
 import javax.swing.JOptionPane;
 
 
+
 /**
  *
  * @author vilso
@@ -295,7 +296,6 @@ public class RegisterNewAlienDialogPopupV2 extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Vänligen ange information om Alien du vill registrera med detta formulär");
 
         } else {
-            
             //PopupHandler.getInputFromRegisterForm(nameTextField, emailTextField, phoneTextField, agentComboBox, areaComboBox);
             
             /*result.put("Namn", nameTextField.getText());
@@ -305,9 +305,12 @@ public class RegisterNewAlienDialogPopupV2 extends javax.swing.JDialog {
             result.put("Område", areaComboBox.getEditor().getItem().toString());
             result.put("Alien Ras", speciesComboBox.getEditor().getItem().toString());
             result.put("Värde", Double.toString(spinnerValueToInt));*/
+            
+            
         }
     }//GEN-LAST:event_registerButtonActionPerformed
 
+    
     private void phoneTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_phoneTextFieldKeyPressed
         String phoneNumber = phoneTextField.getText();
         int length = phoneNumber.length();

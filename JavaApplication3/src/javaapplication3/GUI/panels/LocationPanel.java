@@ -41,7 +41,7 @@ public class LocationPanel extends javax.swing.JPanel {
         this.parent = parent;
         initComponents();
         tableModel = (DefaultTableModel) jTable2.getModel();
-        loadTable();
+       // loadTable();
         addListener();
 
     }
@@ -57,10 +57,10 @@ public class LocationPanel extends javax.swing.JPanel {
                         int locationID = Integer.parseInt((String) jTable2.getValueAt(row, 0));
                         
                         // Fetch the Location object based on the ID
-                        Location location = getLocationByID(locationID);
+                       // Location location = getLocationByID(locationID);
                         
                         // Show the dialog with location info
-                        displayLocationInfo(location);
+                        //displayLocationInfo(location);
                     }
                 }
             }
@@ -193,7 +193,7 @@ public class LocationPanel extends javax.swing.JPanel {
         }
         
     }//GEN-LAST:event_jButton5ActionPerformed
-
+/*
     private Location getLocationByID(int id) {
     // Your logic to retrieve the Location object based on the id
     // This might involve searching through ObjectManager.Locations.locationList
@@ -222,8 +222,9 @@ public class LocationPanel extends javax.swing.JPanel {
             tableModel.addRow(row);
         }
     }
+*/
 
-    
+    /*
     public static void displayLocationInfo(Location location) {
     // Panel with GridLayout
     JPanel panel = new JPanel(new GridLayout(0, 2));
@@ -259,7 +260,7 @@ public class LocationPanel extends javax.swing.JPanel {
 
     // Display the dialog
     JOptionPane.showMessageDialog(null, panel, "Location Information", JOptionPane.INFORMATION_MESSAGE);
-}
+}*/
 
 
 

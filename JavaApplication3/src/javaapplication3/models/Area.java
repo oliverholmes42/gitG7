@@ -17,22 +17,13 @@ import javaapplication3.utils.DatabaseConnection;
 public class Area {
    private int areaID;
    private String areaName;
-   private HashMap<String, String> Area;
    public static InfDB db;
 
    // Constructor
-   public Area(int Area_ID){
+   public Area(HashMap<String,String> areaMap){
        
-       this.areaID = Area_ID;
-       db = DatabaseConnection.getInstance();
-       try{
-       String aQuery = "Select * from omrade where Omrades_ID = " + Area_ID;
-       Area = db.fetchRow(aQuery);
-       this.areaName = Area.get("Benamning");
-       
-       }
-       catch(Exception e){ 
-       }
+       areaID = Integer.parseInt(areaMap.get("Omrades_ID"));
+       areaName = areaMap.get("Benamning");
    }
    
 

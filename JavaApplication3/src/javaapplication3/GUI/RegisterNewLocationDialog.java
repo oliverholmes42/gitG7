@@ -34,10 +34,10 @@ public class RegisterNewLocationDialog extends javax.swing.JDialog {
         System.out.println(IDField.getText());
         DefaultComboBoxModel<String> model2 = new DefaultComboBoxModel<>();
         ObjectManager.Areas.loadList();
-        for (Area item: areaList) {
+        /*for (Area item: areaList) {
             model2.addElement(item.getAreaID()+": "+item.getName());
         }
-        ExistsInBox.setModel(model2);
+        ExistsInBox.setModel(model2);*/
 
     }
 

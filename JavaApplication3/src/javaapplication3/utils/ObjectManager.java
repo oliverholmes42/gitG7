@@ -34,50 +34,26 @@ public class ObjectManager {
             }
         }
     }
-
-    public static class Areas{
-        public static ArrayList<Area> areaList = new ArrayList<>();
-
-        public static void loadList() throws NumberFormatException, InfException {
-            // Clear the list if it contains items
-            if (!areaList.isEmpty()) {
-                areaList.clear();
-            }
-            ArrayList<HashMap<String, String>> map = db.fetchRows("Select Omrades_ID from omrade order by Omrades_ID asc");
-            for(HashMap<String,String> singleMap : map){
-                for (Map.Entry<String, String> entry: singleMap.entrySet()) {
-                    Area item = new Area(Integer.parseInt(entry.getValue()));
-                    areaList.add(item);
-                }
-            }
-        }
-        public static void printList(){
-            for(Area item : areaList){
-                System.out.println(item.getName());
-            }
-        }
-        public static void offload(){
-            areaList.clear();
-        }
-    }
     
     public static class Locations{
-        public static ArrayList<Location> locationList = new ArrayList<>();
+        public static HashMap<Integer, Location> locationList = new HashMap<>();
 
         public static void loadList() throws NumberFormatException, InfException {
             // Clear the list if it contains items
             if (!locationList.isEmpty()) {
                 locationList.clear();
             }
-            ArrayList<HashMap<String, String>> map = db.fetchRows("SELECT Plats_ID FROM plats ORDER BY Plats_ID ASC");
+            Areas.loadList();
+            ArrayList<HashMap<String, String>> map = db.fetchRows("SELECT * from plats");
             for(HashMap<String,String> singleMap : map){
-                for (Map.Entry<String, String> entry: singleMap.entrySet()) {
-                    Location item = new Location(Integer.parseInt(entry.getValue()));
-                    locationList.add(item);
-                }
+                int id1 = Integer.parseInt(singleMap.get("Plats_ID"));
+                int id2 = Integer.parseInt(singleMap.get("Finns_I"));
+                Location location = new Location(singleMap,Areas.areaList.get(id2));
+                locationList.put(id1, location);
+                
             }
         }
-        
+        /*
         public static void printList(){
             for(Location item : locationList){
                 System.out.println(item.getName());
@@ -97,9 +73,9 @@ public class ObjectManager {
             locationList.add(newLocation);
             return newLocation;
         
-        }
+        }*/
     }
-    
+    /*
     public static class Aliens{
         public static ArrayList<Alien> alienList = new ArrayList<>();
 
@@ -108,13 +84,16 @@ public class ObjectManager {
             if (!alienList.isEmpty()) {
                 alienList.clear();
             }
+            
+            Locations.loadList();
             ArrayList<HashMap<String, String>> map = db.fetchRows("SELECT * FROM alien");
             for(HashMap<String,String> item : map){
-                Alien alien = new Alien(item);
+                //Location location = Locations.locationList.get("")
+                //Alien alien = new Alien(item,Locations.locationList);
             }
         }
-    }
-/*
+    }*/
+
     public static class Agent {
         public static ArrayList<Agent> agentList = new ArrayList<>();
 
@@ -123,19 +102,18 @@ public class ObjectManager {
         }
     }
 
-    public static class Area {
-        public static ArrayList<Area> areaList = new ArrayList<>();
+    public static class Areas {
+        public static HashMap<Integer, Area> areaList = new HashMap<>();
 
-        public static void LoadList() throws NumberFormatException, InfException {
-            // Clear and reload the areaList
-        }
-    }
-
-    public static class Location {
-        public static ArrayList<Location> locationList = new ArrayList<>();
-
-        public static void LoadList() throws NumberFormatException, InfException {
-            // Clear and reload the locationList
+        public static void loadList() throws NumberFormatException, InfException {
+            if(!areaList.isEmpty()) {areaList.clear();}
+            
+            ArrayList<HashMap<String, String>> map = db.fetchRows("SELECT * FROM omrade");
+            for(HashMap<String,String> singleMap : map){
+                int id = Integer.parseInt(singleMap.get("Omrades_ID"));
+                Area area = new Area(singleMap);
+                areaList.put(id,area);
+            }
         }
     }
 
@@ -145,5 +123,5 @@ public class ObjectManager {
         public static void LoadList() throws NumberFormatException, InfException {
             // Clear and reload the utilitiesList
         }
-    }*/
+    }
 }

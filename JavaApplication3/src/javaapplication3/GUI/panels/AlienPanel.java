@@ -7,7 +7,6 @@ package javaapplication3.GUI.panels;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javaapplication3.GUI.MainPage;
-import static javaapplication3.GUI.panels.LocationPanel.displayLocationInfo;
 import javaapplication3.models.Alien;
 import javaapplication3.models.Location;
 import javaapplication3.utils.ObjectManager;
@@ -216,6 +215,7 @@ public class AlienPanel extends javax.swing.JPanel {
                 }
             }
         }); }
+    /*
     private Alien getAlienByID(int id) {
     // Your logic to retrieve the Location object based on the id
     // This might involve searching through ObjectManager.Locations.locationList
@@ -226,6 +226,7 @@ public class AlienPanel extends javax.swing.JPanel {
         }
         return null;
     }
+*/
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addAlienButton;
