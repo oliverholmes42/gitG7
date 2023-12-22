@@ -30,19 +30,19 @@
                   <Component id="jScrollPane2" min="-2" pref="1027" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="234" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="addArea" min="-2" pref="150" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
-                              <Component id="deleteArea" min="-2" pref="150" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
-                              <Component id="changeInfo" min="-2" pref="150" max="-2" attributes="0"/>
-                          </Group>
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="searchOmradeTextField" min="-2" pref="566" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="addArea" min="-2" pref="181" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                              <Component id="deleteArea" min="-2" pref="181" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="updateInfo" min="-2" pref="181" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="68" max="32767" attributes="0"/>
+              <EmptySpace pref="67" max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="32767" attributes="0"/>
@@ -62,11 +62,11 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="addArea" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
                   <Component id="deleteArea" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
-                  <Component id="changeInfo" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
+                  <Component id="updateInfo" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
               <Component id="jScrollPane2" min="-2" pref="351" max="-2" attributes="0"/>
-              <EmptySpace pref="243" max="32767" attributes="0"/>
+              <EmptySpace pref="117" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -146,9 +146,9 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="searchOmradeTextFieldActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="changeInfo">
+    <Component class="javax.swing.JButton" name="updateInfo">
       <Properties>
-        <Property name="text" type="java.lang.String" value="&#xc4;ndra information"/>
+        <Property name="text" type="java.lang.String" value="Uppdatera information"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="deleteArea">
