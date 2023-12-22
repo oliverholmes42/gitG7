@@ -31,11 +31,9 @@ public class JavaApplication3 {
         loginInputValidation.db = db; //Kopplar databasen till loginsidan "loginInputValidation".
         new LoginPage().setVisible(true); //Initialiserar loginsidan som förstasida "LoginPage".
 
-        ObjectManager.Locations.loadList();
-        HashMap<Integer, Location> lol = ObjectManager.Locations.locationList;
-        System.out.println(23);
+        ObjectManager.Aliens.loadAlienList();
         
-        
+         
         
     }
     

@@ -74,7 +74,7 @@ public class ObjectManager {
     }
     
     public static class Aliens{
-        public static ArrayList<Alien> alienList = new ArrayList<>();
+        public static HashMap<Integer, Alien> alienList = new HashMap<>();
 
         public static void loadAlienList() throws NumberFormatException, InfException {
             // Clear the list if it contains items
@@ -83,10 +83,14 @@ public class ObjectManager {
             }
             
             Locations.loadList();
+            Agents.LoadList();
             ArrayList<HashMap<String, String>> map = db.fetchRows("SELECT * FROM alien");
-            for(HashMap<String,String> item : map){
-                //Location location = Locations.locationList.get("")
-                //Alien alien = new Alien(item,Locations.locationList);
+            for(HashMap<String,String> singleMap : map){
+                int id = Integer.parseInt(singleMap.get("Alien_ID"));
+                int platsID = Integer.parseInt(singleMap.get("Plats"));
+                int agentID = Integer.parseInt(singleMap.get("Ansvarig_Agent"));
+                Alien alien = new Alien(singleMap,Locations.locationList.get(platsID), Agents.agentList.get(agentID));
+                alienList.put(id, alien);
             }
         }
     }
@@ -100,10 +104,10 @@ public class ObjectManager {
             Areas.loadList();
             ArrayList<HashMap<String, String>> map = db.fetchRows("SELECT * FROM agent");
             for(HashMap<String,String> singleMap : map){
-                int id1 = Integer.parseInt(singleMap.get("Agent_ID"));
-                int id2 = Integer.parseInt(singleMap.get("Omrade"));
-                Agent agent = new Agent(singleMap,Areas.areaList.get(id2));
-                agentList.put(id1,agent);
+                int id = Integer.parseInt(singleMap.get("Agent_ID"));
+                int areaID = Integer.parseInt(singleMap.get("Omrade"));
+                Agent agent = new Agent(singleMap,Areas.areaList.get(areaID));
+                agentList.put(id,agent);
             }
         }
         
