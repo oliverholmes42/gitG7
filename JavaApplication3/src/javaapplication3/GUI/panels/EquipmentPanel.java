@@ -4,17 +4,23 @@
  */
 package javaapplication3.GUI.panels;
 
+import javaapplication3.GUI.MainPage;
+import javaapplication3.utils.PopupHandler;
+
 /**
  *
  * @author mopaj
  */
 public class EquipmentPanel extends javax.swing.JPanel {
 
+    private final MainPage Parent;
     /**
      * Creates new form AgentPanel
+     * @param Parent
      */
-    public EquipmentPanel() {
+    public EquipmentPanel(MainPage Parent) {
         initComponents();
+        this.Parent = Parent;
     }
 
     /**
@@ -170,7 +176,8 @@ public class EquipmentPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_searchButtonActionPerformed
 
     private void laggTillButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_laggTillButtonActionPerformed
-        // TODO add your handling code here:
+        PopupHandler.addNewUtilitiesPopup(Parent);
+
     }//GEN-LAST:event_laggTillButtonActionPerformed
 
     private void raderaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_raderaButtonActionPerformed
