@@ -4,7 +4,13 @@
  */
 package javaapplication3.GUI.panels;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javaapplication3.GUI.MainPage;
+import static javaapplication3.GUI.panels.LocationPanel.displayLocationInfo;
+import javaapplication3.models.Alien;
+import javaapplication3.models.Location;
+import javaapplication3.utils.ObjectManager;
 import javaapplication3.utils.PopupHandler;
 
 /**
@@ -20,6 +26,7 @@ public class AlienPanel extends javax.swing.JPanel {
     public AlienPanel(MainPage Parent) {
         initComponents();
         this.Parent = Parent;
+        addListener();
     }
 
     /**
@@ -114,6 +121,7 @@ public class AlienPanel extends javax.swing.JPanel {
         removeAlienButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         removeAlienButton.setText("Ta bort Alien");
         removeAlienButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51), 3));
+        removeAlienButton.setEnabled(false);
 
         addAlienButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         addAlienButton.setText("Lägg till Alien");
@@ -194,8 +202,30 @@ public class AlienPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         PopupHandler.addNewAlienPopup(Parent);
     }//GEN-LAST:event_addAlienButtonActionPerformed
-
     
+    private void addListener() {
+        resultTable.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 1) { // Single click
+                    int row = resultTable.getSelectedRow();
+                    if (row >= 0) {
+                        removeAlienButton.setEnabled(true);
+                        
+                    }
+                }
+            }
+        }); }
+    private Alien getAlienByID(int id) {
+    // Your logic to retrieve the Location object based on the id
+    // This might involve searching through ObjectManager.Locations.locationList
+        for (Alien i : ObjectManager.Aliens.alienList) {
+            if (i.getAlienID() == id) {
+                return i;
+            }
+        }
+        return null;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addAlienButton;

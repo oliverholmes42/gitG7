@@ -77,6 +77,7 @@ public class ObjectManager {
                 }
             }
         }
+        
         public static void printList(){
             for(Location item : locationList){
                 System.out.println(item.getName());
@@ -96,6 +97,21 @@ public class ObjectManager {
             locationList.add(newLocation);
             return newLocation;
         
+        }
+    }
+    
+    public static class Aliens{
+        public static ArrayList<Alien> alienList = new ArrayList<>();
+
+        public static void loadAlienList() throws NumberFormatException, InfException {
+            // Clear the list if it contains items
+            if (!alienList.isEmpty()) {
+                alienList.clear();
+            }
+            ArrayList<HashMap<String, String>> map = db.fetchRows("SELECT * FROM alien");
+            for(HashMap<String,String> item : map){
+                Alien alien = new Alien(item);
+            }
         }
     }
 /*

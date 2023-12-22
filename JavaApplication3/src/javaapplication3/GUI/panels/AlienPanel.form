@@ -353,6 +353,7 @@
             </LineBorder>
           </Border>
         </Property>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="addAlienButton">

@@ -19,19 +19,19 @@ public class Location {
     private HashMap<String, String> LocationMap;
     public static InfDB db;
     
-    public Location(int LocationID){
-        
+    public Location(int LocationID) {
+
         this.locationID = LocationID;
         db = DatabaseConnection.getInstance();
-        
-        try{
-        String LQuery = "SELECT * from plats where Plats_ID =" + LocationID;
-        LocationMap = db.fetchRow(LQuery);
-        this.existsIn = Integer.parseInt(LocationMap.get("Finns_I"));
-        this.locationName = LocationMap.get("Benamning");
-        
-        }
-                catch(Exception e){
+
+        try {
+            String LQuery = "SELECT * from plats where Plats_ID =" + LocationID;
+            LocationMap = db.fetchRow(LQuery);
+            this.existsIn = Integer.parseInt(LocationMap.get("Finns_I"));
+            this.locationName = LocationMap.get("Benamning");
+
+        } catch (Exception e) {
+            
         }
     }
     

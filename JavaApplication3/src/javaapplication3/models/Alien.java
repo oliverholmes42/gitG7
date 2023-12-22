@@ -4,6 +4,9 @@
  */
 package javaapplication3.models;
 import java.time.LocalDate;
+import java.util.HashMap;
+import oru.inf.InfDB;
+import oru.inf.InfException;
 
 /**
  *
@@ -18,33 +21,31 @@ public class Alien {
     private String alienPhonenumber;
     private Location location;
     private Agent responsibleAgent;
+    public static InfDB db;
 
 
-
-    public Alien(int alienID, LocalDate RegistrationDate, String alienEpost, 
-            String alienPassword, String alienName, String alienPhonenumber, 
-            Location location, Agent responsibleAgent){
+    public Alien(HashMap<String, String> alienMap, Location location, Agent agent){
         
-        this.alienID = alienID;
-        this.RegistrationDate = RegistrationDate;
-        this.alienEpost = alienEpost;
-        this.alienPassword = alienPassword;
-        this.alienName = alienName;
-        this.alienPhonenumber = alienPhonenumber;
+        this.alienID = Integer.parseInt(alienMap.get("Alien_ID"));
+        this.RegistrationDate = LocalDate.parse(alienMap.get("Registreringsdatum"));
+        this.alienEpost = alienMap.get("Epost");
+        this.alienPassword = alienMap.get("Losenord");
+        this.alienName = alienMap.get("Namn");
+        this.alienPhonenumber = alienMap.get("Telefon");
         this.location = location;
-        this.responsibleAgent = responsibleAgent;
+        responsibleAgent = agent;
         
         }
 
 // Setter for name
     
-    public void setalienID(int alienID) {
+    public void setAlienID(int alienID) {
         this.alienID = alienID;
     }
     
 // Getter for name
     
-    public int getalienID() {
+    public int getAlienID() {
         return alienID;
     }
     
@@ -62,75 +63,96 @@ public class Alien {
     
     // Setter for alienEpost
     
-    public void setalienEpost(String alienEpost) {
+    public void setAlienEpost(String alienEpost) {
+        try{
+        String query = "UPDATE alien SET Epost = '" + alienEpost + "' WHERE Alien_ID = " + alienID;
+        db.update(query);
         this.alienEpost = alienEpost;
+       }
+        catch(InfException e){
+       System.out.println(e.getMessage());
+       } 
     }
     
 // Setter for alienEpost
     
-    public String getalienEpost() {
+    public String getAlienEpost() {
         return alienEpost;
     }
     
 // Setter for alienPassword
     
-    public void setalienPassword(String alienPassword) {
-        this.alienPassword = alienPassword;
+    public void setAlienPassword(String alienPassword) {
+        
     }
     
 // Getter for alienPassword
 
-    public String getalienPassword() {
+    public String getAlienPassword() {
         return alienPassword;
     }
     
 // Setter for alienName
     
-    public void setalienName(String alienName) {
+    public void setAlienName(String alienName) {
+        try{
+        String query = "UPDATE alien SET Namn = '" + alienName + "' WHERE Alien_ID = " + alienID;
+        db.update(query);
         this.alienName = alienName;
+       }
+        catch(Exception e){
+       System.out.println(e.getMessage());
+       }
     }
     
 // Getter for alienName
 
-    public String getalienName() {
+    public String getAlienName() {
         return alienName;
     }
     
     
 // Setter for alienPhonenumber
 
-    public void setalienPhonenumber(String alienPhonenumber) {
+    public void setAlienPhonenumber(String alienPhonenumber) {
+        try{
+        String query = "UPDATE alien SET Telefon = '" + alienPhonenumber + "' WHERE Alien_ID = " + alienID;
+        db.update(query);
         this.alienPhonenumber = alienPhonenumber;
+       }
+        catch(Exception e){
+       System.out.println(e.getMessage());
+       } 
     }
   
 // Getter for alienPhonenumber
 
-    public String getalienPhonenumber() {
+    public String getAlienPhonenumber() {
         return alienPhonenumber;
     }
 
 // Setter for alienLocation
 
-    public void setalienLocation(Location location) {
+    public void setAlienLocation(Location location) {
         this.location =  location;
     }
     
 // Getter for alienLocation
 
-    public Location getalienLocation() {
+    public Location getAlienLocation() {
         return location;
     }
     
 // Setter for agent responsible for alien
 
     
-    public void setalienResponslbleAgent(Agent responsibleAgent) {
+    public void setAlienResponslbleAgent(Agent responsibleAgent) {
         this.responsibleAgent =  responsibleAgent;
     }
     
 // Getter for agent responsible for alien
 
-    public Agent getresponsibleAgent() {
+    public Agent getResponsibleAgent() {
         return responsibleAgent;
     }
     
