@@ -23,7 +23,7 @@ public class Agent {
     public static InfDB db;
 
     // Constructor
-    public Agent(HashMap<String, String> agentMap, LocalDate recruitmentDate, Area area) {
+    public Agent(HashMap<String, String> agentMap, Area area) {
         this.agentID = agentID;
         this.name = agentMap.get("Namn");
         this.password = agentMap.get("Losenord");

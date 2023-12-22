@@ -27,6 +27,18 @@ public class Location {
     public void setName(String name) {
         locationName = name;
         ObjectManager.Locations.updateField(locationID, "Benamning", locationName);
+    }
+    
+    public void setArea(Area newArea){
+        area = newArea;
+        ObjectManager.Locations.updateField(locationID, "Finns_I", area.getAreaID());
+    }
+    
+    public void setLocationID(int newLocationID){
+        ObjectManager.Locations.updateField(locationID, "Plats_ID", newLocationID);
+        locationID = newLocationID;
+    }
+    
     
     
     // Setter for Location ID
@@ -97,3 +109,4 @@ public class Location {
 
    
 }
+
