@@ -83,7 +83,14 @@ public class Alien {
 // Setter for alienPassword
     
     public void setAlienPassword(String alienPassword) {
-        
+        try{
+        String query = "UPDATE alien SET Losenord = '" + alienPassword + "' WHERE Alien_ID = " + alienID;
+        db.update(query);
+        this.alienPassword = alienPassword;
+       }
+        catch(InfException e){
+       System.out.println(e.getMessage());
+       }
     }
     
 // Getter for alienPassword
