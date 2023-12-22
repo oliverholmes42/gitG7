@@ -130,7 +130,7 @@ public class MainPage extends javax.swing.JFrame {
         case "ProfilePanel":
             return new ProfilePanel();
         case "EquipmentPanel":
-            return new EquipmentPanel();
+            return new EquipmentPanel(this);
         case "AreaPanel":
             return new AreaPanel();
         case "AgentPanel":
