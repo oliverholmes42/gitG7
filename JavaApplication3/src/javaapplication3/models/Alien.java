@@ -163,6 +163,10 @@ public class Alien {
         return responsibleAgent;
     }
     
+    public Location getLocation() {
+    return location;
+    }
+    
     
 }
         

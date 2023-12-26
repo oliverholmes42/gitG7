@@ -6,17 +6,20 @@ package javaapplication3.GUI.panels;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javaapplication3.GUI.MainPage;
 import javaapplication3.models.Alien;
-import javaapplication3.models.Area;
 import javaapplication3.models.Location;
 import javaapplication3.utils.ObjectManager;
-import static javaapplication3.utils.ObjectManager.db;
 import javaapplication3.utils.PopupHandler;
 import javaapplication3.utils.ResultTableManager;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerDateModel;
 import javax.swing.table.DefaultTableModel;
 import oru.inf.InfException;
 
@@ -32,17 +35,74 @@ public class AlienPanel extends javax.swing.JPanel {
      */
     public AlienPanel(MainPage Parent) throws NumberFormatException, InfException {
         initComponents();
+        SpinnerDateModel model = new SpinnerDateModel();
+        model.setCalendarField(Calendar.DAY_OF_MONTH);    
         ObjectManager.Aliens.loadAlienList();
+        this.Parent = Parent;
+
+        tableModel = (DefaultTableModel) resultTable.getModel();
+        loadTable();
+
+        
         this.Parent = Parent;
         addListener();
         tableModel = (DefaultTableModel) resultTable.getModel();
+        
+        
+        fillAreaFilter();
+        addYearsToComboBox();
+       
+    }
+
+    private void fillAreaFilter() {
         DefaultComboBoxModel<String> dcbm = new DefaultComboBoxModel<>();
-        for(Area item : ObjectManager.Areas.areaList.values()){
+        dcbm.addElement("Välj plats");
+        for(Location item : ObjectManager.Locations.locationList.values()){
             dcbm.addElement(item.getName());
         }
         areaComboBox.setModel(dcbm);
-       
     }
+    
+        private void addYearsToComboBox() {
+
+        int minYear = Integer.MAX_VALUE;
+        int maxYear = Integer.MIN_VALUE;
+
+        for (Alien alien : ObjectManager.Aliens.alienList.values()) {
+            LocalDate registrationDate = alien.getRegistrationDate();
+            int year = registrationDate.getYear();
+
+            if (year < minYear) {
+                minYear = year;
+            }
+            if (year > maxYear) {
+                maxYear = year;
+            }
+        }
+
+        // Add all years between the lowest and highest years to the JComboBox
+        for (int year = minYear; year <= maxYear; year++) {
+            yearPickerComboBox.addItem(Integer.toString(year));
+        }
+    }
+    
+
+    private void loadTable() {
+        tableModel.setRowCount(0); // Clear existing rows
+        
+        for (Alien item : ObjectManager.Aliens.alienList.values()) {
+            String[] row = {
+                Integer.toString(item.getAlienID()),
+                "",
+                item.getAlienName(),
+                item.getAlienPhonenumber(),
+                item.getAlienEpost(),
+                item.getRegistrationDate().toString(),
+                item.getAlienLocation().getName(),
+                item.getResponsibleAgent().getName()
+            };
+            tableModel.addRow(row);
+        }   }
     
     
 
@@ -130,10 +190,10 @@ public class AlienPanel extends javax.swing.JPanel {
         resultTable.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         resultTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1", "Vilson", "Alban", "0760191235", "vilson@.se", "2023-12-23", "2", "4", null}
+                {"1", null, "Vilson", "0760191235", "vilson@.se", "2023-12-23", "2", "4", null}
             },
             new String [] {
-                "Alien ID", "Namn", "Ras", "Telefonnummer", "E-post", "Incheckningsdatum", "Plats", "Ansvarig Agent", "Välj"
+                "Alien ID", "Ras", "Namn", "Telefonnummer", "E-post", "Incheckningsdatum", "Plats", "Ansvarig Agent", "Välj"
             }
         ) {
             Class[] types = new Class [] {
@@ -152,6 +212,9 @@ public class AlienPanel extends javax.swing.JPanel {
         resultTable.getTableHeader().setResizingAllowed(false);
         resultTable.getTableHeader().setReorderingAllowed(false);
         resultScrollPane.setViewportView(resultTable);
+        if (resultTable.getColumnModel().getColumnCount() > 0) {
+            resultTable.getColumnModel().getColumn(1).setResizable(false);
+        }
 
         clearFilterButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         clearFilterButton.setText("Rensa Filter");
@@ -173,7 +236,7 @@ public class AlienPanel extends javax.swing.JPanel {
 
         monthPickerComboBox.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         monthPickerComboBox.setForeground(new java.awt.Color(51, 51, 51));
-        monthPickerComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Månad" }));
+        monthPickerComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Månad", "Januari", "Februari", "Mars", "April", "Maj", "Juni", "Juli", "Augusti", "September", "Oktober", "November", "December" }));
         monthPickerComboBox.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51), 3));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -233,7 +296,7 @@ public class AlienPanel extends javax.swing.JPanel {
                     .addComponent(addAlienButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(resultScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(164, Short.MAX_VALUE))
+                .addGap(164, 164, 164))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -244,13 +307,25 @@ public class AlienPanel extends javax.swing.JPanel {
     
     //Metod för att hämta eftersökt data
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
-        try{
-            String query = "SELECT * FROM alien";
-            db.fetchRows(query);
+        tableModel.setRowCount(0);
+        for (Alien item : ObjectManager.Aliens.alienList.values()) {
             
-            
-        } catch(InfException e){
-            System.out.println(e.getMessage());
+            if(item.getAlienLocation().getName()==areaComboBox.getSelectedItem()||areaComboBox.getSelectedIndex()==0){
+                if(Integer.toString(item.getRegistrationDate().getYear()).equals(yearPickerComboBox.getSelectedItem())||yearPickerComboBox.getSelectedIndex()==0){
+                    if(item.getRegistrationDate().getMonthValue()==monthPickerComboBox.getSelectedIndex()||monthPickerComboBox.getSelectedIndex()==0){
+                        String[] row = {
+                        Integer.toString(item.getAlienID()),
+                        "",
+                        item.getAlienName(),
+                        item.getAlienPhonenumber(),
+                        item.getAlienEpost(),
+                        item.getRegistrationDate().toString(),
+                        item.getAlienLocation().getName(),
+                        item.getResponsibleAgent().getName()
+                         };
+
+                        tableModel.addRow(row);
+            }}}
         }
     }//GEN-LAST:event_searchButtonActionPerformed
 

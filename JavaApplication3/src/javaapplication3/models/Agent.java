@@ -25,7 +25,7 @@ public class Agent {
 
     // Constructor
     public Agent(HashMap<String, String> agentMap, Area area) {
-        this.agentID = agentID;
+        this.agentID = Integer.parseInt(agentMap.get("Agent_ID"));
         this.name = agentMap.get("Namn");
         this.password = agentMap.get("Losenord");
         this.telephone = agentMap.get("Telefon");

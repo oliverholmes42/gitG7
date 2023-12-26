@@ -121,8 +121,9 @@ public class ObjectManager {
         public static void LoadList() throws NumberFormatException, InfException {
             if(!agentList.isEmpty()) {agentList.clear();}
             
-            Areas.loadList();
-            ArrayList<HashMap<String, String>> map = db.fetchRows("SELECT * FROM agent");
+            if(Areas.areaList.isEmpty()) {Areas.loadList();}
+            
+            ArrayList<HashMap<String, String>> map = db.fetchRows("SELECT * FROM agent"); 
             for(HashMap<String,String> singleMap : map){
                 int id = Integer.parseInt(singleMap.get("Agent_ID"));
                 int areaID = Integer.parseInt(singleMap.get("Omrade"));
