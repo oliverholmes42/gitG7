@@ -6,11 +6,19 @@ package javaapplication3.GUI.panels;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javaapplication3.GUI.MainPage;
 import javaapplication3.models.Alien;
+import javaapplication3.models.Area;
 import javaapplication3.models.Location;
 import javaapplication3.utils.ObjectManager;
+import static javaapplication3.utils.ObjectManager.db;
 import javaapplication3.utils.PopupHandler;
+import javaapplication3.utils.ResultTableManager;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.table.DefaultTableModel;
+import oru.inf.InfException;
 
 /**
  *
@@ -18,15 +26,25 @@ import javaapplication3.utils.PopupHandler;
  */
 public class AlienPanel extends javax.swing.JPanel {
     private MainPage Parent;
-
+    DefaultTableModel tableModel;
     /**
      * Creates new form AgentPanel
      */
-    public AlienPanel(MainPage Parent) {
+    public AlienPanel(MainPage Parent) throws NumberFormatException, InfException {
         initComponents();
+        ObjectManager.Aliens.loadAlienList();
         this.Parent = Parent;
         addListener();
+        tableModel = (DefaultTableModel) resultTable.getModel();
+        DefaultComboBoxModel<String> dcbm = new DefaultComboBoxModel<>();
+        for(Area item : ObjectManager.Areas.areaList.values()){
+            dcbm.addElement(item.getName());
+        }
+        areaComboBox.setModel(dcbm);
+       
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -72,12 +90,22 @@ public class AlienPanel extends javax.swing.JPanel {
         searchButton.setText("Sök");
         searchButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51), 3));
         searchButton.setOpaque(true);
+        searchButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchButtonActionPerformed(evt);
+            }
+        });
 
         areaComboBox.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         areaComboBox.setForeground(new java.awt.Color(51, 51, 51));
         areaComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Område" }));
         areaComboBox.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51), 3));
         areaComboBox.setPreferredSize(new java.awt.Dimension(180, 45));
+        areaComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                areaComboBoxActionPerformed(evt);
+            }
+        });
 
         raceComboBox.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         raceComboBox.setForeground(new java.awt.Color(51, 51, 51));
@@ -96,19 +124,31 @@ public class AlienPanel extends javax.swing.JPanel {
         filterLabel.setForeground(new java.awt.Color(51, 51, 51));
         filterLabel.setText("Filtrera efter:");
 
+        resultScrollPane.setViewportBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(63, 63, 63), 3));
+
+        resultTable.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(63, 63, 63), 2));
         resultTable.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         resultTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {"1", "Vilson", "Alban", "0760191235", "vilson@.se", "2023-12-23", "2", "4", null}
             },
             new String [] {
-                "Alien ID", "Namn", "Ras", "Telefonnummer", "E-post", "Incheckningsdatum", "Plats", "Ansvarig Agent"
+                "Alien ID", "Namn", "Ras", "Telefonnummer", "E-post", "Incheckningsdatum", "Plats", "Ansvarig Agent", "Välj"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        resultTable.setToolTipText("");
         resultTable.setRowHeight(60);
+        resultTable.setRowSelectionAllowed(false);
+        resultTable.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        resultTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         resultTable.getTableHeader().setResizingAllowed(false);
         resultTable.getTableHeader().setReorderingAllowed(false);
         resultScrollPane.setViewportView(resultTable);
@@ -201,6 +241,28 @@ public class AlienPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         PopupHandler.addNewAlienPopup(Parent);
     }//GEN-LAST:event_addAlienButtonActionPerformed
+    
+    //Metod för att hämta eftersökt data
+    private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
+        try{
+            String query = "SELECT * FROM alien";
+            db.fetchRows(query);
+            
+            
+        } catch(InfException e){
+            System.out.println(e.getMessage());
+        }
+    }//GEN-LAST:event_searchButtonActionPerformed
+
+    private void areaComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_areaComboBoxActionPerformed
+        try {
+            ResultTableManager.createQueryForAreaFilter(areaComboBox);
+            //String ItemName = (String) areaComboBox.getSelectedItem();
+        } catch (InfException ex) {
+            Logger.getLogger(AlienPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        ObjectManager.offloadAll();
+    }//GEN-LAST:event_areaComboBoxActionPerformed
     
     private void addListener() {
         resultTable.addMouseListener(new MouseAdapter() {
