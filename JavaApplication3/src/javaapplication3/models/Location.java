@@ -29,6 +29,15 @@ public class Location {
         ObjectManager.Locations.updateField(locationID, "Benamning", locationName);
     }
     
+    public String getName(){
+        return locationName;
+    }
+    
+    public void setLocationID(int newLocationID){
+        ObjectManager.Locations.updateField(locationID, "Plats_ID", newLocationID);
+        locationID = newLocationID;
+    }
+    
     public int getId(){
         return locationID;
     }
@@ -38,79 +47,8 @@ public class Location {
         ObjectManager.Locations.updateField(locationID, "Finns_I", area.getAreaID());
     }
     
-    public void setLocationID(int newLocationID){
-        ObjectManager.Locations.updateField(locationID, "Plats_ID", newLocationID);
-        locationID = newLocationID;
+    public Area getArea(){
+        return area;   
     }
-    
-    
-    
-    // Setter for Location ID
-/*
-    public void setLocationID(int newLocationID) {
-       
-       try{
-       String lIDQuery= " UPDATE Plats SET Plats_ID = " + newLocationID + " WHERE Plats_ID = "+ locationID;    
-       db.update(lIDQuery);
-       this.locationID = newLocationID;   
-    }
-       catch(Exception e){
-            System.out.println(e.getMessage());
-        }
-       
-       }
-   
-    
-    
-    // Getter for Location ID
-
-     public int getLocationID() {
-       return locationID;
-   }
-    // Setter for what area the alien exists in
-     
-     public void setExistsIn(int newExistsIn) {
-       try{
-        String eQuery= " UPDATE Plats SET Finns_I = " + newExistsIn + " WHERE Plats_ID = "+ locationID;    
-        db.update(eQuery);
-        //this.existsIn = newExistsIn;
-       }
-            catch(Exception e){
-            System.out.println(e.getMessage());
-        }
-   }
-       
-             
-    
-    // Getter for what area the alien exists in
-
-     
-     public int getExistsIn() {
-       return existsIn;
-   }
-     
-    // Setter for name
-
-     
-     public void setLocationName(String newLocationName) {
-         try{
-         String newNameQuery = " UPDATE Plats SET Benamning = " + newLocationName + " WHERE Plats_ID = "+ locationID; 
-         db.update (newNameQuery);
-         this.locationName = newLocationName;        
-         }
-         catch(Exception e){
-            System.out.println(e.getMessage());
-         }
-         
-   }*/
-    
-    // Getter for name
-
-     
-     public String getName() {
-       return locationName;
-     }
-
-   
 }
 
