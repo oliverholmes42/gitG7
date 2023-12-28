@@ -15,6 +15,8 @@ public class UserSession {
     private static InfDB db;
     private static UserSession instance;
     private int userId;
+    private int type;
+    private String name;
 
     private UserSession() {}
 
@@ -36,5 +38,23 @@ public class UserSession {
     public int getUserId() {
         return userId;
     }
+    
+    public int getType(){
+        return type;
+    }
+    
+    public void setType(int type){
+        this.type=type;
+    }
+    
+    public String getName(){
+        return name;
+    }
+    
+     public void setName(String name){
+        this.name = name;
+    }
+    
+    
 }
 

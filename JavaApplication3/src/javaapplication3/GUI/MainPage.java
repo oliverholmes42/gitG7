@@ -50,6 +50,12 @@ public class MainPage extends javax.swing.JFrame {
         createCardLayout();
         cardLayout.show(mainPanelDisplay, "HomePanel");
         creatLogOut();
+        
+        if(UserSession.getInstance().getType()==1) {
+            areaButton.setVisible(false);
+            agentButton.setVisible(false);
+            equipmentButton.setVisible(false);
+        }
     }
 
     private void creatLogOut() {

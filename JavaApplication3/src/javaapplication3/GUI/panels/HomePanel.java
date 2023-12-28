@@ -21,16 +21,7 @@ public class HomePanel extends javax.swing.JPanel {
     public HomePanel() {
         this.db = DatabaseConnection.getInstance();
         initComponents();
-        String greeting = "Welcome!";
-        try {
-            String Name = db.fetchSingle("Select NAMN FROM AGENT WHERE AGENT_ID =" + UserSession.getInstance().getUserId());
-            greeting = "Welcome, " + Name;
-            }
-        catch(Exception e)
-        {
-        }
-        
-        jLabel2.setText(greeting);
+        jLabel2.setText("Välkommen, "+UserSession.getInstance().getName()); 
         
     }
 

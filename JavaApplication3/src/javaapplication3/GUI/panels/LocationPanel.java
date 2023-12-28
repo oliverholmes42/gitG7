@@ -11,8 +11,8 @@ import java.awt.event.MouseEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javaapplication3.GUI.MainPage;
-import javaapplication3.GUI.RegisterNewAlienDialogPopupV2;
-import javaapplication3.GUI.RegisterNewLocationDialog;
+import javaapplication3.GUI.addDialogs.RegisterNewAlienDialogPopupV2;
+import javaapplication3.GUI.addDialogs.RegisterNewLocationDialog;
 import javaapplication3.models.Location;
 import javaapplication3.utils.DatabaseConnection;
 import javaapplication3.utils.ObjectManager;
@@ -113,7 +113,6 @@ public class LocationPanel extends javax.swing.JPanel {
         jTable2.setName(""); // NOI18N
         jTable2.setRowHeight(40);
         jTable2.setRowMargin(1);
-        jTable2.setRowSelectionAllowed(false);
         jTable2.setShowGrid(true);
         jScrollPane2.setViewportView(jTable2);
 

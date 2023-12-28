@@ -29,6 +29,10 @@ public class Location {
         ObjectManager.Locations.updateField(locationID, "Benamning", locationName);
     }
     
+    public int getId(){
+        return locationID;
+    }
+    
     public void setArea(Area newArea){
         area = newArea;
         ObjectManager.Locations.updateField(locationID, "Finns_I", area.getAreaID());
@@ -98,14 +102,14 @@ public class Location {
             System.out.println(e.getMessage());
          }
          
-   }
+   }*/
     
     // Getter for name
 
      
      public String getName() {
        return locationName;
-   }*/
+     }
 
    
 }

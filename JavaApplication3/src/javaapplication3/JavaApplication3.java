@@ -30,8 +30,15 @@ public class JavaApplication3 {
         db = DatabaseConnection.getInstance();
         loginInputValidation.db = db; //Kopplar databasen till loginsidan "loginInputValidation".
         new LoginPage().setVisible(true); //Initialiserar loginsidan som förstasida "LoginPage".
-
-        ObjectManager.Aliens.loadAlienList();
+        
+        
+        
+        
+        
+        
+        
+        
+        System.out.println(2);
         
          
         

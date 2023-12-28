@@ -50,7 +50,7 @@ public class loginInputValidation {
             result = false;//Flaggar för att det är tomt.
         }
         
-        return result;
+        return result; 
     }
     
     //För att kunna jämföra epost med lösenord kommer denna metod hjälpa. Här sker en jämförelse mellan angiven email
@@ -59,22 +59,51 @@ public class loginInputValidation {
         Map<String, Object> resultMap = new HashMap<>();
         boolean isValidated = false;
         int userId = -1;
+        int type = 0;
+        String name = "";
         
         try {
             String emailInput = email.getText();
             char[] passwordInput = password.getPassword();//JPasswordField lagrar data i en Array av char's och måste konverteras.
             String passwordInputToString = String.valueOf(passwordInput);//String.valueOf() sköter konvertering till String.
             
-            String emailQuery = "SELECT Agent_ID FROM agent WHERE Epost = '" + emailInput + "' AND Losenord = '" + passwordInputToString + "'";
-            String emailQueryResult = db.fetchSingle(emailQuery);//SQL-frågan sparas i en lokal variabel.
+            String emailQueryAgent = "SELECT * FROM agent WHERE Epost = '" + emailInput + "' AND Losenord = '" + passwordInputToString + "'";
+            String emailQueryAlien = "SELECT * FROM alien WHERE Epost = '" + emailInput + "' AND Losenord = '" + passwordInputToString + "'";
             
-            if(emailQueryResult == null){//Denna fråga innebär om resultatet från SQL-frågan resulterar i ingenting.
-                                         //Det kan ENDAST resultera i ingenting ifall jämförelsen inte stämmer. 
-                JOptionPane.showMessageDialog(null, "Inloggning misslyckades.");
-            }else{
-                JOptionPane.showMessageDialog(null, "Inloggning lyckades!");
-                isValidated = true;//Flaggar för att valideringen är lyckad.
-                userId = Integer.parseInt(emailQueryResult);
+  
+            HashMap<String, String> emailQueryResultAgent = db.fetchRow(emailQueryAgent);//SQL-frågan sparas i en lokal variabel.
+            HashMap<String,String> emailQueryResultAlien = db.fetchRow(emailQueryAlien);
+            
+            if(emailQueryResultAgent.size()>0){//Denna fråga innebär om resultatet från SQL-frågan resulterar i ingenting.
+                String id = emailQueryResultAgent.get("Agent_ID");
+                                         //Det kan ENDAST resultera i ingenting ifall jämförelsen inte stämmer.
+                String isFaltAgent = db.fetchSingle("SELECT Agent_ID FROM faltagent WHERE Agent_ID = "+id);
+                String isKontorsChef = db.fetchSingle("SELECT Agent_ID FROM kontorschef WHERE Agent_ID = "+id);
+                String isOmradesChef = db.fetchSingle("SELECT Agent_ID FROM omradeschef WHERE Agent_ID = "+id);
+                isValidated = true;
+                userId = Integer.parseInt(emailQueryResultAgent.get("Agent_ID"));
+                name = emailQueryResultAgent.get("Namn");
+                
+                
+                if (isFaltAgent!=null) {
+                    type = 2;
+                }
+                if(isKontorsChef!=null){
+                    type = 3;
+                }
+                
+                if(isOmradesChef!=null){
+                    type = 4;
+                }
+                
+            }else if(emailQueryResultAlien != null){
+                isValidated = true;
+                userId = Integer.parseInt(emailQueryResultAlien.get("Alien_ID"));
+                type = 1;
+                name = emailQueryResultAlien.get("Namn");
+            }
+            else{
+                 JOptionPane.showMessageDialog(null, "Inloggning misslyckades.");
             }
             
         }catch(InfException e){
@@ -84,6 +113,8 @@ public class loginInputValidation {
         
         resultMap.put("isValidated", isValidated);
         resultMap.put("userId", userId);
+        resultMap.put("type", type);
+        resultMap.put("name", name);
         
         return resultMap;
         

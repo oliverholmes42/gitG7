@@ -5,6 +5,9 @@
 package javaapplication3.models;
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javaapplication3.utils.ObjectManager;
 import oru.inf.InfDB;
 import oru.inf.InfException;
 
@@ -38,6 +41,25 @@ public class Alien {
         }
 
 // Setter for name
+    
+    public void editObject(HashMap<String, String> alienMap) {
+        try {
+            ObjectManager.Aliens.updateInstance(alienMap);
+            
+            this.alienID = Integer.parseInt(alienMap.get("Alien_ID"));
+            this.RegistrationDate = LocalDate.parse(alienMap.get("Registreringsdatum"));
+            this.alienEpost = alienMap.get("Epost");
+            this.alienPassword = alienMap.get("Losenord");
+            this.alienName = alienMap.get("Namn");
+            this.alienPhonenumber = alienMap.get("Telefon");
+            this.location = ObjectManager.Locations.locationList.get(Integer.valueOf(alienMap.get("Plats")));
+            this.responsibleAgent = ObjectManager.Agents.agentList.get(Integer.valueOf(alienMap.get("Ansvarig_Agent")));
+            
+        } catch (InfException ex) {
+            Logger.getLogger(Alien.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
     
     public void setAlienID(int alienID) {
         this.alienID = alienID;

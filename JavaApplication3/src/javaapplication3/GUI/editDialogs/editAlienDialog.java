@@ -2,12 +2,21 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
-package javaapplication3.GUI;
+package javaapplication3.GUI.editDialogs;
 
 import java.awt.event.KeyEvent;
 import java.util.HashMap;
-import javaapplication3.utils.PopupHandler;
+import javaapplication3.GUI.panels.AlienPanel;
+import javaapplication3.models.Agent;
+import javaapplication3.models.Alien;
+import javaapplication3.models.Location;
+import javaapplication3.models.alienSubclasses.Boglodite;
+import javaapplication3.models.alienSubclasses.Squid;
+import javaapplication3.models.alienSubclasses.Worm;
+import javaapplication3.utils.ObjectManager;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
 
 
 
@@ -15,19 +24,56 @@ import javax.swing.JOptionPane;
  *
  * @author vilso
  */
-public class RegisterNewAlienDialogPopupV2 extends javax.swing.JDialog {
+public class editAlienDialog extends javax.swing.JDialog {
+    private Alien activeAlien;
+    private AlienPanel Parent;
 
     /**
      * Creates new form RegisterNewAlienDialogPopupV2
      * @param parent
      * @param modal
      */
-    public RegisterNewAlienDialogPopupV2(java.awt.Frame parent, boolean modal) {
+    public editAlienDialog(java.awt.Frame parent,AlienPanel home, boolean modal, Alien alien) {
         super(parent, modal);
+        this.Parent = home;
         initComponents();
+        fillAgentComboBox();
+        fillAreaComboBox();
         dynamicLabel.setVisible(false);
         valueSpinner.setVisible(false);
+        activeAlien = alien;
+        
+        fillInfo(alien);
+        
     }
+
+    private void fillInfo(Alien alien) {
+        nameTextField.setText(alien.getAlienName());
+        phoneTextField.setText(alien.getAlienPhonenumber());
+        emailTextField.setText(alien.getAlienEpost());
+        agentComboBox.setSelectedItem(alien.getResponsibleAgent().getName());
+        areaComboBox.setSelectedItem(alien.getLocation().getName());
+        speciesComboBox.setSelectedItem(alien.getClass().getSimpleName());
+        setSpinner(alien,valueSpinner);
+    }
+    
+    public void setSpinner(Alien alien, JSpinner spinner) {
+    if (alien instanceof Worm) {
+        Worm worm = (Worm) alien;
+        spinner.setValue(worm.getLength()); // Assuming length is a double
+    } else if (alien instanceof Boglodite) {
+        Boglodite boglodite = (Boglodite) alien;
+        int one = boglodite.getBoogieCount();
+        spinner.setValue(boglodite.getBoogieCount()); // Assuming bolgodAmounts is an int
+    } else if (alien instanceof Squid) {
+        Squid squid = (Squid) alien;
+        spinner.setValue(squid.getArmCount()); // Assuming arms is an int
+    } else {
+        // Handle the case where it's a generic Alien or unknown subclass
+        spinner.setValue(0); // Default value or some other appropriate action
+    }
+}
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -69,36 +115,36 @@ public class RegisterNewAlienDialogPopupV2 extends javax.swing.JDialog {
         registerAlienLabel.setBackground(new java.awt.Color(204, 204, 204));
         registerAlienLabel.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         registerAlienLabel.setForeground(new java.awt.Color(204, 204, 204));
-        registerAlienLabel.setText("Registrera ny Alien");
+        registerAlienLabel.setText("Redigera Alien");
 
         inputNameLabel.setBackground(new java.awt.Color(204, 204, 204));
         inputNameLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         inputNameLabel.setForeground(new java.awt.Color(204, 204, 204));
-        inputNameLabel.setText("Ange fullständigt namn:");
+        inputNameLabel.setText("Fullständigt namn:");
 
         inputPhoneLabel.setBackground(new java.awt.Color(204, 204, 204));
         inputPhoneLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         inputPhoneLabel.setForeground(new java.awt.Color(204, 204, 204));
-        inputPhoneLabel.setText("Ange telefonnummer:");
+        inputPhoneLabel.setText("Telefonnummer:");
 
         inputEmailLabel.setBackground(new java.awt.Color(204, 204, 204));
         inputEmailLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         inputEmailLabel.setForeground(new java.awt.Color(204, 204, 204));
-        inputEmailLabel.setText("Ange e-postadress:");
+        inputEmailLabel.setText("E-postadress:");
 
         inputAgentLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         inputAgentLabel.setForeground(new java.awt.Color(204, 204, 204));
-        inputAgentLabel.setText("Ange ansvarig agent:");
+        inputAgentLabel.setText("Ansvarig agent:");
 
         inputAreaLabel.setBackground(new java.awt.Color(204, 204, 204));
         inputAreaLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         inputAreaLabel.setForeground(new java.awt.Color(204, 204, 204));
-        inputAreaLabel.setText("Ange områdeskod:");
+        inputAreaLabel.setText("Områdeskod:");
 
         inputSpeciesLabel.setBackground(new java.awt.Color(204, 204, 204));
         inputSpeciesLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         inputSpeciesLabel.setForeground(new java.awt.Color(204, 204, 204));
-        inputSpeciesLabel.setText("Ange art av alien:");
+        inputSpeciesLabel.setText("Art av alien:");
 
         dynamicLabel.setBackground(new java.awt.Color(204, 204, 204));
         dynamicLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -130,7 +176,6 @@ public class RegisterNewAlienDialogPopupV2 extends javax.swing.JDialog {
         });
 
         agentComboBox.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        agentComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1 (Agent O)", "2 (Agent K)", "3 (Agent J)", "4 (Agent Z)" }));
         agentComboBox.setSelectedIndex(-1);
         agentComboBox.setPreferredSize(new java.awt.Dimension(180, 40));
 
@@ -145,7 +190,6 @@ public class RegisterNewAlienDialogPopupV2 extends javax.swing.JDialog {
         });
 
         areaComboBox.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        areaComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1 (Svealand)", "2 (Götaland)", "3 (Norrland)" }));
         areaComboBox.setSelectedIndex(-1);
         areaComboBox.setPreferredSize(new java.awt.Dimension(180, 40));
 
@@ -159,6 +203,7 @@ public class RegisterNewAlienDialogPopupV2 extends javax.swing.JDialog {
             }
         });
 
+        emailTextField.setEditable(false);
         emailTextField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         emailTextField.setPreferredSize(new java.awt.Dimension(180, 40));
 
@@ -167,33 +212,34 @@ public class RegisterNewAlienDialogPopupV2 extends javax.swing.JDialog {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(54, 54, 54)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(inputNameLabel)
-                    .addComponent(inputEmailLabel)
-                    .addComponent(inputAreaLabel)
-                    .addComponent(areaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(abortButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(emailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(dynamicLabel)
+                        .addGap(54, 54, 54)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(inputNameLabel)
+                            .addComponent(inputEmailLabel)
+                            .addComponent(inputAreaLabel)
+                            .addComponent(areaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(abortButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(emailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addComponent(valueSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(inputPhoneLabel)
-                    .addComponent(phoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(inputAgentLabel)
-                    .addComponent(agentComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(inputSpeciesLabel)
-                    .addComponent(speciesComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(registerButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(dynamicLabel)
+                                .addGap(18, 18, 18)
+                                .addComponent(valueSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(phoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(inputAgentLabel)
+                            .addComponent(agentComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(inputSpeciesLabel)
+                            .addComponent(speciesComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(registerButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(inputPhoneLabel)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(157, 157, 157)
+                        .addComponent(registerAlienLabel)))
                 .addContainerGap(68, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(registerAlienLabel)
-                .addGap(143, 143, 143))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -282,31 +328,86 @@ public class RegisterNewAlienDialogPopupV2 extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_abortButtonActionPerformed
 
+    private void fillAgentComboBox() {
+        DefaultComboBoxModel<String> dcbm = new DefaultComboBoxModel<>();
+        for(Agent item : ObjectManager.Agents.agentList.values()){
+            dcbm.addElement(item.getAgent_ID()+": " + item.getName());
+        }
+        agentComboBox.setModel(dcbm);
+    }
+    
+    private void fillAreaComboBox() {
+        DefaultComboBoxModel<String> dcbm = new DefaultComboBoxModel<>();
+        for(Location item : ObjectManager.Locations.locationList.values()){
+            dcbm.addElement(item.getId()+": " + item.getName());
+        }
+        areaComboBox.setModel(dcbm);
+    }
+    
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
+        try{
+            boolean isNameEmpty = nameTextField.getText().isEmpty();
+            boolean isEmailEmpty = emailTextField.getText().isEmpty();
+            boolean isPhoneEmpty = phoneTextField.getText().isEmpty();
 
-        HashMap<String, String> result = new HashMap<>();
-        double spinnerValueToInt = (double) valueSpinner.getValue();
+            System.out.println("3");
 
-        if (nameTextField.getText().isEmpty() || emailTextField.getText().isEmpty()
-                || phoneTextField.getText().isEmpty()
-                || agentComboBox.getEditor().getItem().toString().isEmpty()
-                || areaComboBox.getEditor().getItem().toString().isEmpty()
-                || speciesComboBox.getEditor().getItem().toString().isEmpty()) {
+            if (nameTextField.getText().isEmpty() || emailTextField.getText().isEmpty() 
+                    || phoneTextField.getText().isEmpty()) {
 
-            JOptionPane.showMessageDialog(null, "Vänligen ange information om Alien du vill registrera med detta formulär");
+                JOptionPane.showMessageDialog(null, "Vänligen ange information om Alien du vill registrera med detta formulär");
 
-        } else {
-            //PopupHandler.getInputFromRegisterForm(nameTextField, emailTextField, phoneTextField, agentComboBox, areaComboBox);
+            } else {
+                HashMap<String,String> alienMap = new HashMap<>();
+                alienMap.put("Alien_ID",String.valueOf(activeAlien.getAlienID()));
+                alienMap.put("Registreringsdatum",activeAlien.getRegistrationDate().toString());
+                alienMap.put("Epost", emailTextField.getText());
+                alienMap.put("Namn",nameTextField.getText());
+                alienMap.put("Telefon", phoneTextField.getText());
+                alienMap.put("Plats", ((String) areaComboBox.getSelectedItem()).split(":")[0].trim());
+                alienMap.put("Ansvarig_Agent", ((String) agentComboBox.getSelectedItem()).split(":")[0].trim());
+                
+               // Check for species change
+                String newSpecies = (String) speciesComboBox.getSelectedItem();
+                String currentSpecies = activeAlien.getClass().getSimpleName();
+
+                if (newSpecies.equals(currentSpecies)) {
+                 if (activeAlien instanceof Worm) {
+
+                    alienMap.put("Langd", ""+ valueSpinner.getValue());
+                    Worm worm = (Worm) activeAlien;
+                    worm.editObject(alienMap);
+
+                } else if (activeAlien instanceof Boglodite) {
+
+                    alienMap.put("Antal_Boogies", ""+ valueSpinner.getValue());
+                    Boglodite boglodite = (Boglodite) activeAlien;
+                    boglodite.editObject(alienMap);
+
+                } else if (activeAlien instanceof Squid) {
+
+                    alienMap.put("Antal_Armar", ""+ valueSpinner.getValue());
+                    Squid squid = (Squid) activeAlien;
+                    squid.editObject(alienMap);
+
+                } else {
+                     activeAlien.editObject(alienMap);
+                }
+                } else {
+                    alienMap.put("value",""+ (int) ((double) valueSpinner.getValue()));
+                    ObjectManager.Aliens.updateSubClass(alienMap,currentSpecies, newSpecies);
+                }
+                 
+                 JOptionPane.showMessageDialog(this, "Redigeringen av Alien "+ activeAlien.getAlienID()+" lyckades!");
+                 Parent.reload();
+                 this.dispose();
             
-            /*result.put("Namn", nameTextField.getText());
-            result.put("Telefon", phoneTextField.getText());
-            result.put("Email", emailTextField.getText());
-            result.put("Ansvarig Agent", agentComboBox.getEditor().getItem().toString());
-            result.put("Område", areaComboBox.getEditor().getItem().toString());
-            result.put("Alien Ras", speciesComboBox.getEditor().getItem().toString());
-            result.put("Värde", Double.toString(spinnerValueToInt));*/
+            }
             
-            
+
+        }
+        catch(Exception e){
+        System.out.println(e);
         }
     }//GEN-LAST:event_registerButtonActionPerformed
 

@@ -6,6 +6,7 @@ package javaapplication3.GUI;
 
 import java.awt.Image;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Map;
 import javaapplication3.utils.DatabaseConnection;
 import javaapplication3.utils.UserSession;
@@ -183,8 +184,13 @@ public class LoginPage extends javax.swing.JFrame {
 
                 if (isValidated) {
                     int userId = (Integer) loginResult.get("userId");
+                    int type = (Integer) loginResult.get("type");
+                    String name = (String) loginResult.get("name");
                     System.out.println("User ID: " + userId);
                     UserSession.getInstance().setUserId(userId);
+                    UserSession.getInstance().setType(type);
+                    UserSession.getInstance().setName(name);
+                    
                     System.out.println("Inloggning lyckades");
                     this.dispose(); // Close login window
                     new MainPage().setVisible(true);
@@ -203,6 +209,8 @@ public class LoginPage extends javax.swing.JFrame {
     
     private void fastLogIn() {
         UserSession.getInstance().setUserId(1);
+        UserSession.getInstance().setType(5);
+        UserSession.getInstance().setName("Xytheron the Devourer");
         this.dispose(); // Close login window
         new MainPage().setVisible(true);   
     }

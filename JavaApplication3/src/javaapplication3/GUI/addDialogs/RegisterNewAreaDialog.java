@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
-package javaapplication3.GUI;
+package javaapplication3.GUI.addDialogs;
 import java.awt.Color;
 
 /**
@@ -41,7 +41,6 @@ public class RegisterNewAreaDialog extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(60, 63, 65));
         setName("addArea"); // NOI18N
-        setPreferredSize(new java.awt.Dimension(500, 650));
 
         nameOfArea.setBackground(new java.awt.Color(221, 221, 221));
         nameOfArea.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N

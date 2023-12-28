@@ -7,18 +7,18 @@ package javaapplication3.GUI.panels;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javaapplication3.GUI.MainPage;
 import javaapplication3.models.Alien;
 import javaapplication3.models.Location;
+import javaapplication3.models.alienSubclasses.Boglodite;
+import javaapplication3.models.alienSubclasses.Squid;
+import javaapplication3.models.alienSubclasses.Worm;
 import javaapplication3.utils.ObjectManager;
 import javaapplication3.utils.PopupHandler;
-import javaapplication3.utils.ResultTableManager;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JSpinner;
+import javax.swing.JOptionPane;
 import javax.swing.SpinnerDateModel;
 import javax.swing.table.DefaultTableModel;
 import oru.inf.InfException;
@@ -51,6 +51,7 @@ public class AlienPanel extends javax.swing.JPanel {
         
         fillAreaFilter();
         addYearsToComboBox();
+
        
     }
 
@@ -93,7 +94,8 @@ public class AlienPanel extends javax.swing.JPanel {
         for (Alien item : ObjectManager.Aliens.alienList.values()) {
             String[] row = {
                 Integer.toString(item.getAlienID()),
-                "",
+                item.getClass().getSimpleName(),
+                getSubValue(item),
                 item.getAlienName(),
                 item.getAlienPhonenumber(),
                 item.getAlienEpost(),
@@ -103,6 +105,24 @@ public class AlienPanel extends javax.swing.JPanel {
             };
             tableModel.addRow(row);
         }   }
+
+    private String getSubValue(Alien item) {
+        String uniqueValue;
+        if (item instanceof Worm) {
+            Worm worm = (Worm) item;
+            uniqueValue = "Längd: " + worm.getLength();
+        } else if (item instanceof Squid) {
+            Squid squid = (Squid) item;
+            uniqueValue = "Armar: " + squid.getArmCount(); // Replace getArmCount() with the actual method name
+        } else if (item instanceof Boglodite) {
+            Boglodite boglodite = (Boglodite) item;
+            uniqueValue = "Boogies: " + boglodite.getBoogieCount(); // Replace getBoogieCount() with the actual method name
+        } else {
+            // Handle the generic Alien case or unknown subclass
+            uniqueValue = "Unknown Alien Type";
+        }
+        return uniqueValue;
+    }
     
     
 
@@ -128,6 +148,7 @@ public class AlienPanel extends javax.swing.JPanel {
         removeAlienButton = new javax.swing.JButton();
         addAlienButton = new javax.swing.JButton();
         monthPickerComboBox = new javax.swing.JComboBox<>();
+        editAlienButton = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(200, 200, 200));
         setMaximumSize(new java.awt.Dimension(1128, 792));
@@ -140,7 +161,6 @@ public class AlienPanel extends javax.swing.JPanel {
 
         searchbarTextfield.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         searchbarTextfield.setForeground(new java.awt.Color(51, 51, 51));
-        searchbarTextfield.setText("Sök efter Alien...");
         searchbarTextfield.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51), 3));
         searchbarTextfield.setOpaque(true);
         searchbarTextfield.setPreferredSize(new java.awt.Dimension(100, 45));
@@ -169,7 +189,7 @@ public class AlienPanel extends javax.swing.JPanel {
 
         raceComboBox.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         raceComboBox.setForeground(new java.awt.Color(51, 51, 51));
-        raceComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ras" }));
+        raceComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ras", "Worm", "Squid", "Boglodite" }));
         raceComboBox.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51), 3));
         raceComboBox.setPreferredSize(new java.awt.Dimension(180, 45));
 
@@ -190,25 +210,24 @@ public class AlienPanel extends javax.swing.JPanel {
         resultTable.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         resultTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1", null, "Vilson", "0760191235", "vilson@.se", "2023-12-23", "2", "4", null}
+                {"1", null, null, "Vilson", "0760191235", "vilson@.se", "2023-12-23", "2", "4"}
             },
             new String [] {
-                "Alien ID", "Ras", "Namn", "Telefonnummer", "E-post", "Incheckningsdatum", "Plats", "Ansvarig Agent", "Välj"
+                "Alien ID", "Ras", "Unikt Värde", "Namn", "Telefonnummer", "E-post", "Incheckningsdatum", "Plats", "Ansvarig Agent"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false
             };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         resultTable.setToolTipText("");
         resultTable.setRowHeight(60);
-        resultTable.setRowSelectionAllowed(false);
+        resultTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         resultTable.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        resultTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         resultTable.getTableHeader().setResizingAllowed(false);
         resultTable.getTableHeader().setReorderingAllowed(false);
         resultScrollPane.setViewportView(resultTable);
@@ -224,6 +243,11 @@ public class AlienPanel extends javax.swing.JPanel {
         removeAlienButton.setText("Ta bort Alien");
         removeAlienButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51), 3));
         removeAlienButton.setEnabled(false);
+        removeAlienButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeAlienButtonActionPerformed(evt);
+            }
+        });
 
         addAlienButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         addAlienButton.setText("Lägg till Alien");
@@ -238,6 +262,16 @@ public class AlienPanel extends javax.swing.JPanel {
         monthPickerComboBox.setForeground(new java.awt.Color(51, 51, 51));
         monthPickerComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Månad", "Januari", "Februari", "Mars", "April", "Maj", "Juni", "Juli", "Augusti", "September", "Oktober", "November", "December" }));
         monthPickerComboBox.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51), 3));
+
+        editAlienButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        editAlienButton.setText("Redigera Alien");
+        editAlienButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51), 3));
+        editAlienButton.setEnabled(false);
+        editAlienButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editAlienButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -271,7 +305,10 @@ public class AlienPanel extends javax.swing.JPanel {
                                 .addComponent(searchbarTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(removeAlienButton, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(removeAlienButton, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(editAlienButton, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(0, 74, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -293,7 +330,8 @@ public class AlienPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(clearFilterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(removeAlienButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(addAlienButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(addAlienButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(editAlienButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(resultScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(164, 164, 164))
@@ -305,39 +343,81 @@ public class AlienPanel extends javax.swing.JPanel {
         PopupHandler.addNewAlienPopup(Parent);
     }//GEN-LAST:event_addAlienButtonActionPerformed
     
+    public void reload(){
+        loadTable();
+    }
     //Metod för att hämta eftersökt data
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
         tableModel.setRowCount(0);
-        for (Alien item : ObjectManager.Aliens.alienList.values()) {
-            
-            if(item.getAlienLocation().getName()==areaComboBox.getSelectedItem()||areaComboBox.getSelectedIndex()==0){
-                if(Integer.toString(item.getRegistrationDate().getYear()).equals(yearPickerComboBox.getSelectedItem())||yearPickerComboBox.getSelectedIndex()==0){
-                    if(item.getRegistrationDate().getMonthValue()==monthPickerComboBox.getSelectedIndex()||monthPickerComboBox.getSelectedIndex()==0){
-                        String[] row = {
-                        Integer.toString(item.getAlienID()),
-                        "",
-                        item.getAlienName(),
-                        item.getAlienPhonenumber(),
-                        item.getAlienEpost(),
-                        item.getRegistrationDate().toString(),
-                        item.getAlienLocation().getName(),
-                        item.getResponsibleAgent().getName()
-                         };
+    
+    String selectedYear = (String) yearPickerComboBox.getSelectedItem();
+    String selectedRace = (String) raceComboBox.getSelectedItem();
+    String selectedLocation = (String) areaComboBox.getSelectedItem();
+    String searchText = searchbarTextfield.getText().toLowerCase();
+    int selectedMonthIndex = monthPickerComboBox.getSelectedIndex();
 
-                        tableModel.addRow(row);
-            }}}
+    for (Alien item : ObjectManager.Aliens.alienList.values()) {
+        String alienYear = Integer.toString(item.getRegistrationDate().getYear());
+        int alienMonth = item.getRegistrationDate().getMonthValue();
+        String alienRace = item.getClass().getSimpleName();
+        String alienLocation = item.getAlienLocation().getName();
+        String alienName = item.getAlienName().toLowerCase();
+
+        boolean yearMatches = yearPickerComboBox.getSelectedIndex() == 0 || alienYear.equals(selectedYear);
+        boolean monthMatches = selectedMonthIndex == 0 || alienMonth == selectedMonthIndex;
+        boolean raceMatches = raceComboBox.getSelectedIndex() == 0 || alienRace.equals(selectedRace);
+        boolean locationMatches = areaComboBox.getSelectedIndex() == 0 || alienLocation.equals(selectedLocation);
+        boolean nameMatches = alienName.contains(searchText);
+
+        if (nameMatches && yearMatches && monthMatches && raceMatches && locationMatches) {
+            String[] row = {
+                Integer.toString(item.getAlienID()),
+                alienRace,
+                getSubValue(item),
+                item.getAlienName(),
+                item.getAlienPhonenumber(),
+                item.getAlienEpost(),
+                item.getRegistrationDate().toString(),
+                alienLocation,
+                item.getResponsibleAgent().getName()
+            };
+
+            tableModel.addRow(row);
         }
+    }
     }//GEN-LAST:event_searchButtonActionPerformed
 
-    private void areaComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_areaComboBoxActionPerformed
-        try {
-            ResultTableManager.createQueryForAreaFilter(areaComboBox);
-            //String ItemName = (String) areaComboBox.getSelectedItem();
-        } catch (InfException ex) {
-            Logger.getLogger(AlienPanel.class.getName()).log(Level.SEVERE, null, ex);
+    private void removeAlienButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeAlienButtonActionPerformed
+        // TODO add your handling code here:'
+        ArrayList<Integer> selectedID = new ArrayList<Integer>();
+        for(int item: resultTable.getSelectedRows()){
+            selectedID.add(Integer.parseInt((String) resultTable.getValueAt(item, 0)));
         }
-        ObjectManager.offloadAll();
+        int selectedAlienCount = selectedID.size(); // Replace with your method
+    String message = "Delete " + selectedAlienCount + " alien" + (selectedAlienCount > 1 ? "s" : "") + " from the system?";
+    
+    int response = JOptionPane.showConfirmDialog(null, message, "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+    if (response == JOptionPane.YES_OPTION) {
+        // Logic to delete the selected aliens
+        for(int id : selectedID){
+        System.out.println("DELETE from alien where Alien_ID = "+id);}
+    }
+    }//GEN-LAST:event_removeAlienButtonActionPerformed
+
+    private void editAlienButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editAlienButtonActionPerformed
+        // TODO add your handling code here:
+        if(resultTable.getSelectedRows().length==1){
+            PopupHandler.editAlienPopup(Parent,this,ObjectManager.Aliens.getAlien(Integer.parseInt((String) resultTable.getValueAt(resultTable.getSelectedRow(), 0))));
+        }
+        else {JOptionPane.showMessageDialog(this,"Endast en Alien kan redigeras samtidigt!");}
+    }//GEN-LAST:event_editAlienButtonActionPerformed
+
+    private void areaComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_areaComboBoxActionPerformed
+        // TODO add your handling code here:
     }//GEN-LAST:event_areaComboBoxActionPerformed
+
+    
+    
     
     private void addListener() {
         resultTable.addMouseListener(new MouseAdapter() {
@@ -347,6 +427,7 @@ public class AlienPanel extends javax.swing.JPanel {
                     int row = resultTable.getSelectedRow();
                     if (row >= 0) {
                         removeAlienButton.setEnabled(true);
+                        editAlienButton.setEnabled(true);
                         
                     }
                 }
@@ -369,6 +450,7 @@ public class AlienPanel extends javax.swing.JPanel {
     private javax.swing.JButton addAlienButton;
     private javax.swing.JComboBox<String> areaComboBox;
     private javax.swing.JButton clearFilterButton;
+    private javax.swing.JButton editAlienButton;
     private javax.swing.JLabel filterLabel;
     private javax.swing.JLabel headerLabel;
     private javax.swing.JComboBox<String> monthPickerComboBox;

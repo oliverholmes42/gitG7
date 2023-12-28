@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
-package javaapplication3.GUI;
+package javaapplication3.GUI.addDialogs;
 
 import java.awt.Color;
 import java.util.logging.Level;
@@ -34,10 +34,10 @@ public class RegisterNewLocationDialog extends javax.swing.JDialog {
         System.out.println(IDField.getText());
         DefaultComboBoxModel<String> model2 = new DefaultComboBoxModel<>();
         ObjectManager.Areas.loadList();
-        /*for (Area item: areaList) {
+        for (Area item: ObjectManager.Areas.areaList.values()) {
             model2.addElement(item.getAreaID()+": "+item.getName());
         }
-        ExistsInBox.setModel(model2);*/
+        ExistsInBox.setModel(model2);
 
     }
 

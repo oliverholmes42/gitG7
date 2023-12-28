@@ -5,10 +5,13 @@
 package javaapplication3.utils;
 
 import javaapplication3.GUI.MainPage;
-import javaapplication3.GUI.RegisterNewAgentDialog;
-import javaapplication3.GUI.RegisterNewAlienDialogPopupV2;
-import javaapplication3.GUI.RegisterNewAreaDialog;
-import javaapplication3.GUI.RegisterNewUtilitiesDialog;
+import javaapplication3.GUI.addDialogs.RegisterNewAgentDialog;
+import javaapplication3.GUI.addDialogs.RegisterNewAlienDialogPopupV2;
+import javaapplication3.GUI.addDialogs.RegisterNewAreaDialog;
+import javaapplication3.GUI.addDialogs.RegisterNewUtilitiesDialog;
+import javaapplication3.GUI.editDialogs.editAlienDialog;
+import javaapplication3.GUI.panels.AlienPanel;
+import javaapplication3.models.Alien;
 import javax.swing.JSpinner;
 import oru.inf.InfDB;
 import oru.inf.InfException;
@@ -91,6 +94,10 @@ public class PopupHandler {
     
     public static void addNewAlienPopup(MainPage Parent){
         new RegisterNewAlienDialogPopupV2(Parent, true).setVisible(true);
+    }
+    
+    public static void editAlienPopup(MainPage Parent,AlienPanel home , Alien alien){
+        new editAlienDialog(Parent,home, true, alien).setVisible(true);
     }
     
     //Här kan du fixa med lösenordet yaani
