@@ -9,6 +9,7 @@ import static javaapplication3.models.Agent.db;
 import static javaapplication3.models.Utilities.db;
 import oru.inf.InfDB;
 import javaapplication3.utils.DatabaseConnection;
+import javaapplication3.utils.ObjectManager;
 
 /**
  *
@@ -32,33 +33,15 @@ public class Area {
        return areaID;
    }
    
-   @Override
-    public String toString() {
-        return areaID + ": " + areaName;
-    }
-
    public void setAreaID(int newAreaID) {
-           try{
-        String aIDQuery= "' UPDATE Omrade SET Omrades_ID = '" + newAreaID + "' WHERE Omrades_ID = '"+ areaID;
-        db.update(aIDQuery);
-        this.areaID = newAreaID;
-    }
-        catch(Exception e){
-            System.out.println(e.getMessage());
-        }
+       ObjectManager.Areas.updateField(areaID, "Omrades_ID", newAreaID);
+       areaID = newAreaID;
    }
 
 
    public void setName(String newAreaName) {
-        try{
-        String nameQuery = "' UPDATE omrade SET Benamning = '" + newAreaName + "' WHERE  = '" + areaID;
-        db.update(nameQuery);
-        this.areaName = newAreaName;
-       }
-        catch(Exception e){
-       System.out.println(e.getMessage());
-       } 
-  
+       ObjectManager.Areas.updateField(areaID, "Benamning", newAreaName);
+       areaName = newAreaName;  
    }
    
       public String getName() {
