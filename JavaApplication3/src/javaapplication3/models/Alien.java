@@ -61,8 +61,9 @@ public class Alien {
         
     }
     
-    public void setAlienID(int alienID) {
-        this.alienID = alienID;
+    public void setAlienID(int newAlienID) {
+        ObjectManager.Aliens.updateField(alienID, "Alien_ID", newAlienID);
+        alienID = newAlienID;
     }
     
 // Getter for name
@@ -73,8 +74,9 @@ public class Alien {
     
 // Setter for Registrationdate
     
-    public void setRegistrationDate(LocalDate RegistrationDate) {
-        this.RegistrationDate = RegistrationDate;
+    public void setRegistrationDate(LocalDate newRegistrationDate) {
+        ObjectManager.Aliens.updateField(alienID,"Registreringsdatum" , newRegistrationDate.toString());
+        RegistrationDate = newRegistrationDate;
     }
     
 // Getter for Registrationdate
@@ -85,15 +87,9 @@ public class Alien {
     
     // Setter for alienEpost
     
-    public void setAlienEpost(String alienEpost) {
-        try{
-        String query = "UPDATE alien SET Epost = '" + alienEpost + "' WHERE Alien_ID = " + alienID;
-        db.update(query);
-        this.alienEpost = alienEpost;
-       }
-        catch(InfException e){
-       System.out.println(e.getMessage());
-       } 
+    public void setAlienEpost(String newAlienEpost) {
+        ObjectManager.Aliens.updateField(alienID, "Epost", newAlienEpost);
+        alienEpost = newAlienEpost;  
     }
     
 // Setter for alienEpost
@@ -104,15 +100,9 @@ public class Alien {
     
 // Setter for alienPassword
     
-    public void setAlienPassword(String alienPassword) {
-        try{
-        String query = "UPDATE alien SET Losenord = '" + alienPassword + "' WHERE Alien_ID = " + alienID;
-        db.update(query);
-        this.alienPassword = alienPassword;
-       }
-        catch(InfException e){
-       System.out.println(e.getMessage());
-       }
+    public void setAlienPassword(String newAlienPassword) {
+        ObjectManager.Aliens.updateField(alienID, "Losenord", newAlienPassword);
+        alienPassword = newAlienPassword;
     }
     
 // Getter for alienPassword
@@ -123,15 +113,9 @@ public class Alien {
     
 // Setter for alienName
     
-    public void setAlienName(String alienName) {
-        try{
-        String query = "UPDATE alien SET Namn = '" + alienName + "' WHERE Alien_ID = " + alienID;
-        db.update(query);
-        this.alienName = alienName;
-       }
-        catch(Exception e){
-       System.out.println(e.getMessage());
-       }
+    public void setAlienName(String newAlienName) {
+        ObjectManager.Aliens.updateField(alienID, "Namn", newAlienName);
+        alienName = newAlienName;
     }
     
 // Getter for alienName
@@ -143,15 +127,9 @@ public class Alien {
     
 // Setter for alienPhonenumber
 
-    public void setAlienPhonenumber(String alienPhonenumber) {
-        try{
-        String query = "UPDATE alien SET Telefon = '" + alienPhonenumber + "' WHERE Alien_ID = " + alienID;
-        db.update(query);
-        this.alienPhonenumber = alienPhonenumber;
-       }
-        catch(Exception e){
-       System.out.println(e.getMessage());
-       } 
+    public void setAlienPhonenumber(String newAlienPhonenumber) {
+        ObjectManager.Aliens.updateField(alienID, "Telefon", newAlienPhonenumber);
+        alienPhonenumber = newAlienPhonenumber; 
     }
   
 // Getter for alienPhonenumber
@@ -162,8 +140,9 @@ public class Alien {
 
 // Setter for alienLocation
 
-    public void setAlienLocation(Location location) {
-        this.location =  location;
+    public void setAlienLocation(Location newLocation) {
+        ObjectManager.Aliens.updateField(alienID, "Plats", newLocation.getId());
+        location =  newLocation;
     }
     
 // Getter for alienLocation
@@ -175,8 +154,9 @@ public class Alien {
 // Setter for agent responsible for alien
 
     
-    public void setAlienResponslbleAgent(Agent responsibleAgent) {
-        this.responsibleAgent =  responsibleAgent;
+    public void setAlienResponsibleAgent(Agent newResponsibleAgent) {
+        ObjectManager.Aliens.updateField(alienID, "Ansvarig_Agent", newResponsibleAgent.getAgent_ID());
+        responsibleAgent =  newResponsibleAgent;
     }
     
 // Getter for agent responsible for alien
@@ -185,9 +165,9 @@ public class Alien {
         return responsibleAgent;
     }
     
-    public Location getLocation() {
-    return location;
-    }
+    //public Location getLocation() {
+    //return location;
+    //}
     
     
 }

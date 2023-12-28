@@ -52,7 +52,7 @@ public class editAlienDialog extends javax.swing.JDialog {
         phoneTextField.setText(alien.getAlienPhonenumber());
         emailTextField.setText(alien.getAlienEpost());
         agentComboBox.setSelectedItem(alien.getResponsibleAgent().getName());
-        areaComboBox.setSelectedItem(alien.getLocation().getName());
+        areaComboBox.setSelectedItem(alien.getAlienLocation().getName());
         speciesComboBox.setSelectedItem(alien.getClass().getSimpleName());
         setSpinner(alien,valueSpinner);
     }
