@@ -346,6 +346,24 @@ public class ObjectManager {
             }
         }
         
+        public static void updateField(int id, String column, String newValue){
+            try{
+                String updateQuery = "UPDATE utrustning SET " + column + " = '" + newValue + "' Utrustnings_ID = " + id;
+                db.update(updateQuery);
+            } catch(InfException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        
+        public static void updateField(int id, String column, int newValue){
+            try{
+                String updateQuery = "UPDATE utrustning SET " + column + " = " + newValue + " Utrustnings_ID = " + id;
+                db.update(updateQuery);
+            } catch(InfException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        
         public static void offLoad(){
         utilitiesList.clear();
         }

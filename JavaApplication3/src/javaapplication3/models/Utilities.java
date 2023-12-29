@@ -4,9 +4,8 @@
  */
 package javaapplication3.models;
 import java.util.HashMap;
-import static javaapplication3.models.Alien.db;
 import oru.inf.InfDB;
-import javaapplication3.utils.DatabaseConnection;
+import javaapplication3.utils.ObjectManager;
 
 /**
  *
@@ -25,27 +24,15 @@ public class Utilities {
 
     }
     
-    public void setName(String name){
-   
-        try{
-        String query = "UPDATE Utrustning SET Benamning = " + name + " WHERE Utrustnings_ID  = " + utilityID;
-        db.update(query);
-        this.name = name;
-       }
-        catch(Exception e){
-       System.out.println(e.getMessage());
-       }
+    public void setName(String newName){
+        ObjectManager.UtilitiesHandler.updateField(utilityID, "Benamning", newName);
+        name = newName; 
+
     }
     
     public void setID(int newUtilityID){
-        try{
-        String query = "UPDATE Utrustning SET Utrustnings_ID  = " + newUtilityID + " WHERE Utrustnings_ID  = " + utilityID;
-        db.update(query);
-        this.utilityID = newUtilityID;
-       }
-        catch(Exception e){
-       System.out.println(e.getMessage());
-       }
+        ObjectManager.UtilitiesHandler.updateField(utilityID, "Utrustnings_ID", newUtilityID);
+        utilityID = newUtilityID;
     }
      
     public String getName(){
