@@ -8,6 +8,7 @@ import javaapplication3.GUI.MainPage;
 import javaapplication3.GUI.addDialogs.RegisterNewAgentDialog;
 import javaapplication3.GUI.addDialogs.RegisterNewAlienDialogPopupV2;
 import javaapplication3.GUI.addDialogs.RegisterNewAreaDialog;
+import javaapplication3.GUI.addDialogs.RegisterNewPasswordDialog;
 import javaapplication3.GUI.addDialogs.RegisterNewUtilitiesDialog;
 import javaapplication3.GUI.editDialogs.editAlienDialog;
 import javaapplication3.GUI.panels.AlienPanel;
@@ -119,6 +120,10 @@ public class PopupHandler {
     
     public static void addNewUtilitiesPopup(MainPage Parent){
         new RegisterNewUtilitiesDialog(Parent, true).setVisible(true);
+    }
+    
+    public static void addNewPasswordPopup(MainPage Parent){
+        new RegisterNewPasswordDialog(Parent, true).setVisible(true);
     }
     
 }

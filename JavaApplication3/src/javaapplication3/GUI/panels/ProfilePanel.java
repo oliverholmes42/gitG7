@@ -5,8 +5,10 @@
 package javaapplication3.GUI.panels;
 
 import java.util.HashMap;
+import javaapplication3.GUI.MainPage;
 import oru.inf.InfDB;
 import javaapplication3.utils.DatabaseConnection;
+import javaapplication3.utils.PopupHandler;
 import javaapplication3.utils.UserSession;
 
 
@@ -17,6 +19,7 @@ import javaapplication3.utils.UserSession;
 public class ProfilePanel extends javax.swing.JPanel {
     
     public static InfDB db; 
+    private MainPage Parent;
     /**
      * Creates new form AgentPanel
      */
@@ -332,7 +335,7 @@ public class ProfilePanel extends javax.swing.JPanel {
                         .addComponent(losenordPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(NyttLösenButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(237, Short.MAX_VALUE))
+                .addContainerGap(240, Short.MAX_VALUE))
         );
 
         namnPanel.getAccessibleContext().setAccessibleDescription("");
@@ -340,6 +343,7 @@ public class ProfilePanel extends javax.swing.JPanel {
 
     private void NyttLösenButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NyttLösenButton1ActionPerformed
         // TODO add your handling code here:
+        PopupHandler.addNewPasswordPopup(Parent);
     }//GEN-LAST:event_NyttLösenButton1ActionPerformed
 
     private void testButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_testButtonActionPerformed
@@ -359,6 +363,8 @@ public class ProfilePanel extends javax.swing.JPanel {
         catch(Exception e){
         
         }
+        
+    
         
     }//GEN-LAST:event_testButtonActionPerformed
 
