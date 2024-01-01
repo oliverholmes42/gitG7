@@ -25,7 +25,7 @@ public class Worm extends Alien {
     
     public void editObject(HashMap<String,String> alienMap) {
         super.editObject(alienMap);
-        length = Double.parseDouble(alienMap.get("Langd"));
+         length = Double.parseDouble(alienMap.get("Langd"));
     }
 
     // Getters and setters for the length attribute

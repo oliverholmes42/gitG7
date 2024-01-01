@@ -4,12 +4,14 @@
  */
 package javaapplication3.GUI.panels;
 
-import java.util.HashMap;
 import javaapplication3.GUI.MainPage;
+import javaapplication3.models.Agent;
 import oru.inf.InfDB;
-import javaapplication3.utils.DatabaseConnection;
+import javaapplication3.utils.ObjectManager;
 import javaapplication3.utils.PopupHandler;
 import javaapplication3.utils.UserSession;
+import javax.naming.spi.DirStateFactory.Result;
+import oru.inf.InfException;
 
 
 /**
@@ -20,12 +22,15 @@ public class ProfilePanel extends javax.swing.JPanel {
     
     public static InfDB db; 
     private MainPage Parent;
+    private Agent profile;
     /**
      * Creates new form AgentPanel
      */
-    public ProfilePanel() {
+    public ProfilePanel() throws NumberFormatException, InfException {
     initComponents();
-    db = DatabaseConnection.getInstance();
+    ObjectManager.Agents.LoadList();
+    profile = ObjectManager.Agents.agentList.get(UserSession.getInstance().getUserId());
+    fillPage();
     }
 
     /**
@@ -61,7 +66,6 @@ public class ProfilePanel extends javax.swing.JPanel {
         NyttLösenButton1 = new javax.swing.JButton();
         profilTitel = new javax.swing.JLabel();
         profilBild = new javax.swing.JLabel();
-        testButton = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(200, 200, 200));
         setMaximumSize(new java.awt.Dimension(1128, 792));
@@ -275,13 +279,6 @@ public class ProfilePanel extends javax.swing.JPanel {
 
         profilBild.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/AgentBild.png"))); // NOI18N
 
-        testButton.setText("Test");
-        testButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                testButtonActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -301,10 +298,7 @@ public class ProfilePanel extends javax.swing.JPanel {
                             .addComponent(namnPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(73, 73, 73)
                         .addComponent(profilBild))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(profilTitel, javax.swing.GroupLayout.PREFERRED_SIZE, 538, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(testButton, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(profilTitel, javax.swing.GroupLayout.PREFERRED_SIZE, 538, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(188, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -312,9 +306,7 @@ public class ProfilePanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(testButton, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
+                        .addGap(95, 95, 95)
                         .addComponent(profilBild))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(41, 41, 41)
@@ -335,7 +327,7 @@ public class ProfilePanel extends javax.swing.JPanel {
                         .addComponent(losenordPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(NyttLösenButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(240, Short.MAX_VALUE))
+                .addContainerGap(237, Short.MAX_VALUE))
         );
 
         namnPanel.getAccessibleContext().setAccessibleDescription("");
@@ -346,28 +338,22 @@ public class ProfilePanel extends javax.swing.JPanel {
         PopupHandler.addNewPasswordPopup(Parent);
     }//GEN-LAST:event_NyttLösenButton1ActionPerformed
 
-    private void testButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_testButtonActionPerformed
+    private void fillPage() {
         // TODO add your handling code here:
-        HashMap <String,String> Result;
-        try{
-        String emailQuery = "SELECT * from agent join omrade on agent.Omrade = omrade.Omrades_ID where Agent_ID ="+ UserSession.getInstance().getUserId();
-        Result = db.fetchRow(emailQuery);//SQL-frågan sparas i en lokal variabel.
-        namnData.setText(Result.get("Namn"));
-        epostData.setText(Result.get("Epost"));
-        telefonData.setText(Result.get("Telefon"));
-        anstallningsDatumData.setText(Result.get("Anstallningsdatum"));
-        administratorData.setText(Result.get("Administrator"));
-        tillhorOmradeData.setText(Result.get("Benamning"));
-        losenordData.setText(Result.get("Losenord"));
-        }
-        catch(Exception e){
         
-        }
-        
-    
-        
-    }//GEN-LAST:event_testButtonActionPerformed
+        namnData.setText(profile.getName());
+        epostData.setText(profile.getEmail());
+        telefonData.setText(profile.getTelephone());
+        anstallningsDatumData.setText(profile.getRecruitmentDate().toString());
+        administratorData.setText(profile.getAdmin());
+        tillhorOmradeData.setText(profile.getArea().getName());
+        losenordData.setText(writePassword());
+    }
 
+    private String writePassword(){
+    
+        return "*".repeat(profile.getPassword().length());
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton NyttLösenButton1;
@@ -391,7 +377,6 @@ public class ProfilePanel extends javax.swing.JPanel {
     private javax.swing.JLabel telefonData;
     private javax.swing.JPanel telefonPanel;
     private javax.swing.JLabel telefonText;
-    private javax.swing.JButton testButton;
     private javax.swing.JLabel tillhorOmradeData;
     private javax.swing.JPanel tillhorOmradePanel;
     private javax.swing.JLabel tillhorOmradeText;
