@@ -22,7 +22,7 @@ import oru.inf.InfDB;
  * @author vilson, aiham, oliver, albin
  */
 public class LoginPage extends javax.swing.JFrame {
-    private static InfDB db;
+    private static InfDB db = DatabaseConnection.getInstance();
 
     /**
      * Autogenererad kod.
@@ -31,7 +31,6 @@ public class LoginPage extends javax.swing.JFrame {
     public LoginPage() {
         initComponents();
         loadIcon();
-        this.db = DatabaseConnection.getInstance();
         createFastButton();
     }
 

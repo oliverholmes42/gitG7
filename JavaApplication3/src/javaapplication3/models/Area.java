@@ -29,7 +29,7 @@ public class Area {
    
 
    // Getters and Setters
-   public int getAreaID() {
+   public int getId() {
        return areaID;
    }
    

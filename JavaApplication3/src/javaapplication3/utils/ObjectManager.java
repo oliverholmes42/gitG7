@@ -4,8 +4,8 @@
  */
 package javaapplication3.utils;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,6 +21,7 @@ import oru.inf.InfException;
  *
  * @author mopaj
  */
+
 public class ObjectManager {
 
     public static InfDB db = DatabaseConnection.getInstance();
@@ -40,6 +41,80 @@ public class ObjectManager {
             }
         }
     }
+    
+    public static HashMap<String, String> getFieldMap(Object obj) {
+        HashMap<String, String> fieldMap = new HashMap<>();
+        Class<?> objClass = obj.getClass();
+  
+        for (Field field : objClass.getDeclaredFields()) {
+            if(!field.getName().equals("db")){
+            field.setAccessible(true);
+            try {
+                Object value = field.get(obj);
+                String stringValue;
+
+                
+                Package classPackage = value.getClass().getPackage();
+                String name = classPackage.getName();
+                 boolean inModels = name.contains(".models");
+                // Inline check if the object is from the .models package
+                if (value != null && inModels) {
+                    // Inline attempt to get the ID of a model object
+                    try {
+                        Method getIdMethod = value.getClass().getMethod("getId");
+                        stringValue = String.valueOf(getIdMethod.invoke(value));
+                    } catch (Exception e) {
+                        stringValue = "N/A"; // or handle the exception as needed
+                    }
+                } else {
+                    stringValue = String.valueOf(value);
+                }
+
+                // Inline capitalization of the first letter of a string
+                String fieldName = field.getName();
+                if (fieldName != null && !fieldName.isEmpty()) {
+                    fieldName = fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
+                }
+                fieldMap.put(fieldName, stringValue);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }}
+
+        return fieldMap;
+    } 
+
+    public static String buildUpdateQuery(String tableName, HashMap<String, String> data, String keyColumn) {
+        if (data.isEmpty()) {
+            throw new IllegalArgumentException("Data map cannot be empty");
+        }
+        if (!data.containsKey(keyColumn)) {
+            throw new IllegalArgumentException("Key column '" + keyColumn + "' not found in data map");
+        }
+
+        String idValue = data.get(keyColumn);
+
+        StringBuilder queryBuilder = new StringBuilder("UPDATE ");
+        queryBuilder.append(tableName).append(" SET ");
+
+        StringJoiner setJoiner = new StringJoiner(", ");
+
+        for (Map.Entry<String, String> entry : data.entrySet()) {
+            String column = entry.getKey();
+            String value = entry.getValue();
+
+            // Skip the key column in the SET clause
+            if (!column.equals(keyColumn)) {
+                setJoiner.add(column + " = '" + value + "'");
+            }
+        }
+
+        queryBuilder.append(setJoiner.toString());
+        queryBuilder.append(" WHERE ").append(keyColumn).append(" = '").append(idValue).append("'");
+
+        return queryBuilder.toString();
+    }
+
     
     public static class Locations {
         public static HashMap<Integer, Location> locationList = new HashMap<>();
@@ -82,6 +157,7 @@ public class ObjectManager {
         locationList.clear();
         }
     }
+    
     
     public static class Aliens{
         public static HashMap<Integer, Alien> alienList = new HashMap<>();
@@ -144,8 +220,8 @@ public class ObjectManager {
             alienMap.remove("Antal_Armar");   // Similarly for other special keys
             alienMap.remove("Langd");
 
-            String alienQuery = buildUpdateQuery("alien", alienMap);
-            db.update(alienQuery);
+            //String alienQuery = ObjectManager.buildUpdateQuery("alien", alienMap);
+            //db.update(alienQuery);
 
         }
 
@@ -156,8 +232,8 @@ public class ObjectManager {
                     bogloditeMap.put("Alien_ID", map.get("Alien_ID"));
                     bogloditeMap.put("Antal_Boogies", map.get("Antal_Boogies"));
 
-                    String bogloditeQuery = buildUpdateQuery("Boglodite", bogloditeMap);
-                    db.update(bogloditeQuery);
+                    //String bogloditeQuery = ObjectManager.buildUpdateQuery("Boglodite", bogloditeMap);
+                    //db.update(bogloditeQuery);
                 }
 
                 // Update 'Squid' table if "Antal_Armar" is present
@@ -166,8 +242,8 @@ public class ObjectManager {
                     squidMap.put("Alien_ID", map.get("Alien_ID"));
                     squidMap.put("Antal_Armar", map.get("Antal_Armar"));
 
-                    String squidQuery = buildUpdateQuery("Squid", squidMap);
-                    db.update(squidQuery);
+                    //String squidQuery = ObjectManager.buildUpdateQuery("Squid", squidMap);
+                    //db.update(squidQuery);
                 }
 
                 // Update 'Worm' table if "Langd" is present
@@ -176,8 +252,8 @@ public class ObjectManager {
                     wormMap.put("Alien_ID", map.get("Alien_ID"));
                     wormMap.put("Langd", map.get("Langd"));
 
-                    String wormQuery = buildUpdateQuery("Worm", wormMap);
-                    db.update(wormQuery);
+                    //String wormQuery = ObjectManager.buildUpdateQuery("Worm", wormMap);
+                   // db.update(wormQuery);
                 }   
             } else {
                 String tableName = newSpecies; // Assuming 'two' is a variable holding the table name
@@ -210,30 +286,6 @@ public class ObjectManager {
                     return new Alien(map, location, agent);
             }   }
 
-        public static String buildUpdateQuery(String tableName, HashMap<String, String> data) {
-            String keyColumn = "Alien_ID";
-            String idValue = data.get(keyColumn); // Get the ID value
-
-            StringBuilder queryBuilder = new StringBuilder("UPDATE ");
-            queryBuilder.append(tableName).append(" SET ");
-
-            StringJoiner setJoiner = new StringJoiner(", ");
-
-            for (Map.Entry<String, String> entry : data.entrySet()) {
-                String column = entry.getKey();
-                String value = entry.getValue();
-
-                // Skip the key column and special keys in the SET clause
-                if (!column.equals(keyColumn)) {
-                    setJoiner.add(column + " = '" + value + "'");
-                }
-            }
-
-            queryBuilder.append(setJoiner.toString());
-            queryBuilder.append(" WHERE ").append(keyColumn).append(" = '").append(idValue).append("'");
-
-            return queryBuilder.toString();
-        }
 
 
                 public static Alien getAlien(int id) {
@@ -246,6 +298,7 @@ public class ObjectManager {
 
             }
 
+    
     public static class Agents {
         public static HashMap<Integer, Agent> agentList = new HashMap<>();
 
@@ -281,20 +334,12 @@ public class ObjectManager {
             }
         }
         
-        public static void updateField(int id, String column, LocalDate newValue){
-            try{
-                String updateQuery = "UPDATE agent SET " + column + " = '" + newValue + "' WHERE Agent_ID = " + id;
-                db.update(updateQuery);
-            } catch(InfException e){
-                System.out.println(e.getMessage());
-            }
-        }
-        
         public static void offLoad(){
         agentList.clear();
         }
     }
 
+    
     public static class Areas {
         public static HashMap<Integer, Area> areaList = new HashMap<>();
 
@@ -332,6 +377,7 @@ public class ObjectManager {
         }
     }
 
+    
     public static class UtilitiesHandler {
         public static HashMap<Integer, Utilities> utilitiesList = new HashMap<>();
 
@@ -368,4 +414,5 @@ public class ObjectManager {
         utilitiesList.clear();
         }
     }
+    
 }

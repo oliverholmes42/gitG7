@@ -155,7 +155,7 @@ public class Alien {
 
     
     public void setAlienResponsibleAgent(Agent newResponsibleAgent) {
-        ObjectManager.Aliens.updateField(alienID, "Ansvarig_Agent", newResponsibleAgent.getAgent_ID());
+        ObjectManager.Aliens.updateField(alienID, "Ansvarig_Agent", newResponsibleAgent.getId());
         responsibleAgent =  newResponsibleAgent;
     }
     

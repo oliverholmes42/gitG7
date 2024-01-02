@@ -23,7 +23,7 @@ public class loginInputValidation {
     
     
     
-    public static InfDB db;
+    private static InfDB db = DatabaseConnection.getInstance();
     
     //Denna metod hanterar fall där epostfältet står tomt när man försöker logga in:
     public static boolean isEmailInputEmpty(JTextField input){

@@ -331,7 +331,7 @@ public class editAlienDialog extends javax.swing.JDialog {
     private void fillAgentComboBox() {
         DefaultComboBoxModel<String> dcbm = new DefaultComboBoxModel<>();
         for(Agent item : ObjectManager.Agents.agentList.values()){
-            dcbm.addElement(item.getAgent_ID()+": " + item.getName());
+            dcbm.addElement(item.getId()+": " + item.getName());
         }
         agentComboBox.setModel(dcbm);
     }

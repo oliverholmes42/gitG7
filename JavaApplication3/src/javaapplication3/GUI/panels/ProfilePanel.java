@@ -10,7 +10,6 @@ import oru.inf.InfDB;
 import javaapplication3.utils.ObjectManager;
 import javaapplication3.utils.PopupHandler;
 import javaapplication3.utils.UserSession;
-import javax.naming.spi.DirStateFactory.Result;
 import oru.inf.InfException;
 
 
@@ -345,7 +344,7 @@ public class ProfilePanel extends javax.swing.JPanel {
         epostData.setText(profile.getEmail());
         telefonData.setText(profile.getTelephone());
         anstallningsDatumData.setText(profile.getRecruitmentDate().toString());
-        administratorData.setText(profile.getAdmin());
+        administratorData.setText(""+"J".equals(profile.getAdmin()));
         tillhorOmradeData.setText(profile.getArea().getName());
         losenordData.setText(writePassword());
     }
@@ -354,6 +353,8 @@ public class ProfilePanel extends javax.swing.JPanel {
     
         return "*".repeat(profile.getPassword().length());
     }
+    
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton NyttLösenButton1;

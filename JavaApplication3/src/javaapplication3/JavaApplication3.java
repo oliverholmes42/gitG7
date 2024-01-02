@@ -22,13 +22,12 @@ import oru.inf.InfException;
  */
 public class JavaApplication3 {
 
-    private static InfDB db;
     
     public static void main(String[] args) throws InfException{
-        
+        ObjectManager.Agents.LoadList();
+       // HashMap<String,String> map = ObjectManager.getFieldMap(ObjectManager.Agents.agentList.get(1));
+       // System.out.println(ObjectManager.buildUpdateQuery("agent", map,"Agent_ID"));
         //Initialisering utav databasuppkoppling:
-        db = DatabaseConnection.getInstance();
-        loginInputValidation.db = db; //Kopplar databasen till loginsidan "loginInputValidation".
         new LoginPage().setVisible(true); //Initialiserar loginsidan som förstasida "LoginPage".
         
         

@@ -35,7 +35,7 @@ public class RegisterNewLocationDialog extends javax.swing.JDialog {
         DefaultComboBoxModel<String> model2 = new DefaultComboBoxModel<>();
         ObjectManager.Areas.loadList();
         for (Area item: ObjectManager.Areas.areaList.values()) {
-            model2.addElement(item.getAreaID()+": "+item.getName());
+            model2.addElement(item.getId()+": "+item.getName());
         }
         ExistsInBox.setModel(model2);
 

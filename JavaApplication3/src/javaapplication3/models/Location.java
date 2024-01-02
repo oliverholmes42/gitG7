@@ -44,7 +44,7 @@ public class Location {
     
     public void setArea(Area newArea){
         area = newArea;
-        ObjectManager.Locations.updateField(locationID, "Finns_I", area.getAreaID());
+        ObjectManager.Locations.updateField(locationID, "Finns_I", area.getId());
     }
     
     public Area getArea(){
