@@ -114,6 +114,36 @@ public class ObjectManager {
 
         return queryBuilder.toString();
     }
+    
+    public static void updateObject(Object obj) {
+        HashMap<String, String> objectMap = getFieldMap(obj);
+        switch (obj.getClass().getName()){
+            case "Agent":
+                String query = buildUpdateQuery("agent", objectMap, "Agent_ID");
+                db.update(query);
+                break;
+            
+            case "Alien":
+                String query = buildUpdateQuery("alien", objectMap, "Alien_ID");
+                db.update(query);
+                break;
+                
+            case "Area":
+                String query = buildUpdateQuery("omrade", objectMap, "Omrades_ID");
+                db.update(query);
+                break;
+            
+            case "Location":
+                String query = buildUpdateQuery("plats", objectMap, "Plats_ID");
+                db.update(query);
+                break;
+                
+            case "Utilities":
+                String query = buildUpdateQuery("utrustning", objectMap, "Utrustnings_ID");
+                db.update(query);
+                break;
+        }
+    }
 
     
     public static class Locations {
