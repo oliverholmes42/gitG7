@@ -16,36 +16,36 @@ import javaapplication3.utils.ObjectManager;
  * @author Albin, Vilson, Oliver, Aiham
  */
 public class Area {
-   private int areaID;
-   private String areaName;
+   private int omrades_ID;
+   private String benamning;
    public static InfDB db;
 
    // Constructor
    public Area(HashMap<String,String> areaMap){
        
-       areaID = Integer.parseInt(areaMap.get("Omrades_ID"));
-       areaName = areaMap.get("Benamning");
+       omrades_ID = Integer.parseInt(areaMap.get("Omrades_ID"));
+       benamning = areaMap.get("Benamning");
    }
    
 
    // Getters and Setters
    public int getId() {
-       return areaID;
+       return omrades_ID;
    }
    
    public void setAreaID(int newAreaID) {
-       ObjectManager.Areas.updateField(areaID, "Omrades_ID", newAreaID);
-       areaID = newAreaID;
+       ObjectManager.Areas.updateField(omrades_ID, "Omrades_ID", newAreaID);
+       omrades_ID = newAreaID;
    }
 
 
    public void setName(String newAreaName) {
-       ObjectManager.Areas.updateField(areaID, "Benamning", newAreaName);
-       areaName = newAreaName;  
+       ObjectManager.Areas.updateField(omrades_ID, "Benamning", newAreaName);
+       benamning = newAreaName;  
    }
    
       public String getName() {
-       return areaName;
+       return benamning;
    }
 }
 

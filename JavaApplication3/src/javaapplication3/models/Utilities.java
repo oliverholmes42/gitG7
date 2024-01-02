@@ -12,34 +12,34 @@ import javaapplication3.utils.ObjectManager;
  * @author aiham, albin, vilson, oliver
  */
 public class Utilities {
-    private int utilityID;
-    private String name;
+    private int utrustnings_ID;
+    private String benamning;
     public static InfDB db;
     
     //Konstruktor
     public Utilities(HashMap<String, String> utilitiesMap){  
         
-        this.utilityID = Integer.parseInt(utilitiesMap.get("Utrustnings_ID"));
-        this.name = utilitiesMap.get("Benamning");
+        this.utrustnings_ID = Integer.parseInt(utilitiesMap.get("Utrustnings_ID"));
+        this.benamning = utilitiesMap.get("Benamning");
 
     }
     
     public void setName(String newName){
-        ObjectManager.UtilitiesHandler.updateField(utilityID, "Benamning", newName);
-        name = newName; 
+        ObjectManager.UtilitiesHandler.updateField(utrustnings_ID, "Benamning", newName);
+        benamning = newName; 
 
     }
     
     public void setID(int newUtilityID){
-        ObjectManager.UtilitiesHandler.updateField(utilityID, "Utrustnings_ID", newUtilityID);
-        utilityID = newUtilityID;
+        ObjectManager.UtilitiesHandler.updateField(utrustnings_ID, "Utrustnings_ID", newUtilityID);
+        utrustnings_ID = newUtilityID;
     }
      
     public String getName(){
-    return name;
+    return benamning;
     }
     
     public int getID(){
-    return utilityID;
+    return utrustnings_ID;
     }
 }

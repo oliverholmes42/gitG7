@@ -17,22 +17,22 @@ import javaapplication3.utils.DatabaseConnection;
  */
 public class OwnsUtilities{
     
-    private Date uttagningsdatum;
-    private Agent agentID;
-    private Utilities utilitiesID;
+    private Date utkvitteringsdatum;
+    private Agent agent_ID;
+    private Utilities utrustnings_ID;
 
     public OwnsUtilities(Date uttagningsdatum, Agent agentID ,Utilities utilitiesID){ 
-        this.uttagningsdatum = uttagningsdatum;
-        this.agentID = agentID;
-        this.utilitiesID = utilitiesID;
+        this.utkvitteringsdatum = uttagningsdatum;
+        this.agent_ID = agentID;
+        this.utrustnings_ID = utilitiesID;
     }
         
     public void setUttagningsDatum(Date uttagningsdatum){
-        this.uttagningsdatum = uttagningsdatum;
+        this.utkvitteringsdatum = uttagningsdatum;
     }
     
     public Date getUttagningsDatum(){
-        return uttagningsdatum;
+        return utkvitteringsdatum;
     }
 }    
 

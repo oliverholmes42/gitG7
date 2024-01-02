@@ -14,28 +14,28 @@ import javaapplication3.models.Location;
  * @author mopaj
  */
 public class Squid extends Alien {
-    private int armCount;
+    private int antal_Armar;
     
     public Squid(HashMap<String, String> alienMap, Location location, Agent agent) {
         super(alienMap, location, agent); // Call the superclass constructor
         if(!alienMap.containsKey("value")){
-        armCount = Integer.parseInt(alienMap.get("Antal_Armar"));
+        antal_Armar = Integer.parseInt(alienMap.get("Antal_Armar"));
         }
-        else {armCount = Integer.parseInt(alienMap.get("value"));}
+        else {antal_Armar = Integer.parseInt(alienMap.get("value"));}
     }
     
     public void editObject(HashMap<String,String> alienMap){
         super.editObject(alienMap);
-        armCount = Integer.parseInt(alienMap.get("Antal_Armar"));
+        antal_Armar = Integer.parseInt(alienMap.get("Antal_Armar"));
     }
 
     // Getters and setters for the length attribute
     public int getArmCount() {
-        return armCount;
+        return antal_Armar;
     }
 
     public void setArmCount(int armCount) {
-        this.armCount = armCount;
+        this.antal_Armar = armCount;
     }
 
     // Other methods...

@@ -93,7 +93,7 @@ public class AlienPanel extends javax.swing.JPanel {
         
         for (Alien item : ObjectManager.Aliens.alienList.values()) {
             String[] row = {
-                Integer.toString(item.getAlienID()),
+                Integer.toString(item.getID()),
                 item.getClass().getSimpleName(),
                 getSubValue(item),
                 item.getAlienName(),
@@ -371,7 +371,7 @@ public class AlienPanel extends javax.swing.JPanel {
 
         if (nameMatches && yearMatches && monthMatches && raceMatches && locationMatches) {
             String[] row = {
-                Integer.toString(item.getAlienID()),
+                Integer.toString(item.getID()),
                 alienRace,
                 getSubValue(item),
                 item.getAlienName(),

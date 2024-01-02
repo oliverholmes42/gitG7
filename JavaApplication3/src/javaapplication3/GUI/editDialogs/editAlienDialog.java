@@ -359,7 +359,7 @@ public class editAlienDialog extends javax.swing.JDialog {
 
             } else {
                 HashMap<String,String> alienMap = new HashMap<>();
-                alienMap.put("Alien_ID",String.valueOf(activeAlien.getAlienID()));
+                alienMap.put("Alien_ID",String.valueOf(activeAlien.getID()));
                 alienMap.put("Registreringsdatum",activeAlien.getRegistrationDate().toString());
                 alienMap.put("Epost", emailTextField.getText());
                 alienMap.put("Namn",nameTextField.getText());
@@ -398,7 +398,7 @@ public class editAlienDialog extends javax.swing.JDialog {
                     ObjectManager.Aliens.updateSubClass(alienMap,currentSpecies, newSpecies);
                 }
                  
-                 JOptionPane.showMessageDialog(this, "Redigeringen av Alien "+ activeAlien.getAlienID()+" lyckades!");
+                 JOptionPane.showMessageDialog(this, "Redigeringen av Alien "+ activeAlien.getID()+" lyckades!");
                  Parent.reload();
                  this.dispose();
             

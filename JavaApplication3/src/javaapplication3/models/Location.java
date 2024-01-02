@@ -13,42 +13,42 @@ import oru.inf.InfDB;
  * @author aiham, albin,oliver, vilson
  */
 public class Location {
-    private int locationID;
-    private Area area;
-    private String locationName;
+    private int plats_ID;
+    private Area finns_I;
+    private String benämning;
     public static InfDB db;
     
     public Location(HashMap<String,String> map, Area area) {
-        locationID = Integer.parseInt(map.get("Plats_ID"));
-        this.area = area;
-        locationName = map.get("Benamning");
+        plats_ID = Integer.parseInt(map.get("Plats_ID"));
+        this.finns_I = area;
+        benämning = map.get("Benamning");
     }
     
     public void setName(String name) {
-        locationName = name;
-        ObjectManager.Locations.updateField(locationID, "Benamning", locationName);
+        benämning = name;
+        ObjectManager.Locations.updateField(plats_ID, "Benamning", benämning);
     }
     
     public String getName(){
-        return locationName;
+        return benämning;
     }
     
     public void setLocationID(int newLocationID){
-        ObjectManager.Locations.updateField(locationID, "Plats_ID", newLocationID);
-        locationID = newLocationID;
+        ObjectManager.Locations.updateField(plats_ID, "Plats_ID", newLocationID);
+        plats_ID = newLocationID;
     }
     
     public int getId(){
-        return locationID;
+        return plats_ID;
     }
     
     public void setArea(Area newArea){
-        area = newArea;
-        ObjectManager.Locations.updateField(locationID, "Finns_I", area.getId());
+        finns_I = newArea;
+        ObjectManager.Locations.updateField(plats_ID, "Finns_I", finns_I.getId());
     }
     
     public Area getArea(){
-        return area;   
+        return finns_I;   
     }
 }
 

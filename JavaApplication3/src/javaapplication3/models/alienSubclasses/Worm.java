@@ -14,27 +14,27 @@ import javaapplication3.models.Location;
  * @author mopaj
  */
 public class Worm extends Alien {
-    private double length;
+    private double langd;
     
     public Worm(HashMap<String, String> alienMap, Location location, Agent agent) {
         super(alienMap, location, agent); // Call the superclass constructor
         if (!alienMap.containsKey("value")){
-        length = Double.parseDouble(alienMap.get("Langd"));
+        langd = Double.parseDouble(alienMap.get("Langd"));
     }
-    else{length =Double.parseDouble(alienMap.get("value"));}}
+    else{langd =Double.parseDouble(alienMap.get("value"));}}
     
     public void editObject(HashMap<String,String> alienMap) {
         super.editObject(alienMap);
-         length = Double.parseDouble(alienMap.get("Langd"));
+         langd = Double.parseDouble(alienMap.get("Langd"));
     }
 
     // Getters and setters for the length attribute
     public double getLength() {
-        return length;
+        return langd;
     }
 
     public void setLength(double length) {
-        this.length = length;
+        this.langd = length;
     }
 
     // Other methods...

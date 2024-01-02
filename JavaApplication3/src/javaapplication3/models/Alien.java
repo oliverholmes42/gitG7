@@ -16,27 +16,27 @@ import oru.inf.InfException;
  * @author aiham
  */
 public class Alien {
-    private int alienID;
-    private LocalDate RegistrationDate;
-    private String alienEpost;
-    private String alienPassword;
-    private String alienName;
-    private String alienPhonenumber;
-    private Location location;
-    private Agent responsibleAgent;
+    private int alien_ID;
+    private LocalDate registreringsdatum;
+    private String epost;
+    private String losenord;
+    private String namn;
+    private String telefon;
+    private Location plats;
+    private Agent ansvarig_Agent;
     public static InfDB db;
 
 
     public Alien(HashMap<String, String> alienMap, Location location, Agent agent){
         
-        this.alienID = Integer.parseInt(alienMap.get("Alien_ID"));
-        this.RegistrationDate = LocalDate.parse(alienMap.get("Registreringsdatum"));
-        this.alienEpost = alienMap.get("Epost");
-        this.alienPassword = alienMap.get("Losenord");
-        this.alienName = alienMap.get("Namn");
-        this.alienPhonenumber = alienMap.get("Telefon");
-        this.location = location;
-        responsibleAgent = agent;
+        this.alien_ID = Integer.parseInt(alienMap.get("Alien_ID"));
+        this.registreringsdatum = LocalDate.parse(alienMap.get("Registreringsdatum"));
+        this.epost = alienMap.get("Epost");
+        this.losenord = alienMap.get("Losenord");
+        this.namn = alienMap.get("Namn");
+        this.telefon = alienMap.get("Telefon");
+        this.plats = location;
+        ansvarig_Agent = agent;
         
         }
 
@@ -46,14 +46,14 @@ public class Alien {
         try {
             ObjectManager.Aliens.updateInstance(alienMap);
             
-            this.alienID = Integer.parseInt(alienMap.get("Alien_ID"));
-            this.RegistrationDate = LocalDate.parse(alienMap.get("Registreringsdatum"));
-            this.alienEpost = alienMap.get("Epost");
-            this.alienPassword = alienMap.get("Losenord");
-            this.alienName = alienMap.get("Namn");
-            this.alienPhonenumber = alienMap.get("Telefon");
-            this.location = ObjectManager.Locations.locationList.get(Integer.valueOf(alienMap.get("Plats")));
-            this.responsibleAgent = ObjectManager.Agents.agentList.get(Integer.valueOf(alienMap.get("Ansvarig_Agent")));
+            this.alien_ID = Integer.parseInt(alienMap.get("Alien_ID"));
+            this.registreringsdatum = LocalDate.parse(alienMap.get("Registreringsdatum"));
+            this.epost = alienMap.get("Epost");
+            this.losenord = alienMap.get("Losenord");
+            this.namn = alienMap.get("Namn");
+            this.telefon = alienMap.get("Telefon");
+            this.plats = ObjectManager.Locations.locationList.get(Integer.valueOf(alienMap.get("Plats")));
+            this.ansvarig_Agent = ObjectManager.Agents.agentList.get(Integer.valueOf(alienMap.get("Ansvarig_Agent")));
             
         } catch (InfException ex) {
             Logger.getLogger(Alien.class.getName()).log(Level.SEVERE, null, ex);
@@ -62,107 +62,107 @@ public class Alien {
     }
     
     public void setAlienID(int newAlienID) {
-        ObjectManager.Aliens.updateField(alienID, "Alien_ID", newAlienID);
-        alienID = newAlienID;
+        ObjectManager.Aliens.updateField(alien_ID, "Alien_ID", newAlienID);
+        alien_ID = newAlienID;
     }
     
 // Getter for name
     
-    public int getAlienID() {
-        return alienID;
+    public int getID() {
+        return alien_ID;
     }
     
 // Setter for Registrationdate
     
     public void setRegistrationDate(LocalDate newRegistrationDate) {
-        ObjectManager.Aliens.updateField(alienID,"Registreringsdatum" , newRegistrationDate.toString());
-        RegistrationDate = newRegistrationDate;
+        ObjectManager.Aliens.updateField(alien_ID,"Registreringsdatum" , newRegistrationDate.toString());
+        registreringsdatum = newRegistrationDate;
     }
     
 // Getter for Registrationdate
 
     public LocalDate getRegistrationDate() {
-        return RegistrationDate;
+        return registreringsdatum;
     }
     
     // Setter for alienEpost
     
     public void setAlienEpost(String newAlienEpost) {
-        ObjectManager.Aliens.updateField(alienID, "Epost", newAlienEpost);
-        alienEpost = newAlienEpost;  
+        ObjectManager.Aliens.updateField(alien_ID, "Epost", newAlienEpost);
+        epost = newAlienEpost;  
     }
     
 // Setter for alienEpost
     
     public String getAlienEpost() {
-        return alienEpost;
+        return epost;
     }
     
 // Setter for alienPassword
     
     public void setAlienPassword(String newAlienPassword) {
-        ObjectManager.Aliens.updateField(alienID, "Losenord", newAlienPassword);
-        alienPassword = newAlienPassword;
+        ObjectManager.Aliens.updateField(alien_ID, "Losenord", newAlienPassword);
+        losenord = newAlienPassword;
     }
     
 // Getter for alienPassword
 
     public String getAlienPassword() {
-        return alienPassword;
+        return losenord;
     }
     
 // Setter for alienName
     
     public void setAlienName(String newAlienName) {
-        ObjectManager.Aliens.updateField(alienID, "Namn", newAlienName);
-        alienName = newAlienName;
+        ObjectManager.Aliens.updateField(alien_ID, "Namn", newAlienName);
+        namn = newAlienName;
     }
     
 // Getter for alienName
 
     public String getAlienName() {
-        return alienName;
+        return namn;
     }
     
     
 // Setter for alienPhonenumber
 
     public void setAlienPhonenumber(String newAlienPhonenumber) {
-        ObjectManager.Aliens.updateField(alienID, "Telefon", newAlienPhonenumber);
-        alienPhonenumber = newAlienPhonenumber; 
+        ObjectManager.Aliens.updateField(alien_ID, "Telefon", newAlienPhonenumber);
+        telefon = newAlienPhonenumber; 
     }
   
 // Getter for alienPhonenumber
 
     public String getAlienPhonenumber() {
-        return alienPhonenumber;
+        return telefon;
     }
 
 // Setter for alienLocation
 
     public void setAlienLocation(Location newLocation) {
-        ObjectManager.Aliens.updateField(alienID, "Plats", newLocation.getId());
-        location =  newLocation;
+        ObjectManager.Aliens.updateField(alien_ID, "Plats", newLocation.getId());
+        plats =  newLocation;
     }
     
 // Getter for alienLocation
 
     public Location getAlienLocation() {
-        return location;
+        return plats;
     }
     
 // Setter for agent responsible for alien
 
     
     public void setAlienResponsibleAgent(Agent newResponsibleAgent) {
-        ObjectManager.Aliens.updateField(alienID, "Ansvarig_Agent", newResponsibleAgent.getId());
-        responsibleAgent =  newResponsibleAgent;
+        ObjectManager.Aliens.updateField(alien_ID, "Ansvarig_Agent", newResponsibleAgent.getId());
+        ansvarig_Agent =  newResponsibleAgent;
     }
     
 // Getter for agent responsible for alien
 
     public Agent getResponsibleAgent() {
-        return responsibleAgent;
+        return ansvarig_Agent;
     }
     
     //public Location getLocation() {
@@ -174,3 +174,4 @@ public class Alien {
         
         
   
+ 

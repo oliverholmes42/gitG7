@@ -25,8 +25,8 @@ public class JavaApplication3 {
     
     public static void main(String[] args) throws InfException{
         ObjectManager.Agents.LoadList();
-       // HashMap<String,String> map = ObjectManager.getFieldMap(ObjectManager.Agents.agentList.get(1));
-       // System.out.println(ObjectManager.buildUpdateQuery("agent", map,"Agent_ID"));
+        HashMap<String,String> map = ObjectManager.getFieldMap(ObjectManager.Agents.agentList.get(1));
+        System.out.println(ObjectManager.buildUpdateQuery("agent", map,"Agent_ID"));
         //Initialisering utav databasuppkoppling:
         new LoginPage().setVisible(true); //Initialiserar loginsidan som förstasida "LoginPage".
         

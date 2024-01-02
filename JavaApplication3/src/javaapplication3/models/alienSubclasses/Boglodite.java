@@ -14,28 +14,28 @@ import javaapplication3.models.Location;
  * @author mopaj
  */
 public class Boglodite extends Alien {
-    private int boogieCount;
+    private int antal_Boogies;
     
     public Boglodite(HashMap<String, String> alienMap, Location location, Agent agent) {
         super(alienMap, location, agent); // Call the superclass constructor
         if(!alienMap.containsKey("value")){
-        boogieCount = Integer.parseInt(alienMap.get("Antal_Boogies"));
+        antal_Boogies = Integer.parseInt(alienMap.get("Antal_Boogies"));
         }
-        else{ boogieCount = Integer.parseInt(alienMap.get("value"));}
+        else{ antal_Boogies = Integer.parseInt(alienMap.get("value"));}
     }
     
     public void editObject(HashMap<String,String> alienMap) {
         super.editObject(alienMap);
-        boogieCount = Integer.parseInt(alienMap.get("Antal_Boogies"));
+        antal_Boogies = Integer.parseInt(alienMap.get("Antal_Boogies"));
     }
 
     // Getters and setters for the length attribute
     public int getBoogieCount() {
-        return boogieCount;
+        return antal_Boogies;
     }
 
     public void setBoogieCount(int boogieCount) {
-        this.boogieCount = boogieCount;
+        this.antal_Boogies = boogieCount;
     }
 
     // Other methods...
