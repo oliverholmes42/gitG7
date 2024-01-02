@@ -89,20 +89,20 @@ public class Alien {
     
 // Setter for alienEpost
     
-    public String getAlienEpost() {
+    public String getEmail() {
         return epost;
     }
     
 // Setter for alienPassword
     
-    public void setAlienPassword(String newAlienPassword) {
+    public void setPassword(String newAlienPassword) {
         //ObjectManager.Aliens.updateField(alien_ID, "Losenord", newAlienPassword);
         losenord = newAlienPassword;
     }
     
 // Getter for alienPassword
 
-    public String getAlienPassword() {
+    public String getPassword() {
         return losenord;
     }
     
@@ -115,7 +115,7 @@ public class Alien {
     
 // Getter for alienName
 
-    public String getAlienName() {
+    public String getName() {
         return namn;
     }
     
@@ -129,7 +129,7 @@ public class Alien {
   
 // Getter for alienPhonenumber
 
-    public String getAlienPhonenumber() {
+    public String getTelephone() {
         return telefon;
     }
 
@@ -142,7 +142,7 @@ public class Alien {
     
 // Getter for alienLocation
 
-    public Location getAlienLocation() {
+    public Location getLocation() {
         return plats;
     }
     

@@ -49,11 +49,11 @@ public class editAlienDialog extends javax.swing.JDialog {
     }
 
     private void fillInfo(Alien alien) {
-        nameTextField.setText(alien.getAlienName());
-        phoneTextField.setText(alien.getAlienPhonenumber());
-        emailTextField.setText(alien.getAlienEpost());
+        nameTextField.setText(alien.getName());
+        phoneTextField.setText(alien.getTelephone());
+        emailTextField.setText(alien.getEmail());
         agentComboBox.setSelectedItem(alien.getResponsibleAgent().getName());
-        areaComboBox.setSelectedItem(alien.getAlienLocation().getName());
+        areaComboBox.setSelectedItem(alien.getLocation().getName());
         speciesComboBox.setSelectedItem(alien.getClass().getSimpleName());
         setSpinner(alien,valueSpinner);
     }

@@ -44,7 +44,10 @@ public class ObjectManager {
     
     public static HashMap<String, String> getFieldMap(Object obj) {
         HashMap<String, String> fieldMap = new HashMap<>();
-        Class<?> objClass = obj.getClass();
+        Class<?> objClass = obj.getClass(); // Get the class of the object
+
+        if (Alien.class.isAssignableFrom(objClass)) {
+            objClass = Alien.class;}
   
         for (Field field : objClass.getDeclaredFields()) {
             if(!field.getName().equals("db")){
@@ -143,8 +146,13 @@ public class ObjectManager {
    
     public static void updateObject(Object obj) throws InfException {
         HashMap<String, String> objectMap = getFieldMap(obj);
-        String query = "";
-        switch (obj.getClass().getSimpleName()){
+        Class<?> objClass = obj.getClass();
+        String query= "";// Get the class of the object
+
+        if (Alien.class.isAssignableFrom(objClass)) {
+            objClass = Alien.class;}
+        
+        switch (objClass.getSimpleName()){
             case "Agent":
                 query = buildUpdateQuery("agent", objectMap, "Agent_ID");
          

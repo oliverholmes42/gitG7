@@ -137,7 +137,8 @@ public class MainPage extends javax.swing.JFrame {
         case "HomePanel":
             return new HomePanel();
         case "ProfilePanel":
-            return new ProfilePanel();
+            if(UserSession.getInstance().getType()==1){return new AlienProfilePanel();}
+            else{return new ProfilePanel();}
         case "EquipmentPanel":
             return new EquipmentPanel(this);
         case "AreaPanel":

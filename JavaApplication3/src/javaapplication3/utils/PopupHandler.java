@@ -123,8 +123,13 @@ public class PopupHandler {
         new RegisterNewUtilitiesDialog(Parent, true).setVisible(true);
     }
     
-    public static void addNewPasswordPopup(MainPage Parent, Agent profile){
+    public static void addNewPasswordPopup(MainPage Parent, Alien profile){
         new RegisterNewPasswordDialog(Parent, profile, true).setVisible(true);
     }
+    
+     public static void addNewPasswordPopup(MainPage Parent, Agent profile){
+        new RegisterNewPasswordDialog(Parent, profile, true).setVisible(true);
+    }
+    
     
 }

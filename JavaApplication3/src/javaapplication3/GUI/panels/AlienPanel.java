@@ -96,11 +96,11 @@ public class AlienPanel extends javax.swing.JPanel {
                 Integer.toString(item.getID()),
                 item.getClass().getSimpleName(),
                 getSubValue(item),
-                item.getAlienName(),
-                item.getAlienPhonenumber(),
-                item.getAlienEpost(),
+                item.getName(),
+                item.getTelephone(),
+                item.getEmail(),
                 item.getRegistrationDate().toString(),
-                item.getAlienLocation().getName(),
+                item.getLocation().getName(),
                 item.getResponsibleAgent().getName()
             };
             tableModel.addRow(row);
@@ -360,8 +360,8 @@ public class AlienPanel extends javax.swing.JPanel {
         String alienYear = Integer.toString(item.getRegistrationDate().getYear());
         int alienMonth = item.getRegistrationDate().getMonthValue();
         String alienRace = item.getClass().getSimpleName();
-        String alienLocation = item.getAlienLocation().getName();
-        String alienName = item.getAlienName().toLowerCase();
+        String alienLocation = item.getLocation().getName();
+        String alienName = item.getName().toLowerCase();
 
         boolean yearMatches = yearPickerComboBox.getSelectedIndex() == 0 || alienYear.equals(selectedYear);
         boolean monthMatches = selectedMonthIndex == 0 || alienMonth == selectedMonthIndex;
@@ -374,9 +374,9 @@ public class AlienPanel extends javax.swing.JPanel {
                 Integer.toString(item.getID()),
                 alienRace,
                 getSubValue(item),
-                item.getAlienName(),
-                item.getAlienPhonenumber(),
-                item.getAlienEpost(),
+                item.getName(),
+                item.getTelephone(),
+                item.getEmail(),
                 item.getRegistrationDate().toString(),
                 alienLocation,
                 item.getResponsibleAgent().getName()

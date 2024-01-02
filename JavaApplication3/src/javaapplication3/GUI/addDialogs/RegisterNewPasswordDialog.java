@@ -11,19 +11,31 @@ import javaapplication3.utils.ObjectManager;
 import javax.swing.JOptionPane;
 import oru.inf.InfException;
 import java.awt.Color;
+import javaapplication3.models.Alien;
 /**
  *
  * @author albin
  */
 public class RegisterNewPasswordDialog extends javax.swing.JDialog {
-    Agent profile;
+    Agent agentProfile;
+    Alien alienProfile;
+    Object profile;
     /**
      * Creates new form RegisterNewLocationDialog2
      */
     public RegisterNewPasswordDialog(java.awt.Frame parent, Agent profile, boolean modal) {
         super(parent, modal);
         initComponents();
-        this.profile = profile;
+        this.agentProfile = profile;
+        this.profile = (Agent) profile;
+        getContentPane().setBackground(new Color(51,51,51));
+    }
+    
+    public RegisterNewPasswordDialog(java.awt.Frame parent, Alien profile, boolean modal) {
+        super(parent, modal);
+        initComponents();
+        this.alienProfile = profile;
+        this.profile = (Alien) profile;
         getContentPane().setBackground(new Color(51,51,51));
     }
 
@@ -146,9 +158,19 @@ public class RegisterNewPasswordDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_abortButtonActionPerformed
 
     private void registerButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButton1ActionPerformed
-        if (profile.getPassword().equals(currentPasswordField.getText())) {
+        boolean passwordMatch;
+        
+        if (agentProfile==null) {passwordMatch = alienProfile.getPassword().equals(currentPasswordField.getText());}
+        else {passwordMatch = agentProfile.getPassword().equals(currentPasswordField.getText());}
+        
+        if (passwordMatch) {
             try {
-                profile.setPassword(newPasswordField.getText());
+                
+                if(profile instanceof Alien){alienProfile.setPassword(newPasswordField.getText());
+                profile = alienProfile;}
+                else if(profile instanceof Agent) {agentProfile.setPassword(newPasswordField.getText());
+                profile = agentProfile;}
+                
                 JOptionPane.showMessageDialog(null, "Lösenordet ändrades!");
                 ObjectManager.updateObject(profile);
                 System.out.println("Lyckad");
