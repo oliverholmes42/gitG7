@@ -33,15 +33,17 @@ public class LocationPanel extends javax.swing.JPanel {
     DefaultTableModel tableModel;
     private static InfDB db = DatabaseConnection.getInstance();
     private MainPage parent;
+    public static DefaultTableModel locationTableModel;
 
     /**
      * Creates new form OmradePanel
      */
-    public LocationPanel(MainPage parent) {
+    public LocationPanel(MainPage parent) throws InfException {
         this.parent = parent;
         initComponents();
-        tableModel = (DefaultTableModel) jTable2.getModel();
-       // loadTable();
+        ObjectManager.Locations.loadList();
+        locationTableModel = (DefaultTableModel) jTable2.getModel();
+        loadTable();
         addListener();
 
     }
@@ -192,7 +194,20 @@ public class LocationPanel extends javax.swing.JPanel {
         }
         
     }//GEN-LAST:event_jButton5ActionPerformed
-/*
+
+    private static void loadTable(){
+        locationTableModel.setRowCount(0);
+        for(Location i : ObjectManager.Locations.locationList.values()){
+            String[] row = {
+                Integer.toString(i.getId()),
+                i.getName(),
+                i.getArea().getName()
+            };
+            locationTableModel.addRow(row);
+        }
+    }
+    
+    /*
     private Location getLocationByID(int id) {
     // Your logic to retrieve the Location object based on the id
     // This might involve searching through ObjectManager.Locations.locationList
