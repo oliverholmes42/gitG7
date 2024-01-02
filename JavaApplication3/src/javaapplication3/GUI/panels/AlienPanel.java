@@ -340,7 +340,7 @@ public class AlienPanel extends javax.swing.JPanel {
 
     private void addAlienButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addAlienButtonActionPerformed
         // TODO add your handling code here:
-        PopupHandler.addNewAlienPopup(Parent);
+        PopupHandler.addNewAlienPopup(Parent, this);
     }//GEN-LAST:event_addAlienButtonActionPerformed
     
     public void reload(){
@@ -399,8 +399,8 @@ public class AlienPanel extends javax.swing.JPanel {
     int response = JOptionPane.showConfirmDialog(null, message, "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
     if (response == JOptionPane.YES_OPTION) {
         // Logic to delete the selected aliens
-        for(int id : selectedID){
-        System.out.println("DELETE from alien where Alien_ID = "+id);}
+        ObjectManager.Aliens.delete(selectedID);
+        loadTable();
     }
     }//GEN-LAST:event_removeAlienButtonActionPerformed
 

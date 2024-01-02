@@ -9,8 +9,13 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javaapplication3.GUI.panels.AlienPanel;
+import javaapplication3.models.Agent;
+import javaapplication3.models.Area;
 import javaapplication3.utils.ObjectManager;
+import javaapplication3.utils.ObjectManager.Agents;
 import static javaapplication3.utils.ObjectManager.db;
+import javax.swing.JOptionPane;
 import oru.inf.InfException;
 
 
@@ -21,16 +26,19 @@ import oru.inf.InfException;
  */
 public class RegisterNewAlienDialogPopupV2 extends javax.swing.JDialog {
 
+    private AlienPanel Parent;
     /**
      * Creates new form RegisterNewAlienDialogPopupV2
      * @param parent
      * @param modal
      */
-    public RegisterNewAlienDialogPopupV2(java.awt.Frame parent, boolean modal) {
+    public RegisterNewAlienDialogPopupV2(java.awt.Frame parent, AlienPanel home, boolean modal) {
         super(parent, modal);
+        Parent = home;
         initComponents();
         dynamicLabel.setVisible(false);
         valueSpinner.setVisible(false);
+        fillComboBoxes();
     }
 
     /**
@@ -134,7 +142,7 @@ public class RegisterNewAlienDialogPopupV2 extends javax.swing.JDialog {
         });
 
         agentComboBox.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        agentComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1: (Agent O)", "2: (Agent K)", "3: (Agent J)", "4: (Agent Z)" }));
+        agentComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
         agentComboBox.setPreferredSize(new java.awt.Dimension(180, 40));
 
         speciesComboBox.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -148,7 +156,7 @@ public class RegisterNewAlienDialogPopupV2 extends javax.swing.JDialog {
         });
 
         areaComboBox.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        areaComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1: (Svealand)", "2: (Götaland)", "3: (Norrland)" }));
+        areaComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
         areaComboBox.setPreferredSize(new java.awt.Dimension(180, 40));
 
         nameTextField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -256,6 +264,19 @@ public class RegisterNewAlienDialogPopupV2 extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void fillComboBoxes() {
+        for (HashMap.Entry<Integer, Agent> entry : Agents.agentList.entrySet()) {
+        int key = entry.getKey();
+        String name = entry.getValue().getName(); // Assuming YourObjectClass has a getName() method
+        agentComboBox.addItem(key + ": " + name);
+        }
+        for (HashMap.Entry<Integer, Area> entry : ObjectManager.Areas.areaList.entrySet()) {
+        int key = entry.getKey();
+        String name = entry.getValue().getName(); // Assuming YourObjectClass has a getName() method
+        areaComboBox.addItem(key + ": " + name);
+    }
+    }
+    
     private void speciesComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_speciesComboBoxActionPerformed
         
         if(evt.getSource() == speciesComboBox){
@@ -285,7 +306,7 @@ public class RegisterNewAlienDialogPopupV2 extends javax.swing.JDialog {
     }//GEN-LAST:event_abortButtonActionPerformed
 
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
-        /*try {
+        try {
             String password = ObjectManager.generatePassword();
             
             HashMap<String, String> map = new HashMap<>();
@@ -305,14 +326,17 @@ public class RegisterNewAlienDialogPopupV2 extends javax.swing.JDialog {
             
             String race = speciesComboBox.getSelectedItem().toString();
             map.put("Race", race);
-            String word = Math.floor(valueSpinner.getValue()).toString();
-            map.put("Value",word);
+            map.put("Value", valueSpinner.getValue().toString());
             
             ObjectManager.Aliens.addNew(map, ObjectManager.Locations.locationList.get(location), ObjectManager.Agents.agentList.get(agent), race);
             
+            JOptionPane.showMessageDialog(this, "Registreringen av Alien "+newID+" lyckades!");
+            Parent.reload();
+            this.dispose();
+            
         } catch (InfException ex) {
             Logger.getLogger(RegisterNewAlienDialogPopupV2.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+        }
         
     }//GEN-LAST:event_registerButtonActionPerformed
 

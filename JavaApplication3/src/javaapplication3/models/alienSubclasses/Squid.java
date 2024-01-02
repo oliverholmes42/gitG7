@@ -23,9 +23,7 @@ public class Squid extends Alien {
         antal_Armar = Integer.parseInt(alienMap.get("Antal_Armar"));
         }
         else {
-            String i = alienMap.get("Value");
-            double it = Double.parseDouble(i);
-            int intValue = (int) Math.round(it);
+            int intValue = (int) Float.parseFloat(alienMap.get("Value"));
             antal_Armar = intValue;}
     }
     

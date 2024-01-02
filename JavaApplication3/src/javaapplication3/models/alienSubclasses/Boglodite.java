@@ -22,7 +22,10 @@ public class Boglodite extends Alien {
         if(!alienMap.containsKey("Value")){
         antal_Boogies = Integer.parseInt(alienMap.get("Antal_Boogies"));
         }
-        else{ antal_Boogies = Integer.parseInt(alienMap.get("Value"));}
+        else{ 
+            int intValue = (int) Float.parseFloat(alienMap.get("Value"));
+            antal_Boogies = intValue;
+        }
     }
     
     public void editObject(HashMap<String,String> alienMap) throws InfException {

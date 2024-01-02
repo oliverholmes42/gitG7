@@ -94,8 +94,8 @@ public class PopupHandler {
         
     }*/
     
-    public static void addNewAlienPopup(MainPage Parent){
-        new RegisterNewAlienDialogPopupV2(Parent, true).setVisible(true);
+    public static void addNewAlienPopup(MainPage Parent, AlienPanel home){
+        new RegisterNewAlienDialogPopupV2(Parent, home, true).setVisible(true);
     }
     
     public static void editAlienPopup(MainPage Parent,AlienPanel home , Alien alien){

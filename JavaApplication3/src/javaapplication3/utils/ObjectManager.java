@@ -11,6 +11,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import java.util.StringJoiner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javaapplication3.models.*;
 import javaapplication3.models.alienSubclasses.Boglodite;
 import javaapplication3.models.alienSubclasses.Squid;
@@ -384,7 +386,7 @@ public class ObjectManager {
         public static void addNew(HashMap<String,String> map, Location location, Agent agent, String race) throws InfException{
             String Query = buildInsertQuery("alien", map);
             
-            //db.insert(Query);
+            db.insert(Query);
             
             
             switch (race){
@@ -394,7 +396,7 @@ public class ObjectManager {
                     bogloditeMap.put("Alien_ID", map.get("Alien_ID"));
                     bogloditeMap.put("Antal_Boogies", map.get("Value"));
 
-                    String bogloditeQuery = ObjectManager.buildInsertQuery("Boglodite", bogloditeMap);
+                    String bogloditeQuery = ObjectManager.buildInsertQuery("boglodite", bogloditeMap);
                     db.insert(bogloditeQuery);
                     break;
                 
@@ -404,7 +406,7 @@ public class ObjectManager {
                     squidMap.put("Alien_ID", map.get("Alien_ID"));
                     squidMap.put("Antal_Armar", map.get("Value"));
 
-                    String squidQuery = ObjectManager.buildInsertQuery("Squid", squidMap);
+                    String squidQuery = ObjectManager.buildInsertQuery("squid", squidMap);
                     db.insert(squidQuery);
                     break;
                 
@@ -414,7 +416,7 @@ public class ObjectManager {
                     wormMap.put("Alien_ID", map.get("Alien_ID"));
                     wormMap.put("Langd", map.get("Value"));
 
-                    String wormQuery = ObjectManager.buildInsertQuery("Worm", wormMap);
+                    String wormQuery = ObjectManager.buildInsertQuery("worm", wormMap);
                     db.insert(wormQuery);
                     break;
                     
@@ -422,7 +424,24 @@ public class ObjectManager {
                     System.out.println("Fel inmatning");
             }
         }
-
+        
+        public static void delete(ArrayList<Integer> list) {
+            for(int ID : list){
+                try {
+                    Alien alien = alienList.get(ID);
+                    String objClass = alien.getClass().getSimpleName();
+                    
+                    if(!objClass.equals("Alien")){
+                        db.delete("Delete from "+objClass.toLowerCase()+" where Alien_ID = "+ID);
+                    }
+                    db.delete("Delete from alien where Alien_ID =" +ID);
+                    alienList.remove(ID);
+                } catch (InfException ex) {
+                    Logger.getLogger(ObjectManager.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            
+        }
     }
 
     
