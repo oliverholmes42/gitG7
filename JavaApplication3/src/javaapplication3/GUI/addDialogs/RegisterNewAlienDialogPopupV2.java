@@ -5,9 +5,13 @@
 package javaapplication3.GUI.addDialogs;
 
 import java.awt.event.KeyEvent;
+import java.time.LocalDate;
 import java.util.HashMap;
-import javaapplication3.utils.PopupHandler;
-import javax.swing.JOptionPane;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javaapplication3.utils.ObjectManager;
+import static javaapplication3.utils.ObjectManager.db;
+import oru.inf.InfException;
 
 
 
@@ -130,8 +134,7 @@ public class RegisterNewAlienDialogPopupV2 extends javax.swing.JDialog {
         });
 
         agentComboBox.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        agentComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1 (Agent O)", "2 (Agent K)", "3 (Agent J)", "4 (Agent Z)" }));
-        agentComboBox.setSelectedIndex(-1);
+        agentComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1: (Agent O)", "2: (Agent K)", "3: (Agent J)", "4: (Agent Z)" }));
         agentComboBox.setPreferredSize(new java.awt.Dimension(180, 40));
 
         speciesComboBox.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -145,8 +148,7 @@ public class RegisterNewAlienDialogPopupV2 extends javax.swing.JDialog {
         });
 
         areaComboBox.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        areaComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1 (Svealand)", "2 (Götaland)", "3 (Norrland)" }));
-        areaComboBox.setSelectedIndex(-1);
+        areaComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1: (Svealand)", "2: (Götaland)", "3: (Norrland)" }));
         areaComboBox.setPreferredSize(new java.awt.Dimension(180, 40));
 
         nameTextField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -283,8 +285,34 @@ public class RegisterNewAlienDialogPopupV2 extends javax.swing.JDialog {
     }//GEN-LAST:event_abortButtonActionPerformed
 
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
-
-        HashMap<String, String> result = new HashMap<>();
+        /*try {
+            String password = ObjectManager.generatePassword();
+            
+            HashMap<String, String> map = new HashMap<>();
+            int newID = Integer.parseInt(db.fetchSingle("Select max(Alien_ID) from alien"))+1;
+            map.put("Alien_ID",newID+"");
+            map.put("Registreringsdatum", LocalDate.now().toString());
+            map.put("Epost", emailTextField.getText());
+            map.put("Losenord", password);
+            map.put("Namn", nameTextField.getText());
+            map.put("Telefon", phoneTextField.getText());
+            
+            int location = Integer.parseInt(areaComboBox.getSelectedItem().toString().split(":")[0].trim());
+            map.put("Plats", location+"");
+            
+            int agent = Integer.parseInt(agentComboBox.getSelectedItem().toString().split(":")[0].trim());
+            map.put("Ansvarig_Agent", agent+"");
+            
+            String race = speciesComboBox.getSelectedItem().toString();
+            map.put("Race", race);
+            String word = Math.floor(valueSpinner.getValue()).toString();
+            map.put("Value",word);
+            
+            ObjectManager.Aliens.addNew(map, ObjectManager.Locations.locationList.get(location), ObjectManager.Agents.agentList.get(agent), race);
+            
+        } catch (InfException ex) {
+            Logger.getLogger(RegisterNewAlienDialogPopupV2.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
         
     }//GEN-LAST:event_registerButtonActionPerformed
 
@@ -309,7 +337,23 @@ public class RegisterNewAlienDialogPopupV2 extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_phoneTextFieldKeyPressed
     
-    
+    private HashMap<String,String> gatherInfo() throws InfException{
+        
+        String password = ObjectManager.generatePassword();
+        
+        HashMap<String, String> map = new HashMap<>();
+        map.put("Alien_ID",db.fetchSingle("Select max(Alien_ID) from alien")+1);
+        map.put("Registreringsdatum", LocalDate.now().toString());
+        map.put("Epost", emailTextField.getText());
+        map.put("Losenord", password);
+        map.put("Namn", nameTextField.getText());
+        map.put("Telefon", phoneTextField.getText());
+        map.put("Plats", areaComboBox.getSelectedItem().toString().split(":")[0].trim());
+        map.put("Ansvarig_Agent", agentComboBox.getSelectedItem().toString().split(":")[0].trim());
+        map.put("Race", speciesComboBox.getSelectedItem().toString());
+        map.put("Value",valueSpinner.getValue().toString());
+        return map;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton abortButton;

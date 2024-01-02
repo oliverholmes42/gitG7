@@ -19,10 +19,10 @@ public class Worm extends Alien {
     
     public Worm(HashMap<String, String> alienMap, Location location, Agent agent) {
         super(alienMap, location, agent); // Call the superclass constructor
-        if (!alienMap.containsKey("value")){
+        if (!alienMap.containsKey("Value")){
         langd = Double.parseDouble(alienMap.get("Langd"));
     }
-    else{langd =Double.parseDouble(alienMap.get("value"));}}
+    else{langd =Double.parseDouble(alienMap.get("Value"));}}
     
     public void editObject(HashMap<String,String> alienMap) throws InfException {
         super.editObject(alienMap);

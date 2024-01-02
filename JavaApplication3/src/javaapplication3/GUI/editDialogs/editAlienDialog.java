@@ -378,7 +378,7 @@ public class editAlienDialog extends javax.swing.JDialog {
                      activeAlien.editObject(alienMap);
                 }
                 } else {
-                    alienMap.put("value",""+ (int) ((double) valueSpinner.getValue()));
+                    alienMap.put("Value",""+ (int) ((double) valueSpinner.getValue()));
                     ObjectManager.Aliens.updateSubClass(alienMap,currentSpecies, newSpecies);
                 }
                  

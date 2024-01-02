@@ -19,10 +19,14 @@ public class Squid extends Alien {
     
     public Squid(HashMap<String, String> alienMap, Location location, Agent agent) {
         super(alienMap, location, agent); // Call the superclass constructor
-        if(!alienMap.containsKey("value")){
+        if(!alienMap.containsKey("Value")){
         antal_Armar = Integer.parseInt(alienMap.get("Antal_Armar"));
         }
-        else {antal_Armar = Integer.parseInt(alienMap.get("value"));}
+        else {
+            String i = alienMap.get("Value");
+            double it = Double.parseDouble(i);
+            int intValue = (int) Math.round(it);
+            antal_Armar = intValue;}
     }
     
     public void editObject(HashMap<String,String> alienMap) throws InfException{

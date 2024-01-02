@@ -9,6 +9,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.StringJoiner;
 import javaapplication3.models.*;
 import javaapplication3.models.alienSubclasses.Boglodite;
@@ -40,6 +41,18 @@ public class ObjectManager {
                 e.printStackTrace();
             }
         }
+    }
+    
+    public static String generatePassword() {
+         String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
+        StringBuilder salt = new StringBuilder();
+        Random rnd = new Random();
+        while (salt.length() < 6) { // length of the random string.
+            int index = (int) (rnd.nextFloat() * SALTCHARS.length());
+            salt.append(SALTCHARS.charAt(index));
+        }
+        String saltStr = salt.toString();
+        return saltStr;
     }
     
     public static HashMap<String, String> getFieldMap(Object obj) {
@@ -132,9 +145,12 @@ public class ObjectManager {
         for (Map.Entry<String, String> entry : data.entrySet()) {
             String column = entry.getKey();
             String value = entry.getValue();
+            
+            if(!column.equals("Race")&&!column.equals("Value")) {
 
-            columnJoiner.add(column);
-            valueJoiner.add("'" + value + "'");
+                columnJoiner.add(column);
+                valueJoiner.add("'" + value + "'");
+            }
         }
 
         queryBuilder.append(columnJoiner.toString());
@@ -327,7 +343,7 @@ public class ObjectManager {
             } else {
                 String tableName = newSpecies; // Assuming 'two' is a variable holding the table name
                 String alienID = map.get("Alien_ID");
-                String value = map.get("value");
+                String value = map.get("Value");
 
                 // Assuming 'alienID' and 'value' are strings. If they are numeric, remove the single quotes around the placeholders.
                 String sql = "INSERT INTO " + tableName.toLowerCase() + " VALUES (" + alienID + ", " + value + ");";
@@ -367,13 +383,16 @@ public class ObjectManager {
         
         public static void addNew(HashMap<String,String> map, Location location, Agent agent, String race) throws InfException{
             String Query = buildInsertQuery("alien", map);
-            db.insert(Query);
+            
+            //db.insert(Query);
+            
+            
             switch (race){
                 case "Boglodite":
                     alienList.put(Integer.parseInt(map.get("Alien_ID")), new Boglodite(map, location, agent));
                     HashMap<String, String> bogloditeMap = new HashMap<>();
                     bogloditeMap.put("Alien_ID", map.get("Alien_ID"));
-                    bogloditeMap.put("Antal_Boogies", map.get("Antal_Boogies"));
+                    bogloditeMap.put("Antal_Boogies", map.get("Value"));
 
                     String bogloditeQuery = ObjectManager.buildInsertQuery("Boglodite", bogloditeMap);
                     db.insert(bogloditeQuery);
@@ -383,7 +402,7 @@ public class ObjectManager {
                     alienList.put(Integer.parseInt(map.get("Alien_ID")), new Squid(map, location, agent));
                     HashMap<String, String> squidMap = new HashMap<>();
                     squidMap.put("Alien_ID", map.get("Alien_ID"));
-                    squidMap.put("Antal_Armar", map.get("Antal_Armar"));
+                    squidMap.put("Antal_Armar", map.get("Value"));
 
                     String squidQuery = ObjectManager.buildInsertQuery("Squid", squidMap);
                     db.insert(squidQuery);
@@ -393,7 +412,7 @@ public class ObjectManager {
                     alienList.put(Integer.parseInt(map.get("Alien_ID")), new Worm(map, location, agent));
                     HashMap<String, String> wormMap = new HashMap<>();
                     wormMap.put("Alien_ID", map.get("Alien_ID"));
-                    wormMap.put("Langd", map.get("Langd"));
+                    wormMap.put("Langd", map.get("Value"));
 
                     String wormQuery = ObjectManager.buildInsertQuery("Worm", wormMap);
                     db.insert(wormQuery);

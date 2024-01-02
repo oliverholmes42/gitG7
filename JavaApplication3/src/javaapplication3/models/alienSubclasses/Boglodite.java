@@ -19,10 +19,10 @@ public class Boglodite extends Alien {
     
     public Boglodite(HashMap<String, String> alienMap, Location location, Agent agent) {
         super(alienMap, location, agent); // Call the superclass constructor
-        if(!alienMap.containsKey("value")){
+        if(!alienMap.containsKey("Value")){
         antal_Boogies = Integer.parseInt(alienMap.get("Antal_Boogies"));
         }
-        else{ antal_Boogies = Integer.parseInt(alienMap.get("value"));}
+        else{ antal_Boogies = Integer.parseInt(alienMap.get("Value"));}
     }
     
     public void editObject(HashMap<String,String> alienMap) throws InfException {
