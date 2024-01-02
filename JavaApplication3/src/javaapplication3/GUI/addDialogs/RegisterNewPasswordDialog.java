@@ -4,9 +4,12 @@
  */
 package javaapplication3.GUI.addDialogs;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javaapplication3.models.Agent;
 import javaapplication3.utils.ObjectManager;
 import javax.swing.JOptionPane;
+import oru.inf.InfException;
 
 /**
  *
@@ -138,13 +141,18 @@ public class RegisterNewPasswordDialog extends javax.swing.JDialog {
 
     private void registerButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButton1ActionPerformed
         if (profile.getPassword().equals(currentPasswordField.getText())) {
-            profile.setPassword(newPasswordField.getText());
-            JOptionPane.showMessageDialog(null, "Lösenordet ändrades!");
-            System.out.println("Lyckad");
-            ObjectManager.updateObject(profile);
-            this.dispose();
+            try {
+                profile.setPassword(newPasswordField.getText());
+                JOptionPane.showMessageDialog(null, "Lösenordet ändrades!");
+                ObjectManager.updateObject(profile);
+                System.out.println("Lyckad");
+                this.dispose();
+            } catch (InfException ex) {
+                Logger.getLogger(RegisterNewPasswordDialog.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Ändring av lösenord misslyckades");
+            }
         } else {
-            JOptionPane.showMessageDialog(null, "Ändring av lösenord misslyckades");
+            JOptionPane.showMessageDialog(null, "du dum");
             System.out.println("Misslyckad");
         }
     }//GEN-LAST:event_registerButton1ActionPerformed

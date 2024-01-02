@@ -114,35 +114,40 @@ public class ObjectManager {
 
         return queryBuilder.toString();
     }
-    
-    public static void updateObject(Object obj) {
+   
+    public static void updateObject(Object obj) throws InfException {
         HashMap<String, String> objectMap = getFieldMap(obj);
-        switch (obj.getClass().getName()){
+        String query = "";
+        switch (obj.getClass().getSimpleName()){
             case "Agent":
-                String query = buildUpdateQuery("agent", objectMap, "Agent_ID");
-                db.update(query);
+                query = buildUpdateQuery("agent", objectMap, "Agent_ID");
+         
                 break;
             
             case "Alien":
-                String query = buildUpdateQuery("alien", objectMap, "Alien_ID");
-                db.update(query);
+                query = buildUpdateQuery("alien", objectMap, "Alien_ID");
+                
                 break;
                 
             case "Area":
-                String query = buildUpdateQuery("omrade", objectMap, "Omrades_ID");
-                db.update(query);
+                query = buildUpdateQuery("omrade", objectMap, "Omrades_ID");
+                
                 break;
             
             case "Location":
-                String query = buildUpdateQuery("plats", objectMap, "Plats_ID");
-                db.update(query);
+                query = buildUpdateQuery("plats", objectMap, "Plats_ID");
+                
                 break;
                 
             case "Utilities":
-                String query = buildUpdateQuery("utrustning", objectMap, "Utrustnings_ID");
-                db.update(query);
+                query = buildUpdateQuery("utrustning", objectMap, "Utrustnings_ID");
+                
                 break;
+                
+            default:
+                System.out.println("No");
         }
+        if(query.length()>0){db.update(query);}
     }
 
     
