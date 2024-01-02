@@ -12,6 +12,7 @@ import javaapplication3.GUI.addDialogs.RegisterNewPasswordDialog;
 import javaapplication3.GUI.addDialogs.RegisterNewUtilitiesDialog;
 import javaapplication3.GUI.editDialogs.editAlienDialog;
 import javaapplication3.GUI.panels.AlienPanel;
+import javaapplication3.models.Agent;
 import javaapplication3.models.Alien;
 import javax.swing.JSpinner;
 import oru.inf.InfDB;
@@ -122,8 +123,8 @@ public class PopupHandler {
         new RegisterNewUtilitiesDialog(Parent, true).setVisible(true);
     }
     
-    public static void addNewPasswordPopup(MainPage Parent){
-        new RegisterNewPasswordDialog(Parent, true).setVisible(true);
+    public static void addNewPasswordPopup(MainPage Parent, Agent profile){
+        new RegisterNewPasswordDialog(Parent, profile, true).setVisible(true);
     }
     
 }

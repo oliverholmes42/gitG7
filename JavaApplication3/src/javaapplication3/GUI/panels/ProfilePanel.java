@@ -334,7 +334,7 @@ public class ProfilePanel extends javax.swing.JPanel {
 
     private void NyttLösenButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NyttLösenButton1ActionPerformed
         // TODO add your handling code here:
-        PopupHandler.addNewPasswordPopup(Parent);
+        PopupHandler.addNewPasswordPopup(Parent,profile);
     }//GEN-LAST:event_NyttLösenButton1ActionPerformed
 
     private void fillPage() {

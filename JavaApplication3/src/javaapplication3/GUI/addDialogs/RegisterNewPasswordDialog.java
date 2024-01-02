@@ -4,18 +4,23 @@
  */
 package javaapplication3.GUI.addDialogs;
 
+import javaapplication3.models.Agent;
+import javaapplication3.utils.ObjectManager;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author albin
  */
 public class RegisterNewPasswordDialog extends javax.swing.JDialog {
-
+    Agent profile;
     /**
      * Creates new form RegisterNewLocationDialog2
      */
-    public RegisterNewPasswordDialog(java.awt.Frame parent, boolean modal) {
+    public RegisterNewPasswordDialog(java.awt.Frame parent, Agent profile, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.profile = profile;
     }
 
     /**
@@ -132,7 +137,16 @@ public class RegisterNewPasswordDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_abortButtonActionPerformed
 
     private void registerButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButton1ActionPerformed
-        // TODO add your handling code here:
+        if (profile.getPassword().equals(currentPasswordField.getText())) {
+            profile.setPassword(newPasswordField.getText());
+            JOptionPane.showMessageDialog(null, "Lösenordet ändrades!");
+            System.out.println("Lyckad");
+            ObjectManager.updateObject(profile);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "Ändring av lösenord misslyckades");
+            System.out.println("Misslyckad");
+        }
     }//GEN-LAST:event_registerButton1ActionPerformed
 
     /**
