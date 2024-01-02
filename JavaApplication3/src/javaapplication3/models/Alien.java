@@ -42,8 +42,8 @@ public class Alien {
 
 // Setter for name
     
-    public void editObject(HashMap<String, String> alienMap) {
-        //ObjectManager.Aliens.updateInstance(alienMap);
+    public void editObject(HashMap<String, String> alienMap) throws InfException {
+        ObjectManager.Aliens.updateInstance(alienMap);
         
         this.alien_ID = Integer.parseInt(alienMap.get("Alien_ID"));
         this.registreringsdatum = LocalDate.parse(alienMap.get("Registreringsdatum"));

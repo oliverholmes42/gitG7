@@ -29,7 +29,7 @@ import oru.inf.InfException;
  */
 public class AlienPanel extends javax.swing.JPanel {
     private MainPage Parent;
-    DefaultTableModel tableModel;
+    public static DefaultTableModel tableModel;
     /**
      * Creates new form AgentPanel
      */

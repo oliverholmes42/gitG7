@@ -114,6 +114,32 @@ public class ObjectManager {
 
         return queryBuilder.toString();
     }
+    
+    public static String buildInsertQuery(String tableName, HashMap<String, String> data) {
+        if (data.isEmpty()) {
+            throw new IllegalArgumentException("Data map cannot be empty");
+        }
+
+        StringBuilder queryBuilder = new StringBuilder("INSERT INTO ");
+        queryBuilder.append(tableName).append(" (");
+
+        StringJoiner columnJoiner = new StringJoiner(", ");
+        StringJoiner valueJoiner = new StringJoiner(", ", "VALUES (", ")");
+
+        for (Map.Entry<String, String> entry : data.entrySet()) {
+            String column = entry.getKey();
+            String value = entry.getValue();
+
+            columnJoiner.add(column);
+            valueJoiner.add("'" + value + "'");
+        }
+
+        queryBuilder.append(columnJoiner.toString());
+        queryBuilder.append(") ");
+        queryBuilder.append(valueJoiner.toString());
+
+        return queryBuilder.toString();
+    }
    
     public static void updateObject(Object obj) throws InfException {
         HashMap<String, String> objectMap = getFieldMap(obj);
@@ -255,12 +281,12 @@ public class ObjectManager {
             alienMap.remove("Antal_Armar");   // Similarly for other special keys
             alienMap.remove("Langd");
 
-            //String alienQuery = ObjectManager.buildUpdateQuery("alien", alienMap);
-            //db.update(alienQuery);
+            String alienQuery = ObjectManager.buildUpdateQuery("alien", alienMap, "Alien_ID");
+            db.update(alienQuery);
 
         }
 
-        public static void updateSubClass(HashMap<String, String> map, String oldSpecies, String newSpecies) throws InfException {
+        public static void updateSubClass(HashMap<String,String> map, String oldSpecies, String newSpecies) throws InfException {
             if(oldSpecies.equals(newSpecies)){
                 if (map.containsKey("Antal_Boogies")) {
                     HashMap<String, String> bogloditeMap = new HashMap<>();
@@ -303,14 +329,15 @@ public class ObjectManager {
                 sql = "Delete from " + oldSpecies.toLowerCase() + " where Alien_ID = "+alienID;
                 db.delete(sql);
 
-                alienList.put(Integer.parseInt(alienID),setNewInstance(map,newSpecies));
+                alienList.put(Integer.parseInt(alienID),newInstance(map,newSpecies));
             }
         }
 
-        private static Alien setNewInstance(HashMap<String,String> map,String two) {
+        private static Alien newInstance(HashMap<String,String> map,String race) {
             Location location = Locations.locationList.get(Integer.parseInt(map.get("Plats")));
             Agent agent = Agents.agentList.get(Integer.parseInt(map.get("Ansvarig_Agent")));
-            switch (two) {
+
+            switch (race) {
                 case "Worm":
                     return new Worm(map, location, agent);
                 case "Boglodite":
@@ -319,19 +346,57 @@ public class ObjectManager {
                     return new Squid(map, location, agent);
                 default:
                     return new Alien(map, location, agent);
-            }   }
-
-
-
-                public static Alien getAlien(int id) {
-                    return alienList.get(id);
-                }
-
-                public static void offLoad(){
-                alienList.clear();
-                }
-
             }
+        }
+
+        public static Alien getAlien(int id) {
+            return alienList.get(id);
+        }
+
+        public static void offLoad() {
+            alienList.clear();
+        }
+        
+        public static void addNew(HashMap<String,String> map, Location location, Agent agent, String race) throws InfException{
+            String Query = buildInsertQuery("alien", map);
+            db.insert(Query);
+            switch (race){
+                case "Boglodite":
+                    alienList.put(Integer.parseInt(map.get("Alien_ID")), new Boglodite(map, location, agent));
+                    HashMap<String, String> bogloditeMap = new HashMap<>();
+                    bogloditeMap.put("Alien_ID", map.get("Alien_ID"));
+                    bogloditeMap.put("Antal_Boogies", map.get("Antal_Boogies"));
+
+                    String bogloditeQuery = ObjectManager.buildInsertQuery("Boglodite", bogloditeMap);
+                    db.insert(bogloditeQuery);
+                    break;
+                
+                case "Squid":
+                    alienList.put(Integer.parseInt(map.get("Alien_ID")), new Squid(map, location, agent));
+                    HashMap<String, String> squidMap = new HashMap<>();
+                    squidMap.put("Alien_ID", map.get("Alien_ID"));
+                    squidMap.put("Antal_Armar", map.get("Antal_Armar"));
+
+                    String squidQuery = ObjectManager.buildInsertQuery("Squid", squidMap);
+                    db.insert(squidQuery);
+                    break;
+                
+                case "Worm":
+                    alienList.put(Integer.parseInt(map.get("Alien_ID")), new Worm(map, location, agent));
+                    HashMap<String, String> wormMap = new HashMap<>();
+                    wormMap.put("Alien_ID", map.get("Alien_ID"));
+                    wormMap.put("Langd", map.get("Langd"));
+
+                    String wormQuery = ObjectManager.buildInsertQuery("Worm", wormMap);
+                    db.insert(wormQuery);
+                    break;
+                    
+                default:
+                    System.out.println("Fel inmatning");
+            }
+        }
+
+    }
 
     
     public static class Agents {
