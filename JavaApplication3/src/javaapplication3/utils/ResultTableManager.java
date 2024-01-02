@@ -39,17 +39,17 @@ public class ResultTableManager {
     public static void createQueryUsingFilters(JComboBox area, JComboBox race, JComboBox year, JComboBox month) throws InfException{
         for (Alien item : ObjectManager.Aliens.alienList.values()) {
 
-            if (item.getAlienLocation().getName() == area.getSelectedItem() || area.getSelectedIndex() == 0) {
+            if (item.getLocation().getName() == area.getSelectedItem() || area.getSelectedIndex() == 0) {
                 if (Integer.toString(item.getRegistrationDate().getYear()).equals(year.getSelectedItem()) || year.getSelectedIndex() == 0) {
                     if (item.getRegistrationDate().getMonthValue() == month.getSelectedIndex() || month.getSelectedIndex() == 0) {
                         String[] row = {
                             Integer.toString(item.getID()),
                             "",
-                            item.getAlienName(),
-                            item.getAlienPhonenumber(),
-                            item.getAlienEpost(),
+                            item.getName(),
+                            item.getTelephone(),
+                            item.getEmail(),
                             item.getRegistrationDate().toString(),
-                            item.getAlienLocation().getName(),
+                            item.getLocation().getName(),
                             item.getResponsibleAgent().getName()
                         };
 
@@ -72,11 +72,11 @@ public class ResultTableManager {
             String[] row = {
                 Integer.toString(item.getID()),
                 "",
-                item.getAlienName(),
-                item.getAlienPhonenumber(),
-                item.getAlienEpost(),
+                item.getName(),
+                item.getTelephone(),
+                item.getEmail(),
                 item.getRegistrationDate().toString(),
-                item.getAlienLocation().getName(),
+                item.getLocation().getName(),
                 item.getResponsibleAgent().getName()
             };
             tableModel.addRow(row);

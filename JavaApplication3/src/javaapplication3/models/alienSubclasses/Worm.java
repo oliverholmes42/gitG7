@@ -8,6 +8,7 @@ import java.util.HashMap;
 import javaapplication3.models.Agent;
 import javaapplication3.models.Alien;
 import javaapplication3.models.Location;
+import oru.inf.InfException;
 
 /**
  *
@@ -23,7 +24,7 @@ public class Worm extends Alien {
     }
     else{langd =Double.parseDouble(alienMap.get("value"));}}
     
-    public void editObject(HashMap<String,String> alienMap) {
+    public void editObject(HashMap<String,String> alienMap) throws InfException {
         super.editObject(alienMap);
          langd = Double.parseDouble(alienMap.get("Langd"));
     }

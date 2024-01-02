@@ -8,6 +8,7 @@ import java.util.HashMap;
 import javaapplication3.models.Agent;
 import javaapplication3.models.Alien;
 import javaapplication3.models.Location;
+import oru.inf.InfException;
 
 /**
  *
@@ -24,7 +25,7 @@ public class Squid extends Alien {
         else {antal_Armar = Integer.parseInt(alienMap.get("value"));}
     }
     
-    public void editObject(HashMap<String,String> alienMap){
+    public void editObject(HashMap<String,String> alienMap) throws InfException{
         super.editObject(alienMap);
         antal_Armar = Integer.parseInt(alienMap.get("Antal_Armar"));
     }
