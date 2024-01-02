@@ -26,7 +26,7 @@ public class Location {
     
     public void setName(String name) {
         benämning = name;
-        ObjectManager.Locations.updateField(plats_ID, "Benamning", benämning);
+        //ObjectManager.Locations.updateField(plats_ID, "Benamning", benämning);
     }
     
     public String getName(){
@@ -34,7 +34,7 @@ public class Location {
     }
     
     public void setLocationID(int newLocationID){
-        ObjectManager.Locations.updateField(plats_ID, "Plats_ID", newLocationID);
+        //ObjectManager.Locations.updateField(plats_ID, "Plats_ID", newLocationID);
         plats_ID = newLocationID;
     }
     
@@ -44,7 +44,7 @@ public class Location {
     
     public void setArea(Area newArea){
         finns_I = newArea;
-        ObjectManager.Locations.updateField(plats_ID, "Finns_I", finns_I.getId());
+        //ObjectManager.Locations.updateField(plats_ID, "Finns_I", finns_I.getId());
     }
     
     public Area getArea(){

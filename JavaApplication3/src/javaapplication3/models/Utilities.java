@@ -25,13 +25,13 @@ public class Utilities {
     }
     
     public void setName(String newName){
-        ObjectManager.UtilitiesHandler.updateField(utrustnings_ID, "Benamning", newName);
+        //ObjectManager.UtilitiesHandler.updateField(utrustnings_ID, "Benamning", newName);
         benamning = newName; 
 
     }
     
     public void setID(int newUtilityID){
-        ObjectManager.UtilitiesHandler.updateField(utrustnings_ID, "Utrustnings_ID", newUtilityID);
+        //ObjectManager.UtilitiesHandler.updateField(utrustnings_ID, "Utrustnings_ID", newUtilityID);
         utrustnings_ID = newUtilityID;
     }
      

@@ -34,13 +34,13 @@ public class Area {
    }
    
    public void setAreaID(int newAreaID) {
-       ObjectManager.Areas.updateField(omrades_ID, "Omrades_ID", newAreaID);
+       //ObjectManager.Areas.updateField(omrades_ID, "Omrades_ID", newAreaID);
        omrades_ID = newAreaID;
    }
 
 
    public void setName(String newAreaName) {
-       ObjectManager.Areas.updateField(omrades_ID, "Benamning", newAreaName);
+       //ObjectManager.Areas.updateField(omrades_ID, "Benamning", newAreaName);
        benamning = newAreaName;  
    }
    

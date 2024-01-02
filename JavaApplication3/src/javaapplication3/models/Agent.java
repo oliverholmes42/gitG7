@@ -42,12 +42,12 @@ public class Agent {
   
     
     public void setAgent_ID(int newAgentID) {
-        ObjectManager.Agents.updateField(agent_ID, "Agent_ID" , newAgentID);
+        //ObjectManager.Agents.updateField(agent_ID, "Agent_ID" , newAgentID);
         agent_ID= newAgentID;
     }
 
     public void setName(String newName) {
-        ObjectManager.Agents.updateField(agent_ID, "Namn" , newName);
+        //ObjectManager.Agents.updateField(agent_ID, "Namn" , newName);
         namn = newName;
  
     }
@@ -61,7 +61,7 @@ public class Agent {
     }
 
     public void setTelephone(String newTelephone) {
-        ObjectManager.Agents.updateField(agent_ID, "Telefon", newTelephone);
+        //ObjectManager.Agents.updateField(agent_ID, "Telefon", newTelephone);
         telefon = newTelephone;
  
     }
@@ -71,7 +71,7 @@ public class Agent {
     }
 
     public void setRecruitmentDate(LocalDate newRecruitmentDate) {
-        ObjectManager.Agents.updateField(agent_ID, "Anstallningsdatum" , newRecruitmentDate.toString());
+        //ObjectManager.Agents.updateField(agent_ID, "Anstallningsdatum" , newRecruitmentDate.toString());
         anstallningsdatum = newRecruitmentDate; 
     }
 
@@ -80,7 +80,7 @@ public class Agent {
     }
 
     public void setAdmin(String newAdmin) {
-        ObjectManager.Agents.updateField(agent_ID,"Administrator" , newAdmin);
+        //ObjectManager.Agents.updateField(agent_ID,"Administrator" , newAdmin);
         administrator = newAdmin;
     
     }
@@ -90,7 +90,7 @@ public class Agent {
     }
 
     public void setEmail(String newEmail) {
-        ObjectManager.Agents.updateField(agent_ID, "Epost", newEmail);
+        //ObjectManager.Agents.updateField(agent_ID, "Epost", newEmail);
         epost = newEmail;
 
     }
@@ -100,7 +100,7 @@ public class Agent {
     }
 
     public void setPassword(String newPassword) {
-        ObjectManager.Agents.updateField(agent_ID,"Losenord", newPassword);
+        //ObjectManager.Agents.updateField(agent_ID,"Losenord", newPassword);
         losenord = newPassword;
   
     }    
@@ -110,7 +110,7 @@ public class Agent {
     }
 
     public void setLocation(Area newArea) {
-        ObjectManager.Agents.updateField(agent_ID,"Omrade", newArea.getId());
+        //ObjectManager.Agents.updateField(agent_ID,"Omrade", newArea.getId());
         omrade = newArea; 
     }
 }
