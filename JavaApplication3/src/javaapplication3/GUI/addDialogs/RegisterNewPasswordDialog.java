@@ -10,7 +10,7 @@ import javaapplication3.models.Agent;
 import javaapplication3.utils.ObjectManager;
 import javax.swing.JOptionPane;
 import oru.inf.InfException;
-
+import java.awt.Color;
 /**
  *
  * @author albin
@@ -24,6 +24,7 @@ public class RegisterNewPasswordDialog extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.profile = profile;
+        getContentPane().setBackground(new Color(51,51,51));
     }
 
     /**
@@ -44,10 +45,14 @@ public class RegisterNewPasswordDialog extends javax.swing.JDialog {
         registerButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setBackground(new java.awt.Color(221, 221, 221));
+        setForeground(new java.awt.Color(221, 221, 221));
 
-        registerNewPasswordText.setBackground(new java.awt.Color(221, 221, 221));
+        registerNewPasswordText.setBackground(new java.awt.Color(204, 204, 204));
         registerNewPasswordText.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        registerNewPasswordText.setForeground(new java.awt.Color(204, 204, 204));
         registerNewPasswordText.setText("Registrera nytt Lösenord ");
+        registerNewPasswordText.setToolTipText("");
 
         inputCurrentPasswordText.setBackground(new java.awt.Color(204, 204, 204));
         inputCurrentPasswordText.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -110,7 +115,7 @@ public class RegisterNewPasswordDialog extends javax.swing.JDialog {
                         .addComponent(abortButton, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(registerButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(28, 28, 28))
+                .addGap(58, 58, 58))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -125,7 +130,7 @@ public class RegisterNewPasswordDialog extends javax.swing.JDialog {
                 .addComponent(inputNewPasswordText)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(newPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 161, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 157, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(abortButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(registerButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -133,6 +138,7 @@ public class RegisterNewPasswordDialog extends javax.swing.JDialog {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void abortButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abortButtonActionPerformed
