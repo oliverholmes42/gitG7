@@ -78,11 +78,6 @@ public class RegisterNewLocationDialog extends javax.swing.JDialog {
         registerButton.setForeground(new java.awt.Color(51, 51, 51));
         registerButton.setText("Registrera");
         registerButton.setPreferredSize(new java.awt.Dimension(180, 55));
-        registerButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                registerButtonMouseClicked(evt);
-            }
-        });
         registerButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 registerButtonActionPerformed(evt);
@@ -179,7 +174,7 @@ public class RegisterNewLocationDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     
-    private void registerButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registerButtonMouseClicked
+    private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
         if(!NameField.getText().isEmpty()){
             int id = Integer.parseInt(IDField.getText());
             String name = NameField.getText();
@@ -192,10 +187,6 @@ public class RegisterNewLocationDialog extends javax.swing.JDialog {
             }
         }
         else {JOptionPane.showMessageDialog(this, "Namn måste anges", "Felinmatning", JOptionPane.ERROR_MESSAGE);}
-    }//GEN-LAST:event_registerButtonMouseClicked
-
-    private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_registerButtonActionPerformed
 
     private void abortButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abortButtonActionPerformed

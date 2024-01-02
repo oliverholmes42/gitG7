@@ -5,7 +5,13 @@
 package javaapplication3.GUI.panels;
 
 import javaapplication3.GUI.MainPage;
+import javaapplication3.models.Area;
+import javaapplication3.utils.ObjectManager;
+import javaapplication3.utils.ObjectManager.Areas;
+import static javaapplication3.utils.ObjectManager.db;
 import javaapplication3.utils.PopupHandler;
+import javax.swing.table.DefaultTableModel;
+import oru.inf.InfException;
 
 /**
  *
@@ -14,12 +20,16 @@ import javaapplication3.utils.PopupHandler;
 public class AreaPanel extends javax.swing.JPanel {
 
     private MainPage Parent;
+    public static DefaultTableModel areaTableModel;
 
     /**
      * Creates new form OmradePanel
      */
-    public AreaPanel() {
+    public AreaPanel() throws NumberFormatException, InfException {
         initComponents();
+        ObjectManager.Areas.loadList();
+        areaTableModel = (DefaultTableModel) jTable2.getModel();
+        loadTable();      
     }
 
     /**
@@ -145,8 +155,20 @@ public class AreaPanel extends javax.swing.JPanel {
         PopupHandler.addNewAreaPopup(Parent);
 
     }//GEN-LAST:event_addAreaActionPerformed
-
-
+    
+   
+    private static void loadTable() throws InfException {
+        areaTableModel.setRowCount(0);
+        for (Area i : ObjectManager.Areas.areaList.values()) {
+            String[] row = {
+                i.getName(),
+                db.fetchSingle("SELECT COUNT(Agent_ID) FROM agent WHERE Omrade = " + i.getId()),
+                db.fetchSingle("SELECT count(DISTINCT Alien_ID) FROM alien JOIN plats ON alien.Plats = plats.Plats_ID join omrade on plats.Finns_I =" + i.getId())
+            };
+            areaTableModel.addRow(row);
+        }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addArea;
     private javax.swing.JButton deleteArea;
