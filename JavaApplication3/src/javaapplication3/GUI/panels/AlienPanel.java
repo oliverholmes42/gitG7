@@ -4,12 +4,14 @@
  */
 package javaapplication3.GUI.panels;
 
+import java.awt.BorderLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import javaapplication3.GUI.MainPage;
+import javaapplication3.models.Agent;
 import javaapplication3.models.Alien;
 import javaapplication3.models.Location;
 import javaapplication3.models.alienSubclasses.Boglodite;
@@ -30,6 +32,9 @@ import oru.inf.InfException;
 public class AlienPanel extends javax.swing.JPanel {
     private MainPage Parent;
     public static DefaultTableModel tableModel;
+    private com.github.lgooddatepicker.components.DatePicker startDatePicker;
+    private com.github.lgooddatepicker.components.DatePicker endDatePicker;
+
     /**
      * Creates new form AgentPanel
      */
@@ -50,11 +55,23 @@ public class AlienPanel extends javax.swing.JPanel {
         
         
         fillAreaFilter();
-        addYearsToComboBox();
+        setDatePicker();
 
        
     }
 
+    private void setDatePicker(){
+        startDatePicker = new com.github.lgooddatepicker.components.DatePicker();
+        endDatePicker = new com.github.lgooddatepicker.components.DatePicker();
+
+    // Replace the startDate and endDate panels with DatePicker components
+        startDate.setLayout(new BorderLayout());
+        startDate.add(startDatePicker);
+        endDate.setLayout(new BorderLayout());
+        endDate.add(endDatePicker);
+
+        
+    }
     private void fillAreaFilter() {
         DefaultComboBoxModel<String> dcbm = new DefaultComboBoxModel<>();
         dcbm.addElement("Välj plats");
@@ -64,29 +81,15 @@ public class AlienPanel extends javax.swing.JPanel {
         areaComboBox.setModel(dcbm);
     }
     
-        private void addYearsToComboBox() {
-
-        int minYear = Integer.MAX_VALUE;
-        int maxYear = Integer.MIN_VALUE;
-
-        for (Alien alien : ObjectManager.Aliens.alienList.values()) {
-            LocalDate registrationDate = alien.getRegistrationDate();
-            int year = registrationDate.getYear();
-
-            if (year < minYear) {
-                minYear = year;
-            }
-            if (year > maxYear) {
-                maxYear = year;
-            }
-        }
-
-        // Add all years between the lowest and highest years to the JComboBox
-        for (int year = minYear; year <= maxYear; year++) {
-            yearPickerComboBox.addItem(Integer.toString(year));
+    private void fillAgentFilter(){
+        DefaultComboBoxModel<String> dcbm = new DefaultComboBoxModel<>();
+        dcbm.addElement("Ansvarig Agent");
+        for(Agent item : ObjectManager.Agents.agentList.values()){
+            dcbm.addElement(item.getName());
+        
+        agentComboBox.setModel(dcbm);
         }
     }
-    
 
     private void loadTable() {
         tableModel.setRowCount(0); // Clear existing rows
@@ -140,15 +143,16 @@ public class AlienPanel extends javax.swing.JPanel {
         searchButton = new javax.swing.JButton();
         areaComboBox = new javax.swing.JComboBox<>();
         raceComboBox = new javax.swing.JComboBox<>();
-        yearPickerComboBox = new javax.swing.JComboBox<>();
         filterLabel = new javax.swing.JLabel();
         resultScrollPane = new javax.swing.JScrollPane();
         resultTable = new javax.swing.JTable();
         clearFilterButton = new javax.swing.JButton();
         removeAlienButton = new javax.swing.JButton();
         addAlienButton = new javax.swing.JButton();
-        monthPickerComboBox = new javax.swing.JComboBox<>();
         editAlienButton = new javax.swing.JButton();
+        startDate = new javax.swing.JPanel();
+        endDate = new javax.swing.JPanel();
+        agentComboBox = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(200, 200, 200));
         setMaximumSize(new java.awt.Dimension(1128, 792));
@@ -192,13 +196,11 @@ public class AlienPanel extends javax.swing.JPanel {
         raceComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ras", "Worm", "Squid", "Boglodite" }));
         raceComboBox.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51), 3));
         raceComboBox.setPreferredSize(new java.awt.Dimension(180, 45));
-
-        yearPickerComboBox.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        yearPickerComboBox.setForeground(new java.awt.Color(51, 51, 51));
-        yearPickerComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "År" }));
-        yearPickerComboBox.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51), 3));
-        yearPickerComboBox.setOpaque(true);
-        yearPickerComboBox.setPreferredSize(new java.awt.Dimension(180, 45));
+        raceComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                raceComboBoxActionPerformed(evt);
+            }
+        });
 
         filterLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         filterLabel.setForeground(new java.awt.Color(51, 51, 51));
@@ -258,11 +260,6 @@ public class AlienPanel extends javax.swing.JPanel {
             }
         });
 
-        monthPickerComboBox.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        monthPickerComboBox.setForeground(new java.awt.Color(51, 51, 51));
-        monthPickerComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Månad", "Januari", "Februari", "Mars", "April", "Maj", "Juni", "Juli", "Augusti", "September", "Oktober", "November", "December" }));
-        monthPickerComboBox.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51), 3));
-
         editAlienButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         editAlienButton.setText("Redigera Alien");
         editAlienButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51), 3));
@@ -270,6 +267,39 @@ public class AlienPanel extends javax.swing.JPanel {
         editAlienButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 editAlienButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout startDateLayout = new javax.swing.GroupLayout(startDate);
+        startDate.setLayout(startDateLayout);
+        startDateLayout.setHorizontalGroup(
+            startDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 150, Short.MAX_VALUE)
+        );
+        startDateLayout.setVerticalGroup(
+            startDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout endDateLayout = new javax.swing.GroupLayout(endDate);
+        endDate.setLayout(endDateLayout);
+        endDateLayout.setHorizontalGroup(
+            endDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 150, Short.MAX_VALUE)
+        );
+        endDateLayout.setVerticalGroup(
+            endDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 30, Short.MAX_VALUE)
+        );
+
+        agentComboBox.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        agentComboBox.setForeground(new java.awt.Color(51, 51, 51));
+        agentComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Agent" }));
+        agentComboBox.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51), 3));
+        agentComboBox.setPreferredSize(new java.awt.Dimension(180, 45));
+        agentComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                agentComboBoxActionPerformed(evt);
             }
         });
 
@@ -284,56 +314,68 @@ public class AlienPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(79, 79, 79)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(filterLabel)
                     .addComponent(resultScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 975, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(clearFilterButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(areaComboBox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(raceComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(yearPickerComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(monthPickerComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(addAlienButton, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(searchbarTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(removeAlienButton, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(editAlienButton, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(0, 74, Short.MAX_VALUE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(filterLabel)
+                            .addGap(872, 872, 872))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(clearFilterButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(areaComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(216, 216, 216)
+                                    .addComponent(addAlienButton, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(removeAlienButton, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(editAlienButton, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(18, 18, 18)
+                                    .addComponent(raceComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(agentComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(startDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(endDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(searchbarTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(12, 12, 12)
+                                    .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addGap(0, 66, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(67, 67, 67)
-                .addComponent(headerLabel)
-                .addGap(33, 33, 33)
-                .addComponent(filterLabel)
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(areaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(raceComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(yearPickerComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(searchbarTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(monthPickerComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(clearFilterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(removeAlienButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(addAlienButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(editAlienButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(resultScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(93, 93, 93)
+                        .addComponent(headerLabel)
+                        .addGap(23, 23, 23)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(endDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(startDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(searchbarTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(raceComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(areaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(agentComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(clearFilterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(removeAlienButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(addAlienButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(editAlienButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(resultScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(173, 173, 173)
+                        .addComponent(filterLabel)))
                 .addGap(164, 164, 164))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -350,26 +392,29 @@ public class AlienPanel extends javax.swing.JPanel {
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
         tableModel.setRowCount(0);
     
-    String selectedYear = (String) yearPickerComboBox.getSelectedItem();
+    LocalDate startDate = startDatePicker.getDate();
+    LocalDate endDate = endDatePicker.getDate();
     String selectedRace = (String) raceComboBox.getSelectedItem();
     String selectedLocation = (String) areaComboBox.getSelectedItem();
+    String selectedAgent = (String) agentComboBox.getSelectedItem();
     String searchText = searchbarTextfield.getText().toLowerCase();
-    int selectedMonthIndex = monthPickerComboBox.getSelectedIndex();
+    
 
     for (Alien item : ObjectManager.Aliens.alienList.values()) {
-        String alienYear = Integer.toString(item.getRegistrationDate().getYear());
-        int alienMonth = item.getRegistrationDate().getMonthValue();
+        LocalDate alienDate = item.getRegistrationDate();
         String alienRace = item.getClass().getSimpleName();
         String alienLocation = item.getLocation().getName();
         String alienName = item.getName().toLowerCase();
+        String alienAgent = item.getResponsibleAgent().getName();
 
-        boolean yearMatches = yearPickerComboBox.getSelectedIndex() == 0 || alienYear.equals(selectedYear);
-        boolean monthMatches = selectedMonthIndex == 0 || alienMonth == selectedMonthIndex;
+         boolean dateMatches = (startDate == null || alienDate.isAfter(startDate) || alienDate.isEqual(startDate))
+                && (endDate == null || alienDate.isBefore(endDate) || alienDate.isEqual(endDate));
         boolean raceMatches = raceComboBox.getSelectedIndex() == 0 || alienRace.equals(selectedRace);
         boolean locationMatches = areaComboBox.getSelectedIndex() == 0 || alienLocation.equals(selectedLocation);
         boolean nameMatches = alienName.contains(searchText);
+        boolean agentMatches = agentComboBox.getSelectedIndex() == 0 || alienAgent.equals(selectedAgent);
 
-        if (nameMatches && yearMatches && monthMatches && raceMatches && locationMatches) {
+        if (nameMatches && dateMatches && raceMatches && locationMatches && agentMatches) {
             String[] row = {
                 Integer.toString(item.getID()),
                 alienRace,
@@ -416,6 +461,14 @@ public class AlienPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_areaComboBoxActionPerformed
 
+    private void raceComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_raceComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_raceComboBoxActionPerformed
+
+    private void agentComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agentComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_agentComboBoxActionPerformed
+
     
     
     
@@ -448,18 +501,19 @@ public class AlienPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addAlienButton;
+    private javax.swing.JComboBox<String> agentComboBox;
     private javax.swing.JComboBox<String> areaComboBox;
     private javax.swing.JButton clearFilterButton;
     private javax.swing.JButton editAlienButton;
+    private javax.swing.JPanel endDate;
     private javax.swing.JLabel filterLabel;
     private javax.swing.JLabel headerLabel;
-    private javax.swing.JComboBox<String> monthPickerComboBox;
     private javax.swing.JComboBox<String> raceComboBox;
     private javax.swing.JButton removeAlienButton;
     private javax.swing.JScrollPane resultScrollPane;
     private javax.swing.JTable resultTable;
     private javax.swing.JButton searchButton;
     private javax.swing.JTextField searchbarTextfield;
-    private javax.swing.JComboBox<String> yearPickerComboBox;
+    private javax.swing.JPanel startDate;
     // End of variables declaration//GEN-END:variables
 }
