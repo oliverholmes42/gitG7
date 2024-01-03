@@ -11,6 +11,7 @@ import javaapplication3.GUI.addDialogs.RegisterNewAreaDialog;
 import javaapplication3.GUI.addDialogs.RegisterNewPasswordDialog;
 import javaapplication3.GUI.addDialogs.RegisterNewUtilitiesDialog;
 import javaapplication3.GUI.editDialogs.editAlienDialog;
+import javaapplication3.GUI.editDialogs.returnEquipmentDialog;
 import javaapplication3.GUI.panels.AlienPanel;
 import javaapplication3.models.Agent;
 import javaapplication3.models.Alien;
@@ -130,6 +131,10 @@ public class PopupHandler {
      public static void addNewPasswordPopup(MainPage Parent, Agent profile){
         new RegisterNewPasswordDialog(Parent, profile, true).setVisible(true);
     }
+     
+     public static void returnUtilityPopup(MainPage Parent) {
+         new returnEquipmentDialog(Parent,true).setVisible(true);
+     }
     
     
 }

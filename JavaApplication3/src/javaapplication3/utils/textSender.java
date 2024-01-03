@@ -26,25 +26,6 @@ import javax.xml.bind.DatatypeConverter;
  * @author mopaj
  */
 public class textSender {
-    /*
-    public static void sendText(String receiver, String message) {
-    try {
-      System.out.println("Sending SMS");
-
-      //HttpResponse response = Unirest.post("https://api.46elks.com/a1/sms")
-        .basicAuth("a5a5e1e4871c69f3df8c93e4acf832c15","6BD60977D92372A7149F067B9FF94D8A")
-        .field("to", receiver )
-        .field("from", "MIBAdmin")
-        .field("message", message)
-        .asString();
-
-      System.out.println(response.getBody());
-      }
-
-    catch (Exception e){
-        System.out.println(e);
-    }
-  }*/
      static void sendSMS (String receiver, String message) {
     try {
         // Construct POST data

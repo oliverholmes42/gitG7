@@ -39,7 +39,7 @@ public class EquipmentPanel extends javax.swing.JPanel {
     private void loadTable(){
         tableModel.setRowCount(0);
         for(Utilities item : ObjectManager.UtilitiesHandler.utilitiesList.values()){
-            HashMap<String,String> itemMap = ObjectManager.AgentUtilityHandler.checkUtilityStatus(item);
+            HashMap<String,String> itemMap = ObjectManager.AgentUtilityHandler.getUtilityInfo(item);
             String[] row = {
                 Integer.toString(item.getID()),
                 item.getName(),
@@ -52,6 +52,7 @@ public class EquipmentPanel extends javax.swing.JPanel {
             tableModel.addRow(row);
         }
     }
+    
 
     private String getSubValue(Utilities utility) {
                 String uniqueValue;
@@ -156,7 +157,6 @@ public class EquipmentPanel extends javax.swing.JPanel {
         jScrollPane1.setViewportView(utilityTable);
 
         jButton1.setText("Återlämna utrustning");
-        jButton1.setEnabled(false);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -247,6 +247,7 @@ public class EquipmentPanel extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        PopupHandler.returnUtilityPopup(Parent);
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

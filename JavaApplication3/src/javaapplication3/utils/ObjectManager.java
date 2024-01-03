@@ -578,8 +578,11 @@ public class ObjectManager {
         }
     }
    
-    public static class AgentUtilityHandler {
-        public static ArrayList<AgentUtils> agentUtilsList = new ArrayList<>();
+    
+    public class AgentUtilityHandler {
+        // HashMap with key as utility ID and value as an AgentUtils object
+
+        public static HashMap<Integer, AgentUtils> agentUtilsMap = new HashMap<>();
 
         public static void loadList() throws InfException {
             if (Aliens.alienList.isEmpty()) {
@@ -599,28 +602,48 @@ public class ObjectManager {
                 Agent agent = Agents.agentList.get(agentId); // Assuming agentList is a static field in Agents class
                 Utilities utility = UtilitiesHandler.utilitiesList.get(utilityId);
 
-                AgentUtils item = new AgentUtils(agent,utility,date);
-                    agentUtilsList.add(item);
+                AgentUtils item = new AgentUtils(agent, utility, date);
+
+                // Put the AgentUtils item in the map with utility ID as the key
+                agentUtilsMap.put(utilityId, item);
             }
         }
-        
-        public static HashMap<String, String> checkUtilityStatus(Utilities utility) {
-        HashMap<String, String> statusInfo = new HashMap<>();
-        for (AgentUtils agentUtil : agentUtilsList) {
-            if (agentUtil.getUtility().equals(utility)) {
+
+        public static HashMap<String, String> getUtilityInfo(Utilities utility) {
+            HashMap<String, String> statusInfo = new HashMap<>();
+            AgentUtils agentUtil = agentUtilsMap.get(utility.getID());
+
+            if (agentUtil != null) {
                 statusInfo.put("Status", "Utlånad");
                 statusInfo.put("Borrower", agentUtil.getAgent().getName()); // Assuming Agent has a getName() method
                 statusInfo.put("Date", agentUtil.getBorrowingDate().toString());
-                return statusInfo;
+            } else {
+                statusInfo.put("Status", "Tillgänglig");
+                statusInfo.put("Borrower", ""); // Empty string for borrower
+                statusInfo.put("Date", "");     // Empty string for date
+            }
+            return statusInfo;
+        }
+        
+        public static HashMap<Integer,Utilities> getAgentUtils(Agent agent){
+            HashMap<Integer,Utilities> utilMap= new HashMap<>();
+            
+            for(AgentUtils item : agentUtilsMap.values()){
+                if(item.getAgent().getId()==agent.getId()){
+                    Utilities util = item.getUtility();
+                    
+                    utilMap.put(util.getID(),util);
+                }
+            }
+            return utilMap;
+        }
+        
+        public static void remove(ArrayList<Integer> idList) throws InfException {
+            for(int id : idList){
+                AgentUtils item = agentUtilsMap.get(id);
+                db.delete("delete from innehar_utrustning where Agent_ID = " + item.getAgent().getId() + " and Utrustnings_ID = "+ item.getUtility().getID());
+                agentUtilsMap.remove(item.getUtility().getID());
             }
         }
-        statusInfo.put("Status", "Tillgänglig");
-        statusInfo.put("Borrower", ""); // Empty string for borrower
-        statusInfo.put("Date", "");     // Empty string for date
-        return statusInfo;
     }
-    }
-
-    
 }
-    
