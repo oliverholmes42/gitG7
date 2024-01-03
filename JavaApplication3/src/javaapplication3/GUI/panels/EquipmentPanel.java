@@ -46,8 +46,8 @@ public class EquipmentPanel extends javax.swing.JPanel {
                 item.getClass().getSimpleName(),
                 getSubValue(item),
                 itemMap.get("Status"),
-                itemMap.get("Borrower"),
-                itemMap.get("Date")
+                itemMap.get("Date"),
+                itemMap.get("Borrower")
             };
             tableModel.addRow(row);
         }
