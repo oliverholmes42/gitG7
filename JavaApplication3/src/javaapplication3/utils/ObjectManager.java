@@ -6,6 +6,7 @@ package javaapplication3.utils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,6 +18,9 @@ import javaapplication3.models.*;
 import javaapplication3.models.alienSubclasses.Boglodite;
 import javaapplication3.models.alienSubclasses.Squid;
 import javaapplication3.models.alienSubclasses.Worm;
+import javaapplication3.models.utilitySubClasses.CommunicationsDevice;
+import javaapplication3.models.utilitySubClasses.Tech;
+import javaapplication3.models.utilitySubClasses.Weapon;
 import oru.inf.*;
 import oru.inf.InfException;
 
@@ -530,10 +534,23 @@ public class ObjectManager {
         public static void loadList() throws NumberFormatException, InfException {
             if(!utilitiesList.isEmpty()) {utilitiesList.clear();}
             
-            ArrayList<HashMap<String, String>> map = db.fetchRows("SELECT * FROM utrustning");
+            String query = "SELECT u.*, v.kaliber, k.Overforingsteknik, t.kraftkalla FROM utrustning u LEFT JOIN vapen v ON u.Utrustnings_ID = v.Utrustnings_ID LEFT JOIN kommunikation k ON u.Utrustnings_ID = k.Utrustnings_ID LEFT JOIN teknik t ON u.Utrustnings_ID = t.Utrustnings_ID";
+            ArrayList<HashMap<String, String>> map = db.fetchRows(query);
+            
             for(HashMap<String,String> singleMap : map){
                 int id = Integer.parseInt(singleMap.get("Utrustnings_ID"));
-                Utilities util = new Utilities(singleMap);
+                
+                Utilities util;
+                if(singleMap.get("Kaliber")!=null){
+                    util = new Weapon(singleMap);
+                }
+                else if(singleMap.get("Overforingsteknik")!=null){
+                    util = new CommunicationsDevice(singleMap);
+                }
+                else if(singleMap.get("Kraftkalla")!=null){
+                    util = new Tech(singleMap);
+                }
+                else{util = new Utilities(singleMap);}
                 utilitiesList.put(id, util);
             }
         }
@@ -560,5 +577,50 @@ public class ObjectManager {
         utilitiesList.clear();
         }
     }
+   
+    public static class AgentUtilityHandler {
+        public static ArrayList<AgentUtils> agentUtilsList = new ArrayList<>();
+
+        public static void loadList() throws InfException {
+            if (Aliens.alienList.isEmpty()) {
+                Aliens.loadAlienList();
+            }
+            if (UtilitiesHandler.utilitiesList.isEmpty()) {
+                UtilitiesHandler.loadList();
+            }
+
+            String query = "SELECT * FROM innehar_utrustning";
+            ArrayList<HashMap<String, String>> map = db.fetchRows(query);
+            for (HashMap<String, String> singleMap : map) {
+                int agentId = Integer.parseInt(singleMap.get("Agent_ID"));
+                int utilityId = Integer.parseInt(singleMap.get("Utrustnings_ID"));
+                LocalDate date = LocalDate.parse(singleMap.get("Utkvitteringsdatum"));
+
+                Agent agent = Agents.agentList.get(agentId); // Assuming agentList is a static field in Agents class
+                Utilities utility = UtilitiesHandler.utilitiesList.get(utilityId);
+
+                AgentUtils item = new AgentUtils(agent,utility,date);
+                    agentUtilsList.add(item);
+            }
+        }
+        
+        public static HashMap<String, String> checkUtilityStatus(Utilities utility) {
+        HashMap<String, String> statusInfo = new HashMap<>();
+        for (AgentUtils agentUtil : agentUtilsList) {
+            if (agentUtil.getUtility().equals(utility)) {
+                statusInfo.put("Status", "Utlånad");
+                statusInfo.put("Borrower", agentUtil.getAgent().getName()); // Assuming Agent has a getName() method
+                statusInfo.put("Date", agentUtil.getBorrowingDate().toString());
+                return statusInfo;
+            }
+        }
+        statusInfo.put("Status", "Tillgänglig");
+        statusInfo.put("Borrower", ""); // Empty string for borrower
+        statusInfo.put("Date", "");     // Empty string for date
+        return statusInfo;
+    }
+    }
+
     
 }
+    
