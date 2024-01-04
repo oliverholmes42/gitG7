@@ -28,6 +28,8 @@ public class JavaApplication3 {
         //Initialisering utav databasuppkoppling:
         new LoginPage().setVisible(true); //Initialiserar loginsidan som förstasida "LoginPage".
         
+        ObjectManager.Agents.LoadList();
+        HashMap<Integer,Agent> map = ObjectManager.Agents.agentList;
 
         System.out.println(2);
         

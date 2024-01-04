@@ -15,6 +15,9 @@ import java.util.StringJoiner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javaapplication3.models.*;
+import javaapplication3.models.agentSubClass.Faltagent;
+import javaapplication3.models.agentSubClass.KontorsChef;
+import javaapplication3.models.agentSubClass.OmradesChef;
 import javaapplication3.models.alienSubclasses.Boglodite;
 import javaapplication3.models.alienSubclasses.Squid;
 import javaapplication3.models.alienSubclasses.Worm;
@@ -452,19 +455,57 @@ public class ObjectManager {
     public static class Agents {
         public static HashMap<Integer, Agent> agentList = new HashMap<>();
 
-        public static void LoadList() throws NumberFormatException, InfException {
-            if(!agentList.isEmpty()) {agentList.clear();}
-            
-            if(Areas.areaList.isEmpty()) {Areas.loadList();}
-            
-            ArrayList<HashMap<String, String>> map = db.fetchRows("SELECT * FROM agent"); 
-            for(HashMap<String,String> singleMap : map){
-                int id = Integer.parseInt(singleMap.get("Agent_ID"));
+       public static void LoadList() throws NumberFormatException, InfException {
+            if (!agentList.isEmpty()) {
+                agentList.clear();
+            }
+
+            if (Areas.areaList.isEmpty()) {
+                Areas.loadList();
+            }
+
+            ArrayList<HashMap<String, String>> map = db.fetchRows("SELECT * FROM agent");
+            ArrayList<HashMap<String, String>> Fmap = db.fetchRows("SELECT * FROM faltagent");
+            ArrayList<HashMap<String, String>> Omap = db.fetchRows("SELECT * FROM omradeschef");
+            ArrayList<HashMap<String, String>> Kmap = db.fetchRows("SELECT * FROM kontorschef");
+
+            for (HashMap<String, String> singleMap : map) {
+                int agentId = Integer.parseInt(singleMap.get("Agent_ID"));
                 int areaID = Integer.parseInt(singleMap.get("Omrade"));
-                Agent agent = new Agent(singleMap,Areas.areaList.get(areaID));
-                agentList.put(id,agent);
+
+                HashMap<String, String> matchingMap = findMatchingMap(agentId, Omap);
+                if (matchingMap != null) {
+                    
+                    Area controlArea = Areas.areaList.get(matchingMap.get("Omrade"));
+                    agentList.put(agentId, new OmradesChef(singleMap,Areas.areaList.get(areaID),controlArea));
+                    
+                } else if ((matchingMap = findMatchingMap(agentId, Kmap)) != null) {
+                    
+                    String officeName = matchingMap.get("Kontorsbeteckning");
+                    agentList.put(agentId, new KontorsChef(singleMap, Areas.areaList.get(areaID),officeName));
+                    
+                } else if ((matchingMap = findMatchingMap(agentId, Fmap)) != null) {
+                    
+                     agentList.put(agentId, new Faltagent(singleMap, Areas.areaList.get(areaID)));
+                    
+                } else {
+                    // The agentId does not exist in any of the lists
+                    Agent agent = new Agent(singleMap, Areas.areaList.get(areaID));
+                    agentList.put(agentId, agent);
+                }
             }
         }
+
+        
+        private static HashMap<String, String> findMatchingMap(int agentId, ArrayList<HashMap<String, String>> list) {
+            for (HashMap<String, String> map : list) {
+                if (Integer.parseInt(map.get("Agent_ID")) == agentId) {
+                    return map;
+                }
+            }
+            return null;
+        }
+
         
         public static void updateField(int id, String column, String newValue){
             try{
