@@ -648,13 +648,12 @@ public class ObjectManager {
         }
         public static void addNew(ArrayList<Utilities> utilList) throws InfException {
             HashMap<String,String> inputMap = new HashMap<>();
+            int AgentID = UserSession.getInstance().getUserId();
+            String stringAgentID = Integer.toString(AgentID);
             for(Utilities item: utilList){
                 int ID = item.getID();
                 String stringID = Integer.toString(item.getID());
-                
-                int AgentID = UserSession.getInstance().getUserId();
-                String stringAgentID = Integer.toString(item.getID());
-                
+      
                 LocalDate date = LocalDate.now();
                 String stringDate = date.toString();
                 

@@ -91,20 +91,28 @@ public class EquipmentPanel extends javax.swing.JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 1) { // Single click
-                    int row = utilityTable.getSelectedRow();
-                    boolean free = utilityTable.getValueAt(row, 5)==null;
+                    int[] rows = utilityTable.getSelectedRows();
+                    boolean free = isFree(rows);
                             
-                    if (row >= 0&& free) {
+                    if (rows.length >= 0&& free) {
                         lånaButton.setEnabled(true);
                         
                         
-                    }
-                else{
+                    }else{
                         lånaButton.setEnabled(false);
                     }
                 }
             }
         }); }
+    
+    private boolean isFree(int[] rows){
+        for(int i : rows){
+            if(utilityTable.getValueAt(i, 5)!=null){
+                return false;
+            }
+        }
+        return true;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
