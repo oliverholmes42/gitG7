@@ -225,7 +225,7 @@ public class RegisterNewUtilitiesDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_comfirmButtonActionPerformed
 
     private void equipmentTypeComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_equipmentTypeComboBoxActionPerformed
-        
+         
         if(evt.getSource() == equipmentTypeComboBox){
             if(equipmentTypeComboBox.getSelectedIndex() == 1){
                 dynamicTextLabel.setText("Ange kaliber:");
@@ -246,7 +246,7 @@ public class RegisterNewUtilitiesDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_equipmentTypeComboBoxActionPerformed
 
     private void valueTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_valueTextFieldKeyPressed
-        if (equipmentTypeComboBox.getSelectedIndex() == 1) {
+       if (equipmentTypeComboBox.getSelectedIndex() == 1) {
             String phoneNumber = valueTextField.getText();
             int length = phoneNumber.length();
             char c = evt.getKeyChar();

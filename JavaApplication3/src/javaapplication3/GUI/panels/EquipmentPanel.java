@@ -96,10 +96,12 @@ public class EquipmentPanel extends javax.swing.JPanel {
                             
                     if (rows.length >= 0&& free) {
                         lånaButton.setEnabled(true);
+                        raderaButton.setEnabled(true);
                         
                         
                     }else{
                         lånaButton.setEnabled(false);
+                        raderaButton.setEnabled(true);
                     }
                 }
             }

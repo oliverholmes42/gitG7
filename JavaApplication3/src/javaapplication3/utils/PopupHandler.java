@@ -14,10 +14,10 @@ import javaapplication3.GUI.editDialogs.editAlienDialog;
 import javaapplication3.GUI.editDialogs.returnEquipmentDialog;
 import javaapplication3.GUI.panels.AgentPanel;
 import javaapplication3.GUI.panels.AlienPanel;
+import javaapplication3.GUI.panels.AreaPanel;
 import javaapplication3.GUI.panels.EquipmentPanel;
 import javaapplication3.models.Agent;
 import javaapplication3.models.Alien;
-import javax.swing.JSpinner;
 import oru.inf.InfDB;
 import oru.inf.InfException;
 
@@ -50,8 +50,8 @@ public class PopupHandler {
         new RegisterNewAgentDialog(Parent, home, true).setVisible(true);
     }
     
-    public static void addNewAreaPopup(MainPage Parent){
-        new RegisterNewAreaDialog(Parent, true).setVisible(true);
+    public static void addNewAreaPopup(MainPage Parent, AreaPanel home) throws InfException{
+        new RegisterNewAreaDialog(Parent,home, true).setVisible(true);
     }
     
     public static void addNewUtilitiesPopup(MainPage Parent, EquipmentPanel home) throws InfException{

@@ -232,17 +232,17 @@ public class RegisterNewAgentDialog extends javax.swing.JDialog {
             map.put("Omrade", location + "");
             
             String type = agentTypeComboBox.getSelectedItem().toString();
-            map.put("Race", race);
-            map.put("Value", valueSpinner.getValue().toString());
+           // map.put("Race", race);
+            //map.put("Value", valueSpinner.getValue().toString());
             
-            ObjectManager.Aliens.addNew(map, ObjectManager.Locations.locationList.get(location), ObjectManager.Agents.agentList.get(agent), race);
+           // ObjectManager.Aliens.addNew(map, ObjectManager.Locations.locationList.get(location), ObjectManager.Agents.agentList.get(agent), race);
             
             JOptionPane.showMessageDialog(this, "Registreringen av Agent:" + nameTextField.getText() + " med nytt \nagentidentifieringsnummer: " + maxID + " lyckades!");
             Parent.reload();
             this.dispose();
             
-        } catch (InfException ex) {
-            Logger.getLogger(RegisterNewAlienDialogPopupV2.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            //Logger.getLogger(RegisterNewAlienDialogPopupV2.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_registerButtonActionPerformed
 

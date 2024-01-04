@@ -626,6 +626,22 @@ public class ObjectManager {
         public static void offLoad(){
         areaList.clear();
         }
+        
+        public static void addNew(HashMap<String, String> map)throws InfException {
+            String Query = buildInsertQuery("omrade", map);
+            db.insert(Query);
+            Area area = new Area(map);
+            areaList.put(area.getId(), area); 
+             
+        }
+        
+        public static void delete(ArrayList<Integer> list) throws InfException {
+            for(int ID:list){
+            db.delete("Delete from omrade where Omrades_ID =" + ID);
+            areaList.remove(ID);
+            
+        }
+    }
     }
 
     
@@ -830,4 +846,5 @@ public class ObjectManager {
             }
         }  
     }
+
 }

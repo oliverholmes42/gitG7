@@ -4,20 +4,30 @@
  */
 package javaapplication3.GUI.addDialogs;
 import java.awt.Color;
+import java.util.HashMap;
+import javaapplication3.GUI.panels.AreaPanel;
+import javaapplication3.utils.ObjectManager;
+import static javaapplication3.utils.ObjectManager.db;
+import javax.swing.JOptionPane;
+import oru.inf.InfException;
 
 /**
  *
  * @author aiham
  */
 public class RegisterNewAreaDialog extends javax.swing.JDialog {
-
+    int maxID = Integer.parseInt(db.fetchSingle("Select max(Omrades_ID) from omrade"))+1;
+    private AreaPanel Parent;
     /**
      * Creates new form addAreaDialog, blir problem med färgerna på popuppen. 
      */
-    public RegisterNewAreaDialog(java.awt.Frame parent, boolean modal) {
+    public RegisterNewAreaDialog(java.awt.Frame parent, AreaPanel home, boolean modal) throws InfException {
         super(parent, modal);
+        Parent = home; 
         initComponents();
         getContentPane().setBackground(new Color(51,51,51));
+        areaID.setText(String.valueOf(maxID));
+        ObjectManager.Areas.loadList();
 
     }
 
@@ -131,7 +141,22 @@ public class RegisterNewAreaDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void confirmAddAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmAddAreaActionPerformed
-
+        if (!nameOfNewArea.getText().isEmpty()){
+        
+            try {
+                HashMap<String, String> map = new HashMap<>();
+                map.put("Omrades_ID", maxID + "");
+                map.put("Benamning", nameOfNewArea.getText());
+                
+                ObjectManager.Areas.addNew(map);
+                
+                JOptionPane.showMessageDialog(this, "Registrering av området: " + nameOfNewArea.getText() + " lyckades!");
+                Parent.reload();
+                this.dispose();
+            } catch (InfException ex){
+                
+            } 
+        }
     }//GEN-LAST:event_confirmAddAreaActionPerformed
 
     private void abortAddAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abortAddAreaActionPerformed

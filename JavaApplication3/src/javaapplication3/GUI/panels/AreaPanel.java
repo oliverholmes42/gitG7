@@ -4,14 +4,15 @@
  */
 package javaapplication3.GUI.panels;
 
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javaapplication3.GUI.MainPage;
 import javaapplication3.models.Area;
 import javaapplication3.utils.ObjectManager;
-import javaapplication3.utils.ObjectManager.Areas;
 import static javaapplication3.utils.ObjectManager.db;
 import javaapplication3.utils.PopupHandler;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import oru.inf.InfException;
 
@@ -63,17 +64,17 @@ public class AreaPanel extends javax.swing.JPanel {
         jTable2.setForeground(new java.awt.Color(40, 40, 40));
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Namn på område", "Antal agenter", "Antal Aliens"
+                "ID", "Namn på område", "Antal agenter", "Antal Aliens"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -85,7 +86,7 @@ public class AreaPanel extends javax.swing.JPanel {
         jTable2.setName(""); // NOI18N
         jTable2.setRowHeight(80);
         jTable2.setRowMargin(1);
-        jTable2.setRowSelectionAllowed(false);
+        jTable2.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         jTable2.setShowGrid(true);
         jScrollPane2.setViewportView(jTable2);
 
@@ -98,6 +99,11 @@ public class AreaPanel extends javax.swing.JPanel {
         updateInfo.setText("Uppdatera information");
 
         deleteArea.setLabel("Ta bort område");
+        deleteArea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteAreaActionPerformed(evt);
+            }
+        });
 
         addArea.setText("Lägg till område");
         addArea.setToolTipText("");
@@ -166,7 +172,18 @@ public class AreaPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_searchOmradeTextFieldActionPerformed
 
     private void addAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addAreaActionPerformed
-        PopupHandler.addNewAreaPopup(Parent);
+       try {
+            PopupHandler.addNewAreaPopup(Parent, this);
+        } catch (InfException ex) {
+            Logger.getLogger(AreaPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }                                       
+                                      
+   
+    
+    public static void reload() throws InfException{
+        loadTable();
 
     }//GEN-LAST:event_addAreaActionPerformed
 
@@ -185,6 +202,28 @@ public class AreaPanel extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void deleteAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteAreaActionPerformed
+        ArrayList<Integer> selectedID = new ArrayList<Integer>();
+        for (int item : jTable2.getSelectedRows()) {
+            selectedID.add(Integer.parseInt((String) jTable2.getValueAt(item, 0)));
+        }
+        int selectedAreaCount = selectedID.size(); // Replace with your method
+        String message = "Ta bort " + selectedAreaCount + " område" + (selectedAreaCount > 1 ? "s" : "") + " från systemet?";
+
+        int response = JOptionPane.showConfirmDialog(null, message, "Bekräfta", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (response == JOptionPane.YES_OPTION) {
+            
+            try {
+                ObjectManager.Areas.delete(selectedID);
+                JOptionPane.showMessageDialog(this, selectedAreaCount + " Områden raderades!","Raderade", JOptionPane.INFORMATION_MESSAGE);
+                loadTable();
+            } catch (InfException ex) {
+                Logger.getLogger(AreaPanel.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Misslyckades. Mission Failed, we'll get them next time.","Error",JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_deleteAreaActionPerformed
     
    
     private static void loadTable() throws InfException {
@@ -196,6 +235,7 @@ public class AreaPanel extends javax.swing.JPanel {
 
     private static void addRow(Area i) throws InfException {
         String[] row = {
+            Integer.toString(i.getId()),
             i.getName(),
             db.fetchSingle("SELECT COUNT(Agent_ID) FROM agent WHERE Omrade = " + i.getId()),
             db.fetchSingle("SELECT count(DISTINCT Alien_ID) FROM alien JOIN plats ON alien.Plats = plats.Plats_ID join omrade on plats.Finns_I =" + i.getId())
