@@ -5,8 +5,18 @@
 
 package javaapplication3.GUI.panels;
 
+import java.awt.BorderLayout;
+import java.util.Calendar;
 import javaapplication3.GUI.MainPage;
+import static javaapplication3.GUI.panels.AlienPanel.tableModel;
+import javaapplication3.models.Agent;
+import javaapplication3.models.Location;
+import javaapplication3.utils.ObjectManager;
 import javaapplication3.utils.PopupHandler;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.SpinnerDateModel;
+import javax.swing.table.DefaultTableModel;
+import oru.inf.InfException;
 
 
 /**
@@ -14,16 +24,73 @@ import javaapplication3.utils.PopupHandler;
  * @author mopaj
  */
 public class AgentPanel extends javax.swing.JPanel {
+    
     private MainPage Parent;
-    /**
-     * Creates new form AgentPanel
-     */
+    public static DefaultTableModel agentTableModel;
+    private com.github.lgooddatepicker.components.DatePicker startDatePicker;
+    private com.github.lgooddatepicker.components.DatePicker endDatePicker;
+    
    
 
-    public AgentPanel(MainPage Parent) {
+    public AgentPanel(MainPage Parent) throws NumberFormatException, InfException {
         initComponents();
-         this.Parent = Parent;
+        this.Parent = Parent;
+        SpinnerDateModel model = new SpinnerDateModel();
+        model.setCalendarField(Calendar.DAY_OF_MONTH);    
+        ObjectManager.Aliens.loadAlienList();
+        this.Parent = Parent;
 
+        agentTableModel = (DefaultTableModel) resultTable.getModel();
+        loadTable();
+        //addListener();
+        agentTableModel = (DefaultTableModel) resultTable.getModel();
+        
+        
+        fillAreaFilter();
+        setDatePicker(); 
+
+    }
+    
+    private void setDatePicker(){
+        /*startDatePicker = new com.github.lgooddatepicker.components.DatePicker();
+        endDatePicker = new com.github.lgooddatepicker.components.DatePicker();
+
+    // Replace the startDate and endDate panels with DatePicker components
+        startDate.setLayout(new BorderLayout());
+        startDate.add(startDatePicker);
+        endDate.setLayout(new BorderLayout());
+        endDate.add(endDatePicker);*/
+    }
+    
+    private void fillAreaFilter() {
+        DefaultComboBoxModel<String> dcbm = new DefaultComboBoxModel<>();
+        dcbm.addElement("Välj plats");
+        for(Location item : ObjectManager.Locations.locationList.values()){
+            dcbm.addElement(item.getName());
+        }
+        areaComboBox.setModel(dcbm);
+    }
+    
+    private void loadTable() {
+        agentTableModel.setRowCount(0); // Clear existing rows
+
+        for (Agent item : ObjectManager.Agents.agentList.values()) {
+            addRow(item);
+        }
+    }
+    
+    private void addRow(Agent item) {
+        /*String[] row = {
+            Integer.toString(item.getId()),
+            item.getClass().getSimpleName(),
+            item.getTelephone(),
+            getSubValue(item),
+            item.getRecruitmentDate().toString(),
+            item.getEmail(),
+            item.getLocation().getName(),
+            item.getResponsibleAgent().getName()
+        };
+        tableModel.addRow(row);*/
     }
 
     /**
@@ -112,13 +179,13 @@ public class AgentPanel extends javax.swing.JPanel {
         resultTable.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         resultTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Agent ID", "Namn", "Telefonnummer", "Anställningsdatum", "Administratör", "E-post", "Losenord", "Omrade"
+                "Agent ID", "Namn", "Telefonnummer", "Anställningsdatum", "Administratör", "E-post", "Omrade"
             }
         ));
         resultTable.setRowHeight(60);

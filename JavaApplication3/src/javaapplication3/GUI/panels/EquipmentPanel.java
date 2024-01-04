@@ -270,12 +270,28 @@ public class EquipmentPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_searchButtonActionPerformed
 
     private void laggTillButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_laggTillButtonActionPerformed
-        PopupHandler.addNewUtilitiesPopup(Parent);
+        try {
+            PopupHandler.addNewUtilitiesPopup(Parent, this);
+        } catch (InfException ex) {
+            Logger.getLogger(EquipmentPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }//GEN-LAST:event_laggTillButtonActionPerformed
 
     private void raderaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_raderaButtonActionPerformed
-        // TODO add your handling code here:
+        ArrayList<Integer> selectedID = new ArrayList<Integer>();
+        for (int item : utilityTable.getSelectedRows()) {
+            selectedID.add(Integer.parseInt((String) utilityTable.getValueAt(item, 0)));
+        }
+        int selectedUtilityCount = selectedID.size(); // Replace with your method
+        String message = "Ta bort " + selectedUtilityCount + " redskap" + (selectedUtilityCount > 1 ? "s" : "") + " från systemet?";
+
+        int response = JOptionPane.showConfirmDialog(null, message, "Bekräfta", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (response == JOptionPane.YES_OPTION) {
+            // Logic to delete the selected aliens
+            ObjectManager.UtilitiesHandler.delete(selectedID);
+            loadTable();
+        }
     }//GEN-LAST:event_raderaButtonActionPerformed
 
     private void lånaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lånaButtonActionPerformed

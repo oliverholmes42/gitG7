@@ -33,68 +33,9 @@ public class PopupHandler {
     }
     
     private PopupHandler(){
+        
     }
     
-    
-    public static void bogloditeComboBoxHandler(JSpinner value){
-        
-        try {
-            double valueToInt = ((Integer) value.getValue()).doubleValue();
-            String valueInput = Double.toString(valueToInt);
-            String query = "INSERT INTO boglodite (Antal_Boogies) VALUES '" + valueInput + "'";
-            db.insert(query);
-            
-        } catch (InfException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-    
-    public static void squidComboBoxHandler(JSpinner value){
-        
-        try {
-            double valueToInt = ((Integer) value.getValue()).doubleValue();
-            String valueInput = Double.toString(valueToInt);
-            String query = "INSERT INTO squid (Antal_Armar) VALUES '" + valueInput + "'";
-            db.insert(query);
-            
-        } catch (InfException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-    
-    public static void wormComboBoxHandler(JSpinner value){
-        
-        try {
-            double valueToInt = ((Integer) value.getValue()).doubleValue();
-            String valueInput = Double.toString(valueToInt);
-            String query = "INSERT INTO worm (Langd) VALUES '" + valueInput + "'";
-            db.insert(query);
-            
-        } catch (InfException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-    
-    
-    /*public static void getInputFromRegisterForm(JTextField name, JTextField email, JTextField phone, JComboBox agent, JComboBox area){
-        
-        try {
-            
-            String nameInput = name.getText();
-            String emailInput = email.getText();
-            String phoneInput = phone.getText();
-            String agentInput = agent.getEditor().getItem().toString();
-            //int areaInput = ;
-            
-            String alienQuery = "INSERT INTO alien (Namn, Telefon, Epost, Plats, Ansvarig_Agent)"
-                    + " VALUES ('" + nameInput + "', '" + phoneInput + "', '" + emailInput + "', '" + areaInput + "', '" + agentInput + "' )";
-            db.insert(alienQuery);
-            
-        } catch (InfException e){
-            System.out.println(e.getMessage());
-        }
-        
-    }*/
     
     public static void addNewAlienPopup(MainPage Parent, AlienPanel home){
         new RegisterNewAlienDialogPopupV2(Parent, home, true).setVisible(true);
@@ -104,15 +45,6 @@ public class PopupHandler {
         new editAlienDialog(Parent,home, true, alien).setVisible(true);
     }
     
-    //Här kan du fixa med lösenordet yaani
-    /*public static void generateRandomPassword(JTextField alien_ID){
-        try{
-            
-        }catch(InfException e){
-            
-        }
-    }*/
-    
     public static void addNewAgentPopup(MainPage Parent){
         new RegisterNewAgentDialog(Parent, true).setVisible(true);
     }
@@ -121,8 +53,8 @@ public class PopupHandler {
         new RegisterNewAreaDialog(Parent, true).setVisible(true);
     }
     
-    public static void addNewUtilitiesPopup(MainPage Parent){
-        new RegisterNewUtilitiesDialog(Parent, true).setVisible(true);
+    public static void addNewUtilitiesPopup(MainPage Parent, EquipmentPanel home) throws InfException{
+        new RegisterNewUtilitiesDialog(Parent, home, true).setVisible(true);
     }
     
     public static void addNewPasswordPopup(MainPage Parent, Alien profile){

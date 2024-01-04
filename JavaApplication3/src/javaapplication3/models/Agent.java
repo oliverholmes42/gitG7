@@ -81,6 +81,7 @@ public class Agent {
 
     public void setAdmin(String newAdmin) {
         //ObjectManager.Agents.updateField(agent_ID,"Administrator" , newAdmin);
+        String query = "SELECT Administrator FROM agent";
         administrator = newAdmin;
     
     }

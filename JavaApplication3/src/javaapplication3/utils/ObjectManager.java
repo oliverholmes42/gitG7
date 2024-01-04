@@ -152,7 +152,7 @@ public class ObjectManager {
             String column = entry.getKey();
             String value = entry.getValue();
             
-            if(!column.equals("Race")&&!column.equals("Value")) {
+            if(!column.equals("Race")&&!column.equals("Value")&&!column.equals("Type")) {
 
                 columnJoiner.add(column);
                 valueJoiner.add("'" + value + "'");
@@ -575,6 +575,66 @@ public class ObjectManager {
         
         public static void offLoad(){
         utilitiesList.clear();
+        }
+        
+        public static void addNew(HashMap<String,String> map) throws InfException{
+            String Query = buildInsertQuery("utrustning", map);
+            
+            db.insert(Query);
+            String type = map.get("Type");
+            
+            switch (type){
+                case "Vapen":
+                    utilitiesList.put(Integer.parseInt(map.get("Utrustnings_ID")), new Vapen(map));
+                    HashMap<String, String> weaponMap = new HashMap<>();
+                    weaponMap.put("Utrustnings_ID", map.get("Utrustnings_ID"));
+                    weaponMap.put("Kaliber", map.get("Value"));
+
+                    String weaponQuery = ObjectManager.buildInsertQuery("vapen", weaponMap);
+                    db.insert(weaponQuery);
+                    break;
+                
+                case "Kommunikation":
+                    utilitiesList.put(Integer.parseInt(map.get("Utrustnings_ID")), new Kommunikation(map));
+                    HashMap<String, String> commsMap = new HashMap<>();
+                    commsMap.put("Utrustnings_ID", map.get("Utrustnings_ID"));
+                    commsMap.put("Overforingsteknik", map.get("Value"));
+
+                    String commsQuery = ObjectManager.buildInsertQuery("kommunikation", commsMap);
+                    db.insert(commsQuery);
+                    break;
+                
+                case "Teknik":
+                    utilitiesList.put(Integer.parseInt(map.get("Utrustnings_ID")), new Teknik(map));
+                    HashMap<String, String> techMap = new HashMap<>();
+                    techMap.put("Utrustnings_ID", map.get("Utrustnings_ID"));
+                    techMap.put("Kraftkalla", map.get("Value"));
+
+                    String techQuery = ObjectManager.buildInsertQuery("teknik", techMap);
+                    db.insert(techQuery);
+                    break;
+                    
+                default:
+                    System.out.println("Fel inmatning");
+            }
+        }
+        
+        public static void delete(ArrayList<Integer> list) {
+            for(int ID : list){
+                try {
+                    Utilities utility = utilitiesList.get(ID);
+                    String objClass = utility.getClass().getSimpleName();
+                    
+                    if(!objClass.equals("Utilities")){
+                        db.delete("Delete from "+objClass.toLowerCase()+" where Utrustnings_ID = "+ID);
+                    }
+                    db.delete("Delete from utrustning where Utrustnings_ID =" +ID);
+                    utilitiesList.remove(ID);
+                } catch (InfException ex) {
+                    Logger.getLogger(ObjectManager.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            
         }
     }
    

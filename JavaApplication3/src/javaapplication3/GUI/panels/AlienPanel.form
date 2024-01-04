@@ -30,72 +30,68 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Component id="filterLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="searchbarTextfield" min="-2" pref="300" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="searchButton" min="-2" pref="69" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="resultScrollPane" min="-2" pref="975" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="clearFilterButton" max="32767" attributes="0"/>
+                                  <Component id="areaComboBox" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="raceComboBox" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="startDate" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="endDate" alignment="0" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="agentComboBox" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="addAlienButton" min="-2" pref="180" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="removeAlienButton" min="-2" pref="180" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="editAlienButton" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="0" pref="74" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+          </Group>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="32767" attributes="0"/>
               <Component id="headerLabel" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="430" max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="resultScrollPane" alignment="0" min="-2" pref="975" max="-2" attributes="0"/>
-                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Component id="filterLabel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="872" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="clearFilterButton" max="32767" attributes="0"/>
-                              <Component id="areaComboBox" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="216" max="-2" attributes="0"/>
-                                  <Component id="addAlienButton" min="-2" pref="180" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="removeAlienButton" min="-2" pref="165" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="editAlienButton" min="-2" pref="165" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="raceComboBox" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                                  <Component id="agentComboBox" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Component id="startDate" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="endDate" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Component id="searchbarTextfield" min="-2" pref="320" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                                  <Component id="searchButton" min="-2" pref="69" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                      </Group>
-                  </Group>
-              </Group>
-              <EmptySpace min="0" pref="66" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
+              <EmptySpace min="-2" pref="93" max="-2" attributes="0"/>
+              <Component id="headerLabel" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="93" max="-2" attributes="0"/>
-                      <Component id="headerLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="endDate" max="32767" attributes="0"/>
-                          <Component id="startDate" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="35" pref="35" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="2" attributes="0">
                           <Component id="searchButton" alignment="2" min="-2" pref="45" max="-2" attributes="0"/>
                           <Component id="searchbarTextfield" alignment="2" min="-2" max="-2" attributes="0"/>
@@ -103,21 +99,27 @@
                           <Component id="areaComboBox" alignment="2" min="-2" max="-2" attributes="0"/>
                           <Component id="agentComboBox" alignment="2" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="clearFilterButton" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
-                          <Component id="removeAlienButton" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
-                          <Component id="addAlienButton" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
-                          <Component id="editAlienButton" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="resultScrollPane" min="-2" pref="300" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="filterLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                      <Component id="clearFilterButton" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
+                      <Component id="editAlienButton" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
-                      <EmptySpace min="173" pref="173" max="-2" attributes="0"/>
-                      <Component id="filterLabel" min="-2" max="-2" attributes="0"/>
+                      <Component id="startDate" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="endDate" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="addAlienButton" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
+                      <Component id="removeAlienButton" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
                   </Group>
               </Group>
+              <EmptySpace pref="23" max="32767" attributes="0"/>
+              <Component id="resultScrollPane" min="-2" pref="300" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="164" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -283,30 +285,16 @@
               <Font name="Segoe UI" size="14" style="0"/>
             </Property>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="9" rowCount="1">
-                <Column editable="false" title="Alien ID" type="java.lang.Object">
-                  <Data value="1"/>
-                </Column>
+              <Table columnCount="9" rowCount="0">
+                <Column editable="false" title="Alien ID" type="java.lang.Object"/>
                 <Column editable="false" title="Ras" type="java.lang.Object"/>
                 <Column editable="false" title="Unikt V&#xe4;rde" type="java.lang.Object"/>
-                <Column editable="false" title="Namn" type="java.lang.Object">
-                  <Data value="Vilson"/>
-                </Column>
-                <Column editable="false" title="Telefonnummer" type="java.lang.Object">
-                  <Data value="0760191235"/>
-                </Column>
-                <Column editable="false" title="E-post" type="java.lang.Object">
-                  <Data value="vilson@.se"/>
-                </Column>
-                <Column editable="false" title="Incheckningsdatum" type="java.lang.Object">
-                  <Data value="2023-12-23"/>
-                </Column>
-                <Column editable="false" title="Plats" type="java.lang.Object">
-                  <Data value="2"/>
-                </Column>
-                <Column editable="false" title="Ansvarig Agent" type="java.lang.Object">
-                  <Data value="4"/>
-                </Column>
+                <Column editable="false" title="Namn" type="java.lang.Object"/>
+                <Column editable="false" title="Telefonnummer" type="java.lang.Object"/>
+                <Column editable="false" title="E-post" type="java.lang.Object"/>
+                <Column editable="false" title="Incheckningsdatum" type="java.lang.Object"/>
+                <Column editable="false" title="Plats" type="java.lang.Object"/>
+                <Column editable="false" title="Ansvarig Agent" type="java.lang.Object"/>
               </Table>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value=""/>
@@ -447,12 +435,12 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="150" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="30" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -462,7 +450,7 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="150" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
