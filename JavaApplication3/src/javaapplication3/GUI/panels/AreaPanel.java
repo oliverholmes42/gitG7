@@ -4,6 +4,8 @@
  */
 package javaapplication3.GUI.panels;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javaapplication3.GUI.MainPage;
 import javaapplication3.models.Area;
 import javaapplication3.utils.ObjectManager;
@@ -48,6 +50,7 @@ public class AreaPanel extends javax.swing.JPanel {
         updateInfo = new javax.swing.JButton();
         deleteArea = new javax.swing.JButton();
         addArea = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(200, 200, 200));
         setPreferredSize(new java.awt.Dimension(1128, 792));
@@ -86,7 +89,6 @@ public class AreaPanel extends javax.swing.JPanel {
         jTable2.setShowGrid(true);
         jScrollPane2.setViewportView(jTable2);
 
-        searchOmradeTextField.setText("Sök här!");
         searchOmradeTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchOmradeTextFieldActionPerformed(evt);
@@ -105,6 +107,13 @@ public class AreaPanel extends javax.swing.JPanel {
             }
         });
 
+        jButton1.setText("Sök");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -116,7 +125,10 @@ public class AreaPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(234, 234, 234)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(searchOmradeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 566, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(searchOmradeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 566, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(addArea, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(12, 12, 12)
@@ -135,7 +147,9 @@ public class AreaPanel extends javax.swing.JPanel {
                 .addGap(74, 74, 74)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(searchOmradeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(searchOmradeTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addArea, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -155,23 +169,44 @@ public class AreaPanel extends javax.swing.JPanel {
         PopupHandler.addNewAreaPopup(Parent);
 
     }//GEN-LAST:event_addAreaActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        areaTableModel.setRowCount(0);
+        for (Area i : ObjectManager.Areas.areaList.values()) {
+            String search = searchOmradeTextField.getText().toLowerCase();
+
+            boolean searchMatch = i.getName().toLowerCase().contains(search);
+            if (searchMatch) {
+                try {
+                    addRow(i);
+                } catch (InfException ex) {
+                    Logger.getLogger(AreaPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
     
    
     private static void loadTable() throws InfException {
         areaTableModel.setRowCount(0);
         for (Area i : ObjectManager.Areas.areaList.values()) {
-            String[] row = {
-                i.getName(),
-                db.fetchSingle("SELECT COUNT(Agent_ID) FROM agent WHERE Omrade = " + i.getId()),
-                db.fetchSingle("SELECT count(DISTINCT Alien_ID) FROM alien JOIN plats ON alien.Plats = plats.Plats_ID join omrade on plats.Finns_I =" + i.getId())
-            };
-            areaTableModel.addRow(row);
+            addRow(i);
         }
+    }
+
+    private static void addRow(Area i) throws InfException {
+        String[] row = {
+            i.getName(),
+            db.fetchSingle("SELECT COUNT(Agent_ID) FROM agent WHERE Omrade = " + i.getId()),
+            db.fetchSingle("SELECT count(DISTINCT Alien_ID) FROM alien JOIN plats ON alien.Plats = plats.Plats_ID join omrade on plats.Finns_I =" + i.getId())
+        };
+        areaTableModel.addRow(row);
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addArea;
     private javax.swing.JButton deleteArea;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable2;
