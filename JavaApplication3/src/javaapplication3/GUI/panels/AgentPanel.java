@@ -98,12 +98,21 @@ public class AgentPanel extends javax.swing.JPanel {
             getSubValue(item),
             item.getTelephone(),
             item.getRecruitmentDate().toString(),
-            String.valueOf(item.getAdmin()),
+            stringLoop(item),
             item.getEmail(),
             item.getArea().getName()
             
         };
         agentTableModel.addRow(row);
+    }
+    
+    private String stringLoop(Agent item){
+        if(item.getAdmin().equals("J")){
+            return "Ja";
+        }
+        else {
+            return "Nej";
+        }
     }
     
     private String getSubValue(Agent item) {
@@ -199,8 +208,13 @@ public class AgentPanel extends javax.swing.JPanel {
         headerLabel.setText("Hantera Agenter");
 
         alterAgentInfoButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        alterAgentInfoButton.setText("Ändra Agent Info");
+        alterAgentInfoButton.setText("Redigera agent");
         alterAgentInfoButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51), 3));
+        alterAgentInfoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                alterAgentInfoButtonActionPerformed(evt);
+            }
+        });
 
         searchbarTextfield.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         searchbarTextfield.setForeground(new java.awt.Color(51, 51, 51));
@@ -416,6 +430,10 @@ public class AgentPanel extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_searchButtonActionPerformed
+
+    private void alterAgentInfoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alterAgentInfoButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_alterAgentInfoButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

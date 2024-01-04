@@ -533,7 +533,7 @@ public class ObjectManager {
         }
         
         public static void addNew(HashMap<String,String> map, Area area, String type) throws InfException{
-            /*String Query = buildInsertQuery("agent", map);
+            String Query = buildInsertQuery("agent", map);
             
             db.insert(Query);
             
@@ -548,18 +548,23 @@ public class ObjectManager {
                     db.insert(faltAgentQuery);
                     break;
                 
-                case "KontorsChef":
-                    agentList.put(Integer.parseInt(map.get("Agent_ID")), new KontorsChef(map, area, ));
+                case "Kontorschef":
+                    String officeName = map.get("Value");
+             
+                    agentList.put(Integer.parseInt(map.get("Agent_ID")), new KontorsChef(map, area, officeName));
                     HashMap<String, String> kontorsChefMap = new HashMap<>();
                     kontorsChefMap.put("Agent_ID", map.get("Agent_ID"));
                     kontorsChefMap.put("Kontorsbeteckning", map.get("Value"));
 
-                    String kontorsChefQuery = ObjectManager.buildInsertQuery("faltagent", kontorsChefMap);
+                    String kontorsChefQuery = ObjectManager.buildInsertQuery("kontorschef", kontorsChefMap);
                     db.insert(kontorsChefQuery);
                     break;
                 
                 case "Områdeschef":
-                    agentList.put(Integer.parseInt(map.get("Agent_ID")), new Områdeschef(map, area, ));
+                    int id = Integer.parseInt(map.get("Value"));
+                    Area controlArea = ObjectManager.Areas.areaList.get(id);
+        
+                    agentList.put(Integer.parseInt(map.get("Agent_ID")), new Områdeschef(map, area, controlArea));
                     HashMap<String, String> omradesChefMap = new HashMap<>();
                     omradesChefMap.put("Agent_ID", map.get("Agent_ID"));
                     omradesChefMap.put("Omrade", map.get("Value"));
@@ -570,7 +575,7 @@ public class ObjectManager {
                     
                 default:
                     System.out.println("Fel inmatning");
-            }*/
+            }
         }
         
         public static void delete(ArrayList<Integer> list) throws InfException {
@@ -580,13 +585,27 @@ public class ObjectManager {
                 String objClass = agent.getClass().getSimpleName();
 
                 if (!objClass.equals("Agent")) {
-                    db.delete("Delete from " + objClass.toLowerCase() + " where Agent_ID = " + ID);
+                    String sweString = swedify(objClass);
+                    db.delete("Delete from " + sweString + " where Agent_ID = " + ID);
                 }
                 db.delete("Delete from agent where Agent_ID =" + ID);
                 agentList.remove(ID);
 
             }
 
+        }
+        
+        private static String swedify(String string){
+            switch (string){
+                case "KontorsChef":
+                    return "kontorschef";
+                 
+                case "Områdeschef":
+                    return "omradeschef";
+                    
+                default:
+                    return "faltagent";
+            }
         }
     }
 

@@ -75,8 +75,8 @@ public class Agent {
         anstallningsdatum = newRecruitmentDate; 
     }
 
-    public boolean getAdmin(){
-        return administrator.equals("j");
+    public String getAdmin(){
+        return administrator;
                 
     }
 
