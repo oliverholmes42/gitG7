@@ -11,10 +11,10 @@ import javaapplication3.models.Utilities;
  *
  * @author mopaj
  */
-public class Weapon extends Utilities {
+public class Vapen extends Utilities {
     private int kaliber;
     
-    public Weapon(HashMap<String, String> utilitiesMap){  
+    public Vapen(HashMap<String, String> utilitiesMap){  
         super(utilitiesMap);
         if(!utilitiesMap.containsKey("Value")){
             kaliber = Integer.parseInt(utilitiesMap.get("Kaliber"));

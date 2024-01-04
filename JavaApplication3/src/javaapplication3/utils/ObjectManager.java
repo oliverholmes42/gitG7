@@ -18,9 +18,9 @@ import javaapplication3.models.*;
 import javaapplication3.models.alienSubclasses.Boglodite;
 import javaapplication3.models.alienSubclasses.Squid;
 import javaapplication3.models.alienSubclasses.Worm;
-import javaapplication3.models.utilitySubClasses.CommunicationsDevice;
-import javaapplication3.models.utilitySubClasses.Tech;
-import javaapplication3.models.utilitySubClasses.Weapon;
+import javaapplication3.models.utilitySubClasses.Kommunikation;
+import javaapplication3.models.utilitySubClasses.Teknik;
+import javaapplication3.models.utilitySubClasses.Vapen;
 import oru.inf.*;
 import oru.inf.InfException;
 
@@ -542,13 +542,13 @@ public class ObjectManager {
                 
                 Utilities util;
                 if(singleMap.get("Kaliber")!=null){
-                    util = new Weapon(singleMap);
+                    util = new Vapen(singleMap);
                 }
                 else if(singleMap.get("Overforingsteknik")!=null){
-                    util = new CommunicationsDevice(singleMap);
+                    util = new Kommunikation(singleMap);
                 }
                 else if(singleMap.get("Kraftkalla")!=null){
-                    util = new Tech(singleMap);
+                    util = new Teknik(singleMap);
                 }
                 else{util = new Utilities(singleMap);}
                 utilitiesList.put(id, util);
@@ -619,8 +619,8 @@ public class ObjectManager {
                 statusInfo.put("Date", agentUtil.getBorrowingDate().toString());
             } else {
                 statusInfo.put("Status", "Tillgänglig");
-                statusInfo.put("Borrower", ""); // Empty string for borrower
-                statusInfo.put("Date", "");     // Empty string for date
+                statusInfo.put("Borrower", null); // Empty string for borrower
+                statusInfo.put("Date", null);     // Empty string for date
             }
             return statusInfo;
         }
@@ -643,7 +643,31 @@ public class ObjectManager {
                 AgentUtils item = agentUtilsMap.get(id);
                 db.delete("delete from innehar_utrustning where Agent_ID = " + item.getAgent().getId() + " and Utrustnings_ID = "+ item.getUtility().getID());
                 agentUtilsMap.remove(item.getUtility().getID());
-            }
+            } 
+           
         }
+        public static void addNew(ArrayList<Utilities> utilList) throws InfException {
+            HashMap<String,String> inputMap = new HashMap<>();
+            for(Utilities item: utilList){
+                int ID = item.getID();
+                String stringID = Integer.toString(item.getID());
+                
+                int AgentID = UserSession.getInstance().getUserId();
+                String stringAgentID = Integer.toString(item.getID());
+                
+                LocalDate date = LocalDate.now();
+                String stringDate = date.toString();
+                
+                inputMap.put("Agent_ID", stringAgentID);
+                inputMap.put("Utrustnings_ID", stringID);
+                inputMap.put("Utkvitteringsdatum", stringDate);
+                
+                db.insert(buildInsertQuery("innehar_utrustning",inputMap));
+                agentUtilsMap.put(ID, new AgentUtils(Agents.agentList.get(AgentID),item,date));
+                
+                
+                
+            }
+        }  
     }
 }

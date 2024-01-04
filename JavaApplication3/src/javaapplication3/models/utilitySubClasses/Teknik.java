@@ -11,10 +11,10 @@ import javaapplication3.models.Utilities;
  *
  * @author mopaj
  */
-public class Tech extends Utilities {
+public class Teknik extends Utilities {
     private String kraftkalla;
     
-    public Tech(HashMap<String, String> utilitiesMap){  
+    public Teknik(HashMap<String, String> utilitiesMap){  
         super(utilitiesMap);
         if(!utilitiesMap.containsKey("Value")){
             kraftkalla = utilitiesMap.get("Kraftkalla");

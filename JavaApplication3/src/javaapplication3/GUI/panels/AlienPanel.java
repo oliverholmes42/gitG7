@@ -95,19 +95,23 @@ public class AlienPanel extends javax.swing.JPanel {
         tableModel.setRowCount(0); // Clear existing rows
         
         for (Alien item : ObjectManager.Aliens.alienList.values()) {
-            String[] row = {
-                Integer.toString(item.getID()),
-                item.getClass().getSimpleName(),
-                getSubValue(item),
-                item.getName(),
-                item.getTelephone(),
-                item.getEmail(),
-                item.getRegistrationDate().toString(),
-                item.getLocation().getName(),
-                item.getResponsibleAgent().getName()
-            };
-            tableModel.addRow(row);
+            addRow(item);
         }   }
+
+    private void addRow(Alien item) {
+        String[] row = {
+            Integer.toString(item.getID()),
+            item.getClass().getSimpleName(),
+            getSubValue(item),
+            item.getName(),
+            item.getTelephone(),
+            item.getEmail(),
+            item.getRegistrationDate().toString(),
+            item.getLocation().getName(),
+            item.getResponsibleAgent().getName()
+        };
+        tableModel.addRow(row);
+    }
 
     private String getSubValue(Alien item) {
         String uniqueValue;
@@ -415,19 +419,7 @@ public class AlienPanel extends javax.swing.JPanel {
         boolean agentMatches = agentComboBox.getSelectedIndex() == 0 || alienAgent.equals(selectedAgent);
 
         if (nameMatches && dateMatches && raceMatches && locationMatches && agentMatches) {
-            String[] row = {
-                Integer.toString(item.getID()),
-                alienRace,
-                getSubValue(item),
-                item.getName(),
-                item.getTelephone(),
-                item.getEmail(),
-                item.getRegistrationDate().toString(),
-                alienLocation,
-                item.getResponsibleAgent().getName()
-            };
-
-            tableModel.addRow(row);
+            addRow(item);
         }
     }
     }//GEN-LAST:event_searchButtonActionPerformed

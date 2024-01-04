@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
+import javaapplication3.GUI.panels.EquipmentPanel;
 import javaapplication3.models.Utilities;
 import javaapplication3.utils.ObjectManager;
 import javaapplication3.utils.UserSession;
@@ -25,12 +26,13 @@ public class returnEquipmentDialog extends javax.swing.JDialog {
 
     private int shownLayers = 1;
     private HashMap<Integer, Utilities> available = ObjectManager.AgentUtilityHandler.getAgentUtils(ObjectManager.Agents.agentList.get(UserSession.getInstance().getUserId()));
-
+    private EquipmentPanel home;
     /**
      * Creates new form returnEquipmentDialog
      */
-    public returnEquipmentDialog(java.awt.Frame parent, boolean modal) {
+    public returnEquipmentDialog(java.awt.Frame parent,EquipmentPanel home, boolean modal) {
         super(parent, modal);
+        this.home = home;
         initComponents();
         getContentPane().setBackground(new Color(51,51,51));
         setComponentsVisible(false);
@@ -489,11 +491,15 @@ public class returnEquipmentDialog extends javax.swing.JDialog {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try{
-        ObjectManager.AgentUtilityHandler.remove(getSelectedID());
+            ArrayList<Integer> items = getSelectedID();
+        ObjectManager.AgentUtilityHandler.remove(items);
+        JOptionPane.showMessageDialog(this, items.size()+" Redskap returnerades.", "Success", JOptionPane.INFORMATION_MESSAGE);
+        home.reload();
+        this.dispose();
         }
         catch(InfException ex) {
             JOptionPane.showMessageDialog(this, 
-                                      "Error returning utility", 
+                                      "Retur Misslyckades", 
                                       "Error", 
                                       JOptionPane.ERROR_MESSAGE);
         }

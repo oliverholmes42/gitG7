@@ -13,6 +13,7 @@ import javaapplication3.GUI.addDialogs.RegisterNewUtilitiesDialog;
 import javaapplication3.GUI.editDialogs.editAlienDialog;
 import javaapplication3.GUI.editDialogs.returnEquipmentDialog;
 import javaapplication3.GUI.panels.AlienPanel;
+import javaapplication3.GUI.panels.EquipmentPanel;
 import javaapplication3.models.Agent;
 import javaapplication3.models.Alien;
 import javax.swing.JSpinner;
@@ -132,8 +133,8 @@ public class PopupHandler {
         new RegisterNewPasswordDialog(Parent, profile, true).setVisible(true);
     }
      
-     public static void returnUtilityPopup(MainPage Parent) {
-         new returnEquipmentDialog(Parent,true).setVisible(true);
+     public static void returnUtilityPopup(MainPage Parent,EquipmentPanel home) {
+         new returnEquipmentDialog(Parent,home, true).setVisible(true);
      }
     
     
