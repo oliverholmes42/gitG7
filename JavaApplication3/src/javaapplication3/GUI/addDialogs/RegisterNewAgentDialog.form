@@ -44,9 +44,9 @@
                           <Component id="inputPhoneLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="phoneTextField" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="inputAgentLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="agentComboBox" alignment="0" min="-2" pref="180" max="-2" attributes="0"/>
+                          <Component id="adminTypeComboBox" alignment="0" min="-2" pref="180" max="-2" attributes="0"/>
                           <Component id="inputSpeciesLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="speciesComboBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="agentTypeComboBox" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="registerButton" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -81,7 +81,7 @@
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="agentComboBox" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
+                  <Component id="adminTypeComboBox" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
                   <Component id="emailTextField" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -91,7 +91,7 @@
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="speciesComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="agentTypeComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="areaComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
@@ -121,6 +121,9 @@
           <Dimension value="[180, 55]"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="abortButtonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="registerButton">
       <Properties>
@@ -138,6 +141,9 @@
           <Dimension value="[180, 55]"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="registerButtonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="registerAlienLabel">
       <Properties>
@@ -153,20 +159,18 @@
         <Property name="text" type="java.lang.String" value="Registrera ny Agent"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="agentComboBox">
+    <Component class="javax.swing.JComboBox" name="adminTypeComboBox">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="14" style="0"/>
         </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="1 (Agent O)"/>
-            <StringItem index="1" value="2 (Agent K)"/>
-            <StringItem index="2" value="3 (Agent J)"/>
-            <StringItem index="3" value="4 (Agent Z)"/>
+          <StringArray count="3">
+            <StringItem index="0" value="V&#xe4;lj:"/>
+            <StringItem index="1" value="True"/>
+            <StringItem index="2" value="False"/>
           </StringArray>
         </Property>
-        <Property name="selectedIndex" type="int" value="-1"/>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[180, 40]"/>
         </Property>
@@ -189,19 +193,19 @@
         <Property name="text" type="java.lang.String" value="Ange fullst&#xe4;ndigt namn:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="speciesComboBox">
+    <Component class="javax.swing.JComboBox" name="agentTypeComboBox">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="14" style="0"/>
         </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="3">
-            <StringItem index="0" value="Boglodite"/>
-            <StringItem index="1" value="Squid"/>
-            <StringItem index="2" value="Worm"/>
+          <StringArray count="4">
+            <StringItem index="0" value="V&#xe4;lj typ av agent:"/>
+            <StringItem index="1" value="F&#xe4;ltagent"/>
+            <StringItem index="2" value="Kontorschef"/>
+            <StringItem index="3" value="Omr&#xe5;deschef"/>
           </StringArray>
         </Property>
-        <Property name="selectedIndex" type="int" value="-1"/>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[180, 40]"/>
         </Property>
@@ -230,13 +234,13 @@
           <Font name="Segoe UI" size="14" style="0"/>
         </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="3">
-            <StringItem index="0" value="1 (Svealand)"/>
-            <StringItem index="1" value="2 (G&#xf6;taland)"/>
-            <StringItem index="2" value="3 (Norrland)"/>
+          <StringArray count="4">
+            <StringItem index="0" value="V&#xe4;lj omr&#xe5;de:"/>
+            <StringItem index="1" value="1: Svealand"/>
+            <StringItem index="2" value="2: G&#xf6;taland"/>
+            <StringItem index="3" value="3: Norrland"/>
           </StringArray>
         </Property>
-        <Property name="selectedIndex" type="int" value="-1"/>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[180, 40]"/>
         </Property>
@@ -274,7 +278,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="cc" green="cc" red="cc" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Ange Administrat&#xf6;r:"/>
+        <Property name="text" type="java.lang.String" value="Administrat&#xf6;r:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="phoneTextField">
@@ -286,6 +290,9 @@
           <Dimension value="[180, 40]"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="phoneTextFieldKeyPressed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="inputAreaLabel">
       <Properties>

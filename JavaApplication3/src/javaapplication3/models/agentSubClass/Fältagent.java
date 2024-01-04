@@ -12,9 +12,9 @@ import javaapplication3.models.Area;
  *
  * @author mopaj
  */
-public class Faltagent extends Agent {
+public class Fältagent extends Agent {
     
-    public Faltagent(HashMap<String, String> agentMap, Area area){
+    public Fältagent(HashMap<String, String> agentMap, Area area){
         super(agentMap,area);
     }
 }

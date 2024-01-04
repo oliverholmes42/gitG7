@@ -15,9 +15,9 @@ import java.util.StringJoiner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javaapplication3.models.*;
-import javaapplication3.models.agentSubClass.Faltagent;
+import javaapplication3.models.agentSubClass.Fältagent;
 import javaapplication3.models.agentSubClass.KontorsChef;
-import javaapplication3.models.agentSubClass.OmradesChef;
+import javaapplication3.models.agentSubClass.Områdeschef;
 import javaapplication3.models.alienSubclasses.Boglodite;
 import javaapplication3.models.alienSubclasses.Squid;
 import javaapplication3.models.alienSubclasses.Worm;
@@ -26,6 +26,8 @@ import javaapplication3.models.utilitySubClasses.Teknik;
 import javaapplication3.models.utilitySubClasses.Vapen;
 import oru.inf.*;
 import oru.inf.InfException;
+import java.sql.SQLIntegrityConstraintViolationException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -475,9 +477,10 @@ public class ObjectManager {
 
                 HashMap<String, String> matchingMap = findMatchingMap(agentId, Omap);
                 if (matchingMap != null) {
-                    
-                    Area controlArea = Areas.areaList.get(matchingMap.get("Omrade"));
-                    agentList.put(agentId, new OmradesChef(singleMap,Areas.areaList.get(areaID),controlArea));
+                    String id = matchingMap.get("Omrade");
+                    int intID = Integer.parseInt(id);
+                    Area controlArea = Areas.areaList.get(intID);
+                    agentList.put(agentId, new Områdeschef(singleMap,Areas.areaList.get(areaID),controlArea));
                     
                 } else if ((matchingMap = findMatchingMap(agentId, Kmap)) != null) {
                     
@@ -486,7 +489,7 @@ public class ObjectManager {
                     
                 } else if ((matchingMap = findMatchingMap(agentId, Fmap)) != null) {
                     
-                     agentList.put(agentId, new Faltagent(singleMap, Areas.areaList.get(areaID)));
+                     agentList.put(agentId, new Fältagent(singleMap, Areas.areaList.get(areaID)));
                     
                 } else {
                     // The agentId does not exist in any of the lists
@@ -527,6 +530,63 @@ public class ObjectManager {
         
         public static void offLoad(){
         agentList.clear();
+        }
+        
+        public static void addNew(HashMap<String,String> map, Area area, String type) throws InfException{
+            /*String Query = buildInsertQuery("agent", map);
+            
+            db.insert(Query);
+            
+            
+            switch (type){
+                case "Fältagent":
+                    agentList.put(Integer.parseInt(map.get("Agent_ID")), new Fältagent(map, area));
+                    HashMap<String, String> faltAgentMap = new HashMap<>();
+                    faltAgentMap.put("Agent_ID", map.get("Agent_ID"));
+
+                    String faltAgentQuery = ObjectManager.buildInsertQuery("faltagent", faltAgentMap);
+                    db.insert(faltAgentQuery);
+                    break;
+                
+                case "KontorsChef":
+                    agentList.put(Integer.parseInt(map.get("Agent_ID")), new KontorsChef(map, area, ));
+                    HashMap<String, String> kontorsChefMap = new HashMap<>();
+                    kontorsChefMap.put("Agent_ID", map.get("Agent_ID"));
+                    kontorsChefMap.put("Kontorsbeteckning", map.get("Value"));
+
+                    String kontorsChefQuery = ObjectManager.buildInsertQuery("faltagent", kontorsChefMap);
+                    db.insert(kontorsChefQuery);
+                    break;
+                
+                case "Områdeschef":
+                    agentList.put(Integer.parseInt(map.get("Agent_ID")), new Områdeschef(map, area, ));
+                    HashMap<String, String> omradesChefMap = new HashMap<>();
+                    omradesChefMap.put("Agent_ID", map.get("Agent_ID"));
+                    omradesChefMap.put("Omrade", map.get("Value"));
+
+                    String omradesChefQuery = ObjectManager.buildInsertQuery("omradeschef", omradesChefMap);
+                    db.insert(omradesChefQuery);
+                    break;
+                    
+                default:
+                    System.out.println("Fel inmatning");
+            }*/
+        }
+        
+        public static void delete(ArrayList<Integer> list) throws InfException {
+            for (int ID : list) {
+
+                Agent agent = agentList.get(ID);
+                String objClass = agent.getClass().getSimpleName();
+
+                if (!objClass.equals("Agent")) {
+                    db.delete("Delete from " + objClass.toLowerCase() + " where Agent_ID = " + ID);
+                }
+                db.delete("Delete from agent where Agent_ID =" + ID);
+                agentList.remove(ID);
+
+            }
+
         }
     }
 

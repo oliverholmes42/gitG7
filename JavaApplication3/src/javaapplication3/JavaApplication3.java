@@ -29,7 +29,7 @@ public class JavaApplication3 {
         new LoginPage().setVisible(true); //Initialiserar loginsidan som förstasida "LoginPage".
         
         ObjectManager.Agents.LoadList();
-        HashMap<Integer,Agent> map = ObjectManager.Agents.agentList;
+        //HashMap<Integer,Agent> map = ObjectManager.Agents.agentList;
 
         System.out.println(2);
         

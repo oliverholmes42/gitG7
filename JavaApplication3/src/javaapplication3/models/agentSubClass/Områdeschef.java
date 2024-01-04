@@ -12,10 +12,10 @@ import javaapplication3.models.Area;
  *
  * @author mopaj
  */
-public class OmradesChef extends Agent {
+public class Områdeschef extends Agent {
     private Area controlArea;
     
-    public OmradesChef(HashMap<String, String> agentMap, Area area, Area controlArea){
+    public Områdeschef(HashMap<String, String> agentMap, Area area, Area controlArea){
         super(agentMap,area);
         this.controlArea = controlArea;
         

@@ -75,13 +75,13 @@ public class Agent {
         anstallningsdatum = newRecruitmentDate; 
     }
 
-    public String getAdmin() {
-        return administrator;
+    public boolean getAdmin(){
+        return administrator.equals("j");
+                
     }
 
     public void setAdmin(String newAdmin) {
         //ObjectManager.Agents.updateField(agent_ID,"Administrator" , newAdmin);
-        String query = "SELECT Administrator FROM agent";
         administrator = newAdmin;
     
     }

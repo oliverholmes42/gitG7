@@ -266,15 +266,15 @@ public class RegisterNewAlienDialogPopupV2 extends javax.swing.JDialog {
 
     private void fillComboBoxes() {
         for (HashMap.Entry<Integer, Agent> entry : Agents.agentList.entrySet()) {
-        int key = entry.getKey();
-        String name = entry.getValue().getName(); // Assuming YourObjectClass has a getName() method
-        agentComboBox.addItem(key + ": " + name);
+            int key = entry.getKey();
+            String name = entry.getValue().getName(); // Assuming YourObjectClass has a getName() method
+            agentComboBox.addItem(key + ": " + name);
         }
         for (HashMap.Entry<Integer, Area> entry : ObjectManager.Areas.areaList.entrySet()) {
-        int key = entry.getKey();
-        String name = entry.getValue().getName(); // Assuming YourObjectClass has a getName() method
-        areaComboBox.addItem(key + ": " + name);
-    }
+            int key = entry.getKey();
+            String name = entry.getValue().getName(); // Assuming YourObjectClass has a getName() method
+            areaComboBox.addItem(key + ": " + name);
+        }
     }
     
     private void speciesComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_speciesComboBoxActionPerformed
