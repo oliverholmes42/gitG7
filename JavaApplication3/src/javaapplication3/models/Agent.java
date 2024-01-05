@@ -85,6 +85,14 @@ public class Agent {
         administrator = newAdmin;
     
     }
+    
+    public String getAdminString(){
+        if(administrator.equals("J")){
+            return "Ja";
+            
+        }
+        return "Nej";
+    }
 
     public String getEmail() {
         return epost;

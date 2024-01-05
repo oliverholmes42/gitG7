@@ -47,36 +47,51 @@ public class editAgentDialog extends javax.swing.JDialog {
     }
     
     private void fillInfo(Agent agent) {
+        fillComboBox();
+        fillControlComboBox();
         nameTextField.setText(agent.getName());
         phoneTextField.setText(agent.getTelephone());
         idTextField.setText(Integer.toString(agent.getId()));
-        areaComboBox.setSelectedItem(agent.getArea().getName());
+        areaComboBox.setSelectedItem(agent.getArea().getId()+": "+agent.getArea().getName());
         agentTypeComboBox.setSelectedItem(agent.getClass().getSimpleName());
+        adminTypeComboBox.setSelectedItem(agent.getAdminString());
         fillAgentTypes(agent);
     }
     
+    private void fillComboBox() {
+        DefaultComboBoxModel<String> dcbm = new DefaultComboBoxModel<>();
+        dcbm.addElement("Välj område:");
+        for (HashMap.Entry<Integer, Area> entry : ObjectManager.Areas.areaList.entrySet()) {
+            int key = entry.getKey();
+            String name = entry.getValue().getName(); // Assuming YourObjectClass has a getName() method
+            dcbm.addElement(key + ": " + name);
+            
+            areaComboBox.setModel(dcbm);
+        }
+    }
+    
     private void fillAgentTypes(Agent agent){
-        if(activeAgent instanceof Fältagent){
+        if(agent instanceof Fältagent){
             agentTypeComboBox.setSelectedItem(agent.getClass().getSimpleName());
-        }else if(activeAgent instanceof KontorsChef){
+        }else if(agent instanceof KontorsChef){
             KontorsChef k = (KontorsChef) agent;
             agentTypeComboBox.setSelectedItem(agent.getClass().getSimpleName());
             officeTextField.setVisible(true);
             dynamiOfficeLabel.setVisible(true);
             officeTextField.setText(k.getOfficeName());
-        }else if(activeAgent instanceof Områdeschef){
+        }else if(agent instanceof Områdeschef){
             Områdeschef o = (Områdeschef) agent;
             agentTypeComboBox.setSelectedItem(agent.getClass().getSimpleName());
             dynamicControlLabel.setVisible(true);
             controlComboBox.setVisible(true);
-            String i = agent.getArea().getId() + ": " + agent.getArea().getName();
+            String i = o.getControlArea().getId() + ": " + o.getControlArea().getName();
             controlComboBox.setSelectedItem(i);
         }else{
             System.out.println("null");
         }
     }
     
-    private void fillComboBox() {
+    private void fillControlComboBox() {
         DefaultComboBoxModel<String> dcbm = new DefaultComboBoxModel<>();
         dcbm.addElement("Välj område:");
         for (HashMap.Entry<Integer, Area> entry : ObjectManager.Areas.areaList.entrySet()) {
