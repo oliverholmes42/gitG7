@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import javaapplication3.utils.DatabaseConnection;
 import javaapplication3.utils.ObjectManager;
+import oru.inf.InfException;
 
 public class Agent {
     private int agent_ID;
@@ -33,6 +34,19 @@ public class Agent {
         this.administrator = agentMap.get("Administrator");
         this.anstallningsdatum = LocalDate.parse(agentMap.get("Anstallningsdatum"));
         this.omrade = area;
+    }
+    
+    public void editObject(HashMap<String, String> agentMap) throws InfException {
+        ObjectManager.Aliens.updateInstance(agentMap);
+        
+        this.agent_ID = Integer.parseInt(agentMap.get("Agent_ID"));
+        this.namn = agentMap.get("Namn");
+        this.losenord = agentMap.get("Losenord");
+        this.telefon = agentMap.get("Telefon");
+        this.epost = agentMap.get("Epost");
+        this.administrator = agentMap.get("Administrator");
+        this.anstallningsdatum = LocalDate.parse(agentMap.get("Anstallningsdatum"));
+        this.omrade = ObjectManager.Areas.areaList.get(Integer.valueOf(agentMap.get("Omrade")));
     }
 
     // Getters and Setters

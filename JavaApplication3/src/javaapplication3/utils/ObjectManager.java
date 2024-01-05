@@ -634,6 +634,18 @@ public class ObjectManager {
             return null;
         }
     }
+    
+    public static void updateInstance(HashMap<String, String> map) throws InfException {
+            // Build and execute the main update query for the 'alien' table
+            HashMap<String, String> agentMap = new HashMap<>(map);
+            agentMap.remove("Omrade"); // Remove special key for alien table update
+            agentMap.remove("Benamning");   // Similarly for other special keys
+            agentMap.remove("Agent_ID");
+
+            String alienQuery = ObjectManager.buildUpdateQuery("agent", alienMap, "Agent_ID");
+            db.update(alienQuery);
+
+        }
 
     
     public static class Areas {

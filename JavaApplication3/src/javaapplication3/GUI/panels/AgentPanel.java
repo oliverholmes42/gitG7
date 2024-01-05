@@ -60,6 +60,8 @@ public class AgentPanel extends javax.swing.JPanel {
 
     }
     
+    
+    
     private void setDatePicker(){
         
         startDatePicker = new com.github.lgooddatepicker.components.DatePicker();

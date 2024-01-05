@@ -381,37 +381,64 @@ public class editAgentDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_phoneTextFieldKeyPressed
 
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
-        
-        /*if (!idTextField.getText().isEmpty() && !nameTextField.getText().isEmpty() && !phoneTextField.getText().isEmpty() && areaComboBox.getSelectedIndex() > 0 && agentTypeComboBox.getSelectedIndex() > 0 && checkDynamic()) {
-            try {
-                String password = ObjectManager.generatePassword();
+        try {
+            boolean isNameEmpty = nameTextField.getText().isEmpty();
+            boolean isPhoneEmpty = phoneTextField.getText().isEmpty();
 
-                HashMap<String, String> map = new HashMap<>();
-                
-                map.put("Anstallningsdatum", LocalDate.now().toString());
-                map.put("Epost", idTextField.getText());
-                map.put("Losenord", password);
-                map.put("Namn", nameTextField.getText());
-                map.put("Telefon", phoneTextField.getText());
-                map.put("Administrator", boolToChar());
+            System.out.println("4");
 
-                int area = Integer.parseInt(areaComboBox.getSelectedItem().toString().split(":")[0].trim());
-                map.put("Omrade", area + "");
+            if (nameTextField.getText().isEmpty() || phoneTextField.getText().isEmpty()) {
 
-                String type = agentTypeComboBox.getSelectedItem().toString();
-                map.put("Type", type);
-                map.put("Value", getUniqueValue());
+                JOptionPane.showMessageDialog(null, "Vänligen ange information om Agenten du vill redigera med detta formulär");
 
-                ObjectManager.Agents.addNew(map, ObjectManager.Areas.areaList.get(area), type);
+            } else {
+                HashMap<String, String> agentMap = new HashMap<>();
+                agentMap.put("Agent_ID", String.valueOf(activeAgent.getId()));
+                agentMap.put("Anstallningsdatum", activeAgent.getRecruitmentDate().toString());
+                agentMap.put("Namn", nameTextField.getText());
+                agentMap.put("Telefon", phoneTextField.getText());
+                agentMap.put("Omrade", ((String) areaComboBox.getSelectedItem()).split(":")[0].trim());
+                agentMap.put("Administrator", ((String) adminTypeComboBox.getSelectedItem()).split(":")[0].trim());
 
-                JOptionPane.showMessageDialog(this, "Registreringen av Agent: " + nameTextField.getText() + " med nytt \nagentidentifieringsnummer: " + maxID + " lyckades!");
+                // Check for species change
+                String newAgent = (String) agentTypeComboBox.getSelectedItem();
+                String currentAgent = activeAgent.getClass().getSimpleName();
+
+                if (newAgent.equals(currentAgent)) {
+                    if (activeAgent instanceof Fältagent) {
+
+                        agentMap.put("Agent_ID", "" + activeAgent.getId());
+                        Fältagent fAgent = (Fältagent) activeAgent;
+                        fAgent.editObject(agentMap);
+
+                    } else if (activeAgent instanceof KontorsChef) {
+
+                        agentMap.put("Kontorsbeteckning", "" + officeTextField.getText());
+                        KontorsChef kAgent = (KontorsChef) activeAgent;
+                        kAgent.editObject(agentMap);
+
+                    } else if (activeAgent instanceof Områdeschef) {
+
+                        agentMap.put("Omrade", "" + areaComboBox.getSelectedItem());
+                        Områdeschef oAgent = (Områdeschef) activeAgent;
+                        oAgent.editObject(agentMap);
+
+                    } else {
+                        activeAgent.editObject(agentMap);
+                    }
+                } else {
+                    //agentMap.put("Value", "" + (int) ((double) valueSpinner.getValue()));
+                    //ObjectManager.Aliens.updateSubClass(agentMap, currentAgent, newAgent);
+                }
+
+                JOptionPane.showMessageDialog(this, "Redigeringen av Alien " + activeAgent.getId() + " lyckades!");
                 Parent.reload();
                 this.dispose();
-
-            } catch (Exception ex) {
-
             }
-        }*/
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }//GEN-LAST:event_registerButtonActionPerformed
 
     private void agentTypeComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agentTypeComboBoxActionPerformed
