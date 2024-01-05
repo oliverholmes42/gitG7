@@ -12,13 +12,16 @@ import javaapplication3.GUI.addDialogs.RegisterNewPasswordDialog;
 import javaapplication3.GUI.addDialogs.RegisterNewUtilitiesDialog;
 import javaapplication3.GUI.editDialogs.editAgentDialog;
 import javaapplication3.GUI.editDialogs.editAlienDialog;
+import javaapplication3.GUI.editDialogs.editLocationDialog;
 import javaapplication3.GUI.editDialogs.returnEquipmentDialog;
 import javaapplication3.GUI.panels.AgentPanel;
 import javaapplication3.GUI.panels.AlienPanel;
 import javaapplication3.GUI.panels.AreaPanel;
 import javaapplication3.GUI.panels.EquipmentPanel;
+import javaapplication3.GUI.panels.LocationPanel;
 import javaapplication3.models.Agent;
 import javaapplication3.models.Alien;
+import javaapplication3.models.Location;
 import oru.inf.InfDB;
 import oru.inf.InfException;
 
@@ -69,6 +72,10 @@ public class PopupHandler {
     
      public static void addNewPasswordPopup(MainPage Parent, Agent profile){
         new RegisterNewPasswordDialog(Parent, profile, true).setVisible(true);
+    }
+     
+     public static void ediitLocationPopup(MainPage Parent, LocationPanel home, Location location) throws InfException{
+        new editLocationDialog(Parent, true, home, location).setVisible(true);
     }
      
      public static void returnUtilityPopup(MainPage Parent,EquipmentPanel home) {

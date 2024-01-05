@@ -4,14 +4,15 @@
  */
 package javaapplication3.GUI.panels;
 
-import java.util.ArrayList;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javaapplication3.GUI.MainPage;
 import javaapplication3.models.Area;
+import javaapplication3.models.agentSubClass.Områdeschef;
 import javaapplication3.utils.ObjectManager;
 import static javaapplication3.utils.ObjectManager.db;
-import javaapplication3.utils.PopupHandler;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import oru.inf.InfException;
@@ -31,8 +32,9 @@ public class AreaPanel extends javax.swing.JPanel {
     public AreaPanel() throws NumberFormatException, InfException {
         initComponents();
         ObjectManager.Areas.loadList();
-        areaTableModel = (DefaultTableModel) jTable2.getModel();
-        loadTable();      
+        areaTableModel = (DefaultTableModel) areaTable.getModel();
+        loadTable(); 
+        addListener();
     }
 
     /**
@@ -46,12 +48,10 @@ public class AreaPanel extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        areaTable = new javax.swing.JTable();
         searchOmradeTextField = new javax.swing.JTextField();
-        updateInfo = new javax.swing.JButton();
-        deleteArea = new javax.swing.JButton();
-        addArea = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        viewBoss = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(200, 200, 200));
         setPreferredSize(new java.awt.Dimension(1128, 792));
@@ -60,9 +60,9 @@ public class AreaPanel extends javax.swing.JPanel {
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Område");
 
-        jTable2.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        jTable2.setForeground(new java.awt.Color(40, 40, 40));
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        areaTable.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        areaTable.setForeground(new java.awt.Color(40, 40, 40));
+        areaTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -81,35 +81,18 @@ public class AreaPanel extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
-        jTable2.setAlignmentX(1.5F);
-        jTable2.setAlignmentY(1.5F);
-        jTable2.setName(""); // NOI18N
-        jTable2.setRowHeight(80);
-        jTable2.setRowMargin(1);
-        jTable2.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        jTable2.setShowGrid(true);
-        jScrollPane2.setViewportView(jTable2);
+        areaTable.setAlignmentX(1.5F);
+        areaTable.setAlignmentY(1.5F);
+        areaTable.setName(""); // NOI18N
+        areaTable.setRowHeight(80);
+        areaTable.setRowMargin(1);
+        areaTable.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        areaTable.setShowGrid(true);
+        jScrollPane2.setViewportView(areaTable);
 
         searchOmradeTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchOmradeTextFieldActionPerformed(evt);
-            }
-        });
-
-        updateInfo.setText("Uppdatera information");
-
-        deleteArea.setLabel("Ta bort område");
-        deleteArea.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteAreaActionPerformed(evt);
-            }
-        });
-
-        addArea.setText("Lägg till område");
-        addArea.setToolTipText("");
-        addArea.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addAreaActionPerformed(evt);
             }
         });
 
@@ -120,72 +103,57 @@ public class AreaPanel extends javax.swing.JPanel {
             }
         });
 
+        viewBoss.setText("Se områdeschef");
+        viewBoss.setEnabled(false);
+        viewBoss.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewBossActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1027, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(234, 234, 234)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(searchOmradeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 566, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(addArea, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(12, 12, 12)
-                                .addComponent(deleteArea, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(updateInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(67, Short.MAX_VALUE))
+                        .addGap(300, 300, 300)
+                        .addComponent(searchOmradeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 522, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(467, 467, 467)
+                        .addComponent(jLabel1))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 738, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(199, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(512, 512, 512))
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(viewBoss, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(216, 216, 216))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(74, 74, 74)
+                .addGap(80, 80, 80)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(searchOmradeTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addArea, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(deleteArea, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(updateInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(57, 57, 57)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(searchOmradeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(117, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(viewBoss, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(145, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void searchOmradeTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchOmradeTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_searchOmradeTextFieldActionPerformed
-
-    private void addAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addAreaActionPerformed
-       try {
-            PopupHandler.addNewAreaPopup(Parent, this);
-        } catch (InfException ex) {
-            Logger.getLogger(AreaPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }                                       
-                                      
-   
-    
-    public static void reload() throws InfException{
-        loadTable();
-
-    }//GEN-LAST:event_addAreaActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         areaTableModel.setRowCount(0);
@@ -198,39 +166,53 @@ public class AreaPanel extends javax.swing.JPanel {
                     addRow(i);
                 } catch (InfException ex) {
                     Logger.getLogger(AreaPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, "An error occurred during the removal process.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void deleteAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteAreaActionPerformed
-        ArrayList<Integer> selectedID = new ArrayList<Integer>();
-        for (int item : jTable2.getSelectedRows()) {
-            selectedID.add(Integer.parseInt((String) jTable2.getValueAt(item, 0)));
+    private void viewBossActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewBossActionPerformed
+        try {
+            int row = areaTable.getSelectedRow();
+            int id = Integer.parseInt(areaTable.getValueAt(row, 0).toString());
+            Områdeschef chef = ObjectManager.Agents.findOmradeschefForArea(id);
+            Area area = ObjectManager.Areas.areaList.get(id);
+            JOptionPane.showMessageDialog(this,area.getName()+"\n"+"Områdeschef: "+ chef.getName() ,"Info", JOptionPane.INFORMATION_MESSAGE);
+        } catch (NumberFormatException ex) {
+            Logger.getLogger(AreaPanel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InfException ex) {
+            Logger.getLogger(AreaPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
-        int selectedAreaCount = selectedID.size(); // Replace with your method
-        String message = "Ta bort " + selectedAreaCount + " område" + (selectedAreaCount > 1 ? "s" : "") + " från systemet?";
-
-        int response = JOptionPane.showConfirmDialog(null, message, "Bekräfta", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if (response == JOptionPane.YES_OPTION) {
-            
-            try {
-                ObjectManager.Areas.delete(selectedID);
-                JOptionPane.showMessageDialog(this, selectedAreaCount + " Områden raderades!","Raderade", JOptionPane.INFORMATION_MESSAGE);
-                loadTable();
-            } catch (InfException ex) {
-                Logger.getLogger(AreaPanel.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(this, "Misslyckades. Mission Failed, we'll get them next time.","Error",JOptionPane.ERROR_MESSAGE);
-            }
-        }
-    }//GEN-LAST:event_deleteAreaActionPerformed
+    }//GEN-LAST:event_viewBossActionPerformed
     
-   
+   private void addListener() {
+       areaTable.addMouseListener(new MouseAdapter() {
+           @Override
+           public void mouseClicked(MouseEvent e) {
+               if (e.getClickCount() == 1) { // Single click
+                   int[] rows = areaTable.getSelectedRows();
+
+                   if (rows.length == 1) {
+                       viewBoss.setEnabled(true);
+                   } else {
+                       viewBoss.setEnabled(false);
+                   }
+
+               }
+           }
+       });
+     
+    }
     private static void loadTable() throws InfException {
         areaTableModel.setRowCount(0);
         for (Area i : ObjectManager.Areas.areaList.values()) {
             addRow(i);
         }
+    }
+    
+    public static void reload() throws InfException{
+        loadTable();
     }
 
     private static void addRow(Area i) throws InfException {
@@ -244,13 +226,11 @@ public class AreaPanel extends javax.swing.JPanel {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addArea;
-    private javax.swing.JButton deleteArea;
+    private javax.swing.JTable areaTable;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTextField searchOmradeTextField;
-    private javax.swing.JButton updateInfo;
+    private javax.swing.JButton viewBoss;
     // End of variables declaration//GEN-END:variables
 }

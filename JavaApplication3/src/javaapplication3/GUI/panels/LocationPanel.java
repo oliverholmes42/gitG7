@@ -4,21 +4,18 @@
  */
 package javaapplication3.GUI.panels;
 
-import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javaapplication3.GUI.MainPage;
-import javaapplication3.GUI.addDialogs.RegisterNewAlienDialogPopupV2;
 import javaapplication3.GUI.addDialogs.RegisterNewLocationDialog;
 import javaapplication3.models.Location;
 import javaapplication3.utils.DatabaseConnection;
 import javaapplication3.utils.ObjectManager;
-import javax.swing.JLabel;
+import javaapplication3.utils.PopupHandler;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import oru.inf.InfDB;
 import oru.inf.InfException;
@@ -42,31 +39,11 @@ public class LocationPanel extends javax.swing.JPanel {
         this.parent = parent;
         initComponents();
         ObjectManager.Locations.loadList();
-        locationTableModel = (DefaultTableModel) jTable2.getModel();
+        locationTableModel = (DefaultTableModel) locationTable.getModel();
         loadTable();
         addListener();
 
     }
-
-    private void addListener() {
-        jTable2.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                if (e.getClickCount() == 1) { // Double-click
-                    int row = jTable2.getSelectedRow();
-                    if (row >= 0) {
-                        // Assuming the first column holds the unique ID
-                        int locationID = Integer.parseInt((String) jTable2.getValueAt(row, 0));
-                        
-                        // Fetch the Location object based on the ID
-                       // Location location = getLocationByID(locationID);
-                        
-                        // Show the dialog with location info
-                        //displayLocationInfo(location);
-                    }
-                }
-            }
-        }); }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -79,11 +56,12 @@ public class LocationPanel extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-        jTextField1 = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
+        locationTable = new javax.swing.JTable();
+        locationSeach = new javax.swing.JTextField();
+        editLocationInfo = new javax.swing.JButton();
         removeLocationButton = new javax.swing.JButton();
         addLocationButton = new javax.swing.JButton();
+        searchButton = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(200, 200, 200));
         setPreferredSize(new java.awt.Dimension(1128, 792));
@@ -92,9 +70,9 @@ public class LocationPanel extends javax.swing.JPanel {
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Plats");
 
-        jTable2.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        jTable2.setForeground(new java.awt.Color(40, 40, 40));
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        locationTable.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        locationTable.setForeground(new java.awt.Color(40, 40, 40));
+        locationTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -110,30 +88,48 @@ public class LocationPanel extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
-        jTable2.setAlignmentX(1.5F);
-        jTable2.setAlignmentY(1.5F);
-        jTable2.setName(""); // NOI18N
-        jTable2.setRowHeight(40);
-        jTable2.setRowMargin(1);
-        jTable2.setShowGrid(true);
-        jScrollPane2.setViewportView(jTable2);
+        locationTable.setAlignmentX(1.5F);
+        locationTable.setAlignmentY(1.5F);
+        locationTable.setName(""); // NOI18N
+        locationTable.setRowHeight(40);
+        locationTable.setRowMargin(1);
+        locationTable.setShowGrid(true);
+        jScrollPane2.setViewportView(locationTable);
 
-        jTextField1.setText("Sök här!");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        locationSeach.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                locationSeachActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Ändra information");
+        editLocationInfo.setText("Ändra information");
+        editLocationInfo.setEnabled(false);
+        editLocationInfo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editLocationInfoActionPerformed(evt);
+            }
+        });
 
         removeLocationButton.setText("Ta Bort Plats");
+        removeLocationButton.setEnabled(false);
+        removeLocationButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeLocationButtonActionPerformed(evt);
+            }
+        });
 
         addLocationButton.setText("Lägg TIll Plats");
         addLocationButton.setToolTipText("");
         addLocationButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addLocationButtonActionPerformed(evt);
+            }
+        });
+
+        searchButton.setText("Sök");
+        searchButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchButtonActionPerformed(evt);
             }
         });
 
@@ -146,7 +142,7 @@ public class LocationPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(removeLocationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(addLocationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(editLocationInfo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(187, 187, 187)
@@ -154,7 +150,10 @@ public class LocationPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 566, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(locationSeach, javax.swing.GroupLayout.PREFERRED_SIZE, 566, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(searchButton))
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 801, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(67, Short.MAX_VALUE))
         );
@@ -164,24 +163,26 @@ public class LocationPanel extends javax.swing.JPanel {
                 .addGap(106, 106, 106)
                 .addComponent(jLabel1)
                 .addGap(87, 87, 87)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(searchButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(locationSeach, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(addLocationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(removeLocationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(editLocationInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void locationSeachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_locationSeachActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_locationSeachActionPerformed
 
     private void addLocationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addLocationButtonActionPerformed
         
@@ -195,16 +196,82 @@ public class LocationPanel extends javax.swing.JPanel {
         
     }//GEN-LAST:event_addLocationButtonActionPerformed
 
+    private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
+        locationTableModel.setRowCount(0);
+        String search = locationSeach.getText().toLowerCase();
+        
+        for(Location i : ObjectManager.Locations.locationList.values()){
+            boolean nameMatch = i.getName().toLowerCase().contains(search);
+            boolean areaMatch = i.getArea().getName().toLowerCase().contains(search);
+            if(nameMatch||areaMatch){
+                addRow(i);
+            }
+        }
+    }//GEN-LAST:event_searchButtonActionPerformed
+
+    private void removeLocationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeLocationButtonActionPerformed
+        ArrayList<Integer> selectedID = new ArrayList<Integer>();
+        for (int item : locationTable.getSelectedRows()) {
+            selectedID.add(Integer.parseInt((String) locationTable.getValueAt(item, 0)));
+        }
+        int selectedLocationCount = selectedID.size(); // Replace with your method
+        String message = "Ta bort " + selectedLocationCount + " redskap från systemet?";
+
+        int response = JOptionPane.showConfirmDialog(null, message, "Bekräfta", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (response == JOptionPane.YES_OPTION) {
+            try {
+                // Logic to delete the selected aliens
+                ObjectManager.Locations.delete(selectedID);
+                JOptionPane.showMessageDialog(this, selectedLocationCount + " Områden raderades!","Raderade", JOptionPane.INFORMATION_MESSAGE);
+                loadTable();
+            } catch (InfException ex) {
+                JOptionPane.showMessageDialog(this, "Misslyckades. Referenser till denna plats finns på andra ställen i databasen. \nKontrollera att platsen inte används i andra objekt. (Exempel: Agent finns i.)","Error",JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_removeLocationButtonActionPerformed
+
+    private void editLocationInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editLocationInfoActionPerformed
+        Location location = ObjectManager.Locations.locationList.get(Integer.parseInt(locationTable.getValueAt(locationTable.getSelectedRow(), 0).toString()));
+        try {
+            PopupHandler.ediitLocationPopup(parent, this, location);
+        } catch (InfException ex) {
+            Logger.getLogger(LocationPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_editLocationInfoActionPerformed
+
+    private void addListener() {
+        locationTable.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 1) { // Single click
+                    int[] rows = locationTable.getSelectedRows();
+                            
+                    if (rows.length >= 0) {
+                        removeLocationButton.setEnabled(true);
+                        
+                    }
+                    if(rows.length==1){
+                        editLocationInfo.setEnabled(true);
+                    }
+                    if(rows.length!=1){
+                        editLocationInfo.setEnabled(false);
+                    }
+                }
+            }
+        }); 
+     
+    }
+    
+    
     private static void loadTable(){
         locationTableModel.setRowCount(0);
         for(Location i : ObjectManager.Locations.locationList.values()){
-            String[] row = {
-                Integer.toString(i.getId()),
-                i.getName(),
-                i.getArea().getName()
-            };
-            locationTableModel.addRow(row);
+            addRow(i);
         }
+    }
+    
+    public static void reload(){
+        loadTable();
     }
     
     /*
@@ -276,16 +343,26 @@ public class LocationPanel extends javax.swing.JPanel {
     JOptionPane.showMessageDialog(null, panel, "Location Information", JOptionPane.INFORMATION_MESSAGE);
 }*/
 
+    private static void addRow(Location i) {
+        String[] row = {
+            Integer.toString(i.getId()),
+            i.getName(),
+            i.getArea().getName()
+        };
+        locationTableModel.addRow(row);
+    }
+
 
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addLocationButton;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton editLocationInfo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField locationSeach;
+    private javax.swing.JTable locationTable;
     private javax.swing.JButton removeLocationButton;
+    private javax.swing.JButton searchButton;
     // End of variables declaration//GEN-END:variables
 }

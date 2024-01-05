@@ -15,22 +15,34 @@ import oru.inf.InfDB;
 public class Location {
     private int plats_ID;
     private Area finns_I;
-    private String benämning;
+    private String benamning;
     public static InfDB db;
     
     public Location(HashMap<String,String> map, Area area) {
         plats_ID = Integer.parseInt(map.get("Plats_ID"));
         this.finns_I = area;
-        benämning = map.get("Benamning");
+        benamning = map.get("Benamning");
+    }
+    
+    public Location(){
+        plats_ID = 0;
+        finns_I = null;
+        benamning = null;
+    }
+    
+    public void cloneObject(Location location){
+        this.plats_ID = location.plats_ID;
+        this.finns_I = location.finns_I;
+        this.benamning = location.benamning;
     }
     
     public void setName(String name) {
-        benämning = name;
+        benamning = name;
         //ObjectManager.Locations.updateField(plats_ID, "Benamning", benämning);
     }
     
     public String getName(){
-        return benämning;
+        return benamning;
     }
     
     public void setLocationID(int newLocationID){

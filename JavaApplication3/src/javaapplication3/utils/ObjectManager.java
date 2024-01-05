@@ -252,6 +252,13 @@ public class ObjectManager {
         public static void offLoad(){
         locationList.clear();
         }
+        
+        public static void delete(ArrayList<Integer> list) throws InfException {
+            for (int ID : list) {
+                db.delete("Delete from plats where Plats_ID =" + ID);
+                locationList.remove(ID);
+            }
+        }
     }
     
     
@@ -610,6 +617,21 @@ public class ObjectManager {
                 default:
                     return "faltagent";
             }
+        }
+        
+        public static Områdeschef findOmradeschefForArea(int areaId) throws NumberFormatException, InfException {
+            LoadList();
+            for (Agent agent : agentList.values()) {
+                if (agent instanceof Områdeschef) {
+                    Områdeschef omradeschef = (Områdeschef) agent;
+                    if (omradeschef.getControlArea().getId() == areaId) {
+                        offLoad();
+                        return omradeschef;
+                    }
+                }
+            }
+            offLoad();
+            return null;
         }
     }
 
