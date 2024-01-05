@@ -432,7 +432,14 @@ public class AgentPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_searchButtonActionPerformed
 
     private void alterAgentInfoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alterAgentInfoButtonActionPerformed
-        // TODO add your handling code here:
+        if(resultTable.getSelectedRows().length==1){
+            try {
+                PopupHandler.editAgentPopup(Parent,this,ObjectManager.Agents.getAgent(Integer.parseInt((String) resultTable.getValueAt(resultTable.getSelectedRow(), 0))));
+            } catch (InfException ex) {
+                Logger.getLogger(AgentPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        else {JOptionPane.showMessageDialog(this,"Endast en Agent kan redigeras samtidigt!");}
     }//GEN-LAST:event_alterAgentInfoButtonActionPerformed
 
 

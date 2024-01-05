@@ -4,12 +4,16 @@
  */
 package javaapplication3.GUI.editDialogs;
 
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.time.LocalDate;
 import java.util.HashMap;
 import javaapplication3.GUI.panels.AgentPanel;
 import javaapplication3.models.Agent;
 import javaapplication3.models.Area;
+import javaapplication3.models.agentSubClass.Fältagent;
+import javaapplication3.models.agentSubClass.KontorsChef;
+import javaapplication3.models.agentSubClass.Områdeschef;
 import javaapplication3.utils.ObjectManager;
 import static javaapplication3.utils.ObjectManager.db;
 import javax.swing.DefaultComboBoxModel;
@@ -23,22 +27,53 @@ import oru.inf.InfException;
 public class editAgentDialog extends javax.swing.JDialog {
     
     private AgentPanel Parent;
-    int maxID = Integer.parseInt(db.fetchSingle("Select max(Agent_ID) from agent"))+1;
+    private Agent activeAgent;
 
     /**
      * Creates new form editAgentDialog
      */
-    public editAgentDialog(java.awt.Frame parent, AgentPanel home, boolean modal) throws InfException {
+    public editAgentDialog(java.awt.Frame parent, AgentPanel home, boolean modal, Agent agent) throws InfException {
         super(parent, modal);
         initComponents();
-        Parent = home;
-        initComponents();
+        this.Parent = home;
         ObjectManager.Agents.LoadList();
-        idTextField.setText(String.valueOf(maxID));
         dynamiOfficeLabel.setVisible(false);
         dynamicControlLabel.setVisible(false);
         controlComboBox.setVisible(false);
         officeTextField.setVisible(false);
+        idTextField.setEditable(false);
+        fillInfo(agent);
+        getContentPane().setBackground(new Color(51,51,51));
+    }
+    
+    private void fillInfo(Agent agent) {
+        nameTextField.setText(agent.getName());
+        phoneTextField.setText(agent.getTelephone());
+        idTextField.setText(Integer.toString(agent.getId()));
+        areaComboBox.setSelectedItem(agent.getArea().getName());
+        agentTypeComboBox.setSelectedItem(agent.getClass().getSimpleName());
+        fillAgentTypes(agent);
+    }
+    
+    private void fillAgentTypes(Agent agent){
+        if(activeAgent instanceof Fältagent){
+            agentTypeComboBox.setSelectedItem(agent.getClass().getSimpleName());
+        }else if(activeAgent instanceof KontorsChef){
+            KontorsChef k = (KontorsChef) agent;
+            agentTypeComboBox.setSelectedItem(agent.getClass().getSimpleName());
+            officeTextField.setVisible(true);
+            dynamiOfficeLabel.setVisible(true);
+            officeTextField.setText(k.getOfficeName());
+        }else if(activeAgent instanceof Områdeschef){
+            Områdeschef o = (Områdeschef) agent;
+            agentTypeComboBox.setSelectedItem(agent.getClass().getSimpleName());
+            dynamicControlLabel.setVisible(true);
+            controlComboBox.setVisible(true);
+            String i = agent.getArea().getId() + ": " + agent.getArea().getName();
+            controlComboBox.setSelectedItem(i);
+        }else{
+            System.out.println("null");
+        }
     }
     
     private void fillComboBox() {
@@ -302,6 +337,7 @@ public class editAgentDialog extends javax.swing.JDialog {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void abortButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abortButtonActionPerformed
@@ -331,7 +367,7 @@ public class editAgentDialog extends javax.swing.JDialog {
 
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
         
-        if (!idTextField.getText().isEmpty() && !nameTextField.getText().isEmpty() && !phoneTextField.getText().isEmpty() && areaComboBox.getSelectedIndex() > 0 && agentTypeComboBox.getSelectedIndex() > 0 && checkDynamic()) {
+        /*if (!idTextField.getText().isEmpty() && !nameTextField.getText().isEmpty() && !phoneTextField.getText().isEmpty() && areaComboBox.getSelectedIndex() > 0 && agentTypeComboBox.getSelectedIndex() > 0 && checkDynamic()) {
             try {
                 String password = ObjectManager.generatePassword();
 
@@ -360,7 +396,7 @@ public class editAgentDialog extends javax.swing.JDialog {
             } catch (Exception ex) {
 
             }
-        }
+        }*/
     }//GEN-LAST:event_registerButtonActionPerformed
 
     private void agentTypeComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agentTypeComboBoxActionPerformed

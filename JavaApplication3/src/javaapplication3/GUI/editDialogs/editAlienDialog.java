@@ -59,21 +59,21 @@ public class editAlienDialog extends javax.swing.JDialog {
     }
     
     public void setSpinner(Alien alien, JSpinner spinner) {
-    if (alien instanceof Worm) {
-        Worm worm = (Worm) alien;
-        spinner.setValue(worm.getLength()); // Assuming length is a double
-    } else if (alien instanceof Boglodite) {
-        Boglodite boglodite = (Boglodite) alien;
-        int one = boglodite.getBoogieCount();
-        spinner.setValue(boglodite.getBoogieCount()); // Assuming bolgodAmounts is an int
-    } else if (alien instanceof Squid) {
-        Squid squid = (Squid) alien;
-        spinner.setValue(squid.getArmCount()); // Assuming arms is an int
-    } else {
-        // Handle the case where it's a generic Alien or unknown subclass
-        spinner.setValue(0); // Default value or some other appropriate action
+        if (alien instanceof Worm) {
+            Worm worm = (Worm) alien;
+            spinner.setValue(worm.getLength()); // Assuming length is a double
+        } else if (alien instanceof Boglodite) {
+            Boglodite boglodite = (Boglodite) alien;
+            int one = boglodite.getBoogieCount();
+            spinner.setValue(boglodite.getBoogieCount()); // Assuming bolgodAmounts is an int
+        } else if (alien instanceof Squid) {
+            Squid squid = (Squid) alien;
+            spinner.setValue(squid.getArmCount()); // Assuming arms is an int
+        } else {
+            // Handle the case where it's a generic Alien or unknown subclass
+            spinner.setValue(0); // Default value or some other appropriate action
+        }
     }
-}
 
 
     /**

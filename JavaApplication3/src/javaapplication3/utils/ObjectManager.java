@@ -532,6 +532,10 @@ public class ObjectManager {
         agentList.clear();
         }
         
+        public static Agent getAgent(int id) {
+            return agentList.get(id);
+        }
+        
         public static void addNew(HashMap<String,String> map, Area area, String type) throws InfException{
             String Query = buildInsertQuery("agent", map);
             

@@ -10,6 +10,7 @@ import javaapplication3.GUI.addDialogs.RegisterNewAlienDialogPopupV2;
 import javaapplication3.GUI.addDialogs.RegisterNewAreaDialog;
 import javaapplication3.GUI.addDialogs.RegisterNewPasswordDialog;
 import javaapplication3.GUI.addDialogs.RegisterNewUtilitiesDialog;
+import javaapplication3.GUI.editDialogs.editAgentDialog;
 import javaapplication3.GUI.editDialogs.editAlienDialog;
 import javaapplication3.GUI.editDialogs.returnEquipmentDialog;
 import javaapplication3.GUI.panels.AgentPanel;
@@ -44,6 +45,10 @@ public class PopupHandler {
     
     public static void editAlienPopup(MainPage Parent,AlienPanel home , Alien alien){
         new editAlienDialog(Parent,home, true, alien).setVisible(true);
+    }
+    
+    public static void editAgentPopup(MainPage Parent, AgentPanel home, Agent agent) throws InfException{
+        new editAgentDialog(Parent, home, true, agent).setVisible(true);
     }
     
     public static void addNewAgentPopup(MainPage Parent, AgentPanel home)throws InfException{
