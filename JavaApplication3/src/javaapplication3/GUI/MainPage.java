@@ -41,7 +41,7 @@ public class MainPage extends javax.swing.JFrame {
     /**
      * Creates new form MainPage
      */
-    public MainPage() {
+    public MainPage() throws InfException {
         this.db = DatabaseConnection.getInstance();;
         initComponents();
         loadIcon();
@@ -77,7 +77,7 @@ public class MainPage extends javax.swing.JFrame {
         addNavigationToButton(locationButton, "LocationPanel");
     }
 
-    private void createCardLayout() {
+    private void createCardLayout() throws InfException {
         mainPanelDisplay.setLayout(cardLayout);
         mainPanelDisplay.add(new HomePanel(), "HomePanel");
     }
@@ -380,7 +380,11 @@ private void labelMouseExited(java.awt.event.MouseEvent evt, JLabel label) {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainPage().setVisible(true);
+                try {
+                    new MainPage().setVisible(true);
+                } catch (InfException ex) {
+                    Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

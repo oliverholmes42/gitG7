@@ -29,7 +29,9 @@ public class Squid extends Alien {
     
     public void editObject(HashMap<String,String> alienMap) throws InfException{
         super.editObject(alienMap);
-        antal_Armar = Integer.parseInt(alienMap.get("Antal_Armar"));
+        double doubleValue = Double.parseDouble(alienMap.get("Antal_Armar"));
+        antal_Armar = (int) Math.round(doubleValue);
+
     }
 
     // Getters and setters for the length attribute

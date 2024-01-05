@@ -129,7 +129,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="jTable2">
+        <Component class="javax.swing.JTable" name="utilityTable">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="d2" green="d2" red="d2" type="rgb"/>
@@ -145,8 +145,14 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="1e" green="1e" red="1e" type="rgb"/>
             </Property>
-            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new javax.swing.table.DefaultTableModel(&#xa;    new Object [][] {&#xa;        {&quot;U1&quot;, &quot;MachineGun DeluxeEdition&quot;, &quot;2020-01-01&quot;},&#xa;        {&quot;U2&quot;, &quot;Elektrisk Whip&quot;, &quot;2019-01-01&quot;},&#xa;        {&quot;U3&quot;, &quot;Hand Granat&quot;, &quot;2018-01-01&quot;},&#xa;        {&quot;U4&quot;, &quot;Skotts&#xe4;ker v&#xe4;st&quot;, &quot;2017-01-01&quot;},&#xa;        {&quot;U5&quot;, &quot;Skotts&#xe4;ker hj&#xe4;lm&quot;, &quot;2016-01-01&quot;},&#xa;        {&quot;U6&quot;, &quot;Bayonett kniv&quot;, &quot;2015-01-01&quot;}&#xa;&#xa;&#xa;    },&#xa;    new String [] {&#xa;        &quot;UtrustningID&quot;, &quot;Namn p&#xe5; Utrustning&quot;, &quot;Utkvitteringsdatum&quot;&#xa;    }&#xa;)" type="code"/>
+            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+              <Table columnCount="5" rowCount="0">
+                <Column editable="true" title="ID" type="java.lang.Object"/>
+                <Column editable="true" title="Ben&#xe4;mning" type="java.lang.Object"/>
+                <Column editable="true" title="Typ" type="java.lang.Object"/>
+                <Column editable="true" title="Unikt v&#xe4;rde" type="java.lang.Object"/>
+                <Column editable="true" title="L&#xe5;nedatum" type="java.lang.Object"/>
+              </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
               <TableColumnModel selectionModel="0"/>
@@ -261,13 +267,14 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="jTable3">
+        <Component class="javax.swing.JTable" name="topThree">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="3" rowCount="4">
+              <Table columnCount="4" rowCount="4">
+                <Column editable="true" title="Rank" type="java.lang.Integer"/>
+                <Column editable="true" title="ID" type="java.lang.Object"/>
                 <Column editable="true" title="Agent Namn" type="java.lang.String"/>
                 <Column editable="true" title="Antal Alien " type="java.lang.Integer"/>
-                <Column editable="true" title="Topplista" type="java.lang.Integer"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

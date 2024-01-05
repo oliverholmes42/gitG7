@@ -30,7 +30,9 @@ public class Boglodite extends Alien {
     
     public void editObject(HashMap<String,String> alienMap) throws InfException {
         super.editObject(alienMap);
-        antal_Boogies = Integer.parseInt(alienMap.get("Antal_Boogies"));
+        double doubleValue = Double.parseDouble(alienMap.get("Antal_Boogies"));
+        antal_Boogies = (int) Math.round(doubleValue);
+
     }
 
     // Getters and setters for the length attribute

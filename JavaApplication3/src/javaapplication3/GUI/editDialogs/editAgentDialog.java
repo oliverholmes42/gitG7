@@ -381,6 +381,7 @@ public class editAgentDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_phoneTextFieldKeyPressed
 
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
+       System.out.println("3");
         try {
             boolean isNameEmpty = nameTextField.getText().isEmpty();
             boolean isPhoneEmpty = phoneTextField.getText().isEmpty();
@@ -398,7 +399,7 @@ public class editAgentDialog extends javax.swing.JDialog {
                 agentMap.put("Namn", nameTextField.getText());
                 agentMap.put("Telefon", phoneTextField.getText());
                 agentMap.put("Omrade", ((String) areaComboBox.getSelectedItem()).split(":")[0].trim());
-                agentMap.put("Administrator", ((String) adminTypeComboBox.getSelectedItem()).split(":")[0].trim());
+                agentMap.put("Administrator", ((String) adminTypeComboBox.getSelectedItem()).substring(0, 1));
 
                 // Check for species change
                 String newAgent = (String) agentTypeComboBox.getSelectedItem();

@@ -4,9 +4,21 @@
  */
 package javaapplication3.GUI.panels;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import javaapplication3.models.Agent;
+import javaapplication3.models.Utilities;
+import javaapplication3.models.utilitySubClasses.Kommunikation;
+import javaapplication3.models.utilitySubClasses.Teknik;
+import javaapplication3.models.utilitySubClasses.Vapen;
 import javaapplication3.utils.DatabaseConnection;
+import javaapplication3.utils.ObjectManager;
+import static javaapplication3.utils.ObjectManager.Agents.findTopThreeAgentsWithMostAliens;
 import javaapplication3.utils.UserSession;
+import javax.swing.table.DefaultTableModel;
 import oru.inf.InfDB;
+import oru.inf.InfException;
 
 /**
  *
@@ -14,16 +26,78 @@ import oru.inf.InfDB;
  */
 public class HomePanel extends javax.swing.JPanel {
     private static InfDB db;
+    private UserSession user = UserSession.getInstance();
+
 
     /**
      * Creates new form AgentPanel
      */
-    public HomePanel() {
+    public HomePanel() throws InfException {
         this.db = DatabaseConnection.getInstance();
         initComponents();
-        jLabel2.setText("Välkommen, "+UserSession.getInstance().getName()); 
+        jLabel2.setText("Välkommen, "+UserSession.getInstance().getName());
+        ObjectManager.AgentUtilityHandler.loadList();
         
+        fillTable();
+        displayTopThreeAgents();
     }
+    
+    private void fillTable(){
+        DefaultTableModel tableModel = (DefaultTableModel) utilityTable.getModel();
+        if (user.getType() != 1) {
+            Agent agent = ObjectManager.Agents.agentList.get(user.getUserId());
+            HashMap<Integer, Utilities> map = ObjectManager.AgentUtilityHandler.getAgentUtils(agent);
+            tableModel.setRowCount(0);
+            for (Utilities item : map.values()) {
+
+                HashMap<String, String> itemMap = ObjectManager.AgentUtilityHandler.getUtilityInfo(item);
+                String[] row = {
+                    Integer.toString(item.getID()),
+                    item.getName(),
+                    item.getClass().getSimpleName(),
+                    getSubValue(item),
+                    itemMap.get("Date")
+                };
+                tableModel.addRow(row);
+            }
+        }
+    }
+    
+    private String getSubValue(Utilities utility) {
+                    String uniqueValue;
+             if (utility instanceof Vapen) {
+                 Vapen weapon = (Vapen) utility;
+                 uniqueValue = "Kaliber: " + weapon.getCaliber(); // Replace getCaliber() with the actual method name
+             } else if (utility instanceof Kommunikation) {
+                 Kommunikation commsDevice = (Kommunikation) utility;
+                 uniqueValue = "Överföringsteknik: " + commsDevice.getTransmissionTech(); // Replace getTransmissionTech() with the actual method name
+             } else if (utility instanceof Teknik) {
+                 Teknik tech = (Teknik) utility;
+                 uniqueValue = "Kraftkälla: " + tech.getPowersource(); // Replace getPowersource() with the actual method name
+             } else {
+                 // Handle the generic Utilities case or unknown subclass
+                 uniqueValue = "Unknown Utility Type";
+             }
+             return uniqueValue;
+           }
+
+    private void displayTopThreeAgents() throws InfException {
+        DefaultTableModel tableModel = (DefaultTableModel) topThree.getModel();
+        tableModel.setRowCount(0);
+        List<Map.Entry<Agent, Integer>> topAgents = findTopThreeAgentsWithMostAliens();
+        int i=1;
+        for (Map.Entry<Agent, Integer> entry : topAgents) {
+            String[] row = {
+            Integer.toString(i),
+            Integer.toString(entry.getKey().getId()),
+            entry.getKey().getName(),
+            Integer.toString(entry.getValue())
+        };
+            tableModel.addRow(row);
+            i++;
+    }
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -38,7 +112,7 @@ public class HomePanel extends javax.swing.JPanel {
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        utilityTable = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -46,7 +120,7 @@ public class HomePanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        topThree = new javax.swing.JTable();
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -60,29 +134,23 @@ public class HomePanel extends javax.swing.JPanel {
         setMinimumSize(new java.awt.Dimension(1128, 792));
         setPreferredSize(new java.awt.Dimension(1128, 792));
 
-        jTable2.setBackground(new java.awt.Color(210, 210, 210));
-        jTable2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jTable2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTable2.setForeground(new java.awt.Color(30, 30, 30));
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        utilityTable.setBackground(new java.awt.Color(210, 210, 210));
+        utilityTable.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        utilityTable.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        utilityTable.setForeground(new java.awt.Color(30, 30, 30));
+        utilityTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"U1", "MachineGun DeluxeEdition", "2020-01-01"},
-                {"U2", "Elektrisk Whip", "2019-01-01"},
-                {"U3", "Hand Granat", "2018-01-01"},
-                {"U4", "Skottsäker väst", "2017-01-01"},
-                {"U5", "Skottsäker hjälm", "2016-01-01"},
-                {"U6", "Bayonett kniv", "2015-01-01"}
 
             },
             new String [] {
-                "UtrustningID", "Namn på Utrustning", "Utkvitteringsdatum"
+                "ID", "Benämning", "Typ", "Unikt värde", "Lånedatum"
             }
         ));
-        jTable2.setGridColor(new java.awt.Color(30, 30, 30));
-        jTable2.setInheritsPopupMenu(true);
-        jTable2.setRowHeight(60);
-        jTable2.setRowMargin(1);
-        jScrollPane2.setViewportView(jTable2);
+        utilityTable.setGridColor(new java.awt.Color(30, 30, 30));
+        utilityTable.setInheritsPopupMenu(true);
+        utilityTable.setRowHeight(60);
+        utilityTable.setRowMargin(1);
+        jScrollPane2.setViewportView(utilityTable);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(50, 50, 50));
@@ -117,28 +185,28 @@ public class HomePanel extends javax.swing.JPanel {
         jTable1.setRowMargin(5);
         jScrollPane1.setViewportView(jTable1);
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        topThree.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Agent Namn", "Antal Alien ", "Topplista"
+                "Rank", "ID", "Agent Namn", "Antal Alien "
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.Object.class, java.lang.String.class, java.lang.Integer.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
-        jTable3.setRowHeight(60);
-        jTable3.setRowMargin(5);
-        jScrollPane3.setViewportView(jTable3);
+        topThree.setRowHeight(60);
+        topThree.setRowMargin(5);
+        jScrollPane3.setViewportView(topThree);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -208,7 +276,7 @@ public class HomePanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
+    private javax.swing.JTable topThree;
+    private javax.swing.JTable utilityTable;
     // End of variables declaration//GEN-END:variables
 }

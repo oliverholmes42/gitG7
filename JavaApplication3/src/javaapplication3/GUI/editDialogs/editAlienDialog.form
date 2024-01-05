@@ -64,36 +64,40 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="nameTextField" alignment="0" min="-2" pref="180" max="-2" attributes="0"/>
-                              <Component id="inputNameLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="inputEmailLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="inputAreaLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="areaComboBox" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="abortButton" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="emailTextField" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Component id="dynamicLabel" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="valueSpinner" min="-2" pref="78" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="phoneTextField" min="-2" max="-2" attributes="0"/>
-                              <Component id="inputAgentLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="agentComboBox" alignment="0" min="-2" pref="180" max="-2" attributes="0"/>
-                              <Component id="inputSpeciesLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="speciesComboBox" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="registerButton" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="inputPhoneLabel" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="157" max="-2" attributes="0"/>
                           <Component id="registerAlienLabel" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="dynamicLabel" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                                  <Component id="valueSpinner" min="-2" pref="78" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="nameTextField" alignment="0" min="-2" pref="180" max="-2" attributes="0"/>
+                                      <Component id="inputNameLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="inputEmailLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="inputAreaLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="areaComboBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="abortButton" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="emailTextField" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="phoneTextField" min="-2" max="-2" attributes="0"/>
+                                      <Component id="inputAgentLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="agentComboBox" alignment="0" min="-2" pref="180" max="-2" attributes="0"/>
+                                      <Component id="inputSpeciesLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="speciesComboBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="inputPhoneLabel" min="-2" max="-2" attributes="0"/>
+                                      <Component id="registerButton" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
                       </Group>
                   </Group>
                   <EmptySpace pref="68" max="32767" attributes="0"/>

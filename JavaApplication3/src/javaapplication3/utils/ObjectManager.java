@@ -27,6 +27,8 @@ import javaapplication3.models.utilitySubClasses.Vapen;
 import oru.inf.*;
 import oru.inf.InfException;
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.Comparator;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -329,36 +331,6 @@ public class ObjectManager {
         }
 
         public static void updateSubClass(HashMap<String,String> map, String oldSpecies, String newSpecies) throws InfException {
-            if(oldSpecies.equals(newSpecies)){
-                if (map.containsKey("Antal_Boogies")) {
-                    HashMap<String, String> bogloditeMap = new HashMap<>();
-                    bogloditeMap.put("Alien_ID", map.get("Alien_ID"));
-                    bogloditeMap.put("Antal_Boogies", map.get("Antal_Boogies"));
-
-                    //String bogloditeQuery = ObjectManager.buildUpdateQuery("Boglodite", bogloditeMap);
-                    //db.update(bogloditeQuery);
-                }
-
-                // Update 'Squid' table if "Antal_Armar" is present
-                if (map.containsKey("Antal_Armar")) {
-                    HashMap<String, String> squidMap = new HashMap<>();
-                    squidMap.put("Alien_ID", map.get("Alien_ID"));
-                    squidMap.put("Antal_Armar", map.get("Antal_Armar"));
-
-                    //String squidQuery = ObjectManager.buildUpdateQuery("Squid", squidMap);
-                    //db.update(squidQuery);
-                }
-
-                // Update 'Worm' table if "Langd" is present
-                if (map.containsKey("Langd")) {
-                    HashMap<String, String> wormMap = new HashMap<>();
-                    wormMap.put("Alien_ID", map.get("Alien_ID"));
-                    wormMap.put("Langd", map.get("Langd"));
-
-                    //String wormQuery = ObjectManager.buildUpdateQuery("Worm", wormMap);
-                   // db.update(wormQuery);
-                }   
-            } else {
                 String tableName = newSpecies; // Assuming 'two' is a variable holding the table name
                 String alienID = map.get("Alien_ID");
                 String value = map.get("Value");
@@ -372,7 +344,7 @@ public class ObjectManager {
                 db.delete(sql);
 
                 alienList.put(Integer.parseInt(alienID),newInstance(map,newSpecies));
-            }
+            
         }
 
         private static Alien newInstance(HashMap<String,String> map,String race) {
@@ -633,6 +605,24 @@ public class ObjectManager {
             offLoad();
             return null;
         }
+        
+        public static List<Map.Entry<Agent, Integer>> findTopThreeAgentsWithMostAliens() throws InfException {
+        ObjectManager.Aliens.loadAlienList(); // Ensure the alien list is loaded
+        HashMap<Agent, Integer> alienCountPerAgent = new HashMap<>();
+
+        // Count the number of aliens per agent
+        for (Alien alien : ObjectManager.Aliens.alienList.values()) {
+            Agent responsibleAgent = alien.getResponsibleAgent();
+            alienCountPerAgent.put(responsibleAgent, alienCountPerAgent.getOrDefault(responsibleAgent, 0) + 1);
+        }
+
+        // Create a list from elements of the HashMap and sort it
+        List<Map.Entry<Agent, Integer>> sortedAgents = new ArrayList<>(alienCountPerAgent.entrySet());
+        sortedAgents.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
+
+        // Return the top three agents, or fewer if there aren't enough agents
+        return sortedAgents.size() > 3 ? sortedAgents.subList(0, 3) : sortedAgents;
+    }
     }
     
     public static void updateInstance(HashMap<String, String> map) throws InfException {
@@ -642,7 +632,7 @@ public class ObjectManager {
             agentMap.remove("Benamning");   // Similarly for other special keys
             agentMap.remove("Agent_ID");
 
-            String alienQuery = ObjectManager.buildUpdateQuery("agent", alienMap, "Agent_ID");
+            String alienQuery = ObjectManager.buildUpdateQuery("agent", agentMap, "Agent_ID");
             db.update(alienQuery);
 
         }
