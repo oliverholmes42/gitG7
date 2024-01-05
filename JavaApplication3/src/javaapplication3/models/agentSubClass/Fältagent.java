@@ -17,4 +17,12 @@ public class Fältagent extends Agent {
     public Fältagent(HashMap<String, String> agentMap, Area area){
         super(agentMap,area);
     }
+    
+    public Fältagent(){
+        super();
+    }
+    
+    public void cloneObject(Fältagent other){
+        super.cloneObject(other);
+    }
 }

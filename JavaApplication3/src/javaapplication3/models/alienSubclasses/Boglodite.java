@@ -28,6 +28,15 @@ public class Boglodite extends Alien {
         }
     }
     
+    public Boglodite(){
+        super();
+    }
+    
+    public void cloneObject(Boglodite other) {
+        super.cloneObject(other); // Call Alien's cloneObject to handle Alien properties
+        this.antal_Boogies = other.antal_Boogies; // Clone Squid-specific property
+    }
+    
     public void editObject(HashMap<String,String> alienMap) throws InfException {
         super.editObject(alienMap);
         double doubleValue = Double.parseDouble(alienMap.get("Antal_Boogies"));

@@ -36,6 +36,28 @@ public class Agent {
         this.omrade = area;
     }
     
+    public Agent(){
+        this.agent_ID = 0;
+        this.namn = null;
+        this.losenord = null;
+        this.telefon = null;
+        this.epost = null;
+        this.administrator = null;
+        this.anstallningsdatum = null;
+        this.omrade = null;
+    }
+    
+    public void cloneObject(Agent other){
+        this.agent_ID = other.agent_ID;
+        this.namn = other.namn;
+        this.losenord = other.losenord;
+        this.telefon = other.telefon;
+        this.epost = other.epost;
+        this.administrator = other.administrator;
+        this.anstallningsdatum = other.anstallningsdatum;
+        this.omrade = other.omrade;
+    }
+    
     public void editObject(HashMap<String, String> agentMap) throws InfException {
         ObjectManager.Aliens.updateInstance(agentMap);
         

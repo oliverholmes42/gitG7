@@ -36,6 +36,7 @@ public class editAgentDialog extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.Parent = home;
+        activeAgent = agent;
         ObjectManager.Agents.LoadList();
         dynamiOfficeLabel.setVisible(false);
         dynamicControlLabel.setVisible(false);
@@ -75,7 +76,7 @@ public class editAgentDialog extends javax.swing.JDialog {
             agentTypeComboBox.setSelectedItem(agent.getClass().getSimpleName());
         }else if(agent instanceof KontorsChef){
             KontorsChef k = (KontorsChef) agent;
-            agentTypeComboBox.setSelectedItem(agent.getClass().getSimpleName());
+            agentTypeComboBox.setSelectedItem("Kontorschef");
             officeTextField.setVisible(true);
             dynamiOfficeLabel.setVisible(true);
             officeTextField.setText(k.getOfficeName());
@@ -381,65 +382,127 @@ public class editAgentDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_phoneTextFieldKeyPressed
 
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
-       System.out.println("3");
         try {
-            boolean isNameEmpty = nameTextField.getText().isEmpty();
-            boolean isPhoneEmpty = phoneTextField.getText().isEmpty();
+        boolean isNameEmpty = nameTextField.getText().isEmpty();
+        boolean isPhoneEmpty = phoneTextField.getText().isEmpty();
 
-            System.out.println("4");
+ 
 
-            if (nameTextField.getText().isEmpty() || phoneTextField.getText().isEmpty()) {
+        if (isNameEmpty || isPhoneEmpty) {
+            JOptionPane.showMessageDialog(null, "Vänligen ange information om Agenten du vill registrera med detta formulär");
+        } else {
+            String newAgentType = (String) agentTypeComboBox.getSelectedItem();
+            String currentAgentType = activeAgent.getClass().getSimpleName();
+            
+            String name = nameTextField.getText();
+            String telefon = phoneTextField.getText();
+            Area area = ObjectManager.Areas.areaList.get(Integer.valueOf(areaComboBox.getSelectedItem().toString().split(":")[0].trim()));
+            String adminType = ((String) adminTypeComboBox.getSelectedItem()).substring(0, 1);
+            
+            if (newAgentType.toLowerCase().equals(currentAgentType.toLowerCase())) {
+                if (activeAgent instanceof Fältagent) {
+                    Fältagent fAgent = (Fältagent) activeAgent;
+                    Fältagent temp = new Fältagent();
+                    temp.cloneObject(fAgent);
+                    
+                    temp.setName(name);
+                    temp.setTelephone(telefon);
+                    temp.setLocation(area);
+                    temp.setAdmin(adminType);
+                    
+                    ObjectManager.updateObject(temp);
 
-                JOptionPane.showMessageDialog(null, "Vänligen ange information om Agenten du vill redigera med detta formulär");
+                    fAgent = temp;
 
-            } else {
-                HashMap<String, String> agentMap = new HashMap<>();
-                agentMap.put("Agent_ID", String.valueOf(activeAgent.getId()));
-                agentMap.put("Anstallningsdatum", activeAgent.getRecruitmentDate().toString());
-                agentMap.put("Namn", nameTextField.getText());
-                agentMap.put("Telefon", phoneTextField.getText());
-                agentMap.put("Omrade", ((String) areaComboBox.getSelectedItem()).split(":")[0].trim());
-                agentMap.put("Administrator", ((String) adminTypeComboBox.getSelectedItem()).substring(0, 1));
+                } else if (activeAgent instanceof KontorsChef) {
+                    String officeName = officeTextField.getText();
+                    KontorsChef fAgent = (KontorsChef) activeAgent;
+                    KontorsChef temp = new KontorsChef();
+                    temp.cloneObject(fAgent);
+                    
+                    temp.setName(name);
+                    temp.setTelephone(telefon);
+                    temp.setLocation(area);
+                    temp.setAdmin(adminType);
+                    
+                    temp.setOfficeName(officeName);
+                    
+                    ObjectManager.updateObject(temp);
 
-                // Check for species change
-                String newAgent = (String) agentTypeComboBox.getSelectedItem();
-                String currentAgent = activeAgent.getClass().getSimpleName();
+                    fAgent = temp;
 
-                if (newAgent.equals(currentAgent)) {
-                    if (activeAgent instanceof Fältagent) {
+                } else if (activeAgent instanceof Områdeschef) {
+                    Area controlArea = ObjectManager.Areas.areaList.get(Integer.valueOf(controlComboBox.getSelectedItem().toString().split(":")[0].trim()));
+                    Områdeschef fAgent = (Områdeschef) activeAgent;
+                    Områdeschef temp = new Områdeschef();
+                    temp.cloneObject(fAgent);
+                    
+                    temp.setName(name);
+                    temp.setTelephone(telefon);
+                    temp.setLocation(area);
+                    temp.setAdmin(adminType);
+                    
+                    temp.setControlArea(controlArea);
+                    
+                    ObjectManager.updateObject(temp);
 
-                        agentMap.put("Agent_ID", "" + activeAgent.getId());
-                        Fältagent fAgent = (Fältagent) activeAgent;
-                        fAgent.editObject(agentMap);
+                    fAgent = temp;
 
-                    } else if (activeAgent instanceof KontorsChef) {
-
-                        agentMap.put("Kontorsbeteckning", "" + officeTextField.getText());
-                        KontorsChef kAgent = (KontorsChef) activeAgent;
-                        kAgent.editObject(agentMap);
-
-                    } else if (activeAgent instanceof Områdeschef) {
-
-                        agentMap.put("Omrade", "" + areaComboBox.getSelectedItem());
-                        Områdeschef oAgent = (Områdeschef) activeAgent;
-                        oAgent.editObject(agentMap);
-
-                    } else {
-                        activeAgent.editObject(agentMap);
-                    }
                 } else {
-                    //agentMap.put("Value", "" + (int) ((double) valueSpinner.getValue()));
-                    //ObjectManager.Aliens.updateSubClass(agentMap, currentAgent, newAgent);
+                    Agent temp = new Agent();
+                    temp.cloneObject(activeAgent);
+                    
+                    temp.setName(name);
+                    temp.setTelephone(telefon);
+                    temp.setLocation(area);
+                    temp.setAdmin(adminType);
+                    
+
+                    
+                    ObjectManager.updateObject(temp);
+
+                    activeAgent = temp;
                 }
 
-                JOptionPane.showMessageDialog(this, "Redigeringen av Alien " + activeAgent.getId() + " lyckades!");
-                Parent.reload();
-                this.dispose();
+                
+            } else {
+                Agent temp = new Agent();
+                temp.cloneObject(activeAgent);
+
+                temp.setName(name);
+                temp.setTelephone(telefon);
+                temp.setLocation(area);
+                temp.setAdmin(adminType);
+
+                ObjectManager.updateObject(temp);
+                activeAgent = temp;
+
+                HashMap<String, String> agentMap = new HashMap<>();
+                // Populate the HashMap with additional data required for the new agent type
+                agentMap.put("Agent_ID", "" + activeAgent.getId());
+                agentMap.put("NewAgentType", newAgentType);
+
+                // Add specific fields based on newAgentType
+                if (newAgentType.toLowerCase().equals("kontorschef")) {
+                    String officeName = officeTextField.getText();
+                    agentMap.put("Kontorsbeteckning", officeName);
+                } else if (newAgentType.equals("Områdeschef")) {
+                    String controlAreaId = controlComboBox.getSelectedItem().toString().split(":")[0].trim();
+                    agentMap.put("ControlAreaId", controlAreaId);
+                }
+
+                ObjectManager.Agents.updateSubClass(agentMap, currentAgentType, newAgentType);
             }
 
-        } catch (Exception e) {
-            System.out.println(e);
+            JOptionPane.showMessageDialog(this, "Registreringen av Agent " + activeAgent.getId() + " lyckades!");
+            ObjectManager.Agents.LoadList();
+            Parent.reload();
+            this.dispose();
         }
+
+    } catch (Exception e) {
+        System.out.println(e);
+    }
     }//GEN-LAST:event_registerButtonActionPerformed
 
     private void agentTypeComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agentTypeComboBoxActionPerformed

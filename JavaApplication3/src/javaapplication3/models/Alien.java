@@ -37,6 +37,28 @@ public class Alien {
         ansvarig_Agent = agent;
         
         }
+    
+      public Alien() {
+        this.alien_ID = 0;
+        this.registreringsdatum = null;
+        this.epost = null;
+        this.losenord = null;
+        this.namn = null;
+        this.telefon = null;
+        this.plats = null;
+        this.ansvarig_Agent = null;
+    }
+      
+      public void cloneObject(Alien other) {
+        this.alien_ID = other.alien_ID;
+        this.registreringsdatum = other.registreringsdatum;
+        this.epost = other.epost;
+        this.losenord = other.losenord;
+        this.namn = other.namn;
+        this.telefon = other.telefon;
+        this.plats = other.plats;
+        this.ansvarig_Agent = other.ansvarig_Agent;
+    }
 
 // Setter for name
     

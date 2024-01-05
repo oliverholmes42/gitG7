@@ -24,6 +24,17 @@ public class Worm extends Alien {
     }
     else{langd =Double.parseDouble(alienMap.get("Value"));}}
     
+     public Worm(){
+        super();
+    }
+    
+    public void cloneObject(Worm other) {
+        super.cloneObject(other); // Call Alien's cloneObject to handle Alien properties
+        this.langd = other.langd; // Clone Squid-specific property
+    }
+    
+    
+    
     public void editObject(HashMap<String,String> alienMap) throws InfException {
         super.editObject(alienMap);
          langd = Double.parseDouble(alienMap.get("Langd"));

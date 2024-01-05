@@ -4,15 +4,9 @@
  */
 package javaapplication3;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import javaapplication3.utils.loginInputValidation;
 import javaapplication3.GUI.LoginPage;
-import javaapplication3.models.*;
-import javaapplication3.utils.DatabaseConnection;
+import javaapplication3.models.alienSubclasses.Worm;
 import javaapplication3.utils.ObjectManager;
-import oru.inf.InfDB;
 import oru.inf.InfException;
 
 /**
@@ -28,8 +22,6 @@ public class JavaApplication3 {
         //Initialisering utav databasuppkoppling:
         new LoginPage().setVisible(true); //Initialiserar loginsidan som förstasida "LoginPage".
         
-        ObjectManager.Agents.LoadList();
-        //HashMap<Integer,Agent> map = ObjectManager.Agents.agentList;
 
         System.out.println(2);
         

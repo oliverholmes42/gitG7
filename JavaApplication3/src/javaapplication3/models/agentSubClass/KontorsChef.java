@@ -13,18 +13,27 @@ import javaapplication3.models.Area;
  * @author mopaj
  */
 public class KontorsChef extends Agent {
-    String officeName;
+    String kontorsbeteckning;
     
     public KontorsChef(HashMap<String, String> agentMap, Area area, String officeName){
         super(agentMap,area);
-        this.officeName = officeName;
+        this.kontorsbeteckning = officeName;
+    }
+    
+    public KontorsChef(){
+        super();
+    }
+    
+    public void cloneObject(KontorsChef other) {
+        super.cloneObject(other);
+        this.kontorsbeteckning = other.kontorsbeteckning;
     }
     
     public void setOfficeName(String name){
-        officeName = name;
+        kontorsbeteckning = name;
     }
     
     public String getOfficeName(){
-        return officeName;
+        return kontorsbeteckning;
     }
 }

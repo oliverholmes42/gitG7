@@ -334,7 +334,6 @@ public class editAlienDialog extends javax.swing.JDialog {
             boolean isEmailEmpty = emailTextField.getText().isEmpty();
             boolean isPhoneEmpty = phoneTextField.getText().isEmpty();
 
-            System.out.println("3");
 
             if (nameTextField.getText().isEmpty() || emailTextField.getText().isEmpty()
                     || phoneTextField.getText().isEmpty()) {
@@ -342,49 +341,108 @@ public class editAlienDialog extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(null, "Vänligen ange information om Alien du vill registrera med detta formulär");
 
             } else {
-                HashMap<String, String> alienMap = new HashMap<>();
-                alienMap.put("Alien_ID", String.valueOf(activeAlien.getID()));
-                alienMap.put("Registreringsdatum", activeAlien.getRegistrationDate().toString());
-                alienMap.put("Epost", emailTextField.getText());
-                alienMap.put("Namn", nameTextField.getText());
-                alienMap.put("Telefon", phoneTextField.getText());
-                alienMap.put("Plats", ((String) areaComboBox.getSelectedItem()).split(":")[0].trim());
-                alienMap.put("Ansvarig_Agent", ((String) agentComboBox.getSelectedItem()).split(":")[0].trim());
-
-                // Check for species change
                 String newSpecies = (String) speciesComboBox.getSelectedItem();
                 String currentSpecies = activeAlien.getClass().getSimpleName();
+                
+                String name = nameTextField.getText();
+                String telefon = phoneTextField.getText();
+                Location location = ObjectManager.Locations.locationList.get(Integer.valueOf(areaComboBox.getSelectedItem().toString().split(":")[0].trim()));
+                Agent agent = ObjectManager.Agents.agentList.get(Integer.valueOf(agentComboBox.getSelectedItem().toString().split(":")[0].trim()));
 
                 if (newSpecies.equals(currentSpecies)) {
                     if (activeAlien instanceof Worm) {
-
-                        alienMap.put("Langd", "" + valueSpinner.getValue());
+                        
                         Worm worm = (Worm) activeAlien;
-                        worm.editObject(alienMap);
-
-                    } else if (activeAlien instanceof Boglodite) {
-
-                        alienMap.put("Antal_Boogies", "" + valueSpinner.getValue());
+                        Worm temp = new Worm();
+                        temp.cloneObject(worm);
+                        
+                        temp.setAlienName(name);
+                        temp.setAlienPhonenumber(telefon);
+                        temp.setAlienLocation(location);
+                        temp.setAlienResponsibleAgent(agent);
+                        
+                        temp.setLength((double) valueSpinner.getValue());
+                        
+                       
+                        ObjectManager.updateObject(temp);
+                        
+                        worm = temp;
+                        
+                        
+                    }
+                    else if (activeAlien instanceof Boglodite){
                         Boglodite boglodite = (Boglodite) activeAlien;
-                        boglodite.editObject(alienMap);
-
-                    } else if (activeAlien instanceof Squid) {
-
-                        alienMap.put("Antal_Armar", "" + valueSpinner.getValue());
+                        Boglodite temp = new Boglodite();
+                        temp.cloneObject(boglodite);
+                        
+                        temp.setAlienName(name);
+                        temp.setAlienPhonenumber(telefon);
+                        temp.setAlienLocation(location);
+                        temp.setAlienResponsibleAgent(agent);
+                        double doubleValue = (double) valueSpinner.getValue();
+                        int intValue = (int) doubleValue;
+                        temp.setBoogieCount(intValue);
+                        
+                       
+                        ObjectManager.updateObject(temp);
+                        
+                        boglodite = temp;
+                    }
+                    else if (activeAlien instanceof Squid){
                         Squid squid = (Squid) activeAlien;
-                        squid.editObject(alienMap);
+                        Squid temp = new Squid();
+                        temp.cloneObject(squid);
+                        
+                        temp.setAlienName(name);
+                        temp.setAlienPhonenumber(telefon);
+                        temp.setAlienLocation(location);
+                        temp.setAlienResponsibleAgent(agent);
+                        
+                        double doubleValue = (double) valueSpinner.getValue();
+                        int intValue = (int) doubleValue;
+                        temp.setArmCount(intValue);
 
-                    } else {
-                        activeAlien.editObject(alienMap);
+                       
+                        ObjectManager.updateObject(temp);
+                        
+                        squid = temp;
+                    }
+                    else{
+                        Alien temp = new Alien();
+                        temp.cloneObject(activeAlien);
+                        
+                        temp.setAlienName(name);
+                        temp.setAlienPhonenumber(telefon);
+                        temp.setAlienLocation(location);
+                        temp.setAlienResponsibleAgent(agent);
+                        
+                         ObjectManager.updateObject(temp);
+                        
+                        activeAlien = temp;
                     }
                 } else {
-                    double doubleValue = (double) valueSpinner.getValue();
-                    alienMap.put("Value", String.format("%.1f", doubleValue));
+                    
+                    Alien temp = new Alien();
+                    temp.cloneObject(activeAlien);
 
-                    ObjectManager.Aliens.updateSubClass(alienMap, currentSpecies, newSpecies);
+                    temp.setAlienName(name);
+                    temp.setAlienPhonenumber(telefon);
+                    temp.setAlienLocation(location);
+                    temp.setAlienResponsibleAgent(agent);
+
+                    ObjectManager.updateObject(temp);
+
+                    activeAlien = temp;
+                    HashMap<String,String> objectMap = new HashMap<>();
+                    double doubleValue = (double) valueSpinner.getValue();
+                    objectMap.put("Value", String.format("%.1f", doubleValue));
+                    objectMap.put("Alien_ID", "" + activeAlien.getID());
+
+                    ObjectManager.Aliens.updateSubClass(objectMap, currentSpecies, newSpecies);
                 }
 
                 JOptionPane.showMessageDialog(this, "Redigeringen av Alien " + activeAlien.getID() + " lyckades!");
+                ObjectManager.Aliens.loadAlienList();
                 Parent.reload();
                 this.dispose();
 

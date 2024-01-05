@@ -48,11 +48,12 @@ public class MainPage extends javax.swing.JFrame {
         addListenersToMenu();
         addNavigationToMenu();
         createCardLayout();
+        if(UserSession.getInstance().getType()==1){}
         cardLayout.show(mainPanelDisplay, "HomePanel");
         creatLogOut();
         
         if(UserSession.getInstance().getType()==1) {
-            areaButton.setVisible(false);
+            locationButton.setVisible(false);
             agentButton.setVisible(false);
             equipmentButton.setVisible(false);
         }
@@ -79,7 +80,8 @@ public class MainPage extends javax.swing.JFrame {
 
     private void createCardLayout() throws InfException {
         mainPanelDisplay.setLayout(cardLayout);
-        mainPanelDisplay.add(new HomePanel(), "HomePanel");
+        if(UserSession.getInstance().getType()==1){mainPanelDisplay.add(new HomePanelAlien(), "HomePanel");}
+        else{mainPanelDisplay.add(new HomePanel(), "HomePanel");}
     }
 
     private void addListenersToMenu() {
@@ -135,7 +137,8 @@ public class MainPage extends javax.swing.JFrame {
     private JPanel createPanel(String panelName) throws NumberFormatException, InfException {
     switch (panelName) {
         case "HomePanel":
-            return new HomePanel();
+             if(UserSession.getInstance().getType()==1){return new HomePanelAlien();}
+            else{return new HomePanel();}
         case "ProfilePanel":
             if(UserSession.getInstance().getType()==1){return new AlienProfilePanel();}
             else{return new ProfilePanel();}

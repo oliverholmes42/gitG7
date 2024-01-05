@@ -7,25 +7,35 @@ package javaapplication3.models.agentSubClass;
 import java.util.HashMap;
 import javaapplication3.models.Agent;
 import javaapplication3.models.Area;
+import javaapplication3.models.alienSubclasses.Squid;
 
 /**
  *
  * @author mopaj
  */
 public class Områdeschef extends Agent {
-    private Area controlArea;
+    private Area omrade;
     
     public Områdeschef(HashMap<String, String> agentMap, Area area, Area controlArea){
         super(agentMap,area);
-        this.controlArea = controlArea;
+        this.omrade = controlArea;
         
     }
     
+     public Områdeschef(){
+        super();
+    }
+    
+    public void cloneObject(Områdeschef other) {
+        super.cloneObject(other);
+        this.omrade = other.omrade;
+    }
+    
     public void setControlArea(Area area){
-        controlArea = area;
+        omrade = area;
     }
     
     public Area getControlArea(){
-        return controlArea;
+        return omrade;
     }
 }

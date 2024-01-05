@@ -67,13 +67,9 @@
                       <Component id="epostLabel" min="-2" max="-2" attributes="0"/>
                       <Component id="epostTextField" alignment="0" min="-2" pref="298" max="-2" attributes="0"/>
                       <Component id="passwordPasswordField" min="-2" pref="298" max="-2" attributes="0"/>
-                      <Group type="102" attributes="0">
-                          <Component id="loginButton" min="-2" pref="180" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="fastButton" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="loginButton" min="-2" pref="180" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="27" max="32767" attributes="0"/>
+                  <EmptySpace pref="34" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -93,10 +89,7 @@
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="passwordPasswordField" min="-2" pref="46" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="loginButton" min="-2" pref="47" max="-2" attributes="0"/>
-                              <Component id="fastButton" min="-2" pref="47" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="loginButton" min="-2" pref="47" max="-2" attributes="0"/>
                       </Group>
                       <Component id="loginLogoLabel" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -160,7 +153,6 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="jPasswordField1"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="loginButton">
@@ -174,11 +166,6 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="loginButtonActionPerformed"/>
           </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="fastButton">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Fast As Fuck Boi"/>
-          </Properties>
         </Component>
       </SubComponents>
     </Container>

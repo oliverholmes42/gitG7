@@ -27,6 +27,15 @@ public class Squid extends Alien {
             antal_Armar = intValue;}
     }
     
+    public Squid(){
+        super();
+    }
+    
+    public void cloneObject(Squid other) {
+        super.cloneObject(other); // Call Alien's cloneObject to handle Alien properties
+        this.antal_Armar = other.antal_Armar; // Clone Squid-specific property
+    }
+    
     public void editObject(HashMap<String,String> alienMap) throws InfException{
         super.editObject(alienMap);
         double doubleValue = Double.parseDouble(alienMap.get("Antal_Armar"));

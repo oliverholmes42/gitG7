@@ -39,7 +39,7 @@ import javax.swing.JOptionPane;
 public class ObjectManager {
 
     public static InfDB db = DatabaseConnection.getInstance();
-    
+
     public static void offloadAll() {
         Class<?>[] innerClasses = ObjectManager.class.getDeclaredClasses();
 
@@ -55,9 +55,9 @@ public class ObjectManager {
             }
         }
     }
-    
+
     public static String generatePassword() {
-         String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
+        String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
         StringBuilder salt = new StringBuilder();
         Random rnd = new Random();
         while (salt.length() < 6) { // length of the random string.
@@ -67,51 +67,91 @@ public class ObjectManager {
         String saltStr = salt.toString();
         return saltStr;
     }
-    
+
     public static HashMap<String, String> getFieldMap(Object obj) {
         HashMap<String, String> fieldMap = new HashMap<>();
         Class<?> objClass = obj.getClass(); // Get the class of the object
 
-        if (Alien.class.isAssignableFrom(objClass)) {
-            objClass = Alien.class;}
-  
-        for (Field field : objClass.getDeclaredFields()) {
-            if(!field.getName().equals("db")){
-            field.setAccessible(true);
-            try {
-                Object value = field.get(obj);
-                String stringValue;
+        // Check if the object is a subclass of Alien, Utilities, or Agents
+        if (Alien.class.isAssignableFrom(objClass)
+                || Utilities.class.isAssignableFrom(objClass)
+                || Agent.class.isAssignableFrom(objClass)) {
 
-                
-                Package classPackage = value.getClass().getPackage();
-                String name = classPackage.getName();
-                 boolean inModels = name.contains(".models");
-                // Inline check if the object is from the .models package
-                if (value != null && inModels) {
-                    // Inline attempt to get the ID of a model object
-                    try {
-                        Method getIdMethod = value.getClass().getMethod("getId");
-                        stringValue = String.valueOf(getIdMethod.invoke(value));
-                    } catch (Exception e) {
-                        stringValue = "N/A"; // or handle the exception as needed
+            // Get the declared fields of the superclass and subclass
+            Class<?> currentClass = objClass;
+            while (currentClass != null) {
+                for (Field field : currentClass.getDeclaredFields()) {
+                    if (!field.getName().equals("db")) {
+                        field.setAccessible(true);
+                        try {
+                            Object value = field.get(obj);
+                            String stringValue = processFieldValue(value);
+
+                            String fieldName = field.getName();
+                            if (Agent.class.isAssignableFrom(objClass) && !currentClass.equals(Agent.class) && fieldName.equalsIgnoreCase("omrade")) {
+                                fieldName = "ControlAreaId";
+                            } else {
+                                fieldName = capitalizeFirstLetter(fieldName);
+                            }
+
+                            fieldMap.put(fieldName, stringValue);
+                        } catch (IllegalAccessException e) {
+                            e.printStackTrace();
+                        }
                     }
-                } else {
-                    stringValue = String.valueOf(value);
                 }
-
-                // Inline capitalization of the first letter of a string
-                String fieldName = field.getName();
-                if (fieldName != null && !fieldName.isEmpty()) {
-                    fieldName = fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
-                }
-                fieldMap.put(fieldName, stringValue);
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
+                currentClass = currentClass.getSuperclass(); // Move to the superclass
             }
-        }}
+        } else {
+            // If it's not a subclass, treat it as the normal class
+            for (Field field : objClass.getDeclaredFields()) {
+                if (!field.getName().equals("db")) {
+                    field.setAccessible(true);
+                    try {
+                        Object value = field.get(obj);
+                        String stringValue = processFieldValue(value);
+
+                        String fieldName = capitalizeFirstLetter(field.getName());
+                        fieldMap.put(fieldName, stringValue);
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
 
         return fieldMap;
-    } 
+    }
+
+    private static String capitalizeFirstLetter(String input) {
+        if (input != null && !input.isEmpty()) {
+            return input.substring(0, 1).toUpperCase() + input.substring(1);
+        }
+        return input;
+    }
+
+    private static String processFieldValue(Object value) {
+        if (value == null) {
+            return "null";
+        }
+
+        Package classPackage = value.getClass().getPackage();
+        if (classPackage != null) {
+            String name = classPackage.getName();
+            boolean inModels = name.contains(".models");
+
+            if (inModels) {
+                try {
+                    Method getIdMethod = value.getClass().getMethod("getId");
+                    return String.valueOf(getIdMethod.invoke(value));
+                } catch (Exception e) {
+                    return "N/A"; // or handle the exception as needed
+                }
+            }
+        }
+
+        return String.valueOf(value);
+    }
 
     public static String buildUpdateQuery(String tableName, HashMap<String, String> data, String keyColumn) {
         if (data.isEmpty()) {
@@ -130,6 +170,7 @@ public class ObjectManager {
 
         for (Map.Entry<String, String> entry : data.entrySet()) {
             String column = entry.getKey();
+            if (column.equals("ControlAreaId")){column = "omrade";}
             String value = entry.getValue();
 
             // Skip the key column in the SET clause
@@ -177,40 +218,101 @@ public class ObjectManager {
         HashMap<String, String> objectMap = getFieldMap(obj);
         Class<?> objClass = obj.getClass();
         String query= "";// Get the class of the object
-
-        if (Alien.class.isAssignableFrom(objClass)) {
-            objClass = Alien.class;}
         
-        switch (objClass.getSimpleName()){
-            case "Agent":
-                query = buildUpdateQuery("agent", objectMap, "Agent_ID");
-         
+        switch (objClass.getSimpleName()) {
+            case "Worm":
+                HashMap<String, String> wormMap = new HashMap<>();
+                wormMap.put("Langd", objectMap.get("Langd"));
+                wormMap.put("Alien_ID", objectMap.get("Alien_ID"));
+                objectMap.remove("Langd");
+
+                String wormQuery = buildUpdateQuery("worm", wormMap, "Alien_ID");
+                db.update(wormQuery);
+
+                query = buildUpdateQuery("alien", objectMap, "Alien_ID");
                 break;
-            
+            case "Squid":
+                // Code for "Squid" case
+                HashMap<String, String> squidMap = new HashMap<>();
+                squidMap.put("Antal_Armar", objectMap.get("Antal_Armar"));
+                squidMap.put("Alien_ID", objectMap.get("Alien_ID"));
+                objectMap.remove("Antal_Armar");
+
+                String squidQuery = buildUpdateQuery("squid", squidMap, "Alien_ID");
+                db.update(squidQuery);
+
+                query = buildUpdateQuery("alien", objectMap, "Alien_ID");
+                break;
+
+            case "Booglodite":
+                // Code for "Booglodite" case
+                HashMap<String, String> boogloditeMap = new HashMap<>();
+                boogloditeMap.put("Antal_Boogies", objectMap.get("Antal_Boogies"));
+                boogloditeMap.put("Alien_ID", objectMap.get("Alien_ID"));
+                objectMap.remove("Antal_Boogies");
+
+                String boogloditeQuery = buildUpdateQuery("booglodite", boogloditeMap, "Alien_ID");
+                db.update(boogloditeQuery);
+
+                query = buildUpdateQuery("alien", objectMap, "Alien_ID");
+                break;
+
             case "Alien":
                 query = buildUpdateQuery("alien", objectMap, "Alien_ID");
-                
                 break;
+            case "Fältagent":
+                HashMap<String, String> fältagentMap = new HashMap<>();
+                fältagentMap.put("Agent_ID", objectMap.get("Agent_ID"));
                 
+                String fältagentQuery = buildUpdateQuery("faltagent", fältagentMap, "Agent_ID");
+                db.update(fältagentQuery);
+
+                query = buildUpdateQuery("agent", objectMap, "Agent_ID");
+                break;
+
+            case "KontorsChef":
+                HashMap<String, String> kontorsChefMap = new HashMap<>();
+                kontorsChefMap.put("Kontorsbeteckning", objectMap.get("Kontorsbeteckning"));
+                kontorsChefMap.put("Agent_ID", objectMap.get("Agent_ID"));
+                objectMap.remove("Kontorsbeteckning");
+
+                String kontorsChefQuery = buildUpdateQuery("kontorschef", kontorsChefMap, "Agent_ID");
+                db.update(kontorsChefQuery);
+
+                query = buildUpdateQuery("agent", objectMap, "Agent_ID");
+                break;
+
+            case "Områdeschef":
+                HashMap<String, String> områdeschefMap = new HashMap<>();
+                områdeschefMap.put("ControlAreaId",objectMap.get("ControlAreaId"));
+                områdeschefMap.put("Agent_ID", objectMap.get("Agent_ID"));
+                objectMap.remove("ControlAreaId");
+
+                String områdeschefQuery = buildUpdateQuery("omradeschef", områdeschefMap, "Agent_ID");
+                db.update(områdeschefQuery);
+
+                query = buildUpdateQuery("agent", objectMap, "Agent_ID");
+                break;
+
+            case "Agent":
+                query = buildUpdateQuery("agent", objectMap, "Agent_ID");
+                break;
             case "Area":
                 query = buildUpdateQuery("omrade", objectMap, "Omrades_ID");
-                
                 break;
-            
             case "Location":
                 query = buildUpdateQuery("plats", objectMap, "Plats_ID");
-                
                 break;
-                
             case "Utilities":
                 query = buildUpdateQuery("utrustning", objectMap, "Utrustnings_ID");
-                
                 break;
-                
             default:
                 System.out.println("No");
+                break;
         }
-        if(query.length()>0){db.update(query);}
+        if (query.length() > 0) {
+            db.update(query);
+        }
     }
 
     
@@ -343,7 +445,6 @@ public class ObjectManager {
                 sql = "Delete from " + oldSpecies.toLowerCase() + " where Alien_ID = "+alienID;
                 db.delete(sql);
 
-                alienList.put(Integer.parseInt(alienID),newInstance(map,newSpecies));
             
         }
 
@@ -582,6 +683,9 @@ public class ObjectManager {
             switch (string){
                 case "KontorsChef":
                     return "kontorschef";
+                    
+                case "Kontorschef":
+                    return "kontorschef";
                  
                 case "Områdeschef":
                     return "omradeschef";
@@ -623,6 +727,34 @@ public class ObjectManager {
         // Return the top three agents, or fewer if there aren't enough agents
         return sortedAgents.size() > 3 ? sortedAgents.subList(0, 3) : sortedAgents;
     }
+        
+        public static void updateSubClass(HashMap<String, String> map, String oldType, String newType) throws InfException {
+            String tableName = newType; // The new type's table name
+            String agentID = map.get("Agent_ID"); // Getting the agent's ID
+
+            
+            String sql = "INSERT INTO " + swedify(tableName) + " (Agent_ID";
+
+            // Check for specific fields based on new agent type
+            if (newType.equals("KontorsChef")||newType.equals("Kontorschef")) {
+                String officeName = map.get("Kontorsbeteckning");
+                sql += ", Kontorsbeteckning) VALUES (" + agentID + ", '" + officeName + "')";
+            } else if (newType.equals("Områdeschef")) {
+                String controlAreaId = map.get("ControlAreaId");
+                sql += ", Omrade) VALUES (" + agentID + ", " + controlAreaId + ")";
+            } else {
+          
+                sql += ") VALUES (" + agentID + ")";
+                if(db.fetchSingle("Select Agent_ID from faltagent where Agent_ID = "+agentID)!=null){sql="";}
+            }
+            if(sql.length()>0){db.insert(sql);}
+            if(!oldType.equals("Agent")){
+
+  
+            sql = "DELETE FROM " + swedify(oldType) + " WHERE Agent_ID = " + agentID;
+            db.delete(sql);}
+        }
+
     }
     
     public static void updateInstance(HashMap<String, String> map) throws InfException {
