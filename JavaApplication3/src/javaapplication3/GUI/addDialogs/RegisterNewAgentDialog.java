@@ -6,8 +6,6 @@ package javaapplication3.GUI.addDialogs;
 
 import java.awt.Color;
 import java.awt.event.KeyEvent;
-import java.lang.System.Logger;
-import java.lang.System.Logger.Level;
 import java.time.LocalDate;
 import java.util.HashMap;
 import javaapplication3.GUI.panels.AgentPanel;

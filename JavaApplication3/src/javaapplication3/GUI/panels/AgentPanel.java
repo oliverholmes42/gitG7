@@ -16,7 +16,6 @@ import java.util.logging.Logger;
 import javaapplication3.GUI.MainPage;
 import javaapplication3.models.Agent;
 import javaapplication3.models.Area;
-import javaapplication3.models.Location;
 import javaapplication3.models.agentSubClass.Fältagent;
 import javaapplication3.models.agentSubClass.KontorsChef;
 import javaapplication3.models.agentSubClass.Områdeschef;

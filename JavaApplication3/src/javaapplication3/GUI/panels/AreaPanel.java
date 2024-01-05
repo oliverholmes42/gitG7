@@ -178,7 +178,11 @@ public class AreaPanel extends javax.swing.JPanel {
             int id = Integer.parseInt(areaTable.getValueAt(row, 0).toString());
             Områdeschef chef = ObjectManager.Agents.findOmradeschefForArea(id);
             Area area = ObjectManager.Areas.areaList.get(id);
-            JOptionPane.showMessageDialog(this,area.getName()+"\n"+"Områdeschef: "+ chef.getName() ,"Info", JOptionPane.INFORMATION_MESSAGE);
+            if (chef != null) {
+                JOptionPane.showMessageDialog(this,area.getName() + "\n" + "Områdeschef: " + chef.getName(), "Info", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "No Områdeschef found for the selected area.", "Info", JOptionPane.INFORMATION_MESSAGE);
+            }
         } catch (NumberFormatException ex) {
             Logger.getLogger(AreaPanel.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InfException ex) {

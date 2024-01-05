@@ -5,8 +5,6 @@
 package javaapplication3.models;
 import java.time.LocalDate;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javaapplication3.utils.ObjectManager;
 import oru.inf.InfDB;
 import oru.inf.InfException;
