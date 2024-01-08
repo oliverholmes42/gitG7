@@ -53,6 +53,14 @@ public class loginInputValidation {
         return result; 
     }
     
+    public static boolean emailValidation(JTextField email){
+        if(!email.getText().contains("@")){
+            JOptionPane.showMessageDialog(null, "Korrekt emailadress måste anges. Försök igen.");
+            return false;
+        }
+        return true;
+    }
+    
     //För att kunna jämföra epost med lösenord kommer denna metod hjälpa. Här sker en jämförelse mellan angiven email
     //och angivet lösenord och kollar så de stämmer överens innan man kan få tillgång till nästa sida.
     public static Map<String, Object> isEmailAndPasswordCorrect(JTextField email, JPasswordField password) {

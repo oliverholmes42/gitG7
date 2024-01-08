@@ -161,7 +161,7 @@ public class LoginPage extends javax.swing.JFrame {
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         
         //Denna ActionEvent hanterar logiken för knapptrycket av "Logga in"-knappen.
-        if (loginInputValidation.isEmailInputEmpty(epostTextField)) {
+        if (loginInputValidation.isEmailInputEmpty(epostTextField) && loginInputValidation.emailValidation(epostTextField)) {
             System.out.println("Emailinput korrekt"); //Om detta villkor stämmer gå till nästa villkor->
 
             if (loginInputValidation.isPasswordInputEmpty(passwordPasswordField)) {
