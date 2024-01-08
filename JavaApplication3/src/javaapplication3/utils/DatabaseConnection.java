@@ -22,7 +22,8 @@ public class DatabaseConnection {
             try {
                 dbInstance = new InfDB("mibdb", "3306", "mibdba", "mibkey");
             } catch (InfException e) {
-                e.printStackTrace();  // Handle exception appropriately
+                // Handle exception appropriately
+                
             }
         }
         return dbInstance;
