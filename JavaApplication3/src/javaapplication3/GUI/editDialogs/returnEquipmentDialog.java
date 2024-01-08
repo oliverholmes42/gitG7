@@ -379,6 +379,11 @@ public class returnEquipmentDialog extends javax.swing.JDialog {
         jButton2.setBackground(new java.awt.Color(200, 200, 200));
         jButton2.setForeground(new java.awt.Color(51, 51, 51));
         jButton2.setText("Avbryt");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -482,6 +487,7 @@ public class returnEquipmentDialog extends javax.swing.JDialog {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void addLayerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addLayerButtonActionPerformed
@@ -504,6 +510,10 @@ public class returnEquipmentDialog extends javax.swing.JDialog {
                                       JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

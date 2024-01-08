@@ -83,11 +83,14 @@ public class LoginPage extends javax.swing.JFrame {
         passwordLabel.setText("Lösenord:");
 
         epostTextField.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        epostTextField.setFocusCycleRoot(true);
 
         passwordPasswordField.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        passwordPasswordField.setFocusCycleRoot(true);
 
         loginButton.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         loginButton.setText("LOGGA IN");
+        loginButton.setFocusCycleRoot(true);
         loginButton.setFocusable(false);
         loginButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

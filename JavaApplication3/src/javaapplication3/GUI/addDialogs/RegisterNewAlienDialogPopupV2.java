@@ -7,11 +7,13 @@ package javaapplication3.GUI.addDialogs;
 import java.awt.event.KeyEvent;
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javaapplication3.GUI.panels.AlienPanel;
 import javaapplication3.models.Agent;
 import javaapplication3.models.Area;
+import javaapplication3.models.Location;
 import javaapplication3.utils.ObjectManager;
 import javaapplication3.utils.ObjectManager.Agents;
 import static javaapplication3.utils.ObjectManager.db;
@@ -270,7 +272,7 @@ public class RegisterNewAlienDialogPopupV2 extends javax.swing.JDialog {
             String name = entry.getValue().getName(); // Assuming YourObjectClass has a getName() method
             agentComboBox.addItem(key + ": " + name);
         }
-        for (HashMap.Entry<Integer, Area> entry : ObjectManager.Areas.areaList.entrySet()) {
+        for (Map.Entry<Integer, Location> entry : ObjectManager.Locations.locationList.entrySet()) {
             int key = entry.getKey();
             String name = entry.getValue().getName(); // Assuming YourObjectClass has a getName() method
             areaComboBox.addItem(key + ": " + name);

@@ -33,7 +33,11 @@
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace pref="69" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="headerLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="377" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="103" alignment="1" groupAlignment="1" max="-2" attributes="0">
                       <Component id="resultScrollPane" alignment="0" max="32767" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -44,13 +48,8 @@
                               <Component id="filterLabel1" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Component id="raceComboBox" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                                  <Component id="addAlienButton" min="-2" pref="180" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="1" attributes="0">
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="endDate" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="startDate" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -59,13 +58,18 @@
                                   <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                                   <Component id="clearFilterButton" min="-2" pref="180" max="-2" attributes="0"/>
                               </Group>
+                              <Group type="102" attributes="0">
+                                  <Component id="raceComboBox" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="addAlienButton" min="-2" pref="180" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Group type="102" alignment="1" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
                                   <Component id="removeAlienButton" min="-2" pref="180" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="editAlienButton" max="32767" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="editAlienButton" min="-2" pref="180" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <Component id="searchbarTextfield" min="-2" pref="284" max="-2" attributes="0"/>
@@ -74,11 +78,6 @@
                               </Group>
                           </Group>
                       </Group>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace pref="368" max="-2" attributes="0"/>
-                      <Component id="headerLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="377" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
@@ -113,13 +112,12 @@
               </Group>
               <EmptySpace min="13" pref="10" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="removeAlienButton" pref="61" max="32767" attributes="0"/>
+                          <Component id="removeAlienButton" max="32767" attributes="0"/>
                           <Component id="editAlienButton" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                      <Component id="resultScrollPane" min="-2" pref="301" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -127,10 +125,11 @@
                           <Component id="raceComboBox" alignment="3" min="-2" pref="58" max="-2" attributes="0"/>
                           <Component id="addAlienButton" alignment="3" min="-2" pref="58" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="334" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="134" max="-2" attributes="0"/>
+              <Component id="resultScrollPane" min="-2" pref="301" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="126" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

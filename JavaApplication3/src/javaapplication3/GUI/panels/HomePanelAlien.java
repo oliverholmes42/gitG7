@@ -30,6 +30,7 @@ public class HomePanelAlien extends javax.swing.JPanel {
         this.db = DatabaseConnection.getInstance();
         initComponents();
         ObjectManager.Aliens.loadAlienList();
+        ObjectManager.Agents.LoadList();
         jLabel2.setText("Välkommen, "+UserSession.getInstance().getName());
         telLArea();
     }
@@ -40,9 +41,15 @@ public class HomePanelAlien extends javax.swing.JPanel {
     Location location = alien.getLocation();
     Area area = location.getArea();
     Agent agent = ObjectManager.Agents.findOmradeschefForArea(area.getId());
+    String message = "Området saknar chef";
+    
+    if(agent != null){
+        message = "Områdeschef: "+agent.getName();
+    }
+    
     
     areaLabel.setText("Du tillhör "+location.getName()+" en del av "+area.getName());
-    areaLabel1.setText("Områdeschef: "+agent.getPassword());
+    areaLabel1.setText(message);
     
     
     }

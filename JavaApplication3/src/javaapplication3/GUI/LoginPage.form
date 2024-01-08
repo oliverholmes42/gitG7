@@ -146,6 +146,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="1"/>
             </Property>
+            <Property name="focusCycleRoot" type="boolean" value="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JPasswordField" name="passwordPasswordField">
@@ -153,6 +154,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="1"/>
             </Property>
+            <Property name="focusCycleRoot" type="boolean" value="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="loginButton">
@@ -161,6 +163,7 @@
               <Font name="Segoe UI" size="24" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="LOGGA IN"/>
+            <Property name="focusCycleRoot" type="boolean" value="true"/>
             <Property name="focusable" type="boolean" value="false"/>
           </Properties>
           <Events>
