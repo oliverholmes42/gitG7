@@ -21,6 +21,7 @@ import javaapplication3.models.agentSubClass.KontorsChef;
 import javaapplication3.models.agentSubClass.Områdeschef;
 import javaapplication3.utils.ObjectManager;
 import javaapplication3.utils.PopupHandler;
+import javaapplication3.utils.UserSession;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.SpinnerDateModel;
@@ -57,6 +58,11 @@ public class AgentPanel extends javax.swing.JPanel {
         
         fillAreaFilter();
         setDatePicker(); 
+        
+        if(UserSession.getInstance().getType() < 5){
+            removeAgentButton.setVisible(false);
+            alterAgentInfoButton.setVisible(false);
+        }
 
     }
     

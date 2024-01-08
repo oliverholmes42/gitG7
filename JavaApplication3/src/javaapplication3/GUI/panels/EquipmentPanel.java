@@ -17,6 +17,7 @@ import javaapplication3.models.utilitySubClasses.Teknik;
 import javaapplication3.models.utilitySubClasses.Vapen;
 import javaapplication3.utils.ObjectManager;
 import javaapplication3.utils.PopupHandler;
+import javaapplication3.utils.UserSession;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import oru.inf.InfException;
@@ -40,6 +41,10 @@ public class EquipmentPanel extends javax.swing.JPanel {
         tableModel = (DefaultTableModel) utilityTable.getModel();
         loadTable();
         addListener();
+        
+        if(UserSession.getInstance().getType() < 5){
+            raderaButton.setVisible(false);
+        }
     }
     
     private void loadTable(){

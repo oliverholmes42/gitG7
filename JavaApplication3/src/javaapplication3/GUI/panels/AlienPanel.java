@@ -51,9 +51,8 @@ public class AlienPanel extends javax.swing.JPanel {
         fillAreaFilter();
         setDatePicker();       
         
-        if(UserSession.getInstance().getType() < 2){
+        if(UserSession.getInstance().getType() < 5){
             editAlienButton.setVisible(false);
-            addAlienButton.setVisible(false);
             removeAlienButton.setVisible(false);
         }
 
