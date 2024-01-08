@@ -19,6 +19,8 @@ public class JavaApplication3 {
     
     public static void main(String[] args) throws InfException{
         
+        System.out.println(2);
+        
         //Initialisering utav databasuppkoppling:
         new LoginPage().setVisible(true); //Initialiserar loginsidan som förstasida "LoginPage".
         
