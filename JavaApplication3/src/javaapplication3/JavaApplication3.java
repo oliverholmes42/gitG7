@@ -3,10 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package javaapplication3;
-
 import javaapplication3.GUI.LoginPage;
-import javaapplication3.models.alienSubclasses.Worm;
-import javaapplication3.utils.ObjectManager;
 import oru.inf.InfException;
 
 /**

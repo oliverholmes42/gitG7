@@ -24,7 +24,6 @@ import javaapplication3.utils.Panel404;
 import javaapplication3.utils.UserSession;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
-import oru.inf.InfDB;
 import oru.inf.InfException;
 
 
@@ -35,14 +34,12 @@ import oru.inf.InfException;
  * @author mopaj
  */
 public class MainPage extends javax.swing.JFrame {
-    private static InfDB db;
     private CardLayout cardLayout = new CardLayout();
 
     /**
      * Creates new form MainPage
      */
     public MainPage() throws InfException {
-        this.db = DatabaseConnection.getInstance();;
         initComponents();
         loadIcon();
         addListenersToMenu();
@@ -171,14 +168,6 @@ public class MainPage extends javax.swing.JFrame {
             }
         }
     });
-}
-
-
-private void labelMouseEntered(java.awt.event.MouseEvent evt, JLabel label) {
-    // Action for mouse  enter
-    // Example: Change background color on hover
-    label.setOpaque(true);
-    label.setBackground(new Color(100, 100, 100));
 }
 
 private void labelMouseExited(java.awt.event.MouseEvent evt, JLabel label) {

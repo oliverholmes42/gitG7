@@ -11,11 +11,9 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javaapplication3.utils.DatabaseConnection;
 import javaapplication3.utils.UserSession;
 import javaapplication3.utils.loginInputValidation;
 import javax.imageio.ImageIO;
-import oru.inf.InfDB;
 import oru.inf.InfException;
 
 
@@ -26,11 +24,10 @@ import oru.inf.InfException;
  * @author vilson, aiham, oliver, albin
  */
 public class LoginPage extends javax.swing.JFrame {
-    private static InfDB db = DatabaseConnection.getInstance();
+    
 
     /**
      * Autogenererad kod.
-     * @param db
      */
     public LoginPage() {
         initComponents();
