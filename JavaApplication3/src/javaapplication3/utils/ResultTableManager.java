@@ -4,24 +4,16 @@
  */
 package javaapplication3.utils;
 
-import java.awt.event.KeyEvent;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import javaapplication3.GUI.panels.AlienPanel;
-import javaapplication3.GUI.panels.LocationPanel;
 import javaapplication3.models.Alien;
 import oru.inf.InfDB;
 import oru.inf.InfException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Map;
 import static javaapplication3.GUI.panels.AlienPanel.tableModel;
-import javaapplication3.models.Area;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
-import javax.swing.JTextField;
 
 
 /**
@@ -106,31 +98,7 @@ public class ResultTableManager {
 
 ///////////////////////////////////////////////////////////////////////////////////
     
-    //Denna del av filen tillhör RegisterNewAlienPopupV2
-    
-    /*
-    //Denna metod ska hantera innehållet från formuläret och skicka in det i databasen som en ny alien
-    public static void registerNewAlienConfirm(JTextField name, JTextField email, JTextField number, JLabel dynamicText, JComboBox area, JComboBox agent, JComboBox race, JSpinner value) throws InfException{
-        int newAlienID = Integer.parseInt(db.fetchSingle("SELECT MAX(Alien_ID) FROM alien"))+1;
-        LocalDate localdate = LocalDate.now();
-        String dateNow = localdate.toString();
-        String column = getColumn(dynamicText.getText());
-        
-        
-        if (name.getText().isEmpty() || email.getText().isEmpty() || number.getText().isEmpty() || agent.getEditor().getItem().toString().isEmpty() || area.getEditor().getItem().toString().isEmpty()){
-            if(race.getEditor().getItem().toString().isEmpty()){
-                JOptionPane.showMessageDialog(null, "Vänligen ange information om Alien du vill registrera med detta formulär");
-            }
-        } else{
-            String query = "INSERT INTO alien (Alien_ID, Namn, Telefon, Epost, Registreringsdatum, Plats, Ansvarig_Agent) VALUES (" + newAlienID + name.getText() + number.getText() + email.getText() + dateNow + area.getEditor().getItem().toString() + agent.getEditor().getItem().toString() + ")";
-             db.insert(query);
-            if (!column.equals("null")){
-                String secondQuery = "INSERT INTO " + race.getEditor().getItem().toString() + " (Alien_ID, "+ column +") VALUES ("+ newAlienID + value +")";
-                db.insert(secondQuery);
-            }
-        }
-        ObjectManager.Aliens.createNew(map, location, agent);
-    }*/
+
     
     private static String getColumn(String column){
         switch (column){

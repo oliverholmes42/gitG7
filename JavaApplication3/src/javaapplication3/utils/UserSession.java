@@ -4,7 +4,7 @@
  */
 package javaapplication3.utils;
 
-import oru.inf.InfDB;
+
 
 
 /**
@@ -12,7 +12,7 @@ import oru.inf.InfDB;
  * @author mopaj
  */
 public class UserSession {
-    private static InfDB db;
+
     private static UserSession instance;
     private int userId;
     private int type;
