@@ -58,6 +58,7 @@ public class loginInputValidation {
             JOptionPane.showMessageDialog(null, "Korrekt emailadress måste anges. Försök igen.");
             return false;
         }
+        Object parent = email.getParent();
         return true;
     }
     

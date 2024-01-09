@@ -308,6 +308,11 @@ public class RegisterNewAlienDialogPopupV2 extends javax.swing.JDialog {
     }//GEN-LAST:event_abortButtonActionPerformed
 
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
+        String email = emailTextField.getText();
+        if(ObjectManager.Aliens.emailList.contains(email.toLowerCase())){
+            JOptionPane.showMessageDialog(this, "Alien finns redan med epost: "+email);
+        }
+        else{
         try {
             String password = ObjectManager.generatePassword();
             
@@ -315,7 +320,7 @@ public class RegisterNewAlienDialogPopupV2 extends javax.swing.JDialog {
             int newID = Integer.parseInt(db.fetchSingle("Select max(Alien_ID) from alien"))+1;
             map.put("Alien_ID",newID+"");
             map.put("Registreringsdatum", LocalDate.now().toString());
-            map.put("Epost", emailTextField.getText());
+            map.put("Epost", email);
             map.put("Losenord", password);
             map.put("Namn", nameTextField.getText());
             map.put("Telefon", phoneTextField.getText());
@@ -338,7 +343,7 @@ public class RegisterNewAlienDialogPopupV2 extends javax.swing.JDialog {
             
         } catch (InfException ex) {
             Logger.getLogger(RegisterNewAlienDialogPopupV2.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }}
         
     }//GEN-LAST:event_registerButtonActionPerformed
 
