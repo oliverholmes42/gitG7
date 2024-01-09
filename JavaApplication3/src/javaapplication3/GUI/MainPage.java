@@ -18,7 +18,6 @@ import javaapplication3.GUI.panels.AreaPanel;
 import javaapplication3.GUI.panels.EquipmentPanel;
 import javaapplication3.GUI.panels.HomePanel;
 import javaapplication3.GUI.panels.ProfilePanel;
-import javaapplication3.utils.DatabaseConnection;
 import javaapplication3.utils.ObjectManager;
 import javaapplication3.utils.Panel404;
 import javaapplication3.utils.UserSession;

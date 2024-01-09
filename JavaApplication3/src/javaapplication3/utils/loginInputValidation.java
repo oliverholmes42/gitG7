@@ -117,7 +117,7 @@ public class loginInputValidation {
             HashMap<String, String> emailQueryResultAgent = db.fetchRow(emailQueryAgent);//SQL-frågan sparas i en lokal variabel.
             HashMap<String,String> emailQueryResultAlien = db.fetchRow(emailQueryAlien);
             
-            if(emailQueryResultAgent.size()>0){//Denna fråga innebär om resultatet från SQL-frågan resulterar i ingenting.
+            if(!emailQueryResultAgent.isEmpty()){//Denna fråga innebär om resultatet från SQL-frågan resulterar i ingenting.
                 String id = emailQueryResultAgent.get("Agent_ID");
                 String admin = emailQueryResultAgent.get("Administrator");
                 isValidated = true;
@@ -147,7 +147,7 @@ public class loginInputValidation {
                     type = 4;
                 }}}
                 
-            else if(emailQueryResultAlien != null){
+            else if(!emailQueryResultAlien.isEmpty()){
                 isValidated = true;
                 userId = Integer.parseInt(emailQueryResultAlien.get("Alien_ID"));
                 type = 1;

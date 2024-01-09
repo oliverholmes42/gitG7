@@ -173,11 +173,8 @@ public class LoginPage extends javax.swing.JFrame {
         
         //Denna ActionEvent hanterar logiken för knapptrycket av "Logga in"-knappen.
         if (loginInputValidation.isEmailInputEmpty(epostTextField) && loginInputValidation.emailValidation(epostTextField)) {
-            System.out.println("Emailinput korrekt"); //Om detta villkor stämmer gå till nästa villkor->
-
+            
             if (loginInputValidation.isPasswordInputEmpty(passwordPasswordField)) {
-                System.out.println("Lösenordsinput korrekt");//Om detta villkor stämmer gå till nästa villkor->
-
                  Map<String, Object> loginResult = loginInputValidation.isEmailAndPasswordCorrect(epostTextField, passwordPasswordField);
                  boolean isValidated = (Boolean) loginResult.get("isValidated");
 
@@ -185,26 +182,22 @@ public class LoginPage extends javax.swing.JFrame {
                     int userId = (Integer) loginResult.get("userId");
                     int type = (Integer) loginResult.get("type");
                     String name = (String) loginResult.get("name");
-                    System.out.println("User ID: " + userId);
                     UserSession.getInstance().setUserId(userId);
                     UserSession.getInstance().setType(type);
                     UserSession.getInstance().setName(name);
                     
-                    System.out.println("Inloggning lyckades");
+                    
                     this.dispose(); // Close login window
                     try {
                         new MainPage().setVisible(true);
                     } catch (InfException ex) {
                         Logger.getLogger(LoginPage.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                } else {
-                    System.out.println("Inloggning misslyckades");
-                }
+                } 
+                
             } else {
                 System.out.println("Lösenordsinput tom");
             }
-        } else {
-            System.out.println("Emailinput misslyckades");
         }   //Om något av dessa villkor inte stämmer kommer korresponderande fel
             //dyka upp informerande om vad som gick fel internt i programmets output.
             //Med denna struktur på if-satsen kommer koden heller inte gå vidare förens det första villkoret uppfylls.
