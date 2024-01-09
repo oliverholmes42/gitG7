@@ -12,12 +12,10 @@ import java.util.logging.Logger;
 import javaapplication3.GUI.MainPage;
 import javaapplication3.GUI.addDialogs.RegisterNewLocationDialog;
 import javaapplication3.models.Location;
-import javaapplication3.utils.DatabaseConnection;
 import javaapplication3.utils.ObjectManager;
 import javaapplication3.utils.PopupHandler;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import oru.inf.InfDB;
 import oru.inf.InfException;
 
 
@@ -26,9 +24,6 @@ import oru.inf.InfException;
  * @author aiham
  */
 public class LocationPanel extends javax.swing.JPanel {
-    
-    DefaultTableModel tableModel;
-    private static InfDB db = DatabaseConnection.getInstance();
     private MainPage parent;
     public static DefaultTableModel locationTableModel;
 
@@ -95,12 +90,6 @@ public class LocationPanel extends javax.swing.JPanel {
         locationTable.setRowMargin(1);
         locationTable.setShowGrid(true);
         jScrollPane2.setViewportView(locationTable);
-
-        locationSeach.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                locationSeachActionPerformed(evt);
-            }
-        });
 
         editLocationInfo.setText("Ändra information");
         editLocationInfo.setEnabled(false);
@@ -179,10 +168,6 @@ public class LocationPanel extends javax.swing.JPanel {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void locationSeachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_locationSeachActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_locationSeachActionPerformed
 
     private void addLocationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addLocationButtonActionPerformed
         
@@ -274,75 +259,6 @@ public class LocationPanel extends javax.swing.JPanel {
         loadTable();
     }
     
-    /*
-    private Location getLocationByID(int id) {
-    // Your logic to retrieve the Location object based on the id
-    // This might involve searching through ObjectManager.Locations.locationList
-    for (Location loc : ObjectManager.Locations.locationList) {
-        if (loc.getLocationID() == id) {
-            return loc;
-        }
-    }
-    return null;
-}
-
-    private void loadTable() {
-        try {
-            // TODO add your handling code here:
-            ObjectManager.Locations.loadList();
-        } catch (NumberFormatException ex) {
-            Logger.getLogger(LocationPanel.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InfException ex) {
-            Logger.getLogger(LocationPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        tableModel.setRowCount(0); // Clear existing rows
-        
-        for (Location item : ObjectManager.Locations.locationList) {
-            String[] row = {Integer.toString(item.getLocationID()), item.getName(), Integer.toString(item.getExistsIn())};
-            tableModel.addRow(row);
-        }
-    }
-*/
-
-    /*
-    public static void displayLocationInfo(Location location) {
-    // Panel with GridLayout
-    JPanel panel = new JPanel(new GridLayout(0, 2));
-
-    // Font for the title labels
-    Font boldFont = new Font("Dialog", Font.BOLD, 12);
-
-    // Add ID title and value labels
-    JLabel idTitleLabel = new JLabel("ID:");
-    idTitleLabel.setFont(boldFont);
-    panel.add(idTitleLabel);
-    panel.add(new JLabel(Integer.toString(location.getLocationID())));
-
-    // Add Name title and value labels
-    JLabel nameTitleLabel = new JLabel("Name:");
-    nameTitleLabel.setFont(boldFont);
-    panel.add(nameTitleLabel);
-    panel.add(new JLabel(location.getName()));
-
-    // Add Exists in title and value labels
-    JLabel existsInTitleLabel = new JLabel("Finns i:");
-    existsInTitleLabel.setFont(boldFont);
-    panel.add(existsInTitleLabel);
-    JLabel existsInValueLabel = new JLabel();
-    try {
-        String existsInValue = db.fetchSingle("SELECT Benamning FROM omrade WHERE Omrades_ID = " + location.getExistsIn());
-        existsInValueLabel.setText(existsInValue);
-    } catch (InfException e) {
-        existsInValueLabel.setText("Error fetching data");
-        e.printStackTrace();
-    }
-    panel.add(existsInValueLabel);
-
-    // Display the dialog
-    JOptionPane.showMessageDialog(null, panel, "Location Information", JOptionPane.INFORMATION_MESSAGE);
-}*/
-
     private static void addRow(Location i) {
         String[] row = {
             Integer.toString(i.getId()),

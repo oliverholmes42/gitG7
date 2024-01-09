@@ -12,12 +12,10 @@ import javaapplication3.models.Utilities;
 import javaapplication3.models.utilitySubClasses.Kommunikation;
 import javaapplication3.models.utilitySubClasses.Teknik;
 import javaapplication3.models.utilitySubClasses.Vapen;
-import javaapplication3.utils.DatabaseConnection;
 import javaapplication3.utils.ObjectManager;
 import static javaapplication3.utils.ObjectManager.Agents.findTopThreeAgentsWithMostAliens;
 import javaapplication3.utils.UserSession;
 import javax.swing.table.DefaultTableModel;
-import oru.inf.InfDB;
 import oru.inf.InfException;
 
 /**
@@ -25,7 +23,6 @@ import oru.inf.InfException;
  * @author mopaj
  */
 public class HomePanel extends javax.swing.JPanel {
-    private static InfDB db;
     private UserSession user = UserSession.getInstance();
 
 
@@ -33,7 +30,6 @@ public class HomePanel extends javax.swing.JPanel {
      * Creates new form AgentPanel
      */
     public HomePanel() throws InfException {
-        this.db = DatabaseConnection.getInstance();
         initComponents();
         jLabel2.setText("Välkommen, "+UserSession.getInstance().getName());
         ObjectManager.AgentUtilityHandler.loadList();
