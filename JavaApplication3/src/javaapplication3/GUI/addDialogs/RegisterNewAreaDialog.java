@@ -54,14 +54,17 @@ public class RegisterNewAreaDialog extends javax.swing.JDialog {
 
         nameOfArea.setBackground(new java.awt.Color(221, 221, 221));
         nameOfArea.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        nameOfArea.setForeground(new java.awt.Color(255, 255, 255));
         nameOfArea.setText("Benämning på Område:");
 
         addAreaText.setBackground(new java.awt.Color(221, 221, 221));
         addAreaText.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        addAreaText.setForeground(new java.awt.Color(255, 255, 255));
         addAreaText.setText("Lägg till Område");
 
         valueOfId.setBackground(new java.awt.Color(221, 221, 221));
         valueOfId.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        valueOfId.setForeground(new java.awt.Color(255, 255, 255));
         valueOfId.setText("ID:");
 
         confirmAddArea.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
