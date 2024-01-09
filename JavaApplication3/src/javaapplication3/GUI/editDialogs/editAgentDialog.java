@@ -6,7 +6,6 @@ package javaapplication3.GUI.editDialogs;
 
 import java.awt.Color;
 import java.awt.event.KeyEvent;
-import java.time.LocalDate;
 import java.util.HashMap;
 import javaapplication3.GUI.panels.AgentPanel;
 import javaapplication3.models.Agent;
@@ -15,7 +14,6 @@ import javaapplication3.models.agentSubClass.Fältagent;
 import javaapplication3.models.agentSubClass.KontorsChef;
 import javaapplication3.models.agentSubClass.Områdeschef;
 import javaapplication3.utils.ObjectManager;
-import static javaapplication3.utils.ObjectManager.db;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import oru.inf.InfException;
