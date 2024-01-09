@@ -5,7 +5,7 @@
 package javaapplication3.models;
 import java.util.HashMap;
 import oru.inf.InfDB;
-import javaapplication3.utils.ObjectManager;
+
 
 /**
  *
@@ -25,13 +25,11 @@ public class Utilities {
     }
     
     public void setName(String newName){
-        //ObjectManager.UtilitiesHandler.updateField(utrustnings_ID, "Benamning", newName);
         benamning = newName; 
 
     }
     
     public void setID(int newUtilityID){
-        //ObjectManager.UtilitiesHandler.updateField(utrustnings_ID, "Utrustnings_ID", newUtilityID);
         utrustnings_ID = newUtilityID;
     }
      

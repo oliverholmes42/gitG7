@@ -3,9 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package javaapplication3.models;
-
 import java.util.HashMap;
-import javaapplication3.utils.ObjectManager;
 import oru.inf.InfDB;
 
 /**
@@ -38,7 +36,7 @@ public class Location {
     
     public void setName(String name) {
         benamning = name;
-        //ObjectManager.Locations.updateField(plats_ID, "Benamning", benämning);
+       
     }
     
     public String getName(){
@@ -46,7 +44,6 @@ public class Location {
     }
     
     public void setLocationID(int newLocationID){
-        //ObjectManager.Locations.updateField(plats_ID, "Plats_ID", newLocationID);
         plats_ID = newLocationID;
     }
     
@@ -56,7 +53,6 @@ public class Location {
     
     public void setArea(Area newArea){
         finns_I = newArea;
-        //ObjectManager.Locations.updateField(plats_ID, "Finns_I", finns_I.getId());
     }
     
     public Area getArea(){

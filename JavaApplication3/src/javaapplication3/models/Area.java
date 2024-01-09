@@ -3,13 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package javaapplication3.models;
-
 import java.util.HashMap;
-import static javaapplication3.models.Agent.db;
-import static javaapplication3.models.Utilities.db;
 import oru.inf.InfDB;
-import javaapplication3.utils.DatabaseConnection;
-import javaapplication3.utils.ObjectManager;
+
 
 /**
  *
@@ -34,13 +30,11 @@ public class Area {
    }
    
    public void setAreaID(int newAreaID) {
-       //ObjectManager.Areas.updateField(omrades_ID, "Omrades_ID", newAreaID);
        omrades_ID = newAreaID;
    }
 
 
    public void setName(String newAreaName) {
-       //ObjectManager.Areas.updateField(omrades_ID, "Benamning", newAreaName);
        benamning = newAreaName;  
    }
    

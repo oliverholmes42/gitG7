@@ -77,7 +77,6 @@ public class Alien {
     }
     
     public void setAlienID(int newAlienID) {
-        //ObjectManager.Aliens.updateField(alien_ID, "Alien_ID", newAlienID);
         alien_ID = newAlienID;
     }
     
@@ -90,7 +89,6 @@ public class Alien {
 // Setter for Registrationdate
     
     public void setRegistrationDate(LocalDate newRegistrationDate) {
-        //ObjectManager.Aliens.updateField(alien_ID,"Registreringsdatum" , newRegistrationDate.toString());
         registreringsdatum = newRegistrationDate;
     }
     
@@ -103,7 +101,6 @@ public class Alien {
     // Setter for alienEpost
     
     public void setAlienEpost(String newAlienEpost) {
-        //ObjectManager.Aliens.updateField(alien_ID, "Epost", newAlienEpost);
         epost = newAlienEpost;  
     }
     
@@ -116,7 +113,6 @@ public class Alien {
 // Setter for alienPassword
     
     public void setPassword(String newAlienPassword) {
-        //ObjectManager.Aliens.updateField(alien_ID, "Losenord", newAlienPassword);
         losenord = newAlienPassword;
     }
     
@@ -129,7 +125,6 @@ public class Alien {
 // Setter for alienName
     
     public void setAlienName(String newAlienName) {
-        //ObjectManager.Aliens.updateField(alien_ID, "Namn", newAlienName);
         namn = newAlienName;
     }
     
@@ -143,7 +138,6 @@ public class Alien {
 // Setter for alienPhonenumber
 
     public void setAlienPhonenumber(String newAlienPhonenumber) {
-        //ObjectManager.Aliens.updateField(alien_ID, "Telefon", newAlienPhonenumber);
         telefon = newAlienPhonenumber; 
     }
   
@@ -156,7 +150,6 @@ public class Alien {
 // Setter for alienLocation
 
     public void setAlienLocation(Location newLocation) {
-        //ObjectManager.Aliens.updateField(alien_ID, "Plats", newLocation.getId());
         plats =  newLocation;
     }
     
@@ -170,7 +163,6 @@ public class Alien {
 
     
     public void setAlienResponsibleAgent(Agent newResponsibleAgent) {
-        //ObjectManager.Aliens.updateField(alien_ID, "Ansvarig_Agent", newResponsibleAgent.getId());
         ansvarig_Agent =  newResponsibleAgent;
     }
     
@@ -180,9 +172,7 @@ public class Alien {
         return ansvarig_Agent;
     }
     
-    //public Location getLocation() {
-    //return location;
-    //}
+
     
     
 }
