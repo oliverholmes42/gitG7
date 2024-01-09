@@ -368,6 +368,7 @@ public class ObjectManager {
     
     public static class Aliens{
         public static HashMap<Integer, Alien> alienList = new HashMap<>();
+        public static ArrayList<String> emailList = new ArrayList<>();
 
         public static void loadAlienList() throws NumberFormatException, InfException {
             // Clear the list if it contains items
@@ -399,6 +400,7 @@ public class ObjectManager {
             }
 
             alienList.put(id, alien);
+            emailList.add(singleMap.get("Epost"));
         }
         }
         
@@ -536,6 +538,7 @@ public class ObjectManager {
     
     public static class Agents {
         public static HashMap<Integer, Agent> agentList = new HashMap<>();
+        public static ArrayList<String> emailList = new ArrayList<>();
 
        public static void LoadList() throws NumberFormatException, InfException {
             if (!agentList.isEmpty()) {
@@ -576,6 +579,7 @@ public class ObjectManager {
                     Agent agent = new Agent(singleMap, Areas.areaList.get(areaID));
                     agentList.put(agentId, agent);
                 }
+                emailList.add(singleMap.get("Epost"));
             }
         }
 

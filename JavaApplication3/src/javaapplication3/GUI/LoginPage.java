@@ -5,8 +5,9 @@
 package javaapplication3.GUI;
 
 import java.awt.Image;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,6 +35,19 @@ public class LoginPage extends javax.swing.JFrame {
     public LoginPage() {
         initComponents();
         loadIcon();
+        
+        addTabThing();
+    }
+
+    private void addTabThing() {
+        epostTextField.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent evt) {
+                if (evt.getKeyCode() == KeyEvent.VK_TAB) {
+                    passwordPasswordField.requestFocus();
+                    evt.consume();
+                }
+            }
+        });
     }
 
   

@@ -270,35 +270,40 @@ public class RegisterNewAgentDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
-        
+
         if (!emailTextField.getText().isEmpty() && !nameTextField.getText().isEmpty() && !phoneTextField.getText().isEmpty() && areaComboBox.getSelectedIndex() > 0 && agentTypeComboBox.getSelectedIndex() > 0 && checkDynamic()) {
-            try {
-                String password = ObjectManager.generatePassword();
+            String email = emailTextField.getText();
+            if (ObjectManager.Agents.emailList.contains(email)) {
+                JOptionPane.showMessageDialog(this, "Det finns redan en agent med eposten: " + email);
+            } else {
+                try {
+                    String password = ObjectManager.generatePassword();
 
-                HashMap<String, String> map = new HashMap<>();
-                map.put("Agent_ID", maxID + "");
-                map.put("Anstallningsdatum", LocalDate.now().toString());
-                map.put("Epost", emailTextField.getText());
-                map.put("Losenord", password);
-                map.put("Namn", nameTextField.getText());
-                map.put("Telefon", phoneTextField.getText());
-                map.put("Administrator", boolToChar());
+                    HashMap<String, String> map = new HashMap<>();
+                    map.put("Agent_ID", maxID + "");
+                    map.put("Anstallningsdatum", LocalDate.now().toString());
+                    map.put("Epost", emailTextField.getText());
+                    map.put("Losenord", password);
+                    map.put("Namn", nameTextField.getText());
+                    map.put("Telefon", phoneTextField.getText());
+                    map.put("Administrator", boolToChar());
 
-                int area = Integer.parseInt(areaComboBox.getSelectedItem().toString().split(":")[0].trim());
-                map.put("Omrade", area + "");
+                    int area = Integer.parseInt(areaComboBox.getSelectedItem().toString().split(":")[0].trim());
+                    map.put("Omrade", area + "");
 
-                String type = agentTypeComboBox.getSelectedItem().toString();
-                map.put("Type", type);
-                map.put("Value", getUniqueValue());
+                    String type = agentTypeComboBox.getSelectedItem().toString();
+                    map.put("Type", type);
+                    map.put("Value", getUniqueValue());
 
-                ObjectManager.Agents.addNew(map, ObjectManager.Areas.areaList.get(area), type);
+                    ObjectManager.Agents.addNew(map, ObjectManager.Areas.areaList.get(area), type);
 
-                JOptionPane.showMessageDialog(this, "Registreringen av Agent: " + nameTextField.getText() + " med nytt \nagentidentifieringsnummer: " + maxID + " lyckades!");
-                Parent.reload();
-                this.dispose();
+                    JOptionPane.showMessageDialog(this, "Registreringen av Agent: " + nameTextField.getText() + " med nytt \nagentidentifieringsnummer: " + maxID + " lyckades!");
+                    Parent.reload();
+                    this.dispose();
 
-            } catch (Exception ex) {
+                } catch (Exception ex) {
 
+                }
             }
         }
     }//GEN-LAST:event_registerButtonActionPerformed
