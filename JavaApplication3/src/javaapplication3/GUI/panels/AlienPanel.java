@@ -9,7 +9,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
 import javaapplication3.GUI.MainPage;
 import javaapplication3.models.Agent;
 import javaapplication3.models.Alien;
@@ -22,9 +21,8 @@ import javaapplication3.utils.PopupHandler;
 import javaapplication3.utils.UserSession;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
-import javax.swing.SpinnerDateModel;
+import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
-import oru.inf.InfException;
 
 /**
  *
@@ -32,31 +30,49 @@ import oru.inf.InfException;
  */
 public class AlienPanel extends javax.swing.JPanel {
     private MainPage Parent;
-    public static DefaultTableModel tableModel;
+    public DefaultTableModel tableModel;
     private com.github.lgooddatepicker.components.DatePicker startDatePicker;
     private com.github.lgooddatepicker.components.DatePicker endDatePicker;
 
     /**
      * Creates new form AgentPanel
      */
-    public AlienPanel(MainPage Parent) throws NumberFormatException, InfException {
-        initComponents();
-        SpinnerDateModel model = new SpinnerDateModel();
-        model.setCalendarField(Calendar.DAY_OF_MONTH);    
-        ObjectManager.Aliens.loadAlienList();
-        tableModel = (DefaultTableModel) resultTable.getModel();
-        loadTable();
-        this.Parent = Parent;
-        addListener();
-        fillAreaFilter();
-        setDatePicker();       
-        
-        if(UserSession.getInstance().getType() < 5){
+    public AlienPanel(MainPage Parent) {
+    initComponents();
+    this.tableModel = (DefaultTableModel) resultTable.getModel();
+    if (UserSession.getInstance().getType() < 5) {
             editAlienButton.setVisible(false);
             removeAlienButton.setVisible(false);
         }
+    this.Parent = Parent;
+    setDatePicker();
 
+        SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+            @Override
+            protected Void doInBackground() throws Exception {
+                // Perform long-running data loading tasks here
+                ObjectManager.Aliens.loadAlienList();
+                return null;
+            }
+
+            @Override
+            protected void done() {
+                // This method is invoked on the EDT
+                // Update your table and other UI components here
+                loadTable();
+                fillAreaFilter(); // Call this after the data is loaded
+                addListener();
+                fillAgentFilter();
+            }
+        };
+        worker.execute();
+
+        if (UserSession.getInstance().getType() < 5) {
+            editAlienButton.setVisible(false);
+            removeAlienButton.setVisible(false);
+        }
     }
+
 
     private void setDatePicker(){
         startDatePicker = new com.github.lgooddatepicker.components.DatePicker();
@@ -70,6 +86,15 @@ public class AlienPanel extends javax.swing.JPanel {
 
         
     }
+    
+    private void fillAgentFilter(){
+        DefaultComboBoxModel<String> dcbm = new DefaultComboBoxModel<>();
+        dcbm.addElement("Välj agent");
+        for(Agent agent : ObjectManager.Agents.agentList.values()){
+            dcbm.addElement(agent.getId()+": "+agent.getName());
+        }
+        agentComboBox.setModel(dcbm);
+    }
     private void fillAreaFilter() {
         DefaultComboBoxModel<String> dcbm = new DefaultComboBoxModel<>();
         dcbm.addElement("Välj plats");
@@ -80,8 +105,7 @@ public class AlienPanel extends javax.swing.JPanel {
     }
     
 
-    private void loadTable() {
-        tableModel.setRowCount(0); // Clear existing rows
+    private void loadTable() { 
 
         for (Alien item : ObjectManager.Aliens.alienList.values()) {
             addRow(item);
@@ -381,6 +405,7 @@ public class AlienPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_addAlienButtonActionPerformed
     
     public void reload(){
+        tableModel.setRowCount(0);
         loadTable();
     }
     //Metod för att hämta eftersökt data
@@ -427,7 +452,7 @@ public class AlienPanel extends javax.swing.JPanel {
         if (response == JOptionPane.YES_OPTION) {
             // Logic to delete the selected aliens
             ObjectManager.Aliens.delete(selectedID);
-            loadTable();
+            reload();
         }
     }//GEN-LAST:event_removeAlienButtonActionPerformed
 

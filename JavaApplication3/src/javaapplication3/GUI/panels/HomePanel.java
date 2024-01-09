@@ -4,7 +4,6 @@
  */
 package javaapplication3.GUI.panels;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +16,7 @@ import javaapplication3.models.utilitySubClasses.Vapen;
 import javaapplication3.utils.ObjectManager;
 import static javaapplication3.utils.ObjectManager.Agents.findTopThreeAgentsWithMostAliens;
 import javaapplication3.utils.UserSession;
+import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
 import oru.inf.InfException;
 
@@ -30,17 +30,38 @@ public class HomePanel extends javax.swing.JPanel {
 
     /**
      * Creates new form AgentPanel
+     * @throws oru.inf.InfException
      */
     public HomePanel() throws InfException {
-        initComponents();
-        jLabel2.setText("Välkommen, "+UserSession.getInstance().getName());
-        ObjectManager.AgentUtilityHandler.loadList();
-        ObjectManager.Aliens.loadAlienList();
-        
-        fillTable();
-        fillAlienTable();
-        displayTopThreeAgents();
+    initComponents();
+        jLabel2.setText("Välkommen, " + UserSession.getInstance().getName());
+
+        // Using SwingWorker to load data in the background
+        SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+            @Override
+            protected Void doInBackground() throws Exception {
+                // Perform long-running data loading tasks here
+                ObjectManager.AgentUtilityHandler.loadList();
+                ObjectManager.Aliens.loadAlienList();
+                return null;
+            }
+
+            @Override
+            protected void done() {
+                // This method is invoked on the EDT
+                // Update your tables with the new data here
+                fillTable();
+                fillAlienTable();
+                try {
+                    displayTopThreeAgents();
+                } catch (InfException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        worker.execute();
     }
+
     
     private void fillTable(){
         DefaultTableModel tableModel = (DefaultTableModel) utilityTable.getModel();
