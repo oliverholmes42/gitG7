@@ -441,7 +441,7 @@ public class AgentPanel extends javax.swing.JPanel {
     private void alterAgentInfoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alterAgentInfoButtonActionPerformed
         if(resultTable.getSelectedRows().length==1){
             try {
-                PopupHandler.editAgentPopup(Parent,this,ObjectManager.Agents.getAgent(Integer.parseInt((String) resultTable.getValueAt(resultTable.getSelectedRow(), 0))));
+                PopupHandler.editAgentPopup(Parent,this,ObjectManager.Agents.agentList.get(Integer.parseInt((String) resultTable.getValueAt(resultTable.getSelectedRow(), 0))));
             } catch (InfException ex) {
                 Logger.getLogger(AgentPanel.class.getName()).log(Level.SEVERE, null, ex);
             }

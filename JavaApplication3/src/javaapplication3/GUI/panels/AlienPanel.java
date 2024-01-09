@@ -434,7 +434,7 @@ public class AlienPanel extends javax.swing.JPanel {
     private void editAlienButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editAlienButtonActionPerformed
         // TODO add your handling code here:
         if(resultTable.getSelectedRows().length==1){
-            PopupHandler.editAlienPopup(Parent,this,ObjectManager.Aliens.getAlien(Integer.parseInt((String) resultTable.getValueAt(resultTable.getSelectedRow(), 0))));
+            PopupHandler.editAlienPopup(Parent,this,ObjectManager.Aliens.alienList.get(Integer.parseInt((String) resultTable.getValueAt(resultTable.getSelectedRow(), 0))));
         }
         else {JOptionPane.showMessageDialog(this,"Endast en Alien kan redigeras samtidigt!");}
     }//GEN-LAST:event_editAlienButtonActionPerformed
