@@ -10,7 +10,6 @@ import java.util.logging.Logger;
 import javaapplication3.models.Area;
 import javaapplication3.utils.DatabaseConnection;
 import javaapplication3.utils.ObjectManager;
-import static javaapplication3.utils.ObjectManager.Areas.areaList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import oru.inf.InfDB;

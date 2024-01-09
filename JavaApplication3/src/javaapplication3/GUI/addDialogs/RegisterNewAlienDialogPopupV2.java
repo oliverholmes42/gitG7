@@ -12,7 +12,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javaapplication3.GUI.panels.AlienPanel;
 import javaapplication3.models.Agent;
-import javaapplication3.models.Area;
 import javaapplication3.models.Location;
 import javaapplication3.utils.ObjectManager;
 import javaapplication3.utils.ObjectManager.Agents;
@@ -363,23 +362,6 @@ public class RegisterNewAlienDialogPopupV2 extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_phoneTextFieldKeyPressed
     
-    private HashMap<String,String> gatherInfo() throws InfException{
-        
-        String password = ObjectManager.generatePassword();
-        
-        HashMap<String, String> map = new HashMap<>();
-        map.put("Alien_ID",db.fetchSingle("Select max(Alien_ID) from alien")+1);
-        map.put("Registreringsdatum", LocalDate.now().toString());
-        map.put("Epost", emailTextField.getText());
-        map.put("Losenord", password);
-        map.put("Namn", nameTextField.getText());
-        map.put("Telefon", phoneTextField.getText());
-        map.put("Plats", areaComboBox.getSelectedItem().toString().split(":")[0].trim());
-        map.put("Ansvarig_Agent", agentComboBox.getSelectedItem().toString().split(":")[0].trim());
-        map.put("Race", speciesComboBox.getSelectedItem().toString());
-        map.put("Value",valueSpinner.getValue().toString());
-        return map;
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton abortButton;

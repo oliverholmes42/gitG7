@@ -10,11 +10,8 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javaapplication3.GUI.panels.EquipmentPanel;
-import javaapplication3.models.Utilities;
 import javaapplication3.utils.ObjectManager;
-import javaapplication3.utils.ObjectManager.UtilitiesHandler;
 import static javaapplication3.utils.ObjectManager.db;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import oru.inf.InfException;
 
