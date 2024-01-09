@@ -58,17 +58,28 @@ public class loginInputValidation {
     }
     
     public static boolean emailValidation(JTextField email){
-        if(!email.getText().contains("@")){
+        String emailString = email.getText();
+        if(!emailString.contains("@")){
             JOptionPane.showMessageDialog(null, "Korrekt emailadress måste anges. Försök igen.");
             return false;
         }
         String parentName = getTopLevelContainerName(email);
         switch(parentName){
-            case "RegisterNewAgentDialog": 
-                return ObjectManager.Agents.emailList.contains(email.getText().toLowerCase());
+            case "RegisterNewAgentDialog" -> { 
+                if(ObjectManager.Agents.emailList.contains(emailString.toLowerCase())){
+                    JOptionPane.showMessageDialog(null, "Agent med detta namn finns redan.");
+                    return false;
+                }
+                else if(!emailString.contains("@mib")){
+                    JOptionPane.showMessageDialog(null, "Inkorrekt epost\n@ och domän måste finnas med.");
+                    return false;
+                }
+                return true;
+            }
             
-            case "RegisterNewAlienDialogPopupV2":
-                return ObjectManager.Aliens.emailList.contains(email.getText().toLowerCase());
+            case "RegisterNewAlienDialogPopupV2" -> {
+                return !ObjectManager.Aliens.emailList.contains(emailString.toLowerCase());
+            }
              
         }
         return true;

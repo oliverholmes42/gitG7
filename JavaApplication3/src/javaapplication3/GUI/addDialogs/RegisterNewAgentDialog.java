@@ -275,8 +275,6 @@ public class RegisterNewAgentDialog extends javax.swing.JDialog {
         if (!emailTextField.getText().isEmpty() && !nameTextField.getText().isEmpty() && !phoneTextField.getText().isEmpty() && areaComboBox.getSelectedIndex() > 0 && agentTypeComboBox.getSelectedIndex() > 0 && checkDynamic()) {
 
             if (loginInputValidation.emailValidation(emailTextField)) {
-                JOptionPane.showMessageDialog(this, "Det finns redan en agent med eposten: " + emailTextField.getText());
-            } else {
                 try {
                     String password = ObjectManager.generatePassword();
 
