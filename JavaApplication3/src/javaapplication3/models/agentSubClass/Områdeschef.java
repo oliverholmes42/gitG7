@@ -7,7 +7,6 @@ package javaapplication3.models.agentSubClass;
 import java.util.HashMap;
 import javaapplication3.models.Agent;
 import javaapplication3.models.Area;
-import javaapplication3.models.alienSubclasses.Squid;
 
 /**
  *
