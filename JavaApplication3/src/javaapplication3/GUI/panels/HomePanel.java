@@ -4,10 +4,12 @@
  */
 package javaapplication3.GUI.panels;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javaapplication3.models.Agent;
+import javaapplication3.models.Alien;
 import javaapplication3.models.Utilities;
 import javaapplication3.models.utilitySubClasses.Kommunikation;
 import javaapplication3.models.utilitySubClasses.Teknik;
@@ -33,8 +35,10 @@ public class HomePanel extends javax.swing.JPanel {
         initComponents();
         jLabel2.setText("Välkommen, "+UserSession.getInstance().getName());
         ObjectManager.AgentUtilityHandler.loadList();
+        ObjectManager.Aliens.loadAlienList();
         
         fillTable();
+        fillAlienTable();
         displayTopThreeAgents();
     }
     
@@ -57,6 +61,22 @@ public class HomePanel extends javax.swing.JPanel {
                 tableModel.addRow(row);
             }
         }
+    }
+    
+    private void fillAlienTable(){
+        DefaultTableModel tableModel = (DefaultTableModel) alienHomeTable.getModel();
+            Agent agent = ObjectManager.Agents.agentList.get(user.getUserId());
+            tableModel.setRowCount(0);
+            for(Alien alien: ObjectManager.Aliens.alienList.values()){
+                if(alien.getResponsibleAgent()==agent){
+                    String[] row = {
+                        ""+alien.getID(),
+                        alien.getName(),
+                        alien.getTelephone()
+                    };
+                    tableModel.addRow(row);
+                }
+            }
     }
     
     private String getSubValue(Utilities utility) {
@@ -114,7 +134,7 @@ public class HomePanel extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        alienHomeTable = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
         topThree = new javax.swing.JTable();
 
@@ -166,7 +186,7 @@ public class HomePanel extends javax.swing.JPanel {
         jLabel4.setForeground(new java.awt.Color(50, 50, 50));
         jLabel4.setText("Aliens du är ansvarig för:");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        alienHomeTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -174,12 +194,12 @@ public class HomePanel extends javax.swing.JPanel {
                 {null, null, null}
             },
             new String [] {
-                "Alien Namn", "TelefonNummer", "ID"
+                "ID", "Alien Namn", "TelefonNummer"
             }
         ));
-        jTable1.setRowHeight(60);
-        jTable1.setRowMargin(5);
-        jScrollPane1.setViewportView(jTable1);
+        alienHomeTable.setRowHeight(60);
+        alienHomeTable.setRowMargin(5);
+        jScrollPane1.setViewportView(alienHomeTable);
 
         topThree.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -261,6 +281,7 @@ public class HomePanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable alienHomeTable;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -271,7 +292,6 @@ public class HomePanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTable topThree;
     private javax.swing.JTable utilityTable;
     // End of variables declaration//GEN-END:variables

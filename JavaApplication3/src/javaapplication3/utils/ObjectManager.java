@@ -317,13 +317,18 @@ public class ObjectManager {
     
     public static class Locations {
         public static HashMap<Integer, Location> locationList = new HashMap<>();
+        
 
         public static void loadList() throws NumberFormatException, InfException {
             // Clear the list if it contains items
-            if (!locationList.isEmpty()) {
+           if (!locationList.isEmpty()) {
                 locationList.clear();
             }
-            Areas.loadList();
+
+            // Check and load Areas if not already loaded
+            if (Areas.areaList.isEmpty()) {
+                Areas.loadList();
+            }
             ArrayList<HashMap<String, String>> map = db.fetchRows("SELECT * from plats");
             for(HashMap<String,String> singleMap : map){
                 int id1 = Integer.parseInt(singleMap.get("Plats_ID"));
@@ -353,13 +358,19 @@ public class ObjectManager {
         public static ArrayList<String> emailList = new ArrayList<>();
 
         public static void loadAlienList() throws NumberFormatException, InfException {
-            // Clear the list if it contains items
             if (!alienList.isEmpty()) {
                 alienList.clear();
             }
-            
-            Locations.loadList();
-            Agents.LoadList();
+
+            // Check and load Locations if not already loaded
+            if (Locations.locationList.isEmpty()) {
+                Locations.loadList();
+            }
+
+            // Check and load Agents if not already loaded
+            if (Agents.agentList.isEmpty()) {
+                Agents.LoadList();
+            }
             ArrayList<HashMap<String, String>> map = db.fetchRows("SELECT a.*, w.Langd, b.Antal_Boogies, s.Antal_Armar FROM Alien a LEFT JOIN Worm w ON a.Alien_ID = w.Alien_ID LEFT JOIN Boglodite b ON a.Alien_ID = b.Alien_ID LEFT JOIN Squid s ON a.Alien_ID = s.Alien_ID");
             for (HashMap<String, String> singleMap : map) {
             int id = Integer.parseInt(singleMap.get("Alien_ID"));
@@ -487,13 +498,14 @@ public class ObjectManager {
         public static ArrayList<String> emailList = new ArrayList<>();
 
        public static void LoadList() throws NumberFormatException, InfException {
-            if (!agentList.isEmpty()) {
-                agentList.clear();
-            }
+           if (!agentList.isEmpty()) {
+               agentList.clear();
+           }
 
-            if (Areas.areaList.isEmpty()) {
-                Areas.loadList();
-            }
+           // Check and load Areas if not already loaded
+           if (Areas.areaList.isEmpty()) {
+               Areas.loadList();
+           }
 
             ArrayList<HashMap<String, String>> map = db.fetchRows("SELECT * FROM agent");
             ArrayList<HashMap<String, String>> Fmap = db.fetchRows("SELECT * FROM faltagent");
@@ -684,23 +696,11 @@ public class ObjectManager {
             db.delete(sql);}
         }
 
-    }
-    
-    public static void updateInstance(HashMap<String, String> map) throws InfException {
-            // Build and execute the main update query for the 'alien' table
-            HashMap<String, String> agentMap = new HashMap<>(map);
-            agentMap.remove("Omrade"); // Remove special key for alien table update
-            agentMap.remove("Benamning");   // Similarly for other special keys
-            agentMap.remove("Agent_ID");
-
-            String alienQuery = ObjectManager.buildUpdateQuery("agent", agentMap, "Agent_ID");
-            db.update(alienQuery);
-
-        }
-
+}
     
     public static class Areas {
         public static HashMap<Integer, Area> areaList = new HashMap<>();
+        
 
         public static void loadList() throws NumberFormatException, InfException {
             if(!areaList.isEmpty()) {areaList.clear();}
@@ -836,8 +836,11 @@ public class ObjectManager {
         public static HashMap<Integer, AgentUtils> agentUtilsMap = new HashMap<>();
 
         public static void loadList() throws InfException {
-            if (Aliens.alienList.isEmpty()) {
-                Aliens.loadAlienList();
+            if(!agentUtilsMap.isEmpty()){
+                agentUtilsMap.clone();
+            }
+            if (Agents.agentList.isEmpty()) {
+                Agents.LoadList();
             }
             if (UtilitiesHandler.utilitiesList.isEmpty()) {
                 UtilitiesHandler.loadList();
