@@ -13,6 +13,7 @@ import javaapplication3.models.Area;
 import javaapplication3.utils.ObjectManager;
 import javaapplication3.utils.ObjectManager.Areas;
 import static javaapplication3.utils.ObjectManager.db;
+import javaapplication3.utils.loginInputValidation;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import oru.inf.InfException;
@@ -272,9 +273,9 @@ public class RegisterNewAgentDialog extends javax.swing.JDialog {
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
 
         if (!emailTextField.getText().isEmpty() && !nameTextField.getText().isEmpty() && !phoneTextField.getText().isEmpty() && areaComboBox.getSelectedIndex() > 0 && agentTypeComboBox.getSelectedIndex() > 0 && checkDynamic()) {
-            String email = emailTextField.getText();
-            if (ObjectManager.Agents.emailList.contains(email)) {
-                JOptionPane.showMessageDialog(this, "Det finns redan en agent med eposten: " + email);
+
+            if (loginInputValidation.emailValidation(emailTextField)) {
+                JOptionPane.showMessageDialog(this, "Det finns redan en agent med eposten: " + emailTextField.getText());
             } else {
                 try {
                     String password = ObjectManager.generatePassword();

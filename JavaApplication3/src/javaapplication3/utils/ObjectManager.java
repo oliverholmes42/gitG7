@@ -400,7 +400,7 @@ public class ObjectManager {
             }
 
             alienList.put(id, alien);
-            emailList.add(singleMap.get("Epost"));
+            emailList.add(singleMap.get("Epost").toLowerCase());
         }
         }
         
@@ -579,7 +579,7 @@ public class ObjectManager {
                     Agent agent = new Agent(singleMap, Areas.areaList.get(areaID));
                     agentList.put(agentId, agent);
                 }
-                emailList.add(singleMap.get("Epost"));
+                emailList.add(singleMap.get("Epost").toLowerCase());
             }
         }
 

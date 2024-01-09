@@ -4,8 +4,12 @@
  */
 package javaapplication3.utils;
 
+import java.awt.Component;
+import java.awt.Container;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -58,9 +62,28 @@ public class loginInputValidation {
             JOptionPane.showMessageDialog(null, "Korrekt emailadress måste anges. Försök igen.");
             return false;
         }
-        Object parent = email.getParent();
+        String parentName = getTopLevelContainerName(email);
+        switch(parentName){
+            case "RegisterNewAgentDialog": 
+                return ObjectManager.Agents.emailList.contains(email.getText().toLowerCase());
+            
+            case "RegisterNewAlienDialogPopupV2":
+                return ObjectManager.Aliens.emailList.contains(email.getText().toLowerCase());
+             
+        }
         return true;
     }
+    
+    public static String getTopLevelContainerName(Component component) {
+    Container parent = component.getParent();
+    while (parent != null) {
+        if (parent instanceof JFrame||parent instanceof JDialog) {
+            return parent.getClass().getSimpleName();
+        }
+        parent = parent.getParent();
+    }
+    return "Unknown";
+}
     
     //För att kunna jämföra epost med lösenord kommer denna metod hjälpa. Här sker en jämförelse mellan angiven email
     //och angivet lösenord och kollar så de stämmer överens innan man kan få tillgång till nästa sida.
