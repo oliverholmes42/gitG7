@@ -8,8 +8,6 @@ package javaapplication3.models;
 import java.util.HashMap;
 import oru.inf.InfDB;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import javaapplication3.utils.DatabaseConnection;
 import javaapplication3.utils.ObjectManager;
 import oru.inf.InfException;
 
