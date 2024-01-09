@@ -26,10 +26,9 @@ import javaapplication3.models.utilitySubClasses.Teknik;
 import javaapplication3.models.utilitySubClasses.Vapen;
 import oru.inf.*;
 import oru.inf.InfException;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Comparator;
 import java.util.List;
-import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -335,23 +334,6 @@ public class ObjectManager {
             }
         }
         
-        public static void updateField(int id, String column, String newValue){
-            try{
-                String updateQuery = "UPDATE plats SET " + column + " = '" + newValue + "' WHERE Plats_ID = " + id;
-                db.update(updateQuery);
-            } catch(InfException e){
-                System.out.println(e.getMessage());
-            }
-        }
-        
-        public static void updateField(int id, String column, int newValue){
-            try{
-                String updateQuery = "UPDATE plats SET " + column + " = " + newValue + " WHERE Plats_ID = " + id;
-                db.update(updateQuery);
-            } catch(InfException e){
-                System.out.println(e.getMessage());
-            }
-        }
         
         public static void offLoad(){
         locationList.clear();
@@ -403,24 +385,6 @@ public class ObjectManager {
             emailList.add(singleMap.get("Epost").toLowerCase());
         }
         }
-        
-        public static void updateField(int id, String column, String newValue){
-            try{
-                String updateQuery = "UPDATE alien SET " + column + " = '" + newValue + "' WHERE Alien_ID = " + id;
-                db.update(updateQuery);
-            } catch(InfException e){
-                System.out.println(e.getMessage());
-            }
-        }
-        
-        public static void updateField(int id, String column, int newValue){
-            try{
-                String updateQuery = "UPDATE alien SET " + column + " = " + newValue + " WHERE Alien_ID = " + id;
-                db.update(updateQuery);
-            } catch(InfException e){
-                System.out.println(e.getMessage());
-            }
-        }
        
         public static void updateInstance(HashMap<String, String> map) throws InfException {
             // Build and execute the main update query for the 'alien' table
@@ -450,25 +414,7 @@ public class ObjectManager {
             
         }
 
-        private static Alien newInstance(HashMap<String,String> map,String race) {
-            Location location = Locations.locationList.get(Integer.parseInt(map.get("Plats")));
-            Agent agent = Agents.agentList.get(Integer.parseInt(map.get("Ansvarig_Agent")));
 
-            switch (race) {
-                case "Worm":
-                    return new Worm(map, location, agent);
-                case "Boglodite":
-                    return new Boglodite(map, location, agent);
-                case "Squid":
-                    return new Squid(map, location, agent);
-                default:
-                    return new Alien(map, location, agent);
-            }
-        }
-
-        public static Alien getAlien(int id) {
-            return alienList.get(id);
-        }
 
         public static void offLoad() {
             alienList.clear();
@@ -594,31 +540,10 @@ public class ObjectManager {
         }
 
         
-        public static void updateField(int id, String column, String newValue){
-            try{
-                String updateQuery = "UPDATE agent SET " + column + " = '" + newValue + "' WHERE Agent_ID = " + id;
-                db.update(updateQuery);
-            } catch(InfException e){
-                System.out.println(e.getMessage());
-            }
-        }
-        
-        public static void updateField(int id, String column, int newValue){
-            try{
-                String updateQuery = "UPDATE agent SET " + column + " = " + newValue + " WHERE Agent_ID = " + id;
-                db.update(updateQuery);
-            } catch(InfException e){
-                System.out.println(e.getMessage());
-            }
-        }
-        
         public static void offLoad(){
         agentList.clear();
         }
         
-        public static Agent getAgent(int id) {
-            return agentList.get(id);
-        }
         
         public static void addNew(HashMap<String,String> map, Area area, String type) throws InfException{
             String Query = buildInsertQuery("agent", map);
@@ -788,23 +713,6 @@ public class ObjectManager {
             }
         }
         
-        public static void updateField(int id, String column, String newValue){
-            try{
-                String updateQuery = "UPDATE omrade SET " + column + " = '" + newValue + "' WHERE Omrades_ID = " + id;
-                db.update(updateQuery);
-            } catch(InfException e){
-                System.out.println(e.getMessage());
-            }
-        }
-        
-        public static void updateField(int id, String column, int newValue){
-            try{
-                String updateQuery = "UPDATE omrade SET " + column + " = " + newValue + " WHERE Omrades_ID = " + id;
-                db.update(updateQuery);
-            } catch(InfException e){
-                System.out.println(e.getMessage());
-            }
-        }
         
         public static void offLoad(){
         areaList.clear();
@@ -855,23 +763,6 @@ public class ObjectManager {
             }
         }
         
-        public static void updateField(int id, String column, String newValue){
-            try{
-                String updateQuery = "UPDATE utrustning SET " + column + " = '" + newValue + "' Utrustnings_ID = " + id;
-                db.update(updateQuery);
-            } catch(InfException e){
-                System.out.println(e.getMessage());
-            }
-        }
-        
-        public static void updateField(int id, String column, int newValue){
-            try{
-                String updateQuery = "UPDATE utrustning SET " + column + " = " + newValue + " Utrustnings_ID = " + id;
-                db.update(updateQuery);
-            } catch(InfException e){
-                System.out.println(e.getMessage());
-            }
-        }
         
         public static void offLoad(){
         utilitiesList.clear();
@@ -1023,9 +914,7 @@ public class ObjectManager {
                 
                 db.insert(buildInsertQuery("innehar_utrustning",inputMap));
                 agentUtilsMap.put(ID, new AgentUtils(Agents.agentList.get(AgentID),item,date));
-                
-                
-                
+                    
             }
         }  
     }
