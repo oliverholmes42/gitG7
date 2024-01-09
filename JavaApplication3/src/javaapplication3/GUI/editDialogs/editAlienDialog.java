@@ -379,8 +379,7 @@ public class editAlienDialog extends javax.swing.JDialog {
                         temp.setAlienPhonenumber(telefon);
                         temp.setAlienLocation(location);
                         temp.setAlienResponsibleAgent(agent);
-                        double doubleValue = (double) valueSpinner.getValue();
-                        int intValue = (int) doubleValue;
+                        int intValue = (int) valueSpinner.getValue();
                         temp.setBoogieCount(intValue);
                         
                        
@@ -388,8 +387,7 @@ public class editAlienDialog extends javax.swing.JDialog {
                         
                         boglodite = temp;
                     }
-                    else if (activeAlien instanceof Squid){
-                        Squid squid = (Squid) activeAlien;
+                    else if (activeAlien instanceof Squid squid){
                         Squid temp = new Squid();
                         temp.cloneObject(squid);
                         
@@ -398,8 +396,7 @@ public class editAlienDialog extends javax.swing.JDialog {
                         temp.setAlienLocation(location);
                         temp.setAlienResponsibleAgent(agent);
                         
-                        double doubleValue = (double) valueSpinner.getValue();
-                        int intValue = (int) doubleValue;
+                        int intValue = (int) valueSpinner.getValue();
                         temp.setArmCount(intValue);
 
                        
