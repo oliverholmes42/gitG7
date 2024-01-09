@@ -79,15 +79,6 @@ public class AlienPanel extends javax.swing.JPanel {
         areaComboBox.setModel(dcbm);
     }
     
-    private void fillAgentFilter(){
-        DefaultComboBoxModel<String> dcbm = new DefaultComboBoxModel<>();
-        dcbm.addElement("Ansvarig Agent");
-        for(Agent item : ObjectManager.Agents.agentList.values()){
-            dcbm.addElement(item.getName());
-        
-        agentComboBox.setModel(dcbm);
-        }
-    }
 
     private void loadTable() {
         tableModel.setRowCount(0); // Clear existing rows
