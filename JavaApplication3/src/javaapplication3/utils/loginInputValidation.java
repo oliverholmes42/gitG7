@@ -84,13 +84,21 @@ public class loginInputValidation {
             
             if(emailQueryResultAgent.size()>0){//Denna fråga innebär om resultatet från SQL-frågan resulterar i ingenting.
                 String id = emailQueryResultAgent.get("Agent_ID");
-                                         //Det kan ENDAST resultera i ingenting ifall jämförelsen inte stämmer.
+                String admin = emailQueryResultAgent.get("Administrator");
+                isValidated = true;
+                userId = Integer.parseInt(emailQueryResultAgent.get("Agent_ID"));
+                name = emailQueryResultAgent.get("Namn");
+                Boolean isAdmin = admin.equals("J");
+                if(isAdmin){
+                    type = 5;
+                }
+                else{
+                
+                  //Det kan ENDAST resultera i ingenting ifall jämförelsen inte stämmer.
                 String isFaltAgent = db.fetchSingle("SELECT Agent_ID FROM faltagent WHERE Agent_ID = "+id);
                 String isKontorsChef = db.fetchSingle("SELECT Agent_ID FROM kontorschef WHERE Agent_ID = "+id);
                 String isOmradesChef = db.fetchSingle("SELECT Agent_ID FROM omradeschef WHERE Agent_ID = "+id);
                 isValidated = true;
-                userId = Integer.parseInt(emailQueryResultAgent.get("Agent_ID"));
-                name = emailQueryResultAgent.get("Namn");
                 
                 
                 if (isFaltAgent!=null) {
@@ -102,13 +110,14 @@ public class loginInputValidation {
                 
                 if(isOmradesChef!=null){
                     type = 4;
-                }
+                }}}
                 
-            }else if(emailQueryResultAlien != null){
+            else if(emailQueryResultAlien != null){
                 isValidated = true;
                 userId = Integer.parseInt(emailQueryResultAlien.get("Alien_ID"));
                 type = 1;
                 name = emailQueryResultAlien.get("Namn");
+            
             }
             else{
                  JOptionPane.showMessageDialog(null, "Inloggning misslyckades.");
@@ -126,5 +135,5 @@ public class loginInputValidation {
         
         return resultMap;
         
-    }
-}
+    
+}}
