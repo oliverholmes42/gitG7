@@ -8,7 +8,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javaapplication3.GUI.MainPage;
 import javaapplication3.models.Area;
 import javaapplication3.models.agentSubClass.Områdeschef;
 import javaapplication3.utils.ObjectManager;
@@ -23,7 +22,6 @@ import oru.inf.InfException;
  */
 public class AreaPanel extends javax.swing.JPanel {
 
-    private MainPage Parent;
     public static DefaultTableModel areaTableModel;
 
     /**
