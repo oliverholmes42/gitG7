@@ -201,7 +201,7 @@ public class AlienPanel extends javax.swing.JPanel {
 
         areaComboBox.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         areaComboBox.setForeground(new java.awt.Color(51, 51, 51));
-        areaComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Område" }));
+        areaComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Välj plats" }));
         areaComboBox.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51), 3));
         areaComboBox.setPreferredSize(new java.awt.Dimension(180, 45));
 
@@ -308,7 +308,7 @@ public class AlienPanel extends javax.swing.JPanel {
 
         agentComboBox.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         agentComboBox.setForeground(new java.awt.Color(51, 51, 51));
-        agentComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Agent" }));
+        agentComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Välj Agent" }));
         agentComboBox.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51), 3));
         agentComboBox.setPreferredSize(new java.awt.Dimension(180, 45));
 
@@ -407,6 +407,8 @@ public class AlienPanel extends javax.swing.JPanel {
     public void reload(){
         tableModel.setRowCount(0);
         loadTable();
+        removeAlienButton.setEnabled(false);
+        editAlienButton.setEnabled(false);
     }
     //Metod för att hämta eftersökt data
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
@@ -472,6 +474,7 @@ public class AlienPanel extends javax.swing.JPanel {
         startDatePicker.clear();
         endDatePicker.clear();
         reload();
+        
     }//GEN-LAST:event_clearFilterButtonActionPerformed
 
     

@@ -52,8 +52,8 @@ public class editAlienDialog extends javax.swing.JDialog {
         nameTextField.setText(alien.getName());
         phoneTextField.setText(alien.getTelephone());
         emailTextField.setText(alien.getEmail());
-        agentComboBox.setSelectedItem(alien.getResponsibleAgent().getName());
-        areaComboBox.setSelectedItem(alien.getLocation().getName());
+        agentComboBox.setSelectedItem(alien.getResponsibleAgent().getId()+": "+alien.getResponsibleAgent().getName());
+        locationComboBox.setSelectedItem(alien.getLocation().getId()+": "+alien.getLocation().getName());
         speciesComboBox.setSelectedItem(alien.getClass().getSimpleName());
         setSpinner(alien,valueSpinner);
     }
@@ -99,7 +99,7 @@ public class editAlienDialog extends javax.swing.JDialog {
         registerButton = new javax.swing.JButton();
         agentComboBox = new javax.swing.JComboBox<>();
         speciesComboBox = new javax.swing.JComboBox<>();
-        areaComboBox = new javax.swing.JComboBox<>();
+        locationComboBox = new javax.swing.JComboBox<>();
         nameTextField = new javax.swing.JTextField();
         phoneTextField = new javax.swing.JTextField();
         emailTextField = new javax.swing.JTextField();
@@ -189,8 +189,8 @@ public class editAlienDialog extends javax.swing.JDialog {
             }
         });
 
-        areaComboBox.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        areaComboBox.setPreferredSize(new java.awt.Dimension(180, 40));
+        locationComboBox.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        locationComboBox.setPreferredSize(new java.awt.Dimension(180, 40));
 
         nameTextField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
@@ -228,7 +228,7 @@ public class editAlienDialog extends javax.swing.JDialog {
                                     .addComponent(inputNameLabel)
                                     .addComponent(inputEmailLabel)
                                     .addComponent(inputAreaLabel)
-                                    .addComponent(areaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(locationComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(abortButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(emailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
@@ -270,7 +270,7 @@ public class editAlienDialog extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(speciesComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(areaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(locationComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(valueSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -325,7 +325,7 @@ public class editAlienDialog extends javax.swing.JDialog {
         for(Location item : ObjectManager.Locations.locationList.values()){
             dcbm.addElement(item.getId()+": " + item.getName());
         }
-        areaComboBox.setModel(dcbm);
+        locationComboBox.setModel(dcbm);
     }
     
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
@@ -346,7 +346,7 @@ public class editAlienDialog extends javax.swing.JDialog {
                 
                 String name = nameTextField.getText();
                 String telefon = phoneTextField.getText();
-                Location location = ObjectManager.Locations.locationList.get(Integer.valueOf(areaComboBox.getSelectedItem().toString().split(":")[0].trim()));
+                Location location = ObjectManager.Locations.locationList.get(Integer.valueOf(locationComboBox.getSelectedItem().toString().split(":")[0].trim()));
                 Agent agent = ObjectManager.Agents.agentList.get(Integer.valueOf(agentComboBox.getSelectedItem().toString().split(":")[0].trim()));
 
                 if (newSpecies.equals(currentSpecies)) {
@@ -366,7 +366,7 @@ public class editAlienDialog extends javax.swing.JDialog {
                        
                         ObjectManager.updateObject(temp);
                         
-                        worm = temp;
+                         activeAlien = temp;
                         
                         
                     }
@@ -379,13 +379,14 @@ public class editAlienDialog extends javax.swing.JDialog {
                         temp.setAlienPhonenumber(telefon);
                         temp.setAlienLocation(location);
                         temp.setAlienResponsibleAgent(agent);
-                        int intValue = (int) valueSpinner.getValue();
+                        
+                        int intValue = (int) Math.floor((double) valueSpinner.getValue());
                         temp.setBoogieCount(intValue);
                         
                        
                         ObjectManager.updateObject(temp);
                         
-                        boglodite = temp;
+                         activeAlien = temp;
                     }
                     else if (activeAlien instanceof Squid squid){
                         Squid temp = new Squid();
@@ -396,13 +397,13 @@ public class editAlienDialog extends javax.swing.JDialog {
                         temp.setAlienLocation(location);
                         temp.setAlienResponsibleAgent(agent);
                         
-                        int intValue = (int) valueSpinner.getValue();
+                        int intValue = (int) Math.floor((double) valueSpinner.getValue());
                         temp.setArmCount(intValue);
 
                        
                         ObjectManager.updateObject(temp);
                         
-                        squid = temp;
+                         activeAlien = temp;
                     }
                     else{
                         Alien temp = new Alien();
@@ -477,7 +478,6 @@ public class editAlienDialog extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton abortButton;
     private javax.swing.JComboBox<String> agentComboBox;
-    private javax.swing.JComboBox<String> areaComboBox;
     private javax.swing.JLabel dynamicLabel;
     private javax.swing.JTextField emailTextField;
     private javax.swing.JLabel inputAgentLabel;
@@ -487,6 +487,7 @@ public class editAlienDialog extends javax.swing.JDialog {
     private javax.swing.JLabel inputPhoneLabel;
     private javax.swing.JLabel inputSpeciesLabel;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JComboBox<String> locationComboBox;
     private javax.swing.JTextField nameTextField;
     private javax.swing.JTextField phoneTextField;
     private javax.swing.JLabel registerAlienLabel;

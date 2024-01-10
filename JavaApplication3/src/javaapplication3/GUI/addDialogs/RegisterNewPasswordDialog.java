@@ -11,7 +11,9 @@ import javaapplication3.utils.ObjectManager;
 import javax.swing.JOptionPane;
 import oru.inf.InfException;
 import java.awt.Color;
+import javaapplication3.GUI.panels.ProfilePanel;
 import javaapplication3.models.Alien;
+import javaapplication3.utils.inputValidation;
 /**
  *
  * @author albin
@@ -20,22 +22,25 @@ public class RegisterNewPasswordDialog extends javax.swing.JDialog {
     Agent agentProfile;
     Alien alienProfile;
     Object profile;
+    ProfilePanel home;
     /**
      * Creates new form RegisterNewLocationDialog2
      */
-    public RegisterNewPasswordDialog(java.awt.Frame parent, Agent profile, boolean modal) {
+    public RegisterNewPasswordDialog(java.awt.Frame parent, Agent profile, boolean modal, ProfilePanel home) {
         super(parent, modal);
         initComponents();
         this.agentProfile = profile;
         this.profile = (Agent) profile;
+        this.home = home;
         getContentPane().setBackground(new Color(51,51,51));
     }
     
-    public RegisterNewPasswordDialog(java.awt.Frame parent, Alien profile, boolean modal) {
+    public RegisterNewPasswordDialog(java.awt.Frame parent, Alien profile, boolean modal, ProfilePanel home) {
         super(parent, modal);
         initComponents();
         this.alienProfile = profile;
         this.profile = (Alien) profile;
+        this.home = home;
         getContentPane().setBackground(new Color(51,51,51));
     }
 
@@ -159,22 +164,29 @@ public class RegisterNewPasswordDialog extends javax.swing.JDialog {
 
     private void registerButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButton1ActionPerformed
         boolean passwordMatch;
-        
-        if (agentProfile==null) {passwordMatch = alienProfile.getPassword().equals(currentPasswordField.getText());}
-        else {passwordMatch = agentProfile.getPassword().equals(currentPasswordField.getText());}
-        
+
+        if (agentProfile == null) {
+            passwordMatch = alienProfile.getPassword().equals(currentPasswordField.getText());
+        } else {
+            passwordMatch = agentProfile.getPassword().equals(currentPasswordField.getText());
+        }
+
         if (passwordMatch) {
             try {
-                
-                if(profile instanceof Alien){alienProfile.setPassword(newPasswordField.getText());
-                profile = alienProfile;}
-                else if(profile instanceof Agent) {agentProfile.setPassword(newPasswordField.getText());
-                profile = agentProfile;}
-                
-                JOptionPane.showMessageDialog(null, "Lösenordet ändrades!");
-                ObjectManager.updateObject(profile);
-                System.out.println("Lyckad");
-                this.dispose();
+                if (inputValidation.passwordValidaton(newPasswordField)) {
+                    if (profile instanceof Alien) {
+                        alienProfile.setPassword(newPasswordField.getText());
+                        profile = alienProfile;
+                    } else if (profile instanceof Agent) {
+                        agentProfile.setPassword(newPasswordField.getText());
+                        profile = agentProfile;
+                    }
+
+                    JOptionPane.showMessageDialog(null, "Lösenordet ändrades!");
+                    ObjectManager.updateObject(profile);
+                    home.refresh();
+                    this.dispose();
+                }
             } catch (InfException ex) {
                 Logger.getLogger(RegisterNewPasswordDialog.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(null, "Ändring av lösenord misslyckades");

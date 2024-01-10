@@ -13,7 +13,8 @@ import javaapplication3.models.Area;
 import javaapplication3.utils.ObjectManager;
 import javaapplication3.utils.ObjectManager.Areas;
 import static javaapplication3.utils.ObjectManager.db;
-import javaapplication3.utils.loginInputValidation;
+import javaapplication3.utils.inputValidation;
+import javaapplication3.utils.textSender;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import oru.inf.InfException;
@@ -272,9 +273,14 @@ public class RegisterNewAgentDialog extends javax.swing.JDialog {
 
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
 
-        if (!emailTextField.getText().isEmpty() && !nameTextField.getText().isEmpty() && !phoneTextField.getText().isEmpty() && areaComboBox.getSelectedIndex() > 0 && agentTypeComboBox.getSelectedIndex() > 0 && checkDynamic()) {
+        if (inputValidation.emailValidation(emailTextField)
+                && inputValidation.fieldValidation(nameTextField)
+                && inputValidation.phoneValidation(phoneTextField)
+                && inputValidation.comboBoxValidation(areaComboBox)
+                && inputValidation.comboBoxValidation(agentTypeComboBox)
+                && checkDynamic()
+                && inputValidation.emailValidation(emailTextField)) {
 
-            if (loginInputValidation.emailValidation(emailTextField)) {
                 try {
                     String password = ObjectManager.generatePassword();
 
@@ -297,6 +303,8 @@ public class RegisterNewAgentDialog extends javax.swing.JDialog {
                     ObjectManager.Agents.addNew(map, ObjectManager.Areas.areaList.get(area), type);
 
                     JOptionPane.showMessageDialog(this, "Registreringen av Agent: " + nameTextField.getText() + " med nytt \nagentidentifieringsnummer: " + maxID + " lyckades!");
+                    String telephone = "+46"+phoneTextField.getText().substring(1);
+                    textSender.sendSMS(telephone,"Välkommen Agent!\nDitt Lösenord är: '"+password+"'\nSpara detta på en säker plats.\n\nMIB");
                     Parent.reload();
                     this.dispose();
 
@@ -304,7 +312,7 @@ public class RegisterNewAgentDialog extends javax.swing.JDialog {
 
                 }
             }
-        }
+        
     }//GEN-LAST:event_registerButtonActionPerformed
 
     private String getUniqueValue() {

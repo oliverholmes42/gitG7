@@ -334,7 +334,7 @@ public class ProfilePanel extends javax.swing.JPanel {
 
     private void NyttLösenButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NyttLösenButton1ActionPerformed
         // TODO add your handling code here:
-        PopupHandler.addNewPasswordPopup(Parent,profile);
+        PopupHandler.addNewPasswordPopup(Parent,profile, this);
     }//GEN-LAST:event_NyttLösenButton1ActionPerformed
 
     private void fillPage() {
@@ -352,6 +352,10 @@ public class ProfilePanel extends javax.swing.JPanel {
     private String writePassword(){
     
         return "*".repeat(profile.getPassword().length());
+    }
+    
+    public void refresh(){
+         losenordData.setText(writePassword());
     }
     
    

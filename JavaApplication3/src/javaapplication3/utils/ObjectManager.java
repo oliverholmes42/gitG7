@@ -243,14 +243,14 @@ public class ObjectManager {
                 query = buildUpdateQuery("alien", objectMap, "Alien_ID");
                 break;
 
-            case "Booglodite":
+            case "Boglodite":
                 // Code for "Booglodite" case
                 HashMap<String, String> boogloditeMap = new HashMap<>();
                 boogloditeMap.put("Antal_Boogies", objectMap.get("Antal_Boogies"));
                 boogloditeMap.put("Alien_ID", objectMap.get("Alien_ID"));
                 objectMap.remove("Antal_Boogies");
 
-                String boogloditeQuery = buildUpdateQuery("booglodite", boogloditeMap, "Alien_ID");
+                String boogloditeQuery = buildUpdateQuery("boglodite", boogloditeMap, "Alien_ID");
                 db.update(boogloditeQuery);
 
                 query = buildUpdateQuery("alien", objectMap, "Alien_ID");
@@ -919,7 +919,11 @@ public class ObjectManager {
                 agentUtilsMap.put(ID, new AgentUtils(Agents.agentList.get(AgentID),item,date));
                     
             }
-        }  
+        }
+        
+        public static void offLoad(){
+            agentUtilsMap.clear();
+        }
     }
 
 }

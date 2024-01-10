@@ -82,7 +82,7 @@
                                       <Component id="inputNameLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="inputEmailLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="inputAreaLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="areaComboBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="locationComboBox" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="abortButton" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="emailTextField" min="-2" max="-2" attributes="0"/>
                                   </Group>
@@ -137,7 +137,7 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="speciesComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="areaComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="locationComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -351,7 +351,7 @@
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
         </Component>
-        <Component class="javax.swing.JComboBox" name="areaComboBox">
+        <Component class="javax.swing.JComboBox" name="locationComboBox">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="0"/>

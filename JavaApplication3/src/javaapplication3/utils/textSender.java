@@ -26,7 +26,7 @@ import javax.xml.bind.DatatypeConverter;
  * @author mopaj
  */
 public class textSender {
-     static void sendSMS (String receiver, String message) {
+     public static void sendSMS (String receiver, String message) {
     try {
         // Construct POST data
         String data = URLEncoder.encode("from", "UTF-8") + "=" + URLEncoder.encode("MIBAdmin", "UTF-8");

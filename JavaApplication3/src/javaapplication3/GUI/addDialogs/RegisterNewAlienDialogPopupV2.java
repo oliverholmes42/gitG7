@@ -16,6 +16,8 @@ import javaapplication3.models.Location;
 import javaapplication3.utils.ObjectManager;
 import javaapplication3.utils.ObjectManager.Agents;
 import static javaapplication3.utils.ObjectManager.db;
+import javaapplication3.utils.inputValidation;
+import javaapplication3.utils.textSender;
 import javax.swing.JOptionPane;
 import oru.inf.InfException;
 
@@ -69,6 +71,7 @@ public class RegisterNewAlienDialogPopupV2 extends javax.swing.JDialog {
         nameTextField = new javax.swing.JTextField();
         phoneTextField = new javax.swing.JTextField();
         emailTextField = new javax.swing.JTextField();
+        sendPassword = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(51, 51, 51));
@@ -173,6 +176,10 @@ public class RegisterNewAlienDialogPopupV2 extends javax.swing.JDialog {
         emailTextField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         emailTextField.setPreferredSize(new java.awt.Dimension(180, 40));
 
+        sendPassword.setBackground(new java.awt.Color(51, 51, 51));
+        sendPassword.setForeground(new java.awt.Color(255, 255, 255));
+        sendPassword.setText("Skicka Lösenord");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -204,13 +211,17 @@ public class RegisterNewAlienDialogPopupV2 extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(registerAlienLabel)
-                .addGap(143, 143, 143))
+                .addGap(30, 30, 30)
+                .addComponent(sendPassword)
+                .addGap(17, 17, 17))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(69, 69, 69)
-                .addComponent(registerAlienLabel)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(registerAlienLabel)
+                    .addComponent(sendPassword))
                 .addGap(31, 31, 31)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(inputNameLabel)
@@ -307,19 +318,22 @@ public class RegisterNewAlienDialogPopupV2 extends javax.swing.JDialog {
     }//GEN-LAST:event_abortButtonActionPerformed
 
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
-        String email = emailTextField.getText();
-        if(ObjectManager.Aliens.emailList.contains(email.toLowerCase())){
-            JOptionPane.showMessageDialog(this, "Alien finns redan med epost: "+email);
-        }
-        else{
-        try {
+
+        if (inputValidation.emailValidation(emailTextField)
+                && inputValidation.fieldValidation(nameTextField)
+                && inputValidation.phoneValidation(phoneTextField)
+                && inputValidation.comboBoxValidation(agentComboBox)
+                && inputValidation.comboBoxValidation(areaComboBox)
+                && inputValidation.comboBoxValidation(speciesComboBox)) {
+
+            try {
             String password = ObjectManager.generatePassword();
             
             HashMap<String, String> map = new HashMap<>();
             int newID = Integer.parseInt(db.fetchSingle("Select max(Alien_ID) from alien"))+1;
             map.put("Alien_ID",newID+"");
             map.put("Registreringsdatum", LocalDate.now().toString());
-            map.put("Epost", email);
+            map.put("Epost", emailTextField.getText());
             map.put("Losenord", password);
             map.put("Namn", nameTextField.getText());
             map.put("Telefon", phoneTextField.getText());
@@ -327,16 +341,32 @@ public class RegisterNewAlienDialogPopupV2 extends javax.swing.JDialog {
             int location = Integer.parseInt(areaComboBox.getSelectedItem().toString().split(":")[0].trim());
             map.put("Plats", location+"");
             
-            int agent = Integer.parseInt(agentComboBox.getSelectedItem().toString().split(":")[0].trim());
-            map.put("Ansvarig_Agent", agent+"");
+            int agentID = Integer.parseInt(agentComboBox.getSelectedItem().toString().split(":")[0].trim());
+            Agent agent = ObjectManager.Agents.agentList.get(agentID);
+            map.put("Ansvarig_Agent", agentID+"");
             
             String race = speciesComboBox.getSelectedItem().toString();
             map.put("Race", race);
             map.put("Value", valueSpinner.getValue().toString());
             
-            ObjectManager.Aliens.addNew(map, ObjectManager.Locations.locationList.get(location), ObjectManager.Agents.agentList.get(agent), race);
-            
-            JOptionPane.showMessageDialog(this, "Registreringen av Alien "+newID+" lyckades!");
+            ObjectManager.Aliens.addNew(map, ObjectManager.Locations.locationList.get(location), agent, race);
+            String message = "Registreringen av Alien " + newID + " lyckades!";
+            boolean send = sendPassword.isSelected();
+            if (!send) {
+                message += "\nLösenord:" + password;
+            }
+
+            JOptionPane.showMessageDialog(this, message);
+            if (send) {
+                String telephone = "+46" + phoneTextField.getText().substring(1);
+                String welcomMessage = String.format("""
+                                                 V\u00e4lkommen till Jorden!
+                                                 Ditt l\u00f6senord \u00e4r: %s. 
+                                                 Spara det s\u00e4kert.
+                                                 Trevlig vistelse!
+                                                 MIB""", password);
+                textSender.sendSMS(telephone, welcomMessage);
+            }
             Parent.reload();
             this.dispose();
             
@@ -385,6 +415,7 @@ public class RegisterNewAlienDialogPopupV2 extends javax.swing.JDialog {
     private javax.swing.JTextField phoneTextField;
     private javax.swing.JLabel registerAlienLabel;
     private javax.swing.JButton registerButton;
+    private javax.swing.JRadioButton sendPassword;
     private javax.swing.JComboBox<String> speciesComboBox;
     private javax.swing.JSpinner valueSpinner;
     // End of variables declaration//GEN-END:variables

@@ -11,9 +11,12 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javaapplication3.utils.LoggingInDialog;
 import javaapplication3.utils.UserSession;
-import javaapplication3.utils.loginInputValidation;
+import javaapplication3.utils.inputValidation;
 import javax.imageio.ImageIO;
+import javax.swing.JDialog;
+import javax.swing.SwingWorker;
 import oru.inf.InfException;
 
 
@@ -24,6 +27,7 @@ import oru.inf.InfException;
  * @author vilson, aiham, oliver, albin
  */
 public class LoginPage extends javax.swing.JFrame {
+    public static long time;
     
 
     /**
@@ -181,35 +185,70 @@ public class LoginPage extends javax.swing.JFrame {
         }
     }
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
+
+        LoggingInDialog login = new LoggingInDialog(this,false);
+        login.setVisible(true);
+        var main = this;
+        login.progress();
+        SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+            @Override
+            protected Void doInBackground() throws Exception {
+                login.progress();
+                login.setMessage("Checking email...");
+                if (inputValidation.emailValidation(epostTextField)) {
+                    login.progress();
+                    login.setMessage("Email varified");
+                    if (inputValidation.isPasswordInputEmpty(passwordPasswordField)) {
+                        login.progress();
+                         login.setMessage("Checking password");
+                        Map<String, Object> loginResult = inputValidation.isEmailAndPasswordCorrect(epostTextField, passwordPasswordField);
+                        boolean isValidated = (Boolean) loginResult.get("isValidated");
+                        login.progress();
+                         login.setMessage("Thinking about sheep");
+                        if (isValidated) {
+                            login.progress();
+                            login.setMessage("Credentials match");
+                            int userId = (Integer) loginResult.get("userId");
+                            int type = (Integer) loginResult.get("type");
+                            String name = (String) loginResult.get("name");
+                            UserSession.getInstance().setUserId(userId);
+                            UserSession.getInstance().setType(type);
+                            UserSession.getInstance().setName(name);
+                            login.progress();
+                            login.setMessage("Setting up User");
+
+                            try {
+                                login.progress();
+                                login.setMessage("Figuring out eggs are a lie that Big Egg tells us");
+                                new MainPage().setVisible(true);
+                                login.progress();
+                                main.dispose();
+                                login.setMessage("Login complete");
+
+                            } catch (InfException ex) {
+                                Logger.getLogger(LoginPage.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+
+                    }
+                }
+
+                return null;
+
+
+            }
+
+            @Override
+            protected void done() {
+                login.progress();
+                login.dispose();
+            }
+        };
+        worker.execute();
+
         
         //Denna ActionEvent hanterar logiken för knapptrycket av "Logga in"-knappen.
-        if (loginInputValidation.isEmailInputEmpty(epostTextField) && loginInputValidation.emailValidation(epostTextField)) {
-            
-            if (loginInputValidation.isPasswordInputEmpty(passwordPasswordField)) {
-                 Map<String, Object> loginResult = loginInputValidation.isEmailAndPasswordCorrect(epostTextField, passwordPasswordField);
-                 boolean isValidated = (Boolean) loginResult.get("isValidated");
-
-                if (isValidated) {
-                    int userId = (Integer) loginResult.get("userId");
-                    int type = (Integer) loginResult.get("type");
-                    String name = (String) loginResult.get("name");
-                    UserSession.getInstance().setUserId(userId);
-                    UserSession.getInstance().setType(type);
-                    UserSession.getInstance().setName(name);
-                    
-                    
-                    this.dispose(); // Close login window
-                    try {
-                        new MainPage().setVisible(true);
-                    } catch (InfException ex) {
-                        Logger.getLogger(LoginPage.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                } 
-                
-            } else {
-                System.out.println("Lösenordsinput tom");
-            }
-        }   //Om något av dessa villkor inte stämmer kommer korresponderande fel
+   //Om något av dessa villkor inte stämmer kommer korresponderande fel
             //dyka upp informerande om vad som gick fel internt i programmets output.
             //Med denna struktur på if-satsen kommer koden heller inte gå vidare förens det första villkoret uppfylls.
     }//GEN-LAST:event_loginButtonActionPerformed

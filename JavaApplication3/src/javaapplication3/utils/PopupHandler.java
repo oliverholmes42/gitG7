@@ -19,6 +19,7 @@ import javaapplication3.GUI.panels.AlienPanel;
 import javaapplication3.GUI.panels.AreaPanel;
 import javaapplication3.GUI.panels.EquipmentPanel;
 import javaapplication3.GUI.panels.LocationPanel;
+import javaapplication3.GUI.panels.ProfilePanel;
 import javaapplication3.models.Agent;
 import javaapplication3.models.Alien;
 import javaapplication3.models.Location;
@@ -50,6 +51,8 @@ public class PopupHandler {
         new editAlienDialog(Parent,home, true, alien).setVisible(true);
     }
     
+
+    
     public static void editAgentPopup(MainPage Parent, AgentPanel home, Agent agent) throws InfException{
         new editAgentDialog(Parent, home, true, agent).setVisible(true);
     }
@@ -66,12 +69,12 @@ public class PopupHandler {
         new RegisterNewUtilitiesDialog(Parent, home, true).setVisible(true);
     }
     
-    public static void addNewPasswordPopup(MainPage Parent, Alien profile){
-        new RegisterNewPasswordDialog(Parent, profile, true).setVisible(true);
+    public static void addNewPasswordPopup(MainPage Parent, Alien profile, ProfilePanel home){
+        new RegisterNewPasswordDialog(Parent, profile, true, home).setVisible(true);
     }
     
-     public static void addNewPasswordPopup(MainPage Parent, Agent profile){
-        new RegisterNewPasswordDialog(Parent, profile, true).setVisible(true);
+     public static void addNewPasswordPopup(MainPage Parent, Agent profile, ProfilePanel home){
+        new RegisterNewPasswordDialog(Parent, profile, true, home).setVisible(true);
     }
      
      public static void ediitLocationPopup(MainPage Parent, LocationPanel home, Location location) throws InfException{
