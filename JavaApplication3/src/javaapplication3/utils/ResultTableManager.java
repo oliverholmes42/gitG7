@@ -10,7 +10,6 @@ import javaapplication3.models.Alien;
 import oru.inf.InfDB;
 import oru.inf.InfException;
 import java.time.LocalDate;
-import static javaapplication3.GUI.panels.AlienPanel.tableModel;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
@@ -71,7 +70,7 @@ public class ResultTableManager {
                 item.getLocation().getName(),
                 item.getResponsibleAgent().getName()
             };
-            tableModel.addRow(row);
+            AlienPanel.tableModel.addRow(row);
         }
     }
     //Ställer in rätt årsspann för vilka registreringsdatum som finns i databasen

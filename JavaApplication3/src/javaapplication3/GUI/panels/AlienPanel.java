@@ -30,7 +30,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class AlienPanel extends javax.swing.JPanel {
     private MainPage Parent;
-    public DefaultTableModel tableModel;
+    public static DefaultTableModel tableModel;
     private com.github.lgooddatepicker.components.DatePicker startDatePicker;
     private com.github.lgooddatepicker.components.DatePicker endDatePicker;
 
@@ -39,7 +39,7 @@ public class AlienPanel extends javax.swing.JPanel {
      */
     public AlienPanel(MainPage Parent) {
     initComponents();
-    this.tableModel = (DefaultTableModel) resultTable.getModel();
+    tableModel = (DefaultTableModel) resultTable.getModel();
     if (UserSession.getInstance().getType() < 5) {
             editAlienButton.setVisible(false);
             removeAlienButton.setVisible(false);
@@ -91,7 +91,7 @@ public class AlienPanel extends javax.swing.JPanel {
         DefaultComboBoxModel<String> dcbm = new DefaultComboBoxModel<>();
         dcbm.addElement("Välj agent");
         for(Agent agent : ObjectManager.Agents.agentList.values()){
-            dcbm.addElement(agent.getId()+": "+agent.getName());
+            dcbm.addElement(agent.getName());
         }
         agentComboBox.setModel(dcbm);
     }
@@ -471,6 +471,7 @@ public class AlienPanel extends javax.swing.JPanel {
         searchbarTextfield.setText("");
         startDatePicker.clear();
         endDatePicker.clear();
+        reload();
     }//GEN-LAST:event_clearFilterButtonActionPerformed
 
     
