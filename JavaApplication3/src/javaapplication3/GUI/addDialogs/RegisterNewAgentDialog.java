@@ -82,6 +82,7 @@ public class RegisterNewAgentDialog extends javax.swing.JDialog {
         dynamicControlLabel = new javax.swing.JLabel();
         dynamiOfficeLabel = new javax.swing.JLabel();
         officeTextField = new javax.swing.JTextField();
+        sendPassword = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setIconImage(null);
@@ -189,46 +190,62 @@ public class RegisterNewAgentDialog extends javax.swing.JDialog {
         officeTextField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         officeTextField.setPreferredSize(new java.awt.Dimension(180, 40));
 
+        sendPassword.setBackground(new java.awt.Color(51, 51, 51));
+        sendPassword.setForeground(new java.awt.Color(255, 255, 255));
+        sendPassword.setText("Skicka lösenord");
+        sendPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sendPasswordActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap(71, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(75, 75, 75)
-                        .addComponent(registerAlienLabel))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(inputNameLabel)
-                            .addComponent(inputEmailLabel)
-                            .addComponent(inputAreaLabel)
-                            .addComponent(areaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(abortButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(emailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(dynamicControlLabel)
-                            .addComponent(controlComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(dynamiOfficeLabel)
-                            .addComponent(inputPhoneLabel)
-                            .addComponent(phoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(inputAgentLabel)
-                            .addComponent(adminTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(inputSpeciesLabel)
-                            .addComponent(agentTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(registerButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(officeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(51, 51, 51))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(inputNameLabel)
+                                    .addComponent(inputEmailLabel)
+                                    .addComponent(inputAreaLabel)
+                                    .addComponent(areaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(abortButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(emailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(dynamicControlLabel)
+                                    .addComponent(controlComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(dynamiOfficeLabel)
+                                    .addComponent(inputPhoneLabel)
+                                    .addComponent(phoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(inputAgentLabel)
+                                    .addComponent(adminTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(inputSpeciesLabel)
+                                    .addComponent(agentTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(registerButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(officeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(75, 75, 75)
+                                .addComponent(registerAlienLabel)))
+                        .addGap(51, 51, 51))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(sendPassword)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(69, 69, 69)
                 .addComponent(registerAlienLabel)
-                .addGap(31, 31, 31)
+                .addGap(4, 4, 4)
+                .addComponent(sendPassword)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(inputNameLabel)
                     .addComponent(inputPhoneLabel))
@@ -301,10 +318,17 @@ public class RegisterNewAgentDialog extends javax.swing.JDialog {
                     map.put("Value", getUniqueValue());
 
                     ObjectManager.Agents.addNew(map, ObjectManager.Areas.areaList.get(area), type);
-
-                    JOptionPane.showMessageDialog(this, "Registreringen av Agent: " + nameTextField.getText() + " med nytt \nagentidentifieringsnummer: " + maxID + " lyckades!");
-                    String telephone = "+46"+phoneTextField.getText().substring(1);
+                    String message = "Registreringen av Agent: " + nameTextField.getText() + " med nytt \nagentidentifieringsnummer: " + maxID + " lyckades!";
+                    if(sendPassword.isSelected()){
+                        String telephone = "+46"+phoneTextField.getText().substring(1);
                     textSender.sendSMS(telephone,"Välkommen Agent!\nDitt Lösenord är: '"+password+"'\nSpara detta på en säker plats.\n\nMIB");
+                   
+                    }
+                    else{
+                        message+="\n Lösenord: "+password;
+                    }
+
+                    JOptionPane.showMessageDialog(this, message);
                     Parent.reload();
                     this.dispose();
 
@@ -398,6 +422,13 @@ public class RegisterNewAgentDialog extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_agentTypeComboBoxActionPerformed
 
+    private void sendPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendPasswordActionPerformed
+        int response = JOptionPane.showConfirmDialog(null, "Detta skickar lösenordet som ett sms till det angivna nummret.\nNummret måste vara ett riktigt nummer.\nVIll du göra detta?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (response == JOptionPane.NO_OPTION) {
+            sendPassword.setSelected(false);
+        }
+    }//GEN-LAST:event_sendPasswordActionPerformed
+
     
     
 
@@ -421,5 +452,6 @@ public class RegisterNewAgentDialog extends javax.swing.JDialog {
     private javax.swing.JTextField phoneTextField;
     private javax.swing.JLabel registerAlienLabel;
     private javax.swing.JButton registerButton;
+    private javax.swing.JRadioButton sendPassword;
     // End of variables declaration//GEN-END:variables
 }

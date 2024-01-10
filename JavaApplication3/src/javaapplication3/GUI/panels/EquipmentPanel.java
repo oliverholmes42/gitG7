@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javaapplication3.GUI.MainPage;
+import static javaapplication3.GUI.panels.AreaPanel.areaTableModel;
 import javaapplication3.models.Utilities;
 import javaapplication3.models.utilitySubClasses.Kommunikation;
 import javaapplication3.models.utilitySubClasses.Teknik;
@@ -19,6 +20,7 @@ import javaapplication3.utils.ObjectManager;
 import javaapplication3.utils.PopupHandler;
 import javaapplication3.utils.UserSession;
 import javax.swing.JOptionPane;
+import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
 import oru.inf.InfException;
 
@@ -27,35 +29,50 @@ import oru.inf.InfException;
  * @author mopaj
  */
 public class EquipmentPanel extends javax.swing.JPanel {
+
     private DefaultTableModel tableModel;
     private final MainPage Parent;
+
     /**
      * Creates new form AgentPanel
+     *
      * @param Parent
      */
     public EquipmentPanel(MainPage Parent) throws NumberFormatException, InfException {
         initComponents();
         this.Parent = Parent;
-        ObjectManager.UtilitiesHandler.loadList();
-        ObjectManager.AgentUtilityHandler.loadList();
-        tableModel = (DefaultTableModel) utilityTable.getModel();
-        loadTable();
-        addListener();
         
-        if(UserSession.getInstance().getType() < 5){
+        SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+            @Override
+            protected Void doInBackground() throws Exception {
+                // Perform long-running data loading tasks here
+                ObjectManager.AgentUtilityHandler.loadList();
+                return null;
+            }
+
+            @Override
+            protected void done() {
+                    tableModel = (DefaultTableModel) utilityTable.getModel();
+                    loadTable();
+                    addListener();
+
+            }
+        };
+        worker.execute();
+        if (UserSession.getInstance().getType() < 5) {
             raderaButton.setVisible(false);
         }
     }
-    
-    private void loadTable(){
+
+    private void loadTable() {
         tableModel.setRowCount(0);
-        for(Utilities item : ObjectManager.UtilitiesHandler.utilitiesList.values()){
+        for (Utilities item : ObjectManager.UtilitiesHandler.utilitiesList.values()) {
             addRow(item);
         }
     }
 
-    private void addRow(Utilities item){
-        HashMap<String,String> itemMap = ObjectManager.AgentUtilityHandler.getUtilityInfo(item);
+    private void addRow(Utilities item) {
+        HashMap<String, String> itemMap = ObjectManager.AgentUtilityHandler.getUtilityInfo(item);
         String[] row = {
             Integer.toString(item.getID()),
             item.getName(),
@@ -67,30 +84,29 @@ public class EquipmentPanel extends javax.swing.JPanel {
         };
         tableModel.addRow(row);
     }
-    
-    public void reload(){
+
+    public void reload() {
         loadTable();
     }
-    
 
     private String getSubValue(Utilities utility) {
-                String uniqueValue;
-         if (utility instanceof Vapen) {
-             Vapen weapon = (Vapen) utility;
-             uniqueValue = "Kaliber: " + weapon.getCaliber(); // Replace getCaliber() with the actual method name
-         } else if (utility instanceof Kommunikation) {
-             Kommunikation commsDevice = (Kommunikation) utility;
-             uniqueValue = "Överföringsteknik: " + commsDevice.getTransmissionTech(); // Replace getTransmissionTech() with the actual method name
-         } else if (utility instanceof Teknik) {
-             Teknik tech = (Teknik) utility;
-             uniqueValue = "Kraftkälla: " + tech.getPowersource(); // Replace getPowersource() with the actual method name
-         } else {
-             // Handle the generic Utilities case or unknown subclass
-             uniqueValue = "Unknown Utility Type";
-         }
-         return uniqueValue;
-       }
-    
+        String uniqueValue;
+        if (utility instanceof Vapen) {
+            Vapen weapon = (Vapen) utility;
+            uniqueValue = "Kaliber: " + weapon.getCaliber(); // Replace getCaliber() with the actual method name
+        } else if (utility instanceof Kommunikation) {
+            Kommunikation commsDevice = (Kommunikation) utility;
+            uniqueValue = "Överföringsteknik: " + commsDevice.getTransmissionTech(); // Replace getTransmissionTech() with the actual method name
+        } else if (utility instanceof Teknik) {
+            Teknik tech = (Teknik) utility;
+            uniqueValue = "Kraftkälla: " + tech.getPowersource(); // Replace getPowersource() with the actual method name
+        } else {
+            // Handle the generic Utilities case or unknown subclass
+            uniqueValue = "Unknown Utility Type";
+        }
+        return uniqueValue;
+    }
+
     private void addListener() {
         utilityTable.addMouseListener(new MouseAdapter() {
             @Override
@@ -98,23 +114,23 @@ public class EquipmentPanel extends javax.swing.JPanel {
                 if (e.getClickCount() == 1) { // Single click
                     int[] rows = utilityTable.getSelectedRows();
                     boolean free = isFree(rows);
-                            
-                    if (rows.length >= 0&& free) {
+
+                    if (rows.length >= 0 && free) {
                         lånaButton.setEnabled(true);
                         raderaButton.setEnabled(true);
-                        
-                        
-                    }else{
+
+                    } else {
                         lånaButton.setEnabled(false);
                         raderaButton.setEnabled(true);
                     }
                 }
             }
-        }); }
-    
-    private boolean isFree(int[] rows){
-        for(int i : rows){
-            if(utilityTable.getValueAt(i, 5)!=null){
+        });
+    }
+
+    private boolean isFree(int[] rows) {
+        for (int i : rows) {
+            if (utilityTable.getValueAt(i, 5) != null) {
                 return false;
             }
         }
@@ -275,13 +291,15 @@ public class EquipmentPanel extends javax.swing.JPanel {
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
         tableModel.setRowCount(0);
         String searched = searchField.getText().toLowerCase();
-        for(Utilities item : ObjectManager.UtilitiesHandler.utilitiesList.values()){
+        for (Utilities item : ObjectManager.UtilitiesHandler.utilitiesList.values()) {
             boolean nameMatch = item.getName().toLowerCase().contains(searched);
             boolean typeMatch = item.getClass().getSimpleName().toLowerCase().contains(searched);
-            
-            if(nameMatch||typeMatch){addRow(item);}
+
+            if (nameMatch || typeMatch) {
+                addRow(item);
+            }
         }
-        
+
     }//GEN-LAST:event_searchButtonActionPerformed
 
     private void laggTillButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_laggTillButtonActionPerformed
@@ -310,15 +328,15 @@ public class EquipmentPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_raderaButtonActionPerformed
 
     private void lånaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lånaButtonActionPerformed
-         ArrayList<Utilities> selectedUtils = new ArrayList<>();
-    for (int i = 0; i < utilityTable.getSelectedRows().length; i++) {
-        int rowIndex = utilityTable.getSelectedRows()[i];
-        int id = Integer.parseInt(utilityTable.getValueAt(rowIndex, 0).toString());
-        Utilities util = ObjectManager.UtilitiesHandler.utilitiesList.get(id);
-        if (util != null) {
-            selectedUtils.add(util);
+        ArrayList<Utilities> selectedUtils = new ArrayList<>();
+        for (int i = 0; i < utilityTable.getSelectedRows().length; i++) {
+            int rowIndex = utilityTable.getSelectedRows()[i];
+            int id = Integer.parseInt(utilityTable.getValueAt(rowIndex, 0).toString());
+            Utilities util = ObjectManager.UtilitiesHandler.utilitiesList.get(id);
+            if (util != null) {
+                selectedUtils.add(util);
+            }
         }
-    }
         int selectedUtilCount = selectedUtils.size();
         String confirmMessage = "Låna " + selectedUtilCount + " redskap?";
 

@@ -409,6 +409,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Skicka L&#xf6;senord"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sendPasswordActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

@@ -16,6 +16,7 @@ import javaapplication3.GUI.editDialogs.editLocationDialog;
 import javaapplication3.GUI.editDialogs.returnEquipmentDialog;
 import javaapplication3.GUI.panels.AgentPanel;
 import javaapplication3.GUI.panels.AlienPanel;
+import javaapplication3.GUI.panels.AlienProfilePanel;
 import javaapplication3.GUI.panels.AreaPanel;
 import javaapplication3.GUI.panels.EquipmentPanel;
 import javaapplication3.GUI.panels.LocationPanel;
@@ -69,7 +70,7 @@ public class PopupHandler {
         new RegisterNewUtilitiesDialog(Parent, home, true).setVisible(true);
     }
     
-    public static void addNewPasswordPopup(MainPage Parent, Alien profile, ProfilePanel home){
+    public static void addNewPasswordPopup(MainPage Parent, Alien profile, AlienProfilePanel home){
         new RegisterNewPasswordDialog(Parent, profile, true, home).setVisible(true);
     }
     

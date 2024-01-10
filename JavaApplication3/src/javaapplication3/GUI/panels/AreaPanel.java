@@ -12,7 +12,9 @@ import javaapplication3.models.Area;
 import javaapplication3.models.agentSubClass.Områdeschef;
 import javaapplication3.utils.ObjectManager;
 import static javaapplication3.utils.ObjectManager.db;
+import javaapplication3.utils.UserSession;
 import javax.swing.JOptionPane;
+import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
 import oru.inf.InfException;
 
@@ -29,10 +31,29 @@ public class AreaPanel extends javax.swing.JPanel {
      */
     public AreaPanel() throws NumberFormatException, InfException {
         initComponents();
-        ObjectManager.Areas.loadList();
-        areaTableModel = (DefaultTableModel) areaTable.getModel();
-        loadTable(); 
-        addListener();
+        
+        SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+            @Override
+            protected Void doInBackground() throws Exception {
+                // Perform long-running data loading tasks here
+                ObjectManager.Areas.loadList();
+                return null;
+            }
+
+            @Override
+            protected void done() {
+                try {
+                    areaTableModel = (DefaultTableModel) areaTable.getModel();
+                    loadTable();
+                    addListener();
+                } catch (InfException ex) {
+                    Logger.getLogger(AreaPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        };
+        worker.execute();
+
+ 
     }
 
     /**

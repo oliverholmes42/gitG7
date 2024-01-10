@@ -179,6 +179,11 @@ public class RegisterNewAlienDialogPopupV2 extends javax.swing.JDialog {
         sendPassword.setBackground(new java.awt.Color(51, 51, 51));
         sendPassword.setForeground(new java.awt.Color(255, 255, 255));
         sendPassword.setText("Skicka Lösenord");
+        sendPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sendPasswordActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -396,6 +401,13 @@ public class RegisterNewAlienDialogPopupV2 extends javax.swing.JDialog {
             }
         }
     }//GEN-LAST:event_phoneTextFieldKeyPressed
+
+    private void sendPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendPasswordActionPerformed
+        int response = JOptionPane.showConfirmDialog(null, "Detta skickar lösenordet som ett sms till det angivna nummret.\nNummret måste vara ett riktigt nummer.\nVIll du göra detta?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (response == JOptionPane.NO_OPTION) {
+            sendPassword.setSelected(false);
+        }
+    }//GEN-LAST:event_sendPasswordActionPerformed
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

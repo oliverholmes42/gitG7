@@ -42,6 +42,7 @@ public class editLocationDialog extends javax.swing.JDialog {
 
     private void fillAreaComboBox() {
         DefaultComboBoxModel<String> model2 = new DefaultComboBoxModel<>();
+        model2.addElement("Välj område");
         for (Area item: ObjectManager.Areas.areaList.values()) {
             model2.addElement(item.getId()+": "+item.getName());
         }

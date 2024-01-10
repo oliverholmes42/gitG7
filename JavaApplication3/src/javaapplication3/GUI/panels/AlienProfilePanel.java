@@ -10,6 +10,7 @@ import oru.inf.InfDB;
 import javaapplication3.utils.ObjectManager;
 import javaapplication3.utils.PopupHandler;
 import javaapplication3.utils.UserSession;
+import javax.swing.SwingWorker;
 import oru.inf.InfException;
 
 
@@ -28,9 +29,22 @@ public class AlienProfilePanel extends javax.swing.JPanel {
      */
     public AlienProfilePanel() throws NumberFormatException, InfException {
     initComponents();
-    ObjectManager.Aliens.loadAlienList();
-    profile = ObjectManager.Aliens.alienList.get(UserSession.getInstance().getUserId());
-    fillPage();
+    
+    SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+            @Override
+            protected Void doInBackground() throws Exception {
+                // Perform long-running data loading tasks here
+                ObjectManager.Aliens.loadAlienList();
+                return null;
+            }
+
+            @Override
+            protected void done() {
+                profile = ObjectManager.Aliens.alienList.get(UserSession.getInstance().getUserId());
+                    fillPage();
+            }
+        };
+        worker.execute();
     }
 
     /**
@@ -267,7 +281,7 @@ public class AlienProfilePanel extends javax.swing.JPanel {
 
     private void NyttLösenButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NyttLösenButton1ActionPerformed
         // TODO add your handling code here:
-        PopupHandler.addNewPasswordPopup(Parent,profile);
+        PopupHandler.addNewPasswordPopup(Parent,profile,this);
     }//GEN-LAST:event_NyttLösenButton1ActionPerformed
 
     private void fillPage() {
@@ -283,6 +297,10 @@ public class AlienProfilePanel extends javax.swing.JPanel {
     private String writePassword(){
     
         return "*".repeat(profile.getPassword().length());
+    }
+    
+    public void refresh(){
+         losenordData.setText(writePassword());
     }
     
    

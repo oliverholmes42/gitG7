@@ -25,6 +25,7 @@ import javaapplication3.utils.UserSession;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.SpinnerDateModel;
+import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
 import oru.inf.InfException;
 
@@ -45,24 +46,34 @@ public class AgentPanel extends javax.swing.JPanel {
     public AgentPanel(MainPage Parent) throws NumberFormatException, InfException {
         initComponents();
         this.Parent = Parent;
-        SpinnerDateModel model = new SpinnerDateModel();
-        model.setCalendarField(Calendar.DAY_OF_MONTH);    
-        ObjectManager.Aliens.loadAlienList();
-        this.Parent = Parent;
-
-        agentTableModel = (DefaultTableModel) resultTable.getModel();
-        loadTable();
-        addListener();
-        agentTableModel = (DefaultTableModel) resultTable.getModel();
-        
-        
-        fillAreaFilter();
-        setDatePicker(); 
-        
-        if(UserSession.getInstance().getType() < 5){
+        if (UserSession.getInstance().getType() < 5) {
             removeAgentButton.setVisible(false);
             alterAgentInfoButton.setVisible(false);
         }
+
+        
+        SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+            @Override
+            protected Void doInBackground() throws Exception {
+                ObjectManager.Agents.LoadList();
+                return null;
+            }
+
+            @Override
+            protected void done() {
+                // This method is invoked on the EDT
+                // Update your table and other UI components here
+                loadTable();
+                addListener();
+                fillAreaFilter();
+
+            }
+        };
+        worker.execute();
+        SpinnerDateModel model = new SpinnerDateModel();
+        model.setCalendarField(Calendar.DAY_OF_MONTH);
+        agentTableModel = (DefaultTableModel) resultTable.getModel();
+        setDatePicker();
 
     }
     
@@ -231,7 +242,7 @@ public class AgentPanel extends javax.swing.JPanel {
 
         areaComboBox.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         areaComboBox.setForeground(new java.awt.Color(51, 51, 51));
-        areaComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Område" }));
+        areaComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Välj område:" }));
         areaComboBox.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51), 3));
         areaComboBox.setPreferredSize(new java.awt.Dimension(180, 45));
 

@@ -26,40 +26,48 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="1" attributes="0">
+          <Group type="102" attributes="0">
               <EmptySpace pref="71" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
-                      <Component id="registerAlienLabel" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="nameTextField" alignment="0" min="-2" pref="180" max="-2" attributes="0"/>
+                                  <Component id="inputNameLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="inputEmailLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="inputAreaLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="areaComboBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="abortButton" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="emailTextField" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="dynamicControlLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="controlComboBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="dynamiOfficeLabel" min="-2" max="-2" attributes="0"/>
+                                  <Component id="inputPhoneLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="phoneTextField" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="inputAgentLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="adminTypeComboBox" alignment="0" min="-2" pref="180" max="-2" attributes="0"/>
+                                  <Component id="inputSpeciesLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="agentTypeComboBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="registerButton" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="officeTextField" alignment="0" min="-2" pref="180" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
+                              <Component id="registerAlienLabel" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="nameTextField" alignment="0" min="-2" pref="180" max="-2" attributes="0"/>
-                          <Component id="inputNameLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="inputEmailLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="inputAreaLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="areaComboBox" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="abortButton" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="emailTextField" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="dynamicControlLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="controlComboBox" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="dynamiOfficeLabel" min="-2" max="-2" attributes="0"/>
-                          <Component id="inputPhoneLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="phoneTextField" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="inputAgentLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="adminTypeComboBox" alignment="0" min="-2" pref="180" max="-2" attributes="0"/>
-                          <Component id="inputSpeciesLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="agentTypeComboBox" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="registerButton" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="officeTextField" alignment="0" min="-2" pref="180" max="-2" attributes="0"/>
-                      </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="sendPassword" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -68,7 +76,9 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
               <Component id="registerAlienLabel" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+              <Component id="sendPassword" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="inputNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="inputPhoneLabel" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -407,6 +417,20 @@
           <Dimension value="[180, 40]"/>
         </Property>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JRadioButton" name="sendPassword">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="33" green="33" red="33" type="rgb"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Skicka l&#xf6;senord"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sendPasswordActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

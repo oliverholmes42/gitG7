@@ -66,11 +66,6 @@ public class AlienPanel extends javax.swing.JPanel {
             }
         };
         worker.execute();
-
-        if (UserSession.getInstance().getType() < 5) {
-            editAlienButton.setVisible(false);
-            removeAlienButton.setVisible(false);
-        }
     }
 
 

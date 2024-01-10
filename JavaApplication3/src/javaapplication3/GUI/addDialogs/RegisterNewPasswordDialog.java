@@ -11,18 +11,23 @@ import javaapplication3.utils.ObjectManager;
 import javax.swing.JOptionPane;
 import oru.inf.InfException;
 import java.awt.Color;
+import javaapplication3.GUI.panels.AlienProfilePanel;
 import javaapplication3.GUI.panels.ProfilePanel;
 import javaapplication3.models.Alien;
 import javaapplication3.utils.inputValidation;
+
 /**
  *
  * @author albin
  */
 public class RegisterNewPasswordDialog extends javax.swing.JDialog {
+
     Agent agentProfile;
     Alien alienProfile;
     Object profile;
-    ProfilePanel home;
+    ProfilePanel agentHome;
+    AlienProfilePanel alienHome;
+
     /**
      * Creates new form RegisterNewLocationDialog2
      */
@@ -31,17 +36,17 @@ public class RegisterNewPasswordDialog extends javax.swing.JDialog {
         initComponents();
         this.agentProfile = profile;
         this.profile = (Agent) profile;
-        this.home = home;
-        getContentPane().setBackground(new Color(51,51,51));
+        agentHome = home;
+        getContentPane().setBackground(new Color(51, 51, 51));
     }
-    
-    public RegisterNewPasswordDialog(java.awt.Frame parent, Alien profile, boolean modal, ProfilePanel home) {
+
+    public RegisterNewPasswordDialog(java.awt.Frame parent, Alien profile, boolean modal, AlienProfilePanel home) {
         super(parent, modal);
         initComponents();
         this.alienProfile = profile;
         this.profile = (Alien) profile;
-        this.home = home;
-        getContentPane().setBackground(new Color(51,51,51));
+        alienHome = home;
+        getContentPane().setBackground(new Color(51, 51, 51));
     }
 
     /**
@@ -177,14 +182,16 @@ public class RegisterNewPasswordDialog extends javax.swing.JDialog {
                     if (profile instanceof Alien) {
                         alienProfile.setPassword(newPasswordField.getText());
                         profile = alienProfile;
+                        alienHome.refresh();
                     } else if (profile instanceof Agent) {
                         agentProfile.setPassword(newPasswordField.getText());
                         profile = agentProfile;
+                        agentHome.refresh();
                     }
 
                     JOptionPane.showMessageDialog(null, "Lösenordet ändrades!");
                     ObjectManager.updateObject(profile);
-                    home.refresh();
+                    
                     this.dispose();
                 }
             } catch (InfException ex) {
@@ -200,7 +207,6 @@ public class RegisterNewPasswordDialog extends javax.swing.JDialog {
     /**
      * @param args the command line arguments
      */
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton abortButton;

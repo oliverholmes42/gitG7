@@ -15,6 +15,7 @@ import javaapplication3.models.Location;
 import javaapplication3.utils.ObjectManager;
 import javaapplication3.utils.PopupHandler;
 import javax.swing.JOptionPane;
+import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
 import oru.inf.InfException;
 
@@ -33,10 +34,23 @@ public class LocationPanel extends javax.swing.JPanel {
     public LocationPanel(MainPage parent) throws InfException {
         this.parent = parent;
         initComponents();
-        ObjectManager.Locations.loadList();
-        locationTableModel = (DefaultTableModel) locationTable.getModel();
-        loadTable();
-        addListener();
+        SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+            @Override
+            protected Void doInBackground() throws Exception {
+                // Perform long-running data loading tasks here
+                ObjectManager.Locations.loadList();
+                return null;
+            }
+
+            @Override
+            protected void done() {
+                locationTableModel = (DefaultTableModel) locationTable.getModel();
+                loadTable();
+                addListener();
+
+            }
+        };
+        worker.execute();
 
     }
 
