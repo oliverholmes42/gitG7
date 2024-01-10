@@ -12,6 +12,7 @@ import javaapplication3.models.Area;
 import javaapplication3.models.Location;
 import javaapplication3.utils.DatabaseConnection;
 import javaapplication3.utils.ObjectManager;
+import javaapplication3.utils.inputValidation;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import oru.inf.InfDB;
@@ -188,28 +189,29 @@ public class editLocationDialog extends javax.swing.JDialog {
 
     
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
-        Location temp = new Location();
-        temp.cloneObject(location);
-        if(!NameField.getText().isEmpty()){
-            String newName = NameField.getText();
-            int areaID = Integer.parseInt(areaComboBox.getSelectedItem().toString().split(":")[0].trim());
-            Area newArea = ObjectManager.Areas.areaList.get(areaID);
-            temp.setName(newName);
-            temp.setArea(newArea);
-            
-            try {
-                ObjectManager.updateObject(temp);
-                location = temp;
-                
-                JOptionPane.showMessageDialog(this, "Redigeringen av plats " + location.getId() + " lyckades!");
-                home.reload();
-                this.dispose();
-            } catch (InfException ex) {
-                Logger.getLogger(editLocationDialog.class.getName()).log(Level.SEVERE, null, ex);
+        if (inputValidation.fieldValidation(NameField) && inputValidation.comboBoxValidation(areaComboBox)) {
+
+            Location temp = new Location();
+            temp.cloneObject(location);
+            if (!NameField.getText().isEmpty()) {
+                String newName = NameField.getText();
+                int areaID = Integer.parseInt(areaComboBox.getSelectedItem().toString().split(":")[0].trim());
+                Area newArea = ObjectManager.Areas.areaList.get(areaID);
+                temp.setName(newName);
+                temp.setArea(newArea);
+
+                try {
+                    ObjectManager.updateObject(temp);
+                    location = temp;
+
+                    JOptionPane.showMessageDialog(this, "Redigeringen av plats " + location.getId() + " lyckades!");
+                    home.reload();
+                    this.dispose();
+                } catch (InfException ex) {
+                    Logger.getLogger(editLocationDialog.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-            }
-        
-        else {JOptionPane.showMessageDialog(this, "Namn måste anges", "Felinmatning", JOptionPane.ERROR_MESSAGE);}
+        }
     }//GEN-LAST:event_registerButtonActionPerformed
 
     private void abortButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abortButtonActionPerformed
