@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import javaapplication3.models.Area;
 import javaapplication3.utils.DatabaseConnection;
 import javaapplication3.utils.ObjectManager;
+import javaapplication3.utils.inputValidation;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import oru.inf.InfDB;
@@ -174,7 +175,7 @@ public class RegisterNewLocationDialog extends javax.swing.JDialog {
 
     
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
-        if(!NameField.getText().isEmpty()){
+        if(inputValidation.fieldValidation(NameField)&&inputValidation.comboBoxValidation(ExistsInBox)){
             int id = Integer.parseInt(IDField.getText());
             String name = NameField.getText();
             int Area = Integer.parseInt(((String) ExistsInBox.getSelectedItem()).split(":")[0].trim());

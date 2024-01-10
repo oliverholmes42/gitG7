@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import javaapplication3.GUI.panels.EquipmentPanel;
 import javaapplication3.utils.ObjectManager;
 import static javaapplication3.utils.ObjectManager.db;
+import javaapplication3.utils.inputValidation;
 import javax.swing.JOptionPane;
 import oru.inf.InfException;
 
@@ -199,7 +200,7 @@ public class RegisterNewUtilitiesDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_abortButtonActionPerformed
 
     private void comfirmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comfirmButtonActionPerformed
-        if (!utilityNameTextField.getText().isEmpty() || !valueTextField.getText().isEmpty() || equipmentTypeComboBox.getSelectedIndex() < 1) {
+        if (inputValidation.fieldValidation(utilityNameTextField)&&inputValidation.comboBoxValidation(equipmentTypeComboBox)&&inputValidation.fieldValidation(valueTextField)) {
             try {
                 HashMap<String, String> map = new HashMap<>();
                 map.put("Utrustnings_ID", maxID + "");

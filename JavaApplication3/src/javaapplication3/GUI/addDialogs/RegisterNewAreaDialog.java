@@ -8,6 +8,7 @@ import java.util.HashMap;
 import javaapplication3.GUI.panels.AreaPanel;
 import javaapplication3.utils.ObjectManager;
 import static javaapplication3.utils.ObjectManager.db;
+import javaapplication3.utils.inputValidation;
 import javax.swing.JOptionPane;
 import oru.inf.InfException;
 
@@ -144,7 +145,7 @@ public class RegisterNewAreaDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void confirmAddAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmAddAreaActionPerformed
-        if (!nameOfNewArea.getText().isEmpty()){
+        if (inputValidation.fieldValidation(nameOfNewArea)){
         
             try {
                 HashMap<String, String> map = new HashMap<>();
