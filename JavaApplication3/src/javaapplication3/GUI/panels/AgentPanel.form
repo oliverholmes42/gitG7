@@ -283,15 +283,15 @@
             </Property>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="9" rowCount="4">
-                <Column editable="true" title="Agent ID" type="java.lang.Object"/>
-                <Column editable="true" title="Namn" type="java.lang.Object"/>
-                <Column editable="true" title="Titel" type="java.lang.Object"/>
-                <Column editable="true" title="Unikt v&#xe4;rde" type="java.lang.Object"/>
-                <Column editable="true" title="Telefonnummer" type="java.lang.Object"/>
-                <Column editable="true" title="Anst&#xe4;llningsdatum" type="java.lang.Object"/>
-                <Column editable="true" title="Administrat&#xf6;r" type="java.lang.Object"/>
-                <Column editable="true" title="E-post" type="java.lang.Object"/>
-                <Column editable="true" title="Omrade" type="java.lang.Object"/>
+                <Column editable="false" title="Agent ID" type="java.lang.Object"/>
+                <Column editable="false" title="Namn" type="java.lang.Object"/>
+                <Column editable="false" title="Titel" type="java.lang.Object"/>
+                <Column editable="false" title="Unikt v&#xe4;rde" type="java.lang.Object"/>
+                <Column editable="false" title="Telefonnummer" type="java.lang.Object"/>
+                <Column editable="false" title="Anst&#xe4;llningsdatum" type="java.lang.Object"/>
+                <Column editable="false" title="Administrat&#xf6;r" type="java.lang.Object"/>
+                <Column editable="false" title="E-post" type="java.lang.Object"/>
+                <Column editable="false" title="Omrade" type="java.lang.Object"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

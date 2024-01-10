@@ -186,7 +186,15 @@ public class EquipmentPanel extends javax.swing.JPanel {
             new String [] {
                 "Utrustning ID", "Benämning ", "Typ", "Unikt Värde", "Status", "Datum för lån", "Lånad av "
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         utilityTable.setRowHeight(60);
         jScrollPane1.setViewportView(utilityTable);
 

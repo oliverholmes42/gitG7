@@ -242,9 +242,6 @@ public class AlienPanel extends javax.swing.JPanel {
         resultTable.getTableHeader().setResizingAllowed(false);
         resultTable.getTableHeader().setReorderingAllowed(false);
         resultScrollPane.setViewportView(resultTable);
-        if (resultTable.getColumnModel().getColumnCount() > 0) {
-            resultTable.getColumnModel().getColumn(1).setResizable(false);
-        }
 
         clearFilterButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         clearFilterButton.setText("Rensa Filter");

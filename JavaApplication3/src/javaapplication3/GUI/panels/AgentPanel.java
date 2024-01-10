@@ -250,7 +250,15 @@ public class AgentPanel extends javax.swing.JPanel {
             new String [] {
                 "Agent ID", "Namn", "Titel", "Unikt värde", "Telefonnummer", "Anställningsdatum", "Administratör", "E-post", "Omrade"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         resultTable.setRowHeight(60);
         resultTable.getTableHeader().setResizingAllowed(false);
         resultTable.getTableHeader().setReorderingAllowed(false);

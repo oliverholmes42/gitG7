@@ -182,7 +182,15 @@ public class HomePanel extends javax.swing.JPanel {
             new String [] {
                 "ID", "Benämning", "Typ", "Unikt värde", "Lånedatum"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         utilityTable.setGridColor(new java.awt.Color(30, 30, 30));
         utilityTable.setInheritsPopupMenu(true);
         utilityTable.setRowHeight(60);
@@ -217,7 +225,15 @@ public class HomePanel extends javax.swing.JPanel {
             new String [] {
                 "ID", "Alien Namn", "TelefonNummer"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         alienHomeTable.setRowHeight(60);
         alienHomeTable.setRowMargin(5);
         jScrollPane1.setViewportView(alienHomeTable);
@@ -236,9 +252,16 @@ public class HomePanel extends javax.swing.JPanel {
             Class[] types = new Class [] {
                 java.lang.Integer.class, java.lang.Object.class, java.lang.String.class, java.lang.Integer.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         topThree.setRowHeight(60);
