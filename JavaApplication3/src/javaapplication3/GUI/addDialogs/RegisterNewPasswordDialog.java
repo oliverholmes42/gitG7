@@ -60,11 +60,11 @@ public class RegisterNewPasswordDialog extends javax.swing.JDialog {
 
         registerNewPasswordText = new javax.swing.JLabel();
         inputCurrentPasswordText = new javax.swing.JLabel();
-        currentPasswordField = new javax.swing.JTextField();
         inputNewPasswordText = new javax.swing.JLabel();
-        newPasswordField = new javax.swing.JTextField();
         abortButton = new javax.swing.JButton();
         registerButton1 = new javax.swing.JButton();
+        newPasswordField = new javax.swing.JPasswordField();
+        currentPasswordField = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(221, 221, 221));
@@ -81,20 +81,10 @@ public class RegisterNewPasswordDialog extends javax.swing.JDialog {
         inputCurrentPasswordText.setForeground(new java.awt.Color(204, 204, 204));
         inputCurrentPasswordText.setText("Ange nuvarande lösenord:");
 
-        currentPasswordField.setBackground(new java.awt.Color(204, 204, 204));
-        currentPasswordField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        currentPasswordField.setForeground(new java.awt.Color(51, 51, 51));
-        currentPasswordField.setPreferredSize(new java.awt.Dimension(180, 40));
-
         inputNewPasswordText.setBackground(new java.awt.Color(204, 204, 204));
         inputNewPasswordText.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         inputNewPasswordText.setForeground(new java.awt.Color(204, 204, 204));
         inputNewPasswordText.setText("Ange nytt lösenord:");
-
-        newPasswordField.setBackground(new java.awt.Color(204, 204, 204));
-        newPasswordField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        newPasswordField.setForeground(new java.awt.Color(51, 51, 51));
-        newPasswordField.setPreferredSize(new java.awt.Dimension(180, 40));
 
         abortButton.setBackground(new java.awt.Color(204, 204, 204));
         abortButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -118,26 +108,29 @@ public class RegisterNewPasswordDialog extends javax.swing.JDialog {
             }
         });
 
+        newPasswordField.setText("jPasswordField1");
+
+        currentPasswordField.setText("jPasswordField1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(newPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(inputNewPasswordText)
-                            .addComponent(currentPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(inputCurrentPasswordText)
-                            .addComponent(registerNewPasswordText)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(39, 39, 39)
-                        .addComponent(abortButton, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(registerButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addComponent(abortButton, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(registerButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(58, 58, 58))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(currentPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(newPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(inputNewPasswordText)
+                    .addComponent(inputCurrentPasswordText)
+                    .addComponent(registerNewPasswordText))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -146,13 +139,13 @@ public class RegisterNewPasswordDialog extends javax.swing.JDialog {
                 .addComponent(registerNewPasswordText)
                 .addGap(26, 26, 26)
                 .addComponent(inputCurrentPasswordText)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(currentPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(8, 8, 8)
+                .addComponent(currentPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(inputNewPasswordText)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(newPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 157, Short.MAX_VALUE)
+                .addComponent(newPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 161, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(abortButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(registerButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -169,22 +162,23 @@ public class RegisterNewPasswordDialog extends javax.swing.JDialog {
 
     private void registerButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButton1ActionPerformed
         boolean passwordMatch;
+        String newPassword = String.valueOf(currentPasswordField.getPassword());
 
         if (agentProfile == null) {
-            passwordMatch = alienProfile.getPassword().equals(currentPasswordField.getText());
+            passwordMatch = alienProfile.getPassword().equals(newPassword);
         } else {
-            passwordMatch = agentProfile.getPassword().equals(currentPasswordField.getText());
+            passwordMatch = agentProfile.getPassword().equals(newPassword);
         }
 
         if (passwordMatch) {
             try {
                 if (inputValidation.passwordValidaton(newPasswordField)) {
                     if (profile instanceof Alien) {
-                        alienProfile.setPassword(newPasswordField.getText());
+                        alienProfile.setPassword(newPassword);
                         profile = alienProfile;
                         alienHome.refresh();
                     } else if (profile instanceof Agent) {
-                        agentProfile.setPassword(newPasswordField.getText());
+                        agentProfile.setPassword(newPassword);
                         profile = agentProfile;
                         agentHome.refresh();
                     }
@@ -210,10 +204,10 @@ public class RegisterNewPasswordDialog extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton abortButton;
-    private javax.swing.JTextField currentPasswordField;
+    private javax.swing.JPasswordField currentPasswordField;
     private javax.swing.JLabel inputCurrentPasswordText;
     private javax.swing.JLabel inputNewPasswordText;
-    private javax.swing.JTextField newPasswordField;
+    private javax.swing.JPasswordField newPasswordField;
     private javax.swing.JButton registerButton1;
     private javax.swing.JLabel registerNewPasswordText;
     // End of variables declaration//GEN-END:variables
