@@ -44,6 +44,9 @@ public class AlienPanel extends javax.swing.JPanel {
             editAlienButton.setVisible(false);
             removeAlienButton.setVisible(false);
         }
+    if(UserSession.getInstance().getType()<2){
+        addAlienButton.setVisible(false);
+    }
     this.Parent = Parent;
     setDatePicker();
 

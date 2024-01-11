@@ -57,13 +57,16 @@ public class ObjectManager {
 
     public static String generatePassword() {
         String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
+        String saltStr;
+        do {
         StringBuilder salt = new StringBuilder();
         Random rnd = new Random();
         while (salt.length() < 6) { // length of the random string.
             int index = (int) (rnd.nextFloat() * SALTCHARS.length());
             salt.append(SALTCHARS.charAt(index));
         }
-        String saltStr = salt.toString();
+        saltStr = salt.toString();}
+        while(!saltStr.matches("(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).+"));
         return saltStr;
     }
 
@@ -429,6 +432,7 @@ public class ObjectManager {
 
         public static void offLoad() {
             alienList.clear();
+            emailList.clear();
         }
         
         public static void addNew(HashMap<String,String> map, Location location, Agent agent, String race) throws InfException{
@@ -556,6 +560,7 @@ public class ObjectManager {
         
         public static void offLoad(){
         agentList.clear();
+        emailList.clear();
         }
         
         
@@ -720,6 +725,7 @@ public class ObjectManager {
         
         public static void offLoad(){
         areaList.clear();
+        
         }
         
         public static void addNew(HashMap<String, String> map)throws InfException {
