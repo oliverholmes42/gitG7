@@ -88,8 +88,6 @@ public class AlienProfilePanel extends javax.swing.JPanel {
         namnText.setFocusable(false);
         namnText.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        namnData.setText("Fornamn Efternamn");
-
         javax.swing.GroupLayout namnPanelLayout = new javax.swing.GroupLayout(namnPanel);
         namnPanel.setLayout(namnPanelLayout);
         namnPanelLayout.setHorizontalGroup(
@@ -115,8 +113,6 @@ public class AlienProfilePanel extends javax.swing.JPanel {
         telefonText.setText("TELEFON:");
         telefonText.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         telefonText.setPreferredSize(new java.awt.Dimension(40, 16));
-
-        telefonData.setText("07000000000");
 
         javax.swing.GroupLayout telefonPanelLayout = new javax.swing.GroupLayout(telefonPanel);
         telefonPanel.setLayout(telefonPanelLayout);
@@ -144,8 +140,6 @@ public class AlienProfilePanel extends javax.swing.JPanel {
         epostText.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         epostText.setPreferredSize(new java.awt.Dimension(40, 16));
 
-        epostData.setText("mail@exempel.com");
-
         javax.swing.GroupLayout epostPanelLayout = new javax.swing.GroupLayout(epostPanel);
         epostPanel.setLayout(epostPanelLayout);
         epostPanelLayout.setHorizontalGroup(
@@ -170,8 +164,6 @@ public class AlienProfilePanel extends javax.swing.JPanel {
         anstallningsdatumText.setText("Registreringsdatum:");
         anstallningsdatumText.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         anstallningsdatumText.setPreferredSize(new java.awt.Dimension(40, 16));
-
-        anstallningsDatumData.setText("2023-10-24");
 
         javax.swing.GroupLayout anstallningsdatumPanelLayout = new javax.swing.GroupLayout(anstallningsdatumPanel);
         anstallningsdatumPanel.setLayout(anstallningsdatumPanelLayout);
@@ -198,8 +190,6 @@ public class AlienProfilePanel extends javax.swing.JPanel {
         losenordText.setText("LÖSENORD:");
         losenordText.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         losenordText.setPreferredSize(new java.awt.Dimension(40, 16));
-
-        losenordData.setText("*****");
 
         javax.swing.GroupLayout losenordPanelLayout = new javax.swing.GroupLayout(losenordPanel);
         losenordPanel.setLayout(losenordPanelLayout);

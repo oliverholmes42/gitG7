@@ -128,9 +128,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="namnData">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Fornamn Efternamn"/>
-          </Properties>
         </Component>
       </SubComponents>
     </Container>
@@ -179,9 +176,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="telefonData">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="07000000000"/>
-          </Properties>
         </Component>
       </SubComponents>
     </Container>
@@ -228,9 +222,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="epostData">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="mail@exempel.com"/>
-          </Properties>
         </Component>
       </SubComponents>
     </Container>
@@ -279,9 +270,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="anstallningsDatumData">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="2023-10-24"/>
-          </Properties>
         </Component>
       </SubComponents>
     </Container>
@@ -330,9 +318,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="losenordData">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="*****"/>
-          </Properties>
         </Component>
       </SubComponents>
     </Container>

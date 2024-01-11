@@ -8,6 +8,8 @@ import java.awt.Desktop;
 import java.net.URI;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javaapplication3.models.Agent;
 import javaapplication3.models.Alien;
 import javaapplication3.models.Area;
@@ -15,6 +17,8 @@ import javaapplication3.models.Location;
 import javaapplication3.utils.DatabaseConnection;
 import javaapplication3.utils.ObjectManager;
 import javaapplication3.utils.UserSession;
+import javax.swing.SwingWorker;
+import javax.swing.table.DefaultTableModel;
 import oru.inf.InfDB;
 import oru.inf.InfException;
 
@@ -35,10 +39,29 @@ public class HomePanelAlien extends javax.swing.JPanel {
     public HomePanelAlien() throws InfException {
         this.db = DatabaseConnection.getInstance();
         initComponents();
-        ObjectManager.Aliens.loadAlienList();
-        ObjectManager.Agents.LoadList();
+        jButton1.setVisible(false);
+        SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+            @Override
+            protected Void doInBackground() throws Exception {
+                ObjectManager.Aliens.loadAlienList();
+                return null;
+            }
+
+            @Override
+            protected void done() {
+                try {
+                    telLArea();
+                    jButton1.setVisible(true);
+                } catch (NumberFormatException ex) {
+                    Logger.getLogger(HomePanelAlien.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (InfException ex) {
+                    Logger.getLogger(HomePanelAlien.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            }
+        };
+        worker.execute();
         jLabel2.setText("Välkommen, "+UserSession.getInstance().getName());
-        telLArea();
     }
     
     private void telLArea() throws NumberFormatException, InfException{
@@ -103,12 +126,12 @@ public class HomePanelAlien extends javax.swing.JPanel {
 
         areaLabel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         areaLabel.setForeground(new java.awt.Color(0, 0, 0));
-        areaLabel.setText("jLabel3");
+        areaLabel.setText(" ");
         areaLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         areaLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         areaLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        areaLabel1.setText("jLabel3");
+        areaLabel1.setText(" ");
         areaLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jButton1.setText("Maila chef");
