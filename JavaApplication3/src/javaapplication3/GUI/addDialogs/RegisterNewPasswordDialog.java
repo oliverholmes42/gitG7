@@ -189,8 +189,7 @@ public class RegisterNewPasswordDialog extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(null, "Ändring av lösenord misslyckades");
             }
         } else {
-            JOptionPane.showMessageDialog(null, "du dum");
-            System.out.println("Misslyckad");
+            JOptionPane.showMessageDialog(null, "Testa igen!");
         }
     }//GEN-LAST:event_registerButtonActionPerformed
 
