@@ -399,7 +399,13 @@ public class AgentPanel extends javax.swing.JPanel {
     private void removeAgentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeAgentButtonActionPerformed
         ArrayList<Integer> selectedID = new ArrayList<Integer>();
         for (int item : resultTable.getSelectedRows()) {
-            selectedID.add(Integer.parseInt((String) resultTable.getValueAt(item, 0)));
+            int id = Integer.parseInt((String) resultTable.getValueAt(item, 0));
+            if (id==UserSession.getInstance().getUserId()){
+                JOptionPane.showMessageDialog(this, "Du kan inte radera dig själv från systemet");
+                return;
+            }
+            selectedID.add(id);
+            
         }
         int selectedAgentCount = selectedID.size(); // Replace with your method
         String message = "Ta bort " + selectedAgentCount + " agent" + (selectedAgentCount > 1 ? "er" : "") + " från systemet?";

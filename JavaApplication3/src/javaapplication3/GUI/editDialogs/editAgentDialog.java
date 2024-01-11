@@ -14,6 +14,7 @@ import javaapplication3.models.agentSubClass.Fältagent;
 import javaapplication3.models.agentSubClass.KontorsChef;
 import javaapplication3.models.agentSubClass.Områdeschef;
 import javaapplication3.utils.ObjectManager;
+import javaapplication3.utils.UserSession;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import oru.inf.InfException;
@@ -36,13 +37,18 @@ public class editAgentDialog extends javax.swing.JDialog {
         this.Parent = home;
         activeAgent = agent;
         ObjectManager.Agents.LoadList();
+        hideStuff();
+        fillInfo(agent);
+        if(activeAgent.getId()==UserSession.getInstance().getUserId()){adminTypeComboBox.setEnabled(false);}
+        getContentPane().setBackground(new Color(51,51,51));
+    }
+
+    public void hideStuff() {
         dynamiOfficeLabel.setVisible(false);
         dynamicControlLabel.setVisible(false);
         controlComboBox.setVisible(false);
         officeTextField.setVisible(false);
         idTextField.setEditable(false);
-        fillInfo(agent);
-        getContentPane().setBackground(new Color(51,51,51));
     }
     
     private void fillInfo(Agent agent) {
@@ -168,7 +174,6 @@ public class editAgentDialog extends javax.swing.JDialog {
         inputAgentLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(500, 650));
 
         abortButton.setBackground(new java.awt.Color(204, 204, 204));
         abortButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
