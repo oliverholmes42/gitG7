@@ -197,7 +197,7 @@ public class editAgentDialog extends javax.swing.JDialog {
         registerButton.setBackground(new java.awt.Color(204, 204, 204));
         registerButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         registerButton.setForeground(new java.awt.Color(102, 102, 102));
-        registerButton.setText("Redigera");
+        registerButton.setText("Spara");
         registerButton.setPreferredSize(new java.awt.Dimension(180, 55));
         registerButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

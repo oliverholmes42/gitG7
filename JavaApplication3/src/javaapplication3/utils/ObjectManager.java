@@ -471,6 +471,7 @@ public class ObjectManager {
                 default:
                     System.out.println("Fel inmatning");
             }
+            emailList.add(map.get("Epost"));
         }
         
         public static void delete(ArrayList<Integer> list) {
@@ -484,6 +485,7 @@ public class ObjectManager {
                     }
                     db.delete("Delete from alien where Alien_ID =" +ID);
                     alienList.remove(ID);
+                    emailList.remove(alien.getEmail());
                 } catch (InfException ex) {
                     Logger.getLogger(ObjectManager.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -601,6 +603,7 @@ public class ObjectManager {
                 default:
                     System.out.println("Fel inmatning");
             }
+            emailList.add(map.get("Epost"));
         }
         
         public static void delete(ArrayList<Integer> list) throws InfException {
@@ -615,6 +618,7 @@ public class ObjectManager {
                 }
                 db.delete("Delete from agent where Agent_ID =" + ID);
                 agentList.remove(ID);
+                emailList.remove(agent.getEmail());
 
             }
 

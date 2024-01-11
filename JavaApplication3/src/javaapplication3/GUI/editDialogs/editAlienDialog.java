@@ -168,7 +168,7 @@ public class editAlienDialog extends javax.swing.JDialog {
         registerButton.setBackground(new java.awt.Color(204, 204, 204));
         registerButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         registerButton.setForeground(new java.awt.Color(102, 102, 102));
-        registerButton.setText("Registrera");
+        registerButton.setText("Spara");
         registerButton.setPreferredSize(new java.awt.Dimension(180, 55));
         registerButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -380,7 +380,7 @@ public class editAlienDialog extends javax.swing.JDialog {
                         temp.setAlienLocation(location);
                         temp.setAlienResponsibleAgent(agent);
                         
-                        int intValue = (int) Math.floor((double) valueSpinner.getValue());
+                        int intValue = (int) Math.floor((Double) valueSpinner.getValue());
                         temp.setBoogieCount(intValue);
                         
                        
@@ -397,7 +397,7 @@ public class editAlienDialog extends javax.swing.JDialog {
                         temp.setAlienLocation(location);
                         temp.setAlienResponsibleAgent(agent);
                         
-                        int intValue = (int) Math.floor((double) valueSpinner.getValue());
+                        int intValue = (int) Math.floor((Double) valueSpinner.getValue());
                         temp.setArmCount(intValue);
 
                        
