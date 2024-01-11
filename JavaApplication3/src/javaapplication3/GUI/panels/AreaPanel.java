@@ -12,7 +12,6 @@ import javaapplication3.models.Area;
 import javaapplication3.models.agentSubClass.Områdeschef;
 import javaapplication3.utils.ObjectManager;
 import static javaapplication3.utils.ObjectManager.db;
-import javaapplication3.utils.UserSession;
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
@@ -191,9 +190,7 @@ public class AreaPanel extends javax.swing.JPanel {
                 try {
                     addRow(i);
                 } catch (InfException ex) {
-                    Logger.getLogger(AreaPanel.class.getName()).log(Level.SEVERE, null, ex);
-                    JOptionPane.showMessageDialog(null, "An error occurred during the removal process.", "Error", JOptionPane.ERROR_MESSAGE);
-                }
+               }
             }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -207,7 +204,7 @@ public class AreaPanel extends javax.swing.JPanel {
             if (chef != null) {
                 JOptionPane.showMessageDialog(this,area.getName() + "\n" + "Områdeschef: " + chef.getName(), "Info", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(this, "No Områdeschef found for the selected area.", "Info", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Omårdet saknar en chef.", "Info", JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (NumberFormatException ex) {
             Logger.getLogger(AreaPanel.class.getName()).log(Level.SEVERE, null, ex);
