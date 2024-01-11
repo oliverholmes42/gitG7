@@ -242,7 +242,7 @@ public class returnEquipmentDialog extends javax.swing.JDialog {
         U10Box = new javax.swing.JComboBox<>();
         U9Box = new javax.swing.JComboBox<>();
         U8Box = new javax.swing.JComboBox<>();
-        jLabel1 = new javax.swing.JLabel();
+        titleLabel = new javax.swing.JLabel();
         U2Label = new javax.swing.JLabel();
         U1Label = new javax.swing.JLabel();
         U3Label = new javax.swing.JLabel();
@@ -254,8 +254,8 @@ public class returnEquipmentDialog extends javax.swing.JDialog {
         U8Label = new javax.swing.JLabel();
         U10Label = new javax.swing.JLabel();
         addLayerButton = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        returnItemsButton = new javax.swing.JButton();
+        cancelButton = new javax.swing.JButton();
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -303,10 +303,10 @@ public class returnEquipmentDialog extends javax.swing.JDialog {
         U8Box.setForeground(new java.awt.Color(51, 51, 51));
         U8Box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jLabel1.setBackground(new java.awt.Color(221, 221, 221));
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Returnera Utrustning");
+        titleLabel.setBackground(new java.awt.Color(221, 221, 221));
+        titleLabel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        titleLabel.setForeground(new java.awt.Color(255, 255, 255));
+        titleLabel.setText("Returnera Utrustning");
 
         U2Label.setBackground(new java.awt.Color(221, 221, 221));
         U2Label.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -367,21 +367,21 @@ public class returnEquipmentDialog extends javax.swing.JDialog {
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(200, 200, 200));
-        jButton1.setForeground(new java.awt.Color(51, 51, 51));
-        jButton1.setText("Returnera");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        returnItemsButton.setBackground(new java.awt.Color(200, 200, 200));
+        returnItemsButton.setForeground(new java.awt.Color(51, 51, 51));
+        returnItemsButton.setText("Returnera");
+        returnItemsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                returnItemsButtonActionPerformed(evt);
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(200, 200, 200));
-        jButton2.setForeground(new java.awt.Color(51, 51, 51));
-        jButton2.setText("Avbryt");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        cancelButton.setBackground(new java.awt.Color(200, 200, 200));
+        cancelButton.setForeground(new java.awt.Color(51, 51, 51));
+        cancelButton.setText("Avbryt");
+        cancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                cancelButtonActionPerformed(evt);
             }
         });
 
@@ -424,11 +424,11 @@ public class returnEquipmentDialog extends javax.swing.JDialog {
                                     .addComponent(U10Box, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
+                                    .addComponent(titleLabel)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(returnItemsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(0, 20, Short.MAX_VALUE)))))
                 .addGap(16, 16, 16))
         );
@@ -436,7 +436,7 @@ public class returnEquipmentDialog extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addComponent(jLabel1)
+                .addComponent(titleLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(U1Label)
@@ -481,8 +481,8 @@ public class returnEquipmentDialog extends javax.swing.JDialog {
                 .addComponent(addLayerButton)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(returnItemsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(10, Short.MAX_VALUE))
         );
 
@@ -495,7 +495,7 @@ public class returnEquipmentDialog extends javax.swing.JDialog {
         showNextLayer();
     }//GEN-LAST:event_addLayerButtonActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void returnItemsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnItemsButtonActionPerformed
         try{
             ArrayList<Integer> items = getSelectedID();
         ObjectManager.AgentUtilityHandler.remove(items);
@@ -509,11 +509,11 @@ public class returnEquipmentDialog extends javax.swing.JDialog {
                                       "Error", 
                                       JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_returnItemsButtonActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_cancelButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -543,10 +543,10 @@ public class returnEquipmentDialog extends javax.swing.JDialog {
     private javax.swing.JLabel U9Label;
     private javax.swing.JButton addLayerButton;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton cancelButton;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JButton returnItemsButton;
+    private javax.swing.JLabel titleLabel;
     // End of variables declaration//GEN-END:variables
 }

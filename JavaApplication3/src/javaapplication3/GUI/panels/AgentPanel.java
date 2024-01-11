@@ -192,7 +192,7 @@ public class AgentPanel extends javax.swing.JPanel {
         addAgentButton = new javax.swing.JButton();
         endDate = new javax.swing.JPanel();
         startDate = new javax.swing.JPanel();
-        filterLabel1 = new javax.swing.JLabel();
+        filterLabelDate = new javax.swing.JLabel();
 
         addAlienButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         addAlienButton1.setText("Lägg till Agent");
@@ -317,9 +317,9 @@ public class AgentPanel extends javax.swing.JPanel {
             .addGap(0, 30, Short.MAX_VALUE)
         );
 
-        filterLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        filterLabel1.setForeground(new java.awt.Color(51, 51, 51));
-        filterLabel1.setText("Filtrera efter datum:");
+        filterLabelDate.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        filterLabelDate.setForeground(new java.awt.Color(51, 51, 51));
+        filterLabelDate.setText("Filtrera efter datum:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -339,7 +339,7 @@ public class AgentPanel extends javax.swing.JPanel {
                                 .addGroup(layout.createSequentialGroup()
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(filterLabel1)
+                                        .addComponent(filterLabelDate)
                                         .addGroup(layout.createSequentialGroup()
                                             .addComponent(addAgentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -374,7 +374,7 @@ public class AgentPanel extends javax.swing.JPanel {
                         .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(filterLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(filterLabelDate, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(filterLabel, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -483,7 +483,7 @@ public class AgentPanel extends javax.swing.JPanel {
     private javax.swing.JButton clearFilterButton;
     private javax.swing.JPanel endDate;
     private javax.swing.JLabel filterLabel;
-    private javax.swing.JLabel filterLabel1;
+    private javax.swing.JLabel filterLabelDate;
     private javax.swing.JLabel headerLabel;
     private javax.swing.JButton removeAgentButton;
     private javax.swing.JScrollPane resultScrollPane;

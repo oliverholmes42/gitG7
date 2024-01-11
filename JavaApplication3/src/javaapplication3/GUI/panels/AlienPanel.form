@@ -45,7 +45,7 @@
                                   <Component id="areaComboBox" min="-2" max="-2" attributes="0"/>
                                   <Component id="agentComboBox" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="filterLabel1" min="-2" max="-2" attributes="0"/>
+                              <Component id="filterLabel" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
@@ -53,7 +53,7 @@
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="endDate" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="startDate" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="filterLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="filterLabelDate" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                                   <Component id="clearFilterButton" min="-2" pref="180" max="-2" attributes="0"/>
@@ -92,7 +92,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="headerLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
-                      <Component id="filterLabel1" min="-2" max="-2" attributes="0"/>
+                      <Component id="filterLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="2" attributes="0">
                           <Component id="searchButton" alignment="2" min="-2" pref="58" max="-2" attributes="0"/>
@@ -103,7 +103,7 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
-                      <Component id="filterLabel" min="-2" max="-2" attributes="0"/>
+                      <Component id="filterLabelDate" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="startDate" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -248,7 +248,7 @@
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JLabel" name="filterLabel">
+    <Component class="javax.swing.JLabel" name="filterLabelDate">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="1"/>
@@ -494,7 +494,7 @@
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JLabel" name="filterLabel1">
+    <Component class="javax.swing.JLabel" name="filterLabel">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="1"/>

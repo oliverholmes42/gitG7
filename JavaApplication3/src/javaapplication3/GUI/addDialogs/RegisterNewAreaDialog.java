@@ -45,7 +45,7 @@ public class RegisterNewAreaDialog extends javax.swing.JDialog {
         addAreaText = new javax.swing.JLabel();
         valueOfId = new javax.swing.JLabel();
         confirmAddArea = new javax.swing.JButton();
-        abortAddArea1 = new javax.swing.JButton();
+        abortAddArea = new javax.swing.JButton();
         nameOfNewArea = new javax.swing.JTextField();
         areaID = new javax.swing.JTextField();
 
@@ -77,10 +77,10 @@ public class RegisterNewAreaDialog extends javax.swing.JDialog {
             }
         });
 
-        abortAddArea1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        abortAddArea1.setText("Avbryt");
-        abortAddArea1.setToolTipText("");
-        abortAddArea1.addActionListener(new java.awt.event.ActionListener() {
+        abortAddArea.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        abortAddArea.setText("Avbryt");
+        abortAddArea.setToolTipText("");
+        abortAddArea.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 abortAddAreaActionPerformed(evt);
             }
@@ -101,7 +101,7 @@ public class RegisterNewAreaDialog extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(abortAddArea1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(abortAddArea, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(confirmAddArea, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createSequentialGroup()
@@ -135,7 +135,7 @@ public class RegisterNewAreaDialog extends javax.swing.JDialog {
                         .addComponent(nameOfNewArea, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(52, 52, 52)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(abortAddArea1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(abortAddArea, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(confirmAddArea, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(92, Short.MAX_VALUE))
         );
@@ -173,7 +173,7 @@ public class RegisterNewAreaDialog extends javax.swing.JDialog {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton abortAddArea1;
+    private javax.swing.JButton abortAddArea;
     private javax.swing.JLabel addAreaText;
     private javax.swing.JTextField areaID;
     private javax.swing.JButton confirmAddArea;

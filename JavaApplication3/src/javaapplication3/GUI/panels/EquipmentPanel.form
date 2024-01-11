@@ -50,11 +50,11 @@
                       </Group>
                       <Component id="searchButton" min="-2" pref="89" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jScrollPane1" min="-2" pref="730" max="-2" attributes="0"/>
+                  <Component id="tableContainer" min="-2" pref="730" max="-2" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="lånaButton" min="-2" pref="168" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jButton1" min="-2" pref="168" max="-2" attributes="0"/>
+                      <Component id="returnUtilities" min="-2" pref="168" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="122" max="-2" attributes="0"/>
@@ -90,11 +90,11 @@
                   <Component id="searchField" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="13" max="32767" attributes="0"/>
-              <Component id="jScrollPane1" min="-2" pref="285" max="-2" attributes="0"/>
+              <Component id="tableContainer" min="-2" pref="285" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="lånaButton" alignment="3" min="-2" pref="47" max="-2" attributes="0"/>
-                  <Component id="jButton1" alignment="3" min="-2" pref="47" max="-2" attributes="0"/>
+                  <Component id="returnUtilities" alignment="3" min="-2" pref="47" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="225" max="-2" attributes="0"/>
           </Group>
@@ -148,7 +148,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="raderaButtonActionPerformed"/>
       </Events>
     </Component>
-    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+    <Container class="javax.swing.JScrollPane" name="tableContainer">
       <AuxValues>
         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
       </AuxValues>
@@ -215,12 +215,12 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="returnUtilities">
       <Properties>
         <Property name="text" type="java.lang.String" value="&#xc5;terl&#xe4;mna utrustning"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="returnUtilitiesActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="l&#xe5;naButton">

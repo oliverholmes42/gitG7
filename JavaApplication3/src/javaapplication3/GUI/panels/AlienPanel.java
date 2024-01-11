@@ -159,7 +159,7 @@ public class AlienPanel extends javax.swing.JPanel {
         searchButton = new javax.swing.JButton();
         areaComboBox = new javax.swing.JComboBox<>();
         raceComboBox = new javax.swing.JComboBox<>();
-        filterLabel = new javax.swing.JLabel();
+        filterLabelDate = new javax.swing.JLabel();
         resultScrollPane = new javax.swing.JScrollPane();
         resultTable = new javax.swing.JTable();
         clearFilterButton = new javax.swing.JButton();
@@ -169,7 +169,7 @@ public class AlienPanel extends javax.swing.JPanel {
         startDate = new javax.swing.JPanel();
         endDate = new javax.swing.JPanel();
         agentComboBox = new javax.swing.JComboBox<>();
-        filterLabel1 = new javax.swing.JLabel();
+        filterLabel = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(200, 200, 200));
         setMaximumSize(new java.awt.Dimension(1128, 792));
@@ -209,9 +209,9 @@ public class AlienPanel extends javax.swing.JPanel {
         raceComboBox.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51), 3));
         raceComboBox.setPreferredSize(new java.awt.Dimension(180, 45));
 
-        filterLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        filterLabel.setForeground(new java.awt.Color(51, 51, 51));
-        filterLabel.setText("Filtrera efter datum:");
+        filterLabelDate.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        filterLabelDate.setForeground(new java.awt.Color(51, 51, 51));
+        filterLabelDate.setText("Filtrera efter datum:");
 
         resultScrollPane.setViewportBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(63, 63, 63), 3));
 
@@ -307,9 +307,9 @@ public class AlienPanel extends javax.swing.JPanel {
         agentComboBox.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51), 3));
         agentComboBox.setPreferredSize(new java.awt.Dimension(180, 45));
 
-        filterLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        filterLabel1.setForeground(new java.awt.Color(51, 51, 51));
-        filterLabel1.setText("Filtrera efter:");
+        filterLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        filterLabel.setForeground(new java.awt.Color(51, 51, 51));
+        filterLabel.setText("Filtrera efter:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -328,14 +328,14 @@ public class AlienPanel extends javax.swing.JPanel {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(areaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(agentComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(filterLabel1))
+                                .addComponent(filterLabel))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(layout.createSequentialGroup()
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(endDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(startDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(filterLabel))
+                                        .addComponent(filterLabelDate))
                                     .addGap(24, 24, 24)
                                     .addComponent(clearFilterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(layout.createSequentialGroup()
@@ -362,7 +362,7 @@ public class AlienPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(headerLabel)
                         .addGap(46, 46, 46)
-                        .addComponent(filterLabel1)
+                        .addComponent(filterLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                             .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -371,7 +371,7 @@ public class AlienPanel extends javax.swing.JPanel {
                             .addComponent(clearFilterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(92, 92, 92)
-                        .addComponent(filterLabel)
+                        .addComponent(filterLabelDate)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(startDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -500,7 +500,7 @@ public class AlienPanel extends javax.swing.JPanel {
     private javax.swing.JButton editAlienButton;
     private javax.swing.JPanel endDate;
     private javax.swing.JLabel filterLabel;
-    private javax.swing.JLabel filterLabel1;
+    private javax.swing.JLabel filterLabelDate;
     private javax.swing.JLabel headerLabel;
     private javax.swing.JComboBox<String> raceComboBox;
     private javax.swing.JButton removeAlienButton;

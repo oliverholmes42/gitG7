@@ -70,7 +70,7 @@ public class LoginPage extends javax.swing.JFrame {
         epostTextField = new javax.swing.JTextField();
         passwordPasswordField = new javax.swing.JPasswordField();
         loginButton = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        fastButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(204, 204, 204));
@@ -114,10 +114,10 @@ public class LoginPage extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Fast as Fuck boi v2");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        fastButton.setText("Fast as Fuck boi v2");
+        fastButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                fastButtonActionPerformed(evt);
             }
         });
 
@@ -130,7 +130,7 @@ public class LoginPage extends javax.swing.JFrame {
                 .addComponent(loginLogoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(61, 61, 61)
                 .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
+                    .addComponent(fastButton)
                     .addComponent(loginLabel)
                     .addComponent(passwordLabel)
                     .addComponent(epostLabel)
@@ -158,7 +158,7 @@ public class LoginPage extends javax.swing.JFrame {
                         .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(loginLogoLabel))
                 .addGap(27, 27, 27)
-                .addComponent(jButton1)
+                .addComponent(fastButton)
                 .addContainerGap(126, Short.MAX_VALUE))
         );
 
@@ -253,7 +253,7 @@ public class LoginPage extends javax.swing.JFrame {
             //Med denna struktur på if-satsen kommer koden heller inte gå vidare förens det första villkoret uppfylls.
     }//GEN-LAST:event_loginButtonActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void fastButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fastButtonActionPerformed
         try {
             // TODO add your handling code here:
             UserSession.getInstance().setUserId(1);
@@ -264,7 +264,7 @@ public class LoginPage extends javax.swing.JFrame {
         } catch (InfException ex) {
             Logger.getLogger(LoginPage.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_fastButtonActionPerformed
     
     
     
@@ -274,7 +274,7 @@ public class LoginPage extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel epostLabel;
     private javax.swing.JTextField epostTextField;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton fastButton;
     private javax.swing.JButton loginButton;
     private javax.swing.JLabel loginLabel;
     private javax.swing.JLabel loginLogoLabel;

@@ -34,7 +34,7 @@ public class HomePanel extends javax.swing.JPanel {
      */
     public HomePanel() throws InfException {
     initComponents();
-        jLabel2.setText("Välkommen, " + UserSession.getInstance().getName());
+        mainHeader.setText("Välkommen, " + UserSession.getInstance().getName());
 
         // Using SwingWorker to load data in the background
         SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
@@ -148,15 +148,15 @@ public class HomePanel extends javax.swing.JPanel {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        utilityTableContainer = new javax.swing.JScrollPane();
         utilityTable = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        utilityHeader = new javax.swing.JLabel();
+        mainHeader = new javax.swing.JLabel();
+        top3Header = new javax.swing.JLabel();
+        yourAliensHeader = new javax.swing.JLabel();
+        alienUtilityContainer = new javax.swing.JScrollPane();
         alienHomeTable = new javax.swing.JTable();
-        jScrollPane3 = new javax.swing.JScrollPane();
+        top3TableContainer = new javax.swing.JScrollPane();
         topThree = new javax.swing.JTable();
 
         jMenu1.setText("File");
@@ -195,25 +195,25 @@ public class HomePanel extends javax.swing.JPanel {
         utilityTable.setInheritsPopupMenu(true);
         utilityTable.setRowHeight(60);
         utilityTable.setRowMargin(1);
-        jScrollPane2.setViewportView(utilityTable);
+        utilityTableContainer.setViewportView(utilityTable);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(50, 50, 50));
-        jLabel1.setText("Din Utrustning:");
-        jLabel1.setAutoscrolls(true);
+        utilityHeader.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        utilityHeader.setForeground(new java.awt.Color(50, 50, 50));
+        utilityHeader.setText("Din Utrustning:");
+        utilityHeader.setAutoscrolls(true);
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(30, 30, 30));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Välkommen");
+        mainHeader.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
+        mainHeader.setForeground(new java.awt.Color(30, 30, 30));
+        mainHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        mainHeader.setText("Välkommen");
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(50, 50, 50));
-        jLabel3.setText("Top 3 agenter med flest aliens:");
+        top3Header.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        top3Header.setForeground(new java.awt.Color(50, 50, 50));
+        top3Header.setText("Top 3 agenter med flest aliens:");
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(50, 50, 50));
-        jLabel4.setText("Aliens du är ansvarig för:");
+        yourAliensHeader.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        yourAliensHeader.setForeground(new java.awt.Color(50, 50, 50));
+        yourAliensHeader.setText("Aliens du är ansvarig för:");
 
         alienHomeTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -236,7 +236,7 @@ public class HomePanel extends javax.swing.JPanel {
         });
         alienHomeTable.setRowHeight(60);
         alienHomeTable.setRowMargin(5);
-        jScrollPane1.setViewportView(alienHomeTable);
+        alienUtilityContainer.setViewportView(alienHomeTable);
 
         topThree.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -266,7 +266,7 @@ public class HomePanel extends javax.swing.JPanel {
         });
         topThree.setRowHeight(60);
         topThree.setRowMargin(5);
-        jScrollPane3.setViewportView(topThree);
+        top3TableContainer.setViewportView(topThree);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -277,48 +277,48 @@ public class HomePanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1089, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(utilityTableContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 1089, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(6, 6, 6)
-                                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 567, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(top3TableContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 567, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(124, 124, 124)
-                                        .addComponent(jLabel3)))
+                                        .addComponent(top3Header)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(jLabel4)
+                                        .addComponent(yourAliensHeader)
                                         .addGap(96, 96, 96))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(alienUtilityContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(8, 8, 8))))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(67, 67, 67)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 977, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(mainHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 977, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(482, 482, 482)
-                        .addComponent(jLabel1)))
+                        .addComponent(utilityHeader)))
                 .addGap(21, 21, 21))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(31, 31, 31)
-                .addComponent(jLabel2)
+                .addComponent(mainHeader)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4))
+                    .addComponent(top3Header)
+                    .addComponent(yourAliensHeader))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(alienUtilityContainer, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
+                    .addComponent(top3TableContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(utilityHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(utilityTableContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -326,17 +326,17 @@ public class HomePanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable alienHomeTable;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JScrollPane alienUtilityContainer;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JLabel mainHeader;
+    private javax.swing.JLabel top3Header;
+    private javax.swing.JScrollPane top3TableContainer;
     private javax.swing.JTable topThree;
+    private javax.swing.JLabel utilityHeader;
     private javax.swing.JTable utilityTable;
+    private javax.swing.JScrollPane utilityTableContainer;
+    private javax.swing.JLabel yourAliensHeader;
     // End of variables declaration//GEN-END:variables
 }

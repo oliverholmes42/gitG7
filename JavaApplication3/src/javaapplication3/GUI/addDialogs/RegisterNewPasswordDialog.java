@@ -62,7 +62,7 @@ public class RegisterNewPasswordDialog extends javax.swing.JDialog {
         inputCurrentPasswordText = new javax.swing.JLabel();
         inputNewPasswordText = new javax.swing.JLabel();
         abortButton = new javax.swing.JButton();
-        registerButton1 = new javax.swing.JButton();
+        registerButton = new javax.swing.JButton();
         newPasswordField = new javax.swing.JPasswordField();
         currentPasswordField = new javax.swing.JPasswordField();
 
@@ -97,14 +97,14 @@ public class RegisterNewPasswordDialog extends javax.swing.JDialog {
             }
         });
 
-        registerButton1.setBackground(new java.awt.Color(204, 204, 204));
-        registerButton1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        registerButton1.setForeground(new java.awt.Color(51, 51, 51));
-        registerButton1.setText("Registrera");
-        registerButton1.setPreferredSize(new java.awt.Dimension(180, 55));
-        registerButton1.addActionListener(new java.awt.event.ActionListener() {
+        registerButton.setBackground(new java.awt.Color(204, 204, 204));
+        registerButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        registerButton.setForeground(new java.awt.Color(51, 51, 51));
+        registerButton.setText("Registrera");
+        registerButton.setPreferredSize(new java.awt.Dimension(180, 55));
+        registerButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                registerButton1ActionPerformed(evt);
+                registerButtonActionPerformed(evt);
             }
         });
 
@@ -116,7 +116,7 @@ public class RegisterNewPasswordDialog extends javax.swing.JDialog {
                 .addGap(39, 39, 39)
                 .addComponent(abortButton, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(registerButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(registerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(58, 58, 58))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -144,7 +144,7 @@ public class RegisterNewPasswordDialog extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 161, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(abortButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(registerButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(registerButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(60, 60, 60))
         );
 
@@ -156,7 +156,7 @@ public class RegisterNewPasswordDialog extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_abortButtonActionPerformed
 
-    private void registerButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButton1ActionPerformed
+    private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
         boolean passwordMatch;
         String newPassword = String.valueOf(currentPasswordField.getPassword());
 
@@ -192,7 +192,7 @@ public class RegisterNewPasswordDialog extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "du dum");
             System.out.println("Misslyckad");
         }
-    }//GEN-LAST:event_registerButton1ActionPerformed
+    }//GEN-LAST:event_registerButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -204,7 +204,7 @@ public class RegisterNewPasswordDialog extends javax.swing.JDialog {
     private javax.swing.JLabel inputCurrentPasswordText;
     private javax.swing.JLabel inputNewPasswordText;
     private javax.swing.JPasswordField newPasswordField;
-    private javax.swing.JButton registerButton1;
+    private javax.swing.JButton registerButton;
     private javax.swing.JLabel registerNewPasswordText;
     // End of variables declaration//GEN-END:variables
 }

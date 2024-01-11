@@ -63,8 +63,8 @@ public class LocationPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        header = new javax.swing.JLabel();
+        locationTableContainer = new javax.swing.JScrollPane();
         locationTable = new javax.swing.JTable();
         locationSeach = new javax.swing.JTextField();
         editLocationInfo = new javax.swing.JButton();
@@ -75,9 +75,9 @@ public class LocationPanel extends javax.swing.JPanel {
         setBackground(new java.awt.Color(200, 200, 200));
         setPreferredSize(new java.awt.Dimension(1128, 792));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("Plats");
+        header.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        header.setForeground(new java.awt.Color(0, 0, 0));
+        header.setText("Plats");
 
         locationTable.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         locationTable.setForeground(new java.awt.Color(40, 40, 40));
@@ -110,7 +110,7 @@ public class LocationPanel extends javax.swing.JPanel {
         locationTable.setRowHeight(40);
         locationTable.setRowMargin(1);
         locationTable.setShowGrid(true);
-        jScrollPane2.setViewportView(locationTable);
+        locationTableContainer.setViewportView(locationTable);
 
         editLocationInfo.setText("Ändra information");
         editLocationInfo.setEnabled(false);
@@ -156,7 +156,7 @@ public class LocationPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(187, 187, 187)
-                        .addComponent(jLabel1))
+                        .addComponent(header))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -164,14 +164,14 @@ public class LocationPanel extends javax.swing.JPanel {
                                 .addComponent(locationSeach, javax.swing.GroupLayout.PREFERRED_SIZE, 566, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(searchButton))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 801, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(locationTableContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 801, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(67, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(106, 106, 106)
-                .addComponent(jLabel1)
+                .addComponent(header)
                 .addGap(87, 87, 87)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(searchButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -185,7 +185,7 @@ public class LocationPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(editLocationInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE))
+                    .addComponent(locationTableContainer, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -295,10 +295,10 @@ public class LocationPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addLocationButton;
     private javax.swing.JButton editLocationInfo;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel header;
     private javax.swing.JTextField locationSeach;
     private javax.swing.JTable locationTable;
+    private javax.swing.JScrollPane locationTableContainer;
     private javax.swing.JButton removeLocationButton;
     private javax.swing.JButton searchButton;
     // End of variables declaration//GEN-END:variables

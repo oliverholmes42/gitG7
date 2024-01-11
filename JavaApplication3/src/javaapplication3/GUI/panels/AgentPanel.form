@@ -62,7 +62,7 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="filterLabel1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="filterLabelDate" min="-2" max="-2" attributes="0"/>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="addAgentButton" min="-2" pref="240" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
@@ -113,7 +113,7 @@
                   </Group>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="filterLabel1" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="filterLabelDate" alignment="1" min="-2" max="-2" attributes="0"/>
                           <Component id="filterLabel" alignment="1" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -421,7 +421,7 @@
         </DimensionLayout>
       </Layout>
     </Container>
-    <Component class="javax.swing.JLabel" name="filterLabel1">
+    <Component class="javax.swing.JLabel" name="filterLabelDate">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="1"/>

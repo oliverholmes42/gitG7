@@ -151,9 +151,9 @@ public class EquipmentPanel extends javax.swing.JPanel {
         sökUtrusningRubrik = new javax.swing.JLabel();
         laggTillButton = new javax.swing.JButton();
         raderaButton = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        tableContainer = new javax.swing.JScrollPane();
         utilityTable = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        returnUtilities = new javax.swing.JButton();
         lånaButton = new javax.swing.JButton();
         searchField = new javax.swing.JTextField();
 
@@ -212,12 +212,12 @@ public class EquipmentPanel extends javax.swing.JPanel {
             }
         });
         utilityTable.setRowHeight(60);
-        jScrollPane1.setViewportView(utilityTable);
+        tableContainer.setViewportView(utilityTable);
 
-        jButton1.setText("Återlämna utrustning");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        returnUtilities.setText("Återlämna utrustning");
+        returnUtilities.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                returnUtilitiesActionPerformed(evt);
             }
         });
 
@@ -249,11 +249,11 @@ public class EquipmentPanel extends javax.swing.JPanel {
                                 .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 513, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)))
                         .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 730, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tableContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 730, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lånaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(returnUtilities, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(122, 122, 122)
                         .addComponent(sökUtrusningRubrik)))
@@ -279,11 +279,11 @@ public class EquipmentPanel extends javax.swing.JPanel {
                     .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tableContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lånaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(returnUtilities, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(225, 225, 225))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -358,21 +358,21 @@ public class EquipmentPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_lånaButtonActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void returnUtilitiesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnUtilitiesActionPerformed
         // TODO add your handling code here:
         PopupHandler.returnUtilityPopup(Parent, this);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_returnUtilitiesActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton laggTillButton;
     private javax.swing.JButton lånaButton;
     private javax.swing.JButton raderaButton;
+    private javax.swing.JButton returnUtilities;
     private javax.swing.JButton searchButton;
     private javax.swing.JTextField searchField;
     private javax.swing.JLabel sökUtrusningRubrik;
+    private javax.swing.JScrollPane tableContainer;
     private javax.swing.JTable utilityTable;
     private javax.swing.JLabel utrustningTitel;
     // End of variables declaration//GEN-END:variables

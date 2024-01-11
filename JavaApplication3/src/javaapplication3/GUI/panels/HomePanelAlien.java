@@ -39,7 +39,7 @@ public class HomePanelAlien extends javax.swing.JPanel {
     public HomePanelAlien() throws InfException {
         this.db = DatabaseConnection.getInstance();
         initComponents();
-        jButton1.setVisible(false);
+        mailBoss.setVisible(false);
         SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
             @Override
             protected Void doInBackground() throws Exception {
@@ -51,7 +51,7 @@ public class HomePanelAlien extends javax.swing.JPanel {
             protected void done() {
                 try {
                     telLArea();
-                    jButton1.setVisible(true);
+                    mailBoss.setVisible(true);
                 } catch (NumberFormatException ex) {
                     Logger.getLogger(HomePanelAlien.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (InfException ex) {
@@ -61,7 +61,7 @@ public class HomePanelAlien extends javax.swing.JPanel {
             }
         };
         worker.execute();
-        jLabel2.setText("Välkommen, "+UserSession.getInstance().getName());
+        header.setText("Välkommen, "+UserSession.getInstance().getName());
     }
     
     private void telLArea() throws NumberFormatException, InfException{
@@ -75,12 +75,12 @@ public class HomePanelAlien extends javax.swing.JPanel {
     if(agent != null){
         message = "Områdeschef: "+agent.getName();
     }else{
-        jButton1.setVisible(false);
+        mailBoss.setVisible(false);
     }
     
     
-    areaLabel.setText("Du tillhör "+location.getName()+" en del av "+area.getName());
-    areaLabel1.setText(message);
+    areaLabel1.setText("Du tillhör "+location.getName()+" en del av "+area.getName());
+    areaLabel2.setText(message);
     
     
     }
@@ -97,11 +97,11 @@ public class HomePanelAlien extends javax.swing.JPanel {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        areaLabel = new javax.swing.JLabel();
+        header = new javax.swing.JLabel();
+        areaHeader = new javax.swing.JLabel();
         areaLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        areaLabel2 = new javax.swing.JLabel();
+        mailBoss = new javax.swing.JButton();
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -115,29 +115,29 @@ public class HomePanelAlien extends javax.swing.JPanel {
         setMinimumSize(new java.awt.Dimension(1128, 792));
         setPreferredSize(new java.awt.Dimension(1128, 792));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(30, 30, 30));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Välkommen");
+        header.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
+        header.setForeground(new java.awt.Color(30, 30, 30));
+        header.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        header.setText("Välkommen");
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("Du tillhör område:");
-
-        areaLabel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        areaLabel.setForeground(new java.awt.Color(0, 0, 0));
-        areaLabel.setText(" ");
-        areaLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        areaHeader.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        areaHeader.setForeground(new java.awt.Color(0, 0, 0));
+        areaHeader.setText("Du tillhör område:");
 
         areaLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         areaLabel1.setForeground(new java.awt.Color(0, 0, 0));
         areaLabel1.setText(" ");
         areaLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        jButton1.setText("Maila chef");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        areaLabel2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        areaLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        areaLabel2.setText(" ");
+        areaLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        mailBoss.setText("Maila chef");
+        mailBoss.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                mailBossActionPerformed(evt);
             }
         });
 
@@ -148,40 +148,40 @@ public class HomePanelAlien extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(areaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 814, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(areaLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 611, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(areaLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 814, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(areaLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 611, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(148, 148, 148))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(67, 67, 67)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 977, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, 977, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(402, 402, 402)
-                        .addComponent(jLabel1))
+                        .addComponent(areaHeader))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(158, 158, 158)
-                        .addComponent(jButton1)))
+                        .addComponent(mailBoss)))
                 .addContainerGap(84, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(31, 31, 31)
-                .addComponent(jLabel2)
+                .addComponent(header)
                 .addGap(69, 69, 69)
-                .addComponent(jLabel1)
+                .addComponent(areaHeader)
                 .addGap(45, 45, 45)
-                .addComponent(areaLabel)
-                .addGap(18, 18, 18)
                 .addComponent(areaLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(areaLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(mailBoss)
                 .addContainerGap(420, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void mailBossActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mailBossActionPerformed
    
         if (!Desktop.isDesktopSupported()) {
             System.out.println("Desktop is not supported");
@@ -210,17 +210,17 @@ public class HomePanelAlien extends javax.swing.JPanel {
             e.printStackTrace();
         }
     
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_mailBossActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel areaLabel;
+    private javax.swing.JLabel areaHeader;
     private javax.swing.JLabel areaLabel1;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel areaLabel2;
+    private javax.swing.JLabel header;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JButton mailBoss;
     // End of variables declaration//GEN-END:variables
 }
