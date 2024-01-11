@@ -395,7 +395,6 @@ public class AlienPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addAlienButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addAlienButtonActionPerformed
-        // TODO add your handling code here:
         PopupHandler.addNewAlienPopup(Parent, this);
     }//GEN-LAST:event_addAlienButtonActionPerformed
     

@@ -144,7 +144,7 @@ public class AgentPanel extends javax.swing.JPanel {
             Områdeschef oChef = (Områdeschef) item;
             uniqueValue = oChef.getControlArea().getName(); // Replace getBoogieCount() with the actual method name
         } else {
-            // Handle the generic Alien case or unknown subclass
+            // Handle the generic Agent case or unknown subclass
             uniqueValue = "Unknown Title Value";
         }
         return uniqueValue;

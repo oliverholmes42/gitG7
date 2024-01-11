@@ -14,7 +14,6 @@ import javaapplication3.models.alienSubclasses.Boglodite;
 import javaapplication3.models.alienSubclasses.Squid;
 import javaapplication3.models.alienSubclasses.Worm;
 import javaapplication3.utils.ObjectManager;
-import javaapplication3.utils.ResultTableManager;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
@@ -303,8 +302,25 @@ public class editAlienDialog extends javax.swing.JDialog {
 
     private void speciesComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_speciesComboBoxActionPerformed
         
-        if(evt.getSource() == speciesComboBox){
-            ResultTableManager.activateValueInputForSpecies(speciesComboBox, dynamicLabel, valueSpinner);
+        if (evt.getSource() == speciesComboBox) {
+            if (speciesComboBox.getSelectedIndex() == 0) {
+                dynamicLabel.setText("Antal Boogies:");
+                dynamicLabel.setVisible(true);
+                valueSpinner.setVisible(true);
+                valueSpinner.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, 20.0d, 1d));
+            }
+            if (speciesComboBox.getSelectedIndex() == 1) {
+                dynamicLabel.setText("Antal Armar:");
+                dynamicLabel.setVisible(true);
+                valueSpinner.setVisible(true);
+                valueSpinner.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, 20.0d, 1d));
+            }
+            if (speciesComboBox.getSelectedIndex() == 2) {
+                dynamicLabel.setText("Ange längd (m):");
+                dynamicLabel.setVisible(true);
+                valueSpinner.setVisible(true);
+                valueSpinner.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, 20.0d, 0.1d));
+            }
         }
     }//GEN-LAST:event_speciesComboBoxActionPerformed
 

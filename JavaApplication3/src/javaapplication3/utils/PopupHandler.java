@@ -52,8 +52,6 @@ public class PopupHandler {
         new editAlienDialog(Parent,home, true, alien).setVisible(true);
     }
     
-
-    
     public static void editAgentPopup(MainPage Parent, AgentPanel home, Agent agent) throws InfException{
         new editAgentDialog(Parent, home, true, agent).setVisible(true);
     }
