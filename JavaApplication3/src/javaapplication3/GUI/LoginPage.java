@@ -194,7 +194,7 @@ public class LoginPage extends javax.swing.JFrame {
             @Override
             protected Void doInBackground() throws Exception {
                 login.progress();
-                login.setMessage("Checking email...");
+                login.setMessage("Checking email");
                 if (inputValidation.emailValidation(epostTextField)) {
                     login.progress();
                     login.setMessage("Email varified");
@@ -204,7 +204,6 @@ public class LoginPage extends javax.swing.JFrame {
                         Map<String, Object> loginResult = inputValidation.isEmailAndPasswordCorrect(epostTextField, passwordPasswordField);
                         boolean isValidated = (Boolean) loginResult.get("isValidated");
                         login.progress();
-                         login.setMessage("Thinking about sheep");
                         if (isValidated) {
                             login.progress();
                             login.setMessage("Credentials match");
@@ -219,7 +218,7 @@ public class LoginPage extends javax.swing.JFrame {
 
                             try {
                                 login.progress();
-                                login.setMessage("Figuring out eggs are a lie that Big Egg tells us");
+                                login.setMessage("Setting up enviroment");
                                 new MainPage().setVisible(true);
                                 login.progress();
                                 main.dispose();
@@ -247,10 +246,10 @@ public class LoginPage extends javax.swing.JFrame {
         worker.execute();
 
         
-        //Denna ActionEvent hanterar logiken för knapptrycket av "Logga in"-knappen.
-   //Om något av dessa villkor inte stämmer kommer korresponderande fel
-            //dyka upp informerande om vad som gick fel internt i programmets output.
-            //Med denna struktur på if-satsen kommer koden heller inte gå vidare förens det första villkoret uppfylls.
+        /*Denna ActionEvent hanterar logiken för knapptrycket av "Logga in"-knappen.
+        Om något av dessa villkor inte stämmer kommer korresponderande fel
+        dyka upp informerande om vad som gick fel internt i programmets output.
+        Med denna struktur på if-satsen kommer koden heller inte gå vidare förens det första villkoret uppfylls.*/
     }//GEN-LAST:event_loginButtonActionPerformed
 
     private void fastButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fastButtonActionPerformed

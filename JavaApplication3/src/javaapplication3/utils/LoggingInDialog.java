@@ -13,9 +13,7 @@ import java.awt.Color;
 public class LoggingInDialog extends javax.swing.JDialog {
     private int value = 0;
 
-    /**
-     * Creates new form LoggingInDialog
-     */
+    //Dialogruta som syns när man loggar in, innehåller progressbar och nuvarande fas för inlogget
     public LoggingInDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -24,14 +22,19 @@ public class LoggingInDialog extends javax.swing.JDialog {
 
     }
     
+    //Ökar progress bar med ett
     public void progress(){
         value++;
         logInProcess.setValue(value);    
     }
+    
+    //ökar progress bar med i
     public void progress(int i){
         value+=i;
         logInProcess.setValue(value);    
     }
+    
+    //Sätter meddelandet som visars
     public void setMessage(String message) throws InterruptedException{
         text.setText(message);
         Thread.sleep(300);

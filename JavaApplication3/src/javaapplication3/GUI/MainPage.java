@@ -170,8 +170,6 @@ public class MainPage extends javax.swing.JFrame {
 }
 
 private void labelMouseExited(java.awt.event.MouseEvent evt, JLabel label) {
-    // Action for mouse exit
-    // Example: Revert background color
     label.setOpaque(false);
     label.setBackground(null);
 }

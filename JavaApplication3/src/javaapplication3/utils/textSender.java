@@ -25,7 +25,10 @@ import javax.xml.bind.DatatypeConverter;
  *
  * @author mopaj
  */
+//klass för att skicka ut sms
 public class textSender {
+    
+    //metod för att skicka sms, tar emot vart det ska och vad som ska skickas 
      public static void sendSMS (String receiver, String message) {
     try {
         // Construct POST data
