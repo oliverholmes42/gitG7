@@ -7,10 +7,9 @@ package javaapplication3.utils;
 
 
 
-/**
- *
- * @author mopaj
- */
+/* Denna fil haterar problematiken kring åtkomster vid inloggning i applikationen. För att kunna identifiera vad för inloggningstyp som angetts
+ * och för att kunna se vad för åtkomst som ska ges till den som loggar in, tilldelas varje agentobjekt och alienobjekt ett typ-ID för att programmet
+ * ska veta vad för åtkomst som som inloggaren får. */
 public class UserSession {
 
     private static UserSession instance;
@@ -18,43 +17,49 @@ public class UserSession {
     private int type;
     private String name;
 
-    private UserSession() {}
+    private UserSession() {
+    }
 
+    // Returnerar instansen. Om instansvärdet är null skapas en ny instans istället. 
     public static UserSession getInstance() {
         if (instance == null) {
             instance = new UserSession();
         }
         return instance;
     }
-    
+
+    // Rensar värdet för instansen vid exempelvis utloggning.
     public void stopSession() {
         userId = -1;
     }
 
+    // Setter för userID
     public void setUserId(int userId) {
         this.userId = userId;
     }
 
+    // Getter för userID
     public int getUserId() {
         return userId;
     }
-    
-    public int getType(){
+
+    // Getter för Type
+    public int getType() {
         return type;
     }
-    
-    public void setType(int type){
-        this.type=type;
+
+    // Setter för Type
+    public void setType(int type) {
+        this.type = type;
     }
-    
-    public String getName(){
+
+    // Getter för namn
+    public String getName() {
         return name;
     }
-    
-     public void setName(String name){
+
+    // Setter för namn
+    public void setName(String name) {
         this.name = name;
     }
-    
-    
 }
-

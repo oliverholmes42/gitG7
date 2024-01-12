@@ -10,45 +10,47 @@ import javaapplication3.models.Alien;
 import javaapplication3.models.Location;
 import oru.inf.InfException;
 
-/**
- *
- * @author mopaj
- */
+/* Denna fil hanterar subklassen Squid som tillhör superklassen Alien. I denna subklass sker två saker, nya objekt skapas, 
+ * och gamla objekt klonas och ersätts med det nya objektet skapat. */
 public class Worm extends Alien {
     private double langd;
     
     public Worm(HashMap<String, String> alienMap, Location location, Agent agent) {
-        super(alienMap, location, agent); // Call the superclass constructor
-        if (!alienMap.containsKey("Value")){
-        langd = Double.parseDouble(alienMap.get("Langd"));
+        super(alienMap, location, agent); // Anropar superklassens konstruktor.
+
+        // För att se om värdet för "Längd" kommer från databasen eller från registrerings-HashMapen sker denna kontroll:
+        if (!alienMap.containsKey("Value")) {
+            langd = Double.parseDouble(alienMap.get("Langd"));
+        } else {
+            langd = Double.parseDouble(alienMap.get("Value"));
+        }
     }
-    else{langd =Double.parseDouble(alienMap.get("Value"));}}
     
-     public Worm(){
+    // Skapar ett nytt tomt objekt
+    public Worm() {
         super();
     }
     
+    // Klonar ett redan existerande objekt för att kunna ersätta med nytt redigerat objekt.
     public void cloneObject(Worm other) {
-        super.cloneObject(other); // Call Alien's cloneObject to handle Alien properties
-        this.langd = other.langd; // Clone Squid-specific property
+        super.cloneObject(other); 
+        this.langd = other.langd;
     }
     
-    
-    
-    public void editObject(HashMap<String,String> alienMap) throws InfException {
+    // Redigerar klon-objektet för att kunna ersätta gammalt.
+    public void editObject(HashMap<String, String> alienMap) throws InfException {
         super.editObject(alienMap);
-         langd = Double.parseDouble(alienMap.get("Langd"));
+        langd = Double.parseDouble(alienMap.get("Langd"));
     }
 
-    // Getters and setters for the length attribute
+    // Getters för längd
     public double getLength() {
         return langd;
     }
-
+    
+    // Setter för längd
     public void setLength(double length) {
         this.langd = length;
     }
-
-  
 
 }

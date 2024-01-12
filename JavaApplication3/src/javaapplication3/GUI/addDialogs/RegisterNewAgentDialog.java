@@ -380,7 +380,6 @@ public class RegisterNewAgentDialog extends javax.swing.JDialog {
 
         String phoneNumber = phoneTextField.getText();
         int length = phoneNumber.length();
-        char c = evt.getKeyChar();
 
         if (evt.getKeyChar() >= '0' && evt.getKeyChar() <= '9') {
             if (length < 10) {
