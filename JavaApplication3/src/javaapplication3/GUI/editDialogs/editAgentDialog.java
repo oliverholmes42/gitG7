@@ -19,30 +19,28 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import oru.inf.InfException;
 
-/**
- *
- * @author vilso
- */
+
 public class editAgentDialog extends javax.swing.JDialog {
     
     private AgentPanel Parent;
     private Agent activeAgent;
 
     /**
-     * Creates new form editAgentDialog
+     * Konstruktor för att skapa ett nytt redigeringsDialog fönster för agenter
      */
     public editAgentDialog(java.awt.Frame parent, AgentPanel home, boolean modal, Agent agent) throws InfException {
         super(parent, modal);
         initComponents();
         this.Parent = home;
         activeAgent = agent;
-        ObjectManager.Agents.LoadList();
-        hideStuff();
-        fillInfo(agent);
-        if(activeAgent.getId()==UserSession.getInstance().getUserId()){adminTypeComboBox.setEnabled(false);}
-        getContentPane().setBackground(new Color(51,51,51));
+        ObjectManager.Agents.LoadList(); //Laddaragentlistan från ObjectManager
+        hideStuff(); //Gömmer vissa komponenter baserat på agenttyp
+        fillInfo(agent); // Fyller formuläret med information från den aktiva agenten
+        if(activeAgent.getId()==UserSession.getInstance().getUserId()){adminTypeComboBox.setEnabled(false);}// Inaktiverar adminTypeComboBox om den redigerade agenten är användaren shälv
+        getContentPane().setBackground(new Color(51,51,51)); // Sätter bakgrundsfärgen
     }
 
+    // Denna metod gömmer vissa komponenter i gränssnittet beroende på agenttyp. 
     public void hideStuff() {
         dynamiOfficeLabel.setVisible(false);
         dynamicControlLabel.setVisible(false);
@@ -51,6 +49,7 @@ public class editAgentDialog extends javax.swing.JDialog {
         idTextField.setEditable(false);
     }
     
+   // Fyller formuläret med information från den aktiva agenten
     private void fillInfo(Agent agent) {
         fillComboBox();
         fillControlComboBox();
@@ -63,6 +62,7 @@ public class editAgentDialog extends javax.swing.JDialog {
         fillAgentTypes(agent);
     }
     
+    //Fyller områdeslistan i gränssnittet. 
     private void fillComboBox() {
         DefaultComboBoxModel<String> dcbm = new DefaultComboBoxModel<>();
         dcbm.addElement("Välj område:");
@@ -75,6 +75,7 @@ public class editAgentDialog extends javax.swing.JDialog {
         }
     }
     
+    //Fyller specifika komponenter baserat på agenttyp.
     private void fillAgentTypes(Agent agent){
         if(agent instanceof Fältagent){
             agentTypeComboBox.setSelectedItem(agent.getClass().getSimpleName());
@@ -96,6 +97,7 @@ public class editAgentDialog extends javax.swing.JDialog {
         }
     }
     
+    //Fyller kontrollområdeslistan i gränssnittet 
     private void fillControlComboBox() {
         DefaultComboBoxModel<String> dcbm = new DefaultComboBoxModel<>();
         dcbm.addElement("Välj område:");
@@ -108,6 +110,7 @@ public class editAgentDialog extends javax.swing.JDialog {
         }
     }
     
+    // Metod som returnerar ett unikt värde beroende på agenttyp
     private String getUniqueValue() {
         int index = agentTypeComboBox.getSelectedIndex();
 
@@ -121,6 +124,7 @@ public class editAgentDialog extends javax.swing.JDialog {
         }
     }
     
+    // Konverterar adminTypeComboBox till en sträng 
     private String boolToChar(){
         String string = adminTypeComboBox.getSelectedItem().toString();
         if(string.equals("Ja")){
@@ -129,6 +133,8 @@ public class editAgentDialog extends javax.swing.JDialog {
         return "N";
     }
     
+    
+    // Kontrollerar om vissa dynamiska komponenter är ifyllda beroende på agenttyp
     private boolean checkDynamic(){
         int index = agentTypeComboBox.getSelectedIndex();
 
@@ -358,11 +364,15 @@ public class editAgentDialog extends javax.swing.JDialog {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    //Metod anropas när användaren klickar på "Abryt" knappen
     private void abortButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abortButtonActionPerformed
         this.dispose();
     }//GEN-LAST:event_abortButtonActionPerformed
-
+    
+    /**
+     * Metoden hanterar tangentnedtryckningarna telefonnummerfältet
+     * Kontrollerar ifall inmatningen är en siffra samt en begränsad läng på 10-tecken
+     **/
     private void phoneTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_phoneTextFieldKeyPressed
 
         String phoneNumber = phoneTextField.getText();
@@ -383,7 +393,11 @@ public class editAgentDialog extends javax.swing.JDialog {
             }
         }
     }//GEN-LAST:event_phoneTextFieldKeyPressed
-
+    
+    /**Denna metod anropas när användaren klikar på spara-knappen
+     * Kontrollerar ifall de nödvändiga rutorna är ifyllda,annars vissas felmeddelande
+     * Uppdaterar information för den aktiva agenten med det nya. 
+     **/
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
         try {
         boolean isNameEmpty = nameTextField.getText().isEmpty();
@@ -507,7 +521,8 @@ public class editAgentDialog extends javax.swing.JDialog {
         System.out.println(e);
     }
     }//GEN-LAST:event_registerButtonActionPerformed
-
+    
+    //Metoden anropas när användaren väljer en annan agenttyp i komboboxen
     private void agentTypeComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agentTypeComboBoxActionPerformed
         if(evt.getSource() == agentTypeComboBox){
             if(agentTypeComboBox.getSelectedIndex() == 1){

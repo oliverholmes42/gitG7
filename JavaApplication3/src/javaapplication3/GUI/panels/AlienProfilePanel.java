@@ -14,26 +14,22 @@ import javax.swing.SwingWorker;
 import oru.inf.InfException;
 
 
-/**
- *
- * @Albin
- */
+
 public class AlienProfilePanel extends javax.swing.JPanel {
     
     public static InfDB db; 
-    private MainPage Parent;
-    private Alien profile;
+    private MainPage Parent;//Refererar till huvudfönstret 
+    private Alien profile; // Den aktuella Alienprofiel som visas 
     
     /**
-     * Creates new form AgentPanel
+     * Skapar en ny instans av AlienProfilPanel
      */
     public AlienProfilePanel() throws NumberFormatException, InfException {
-    initComponents();
+    initComponents();//Intialiserar komponenterna påpanel
     
     SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
             @Override
             protected Void doInBackground() throws Exception {
-                // Perform long-running data loading tasks here
                 ObjectManager.Aliens.loadAlienList();
                 return null;
             }
@@ -270,13 +266,13 @@ public class AlienProfilePanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void NyttLösenButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NyttLösenButton1ActionPerformed
-        // TODO add your handling code here:
+        
         PopupHandler.addNewPasswordPopup(Parent,profile,this);
     }//GEN-LAST:event_NyttLösenButton1ActionPerformed
 
+    // Fyller sidan med data från den aktuella Alien profilen 
     private void fillPage() {
-        // TODO add your handling code here:
-        
+     
         namnData.setText(profile.getName());
         epostData.setText(profile.getEmail());
         telefonData.setText(profile.getTelephone());
@@ -284,11 +280,13 @@ public class AlienProfilePanel extends javax.swing.JPanel {
         losenordData.setText(writePassword());
     }
 
+    //Döljer lösenordet genom att ersätta varje tecken med **
     private String writePassword(){
     
         return "*".repeat(profile.getPassword().length());
     }
     
+    //Metod för att uppdatera lösenordsinformation på sidan
     public void refresh(){
          losenordData.setText(writePassword());
     }

@@ -24,22 +24,21 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author mopaj
- */
+
 public class AlienPanel extends javax.swing.JPanel {
     private MainPage Parent;
     public static DefaultTableModel tableModel;
+    //komponenter för datumväljare 
     private com.github.lgooddatepicker.components.DatePicker startDatePicker;
     private com.github.lgooddatepicker.components.DatePicker endDatePicker;
 
     /**
-     * Creates new form AgentPanel
+     * Skapar en ny panel för alien hantering
      */
     public AlienPanel(MainPage Parent) {
     initComponents();
     tableModel = (DefaultTableModel) resultTable.getModel();
+    //Döljer knappar beroende på användartyp 
     if (UserSession.getInstance().getType() < 5) {
             editAlienButton.setVisible(false);
             removeAlienButton.setVisible(false);
@@ -53,17 +52,17 @@ public class AlienPanel extends javax.swing.JPanel {
         SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
             @Override
             protected Void doInBackground() throws Exception {
-                // Perform long-running data loading tasks here
+               
                 ObjectManager.Aliens.loadAlienList();
                 return null;
             }
 
             @Override
             protected void done() {
-                // This method is invoked on the EDT
-                // Update your table and other UI components here
+                
+                // Uppdatera tabellen och andraUI komponenter 
                 loadTable();
-                fillAreaFilter(); // Call this after the data is loaded
+                fillAreaFilter(); 
                 addListener();
                 fillAgentFilter();
             }
@@ -71,12 +70,12 @@ public class AlienPanel extends javax.swing.JPanel {
         worker.execute();
     }
 
-
+    //Metoden för att konfigurera datumväljare 
     private void setDatePicker(){
         startDatePicker = new com.github.lgooddatepicker.components.DatePicker();
         endDatePicker = new com.github.lgooddatepicker.components.DatePicker();
 
-    // Replace the startDate and endDate panels with DatePicker components
+    // Ersätter startdate och endDate panelern med DatePicker komponenterna 
         startDate.setLayout(new BorderLayout());
         startDate.add(startDatePicker);
         endDate.setLayout(new BorderLayout());
@@ -85,6 +84,7 @@ public class AlienPanel extends javax.swing.JPanel {
         
     }
     
+    //Metod för att fylla agent Filter 
     private void fillAgentFilter(){
         DefaultComboBoxModel<String> dcbm = new DefaultComboBoxModel<>();
         dcbm.addElement("Välj agent");
@@ -93,6 +93,8 @@ public class AlienPanel extends javax.swing.JPanel {
         }
         agentComboBox.setModel(dcbm);
     }
+    
+    //Metod för att fylla area filter
     private void fillAreaFilter() {
         DefaultComboBoxModel<String> dcbm = new DefaultComboBoxModel<>();
         dcbm.addElement("Välj plats");
@@ -103,6 +105,7 @@ public class AlienPanel extends javax.swing.JPanel {
     }
     
 
+    //Metoden laddar data i tabellern
     private void loadTable() { 
 
         for (Alien item : ObjectManager.Aliens.alienList.values()) {
@@ -110,6 +113,7 @@ public class AlienPanel extends javax.swing.JPanel {
         }
     }
 
+    //Metod som lägger till rad i tabellen 
     private void addRow(Alien item) {
         String[] row = {
             Integer.toString(item.getID()),
@@ -125,6 +129,7 @@ public class AlienPanel extends javax.swing.JPanel {
         tableModel.addRow(row);
     }
 
+    //Metod för att fåunikt värde beroende på Alien typ
     private String getSubValue(Alien item) {
         String uniqueValue;
         if (item instanceof Worm) {
@@ -132,12 +137,11 @@ public class AlienPanel extends javax.swing.JPanel {
             uniqueValue = "Längd: " + worm.getLength();
         } else if (item instanceof Squid) {
             Squid squid = (Squid) item;
-            uniqueValue = "Armar: " + squid.getArmCount(); // Replace getArmCount() with the actual method name
+            uniqueValue = "Armar: " + squid.getArmCount(); 
         } else if (item instanceof Boglodite) {
             Boglodite boglodite = (Boglodite) item;
-            uniqueValue = "Boogies: " + boglodite.getBoogieCount(); // Replace getBoogieCount() with the actual method name
+            uniqueValue = "Boogies: " + boglodite.getBoogieCount(); 
         } else {
-            // Handle the generic Alien case or unknown subclass
             uniqueValue = "Unknown Alien Type";
         }
         return uniqueValue;
@@ -393,10 +397,12 @@ public class AlienPanel extends javax.swing.JPanel {
                 .addGap(126, 126, 126))
         );
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    //Metoden som körs när man trycker på lägg till alienknappen 
     private void addAlienButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addAlienButtonActionPerformed
         PopupHandler.addNewAlienPopup(Parent, this);
     }//GEN-LAST:event_addAlienButtonActionPerformed
+    
     
     public void reload(){
         tableModel.setRowCount(0);
@@ -436,7 +442,7 @@ public class AlienPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_searchButtonActionPerformed
 
     private void removeAlienButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeAlienButtonActionPerformed
-        // TODO add your handling code here:'
+        
         ArrayList<Integer> selectedID = new ArrayList<Integer>();
         for (int item : resultTable.getSelectedRows()) {
             selectedID.add(Integer.parseInt((String) resultTable.getValueAt(item, 0)));
@@ -451,7 +457,8 @@ public class AlienPanel extends javax.swing.JPanel {
             reload();
         }
     }//GEN-LAST:event_removeAlienButtonActionPerformed
-
+    
+    //Metoden som körs när man trycker redigeraalien
     private void editAlienButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editAlienButtonActionPerformed
         // TODO add your handling code here:
         if(resultTable.getSelectedRows().length==1){
@@ -459,7 +466,8 @@ public class AlienPanel extends javax.swing.JPanel {
         }
         else {JOptionPane.showMessageDialog(this,"Endast en Alien kan redigeras samtidigt!");}
     }//GEN-LAST:event_editAlienButtonActionPerformed
-
+    
+    //Metoden som körs när man trycker på rensa filter 
     private void clearFilterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearFilterButtonActionPerformed
         agentComboBox.setSelectedIndex(0);
         areaComboBox.setSelectedIndex(0);

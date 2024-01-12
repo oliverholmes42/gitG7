@@ -18,16 +18,13 @@ import javax.swing.JOptionPane;
 import oru.inf.InfDB;
 import oru.inf.InfException;
 
-/**
- *
- * @author aiham
- */
+
 public class editLocationDialog extends javax.swing.JDialog {
     private static InfDB db = DatabaseConnection.getInstance();
     private Location location;
     private LocationPanel home;
     /**
-     * Creates new form RegisterNewAgentDialog
+     * Skapar ett nytt dialogfönster för att redigera en plats
      */
     public editLocationDialog(java.awt.Frame parent, boolean modal,LocationPanel home, Location location) throws NumberFormatException, InfException {
         super(parent, modal);
@@ -40,6 +37,7 @@ public class editLocationDialog extends javax.swing.JDialog {
 
     }
 
+    //Fyller områdesCombobox med befintliga områden. 
     private void fillAreaComboBox() {
         DefaultComboBoxModel<String> model2 = new DefaultComboBoxModel<>();
         model2.addElement("Välj område");
@@ -49,6 +47,7 @@ public class editLocationDialog extends javax.swing.JDialog {
         areaComboBox.setModel(model2);
     }
     
+    // Fyller formuläret med befintliga värden för platsen 
     private void fillComponents(Location location) {
         IDField.setText(Integer.toString(location.getId()));
         NameField.setText(location.getName());
@@ -188,7 +187,7 @@ public class editLocationDialog extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    
+    // Metoden körs när man trycker på registrera knappen och sparar den nya informationen 
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
         if (inputValidation.fieldValidation(NameField) && inputValidation.comboBoxValidation(areaComboBox)) {
 
@@ -214,7 +213,8 @@ public class editLocationDialog extends javax.swing.JDialog {
             }
         }
     }//GEN-LAST:event_registerButtonActionPerformed
-
+    
+    //Metoden körs närman trycker på Avbryt knappen
     private void abortButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abortButtonActionPerformed
         this.dispose();
     }//GEN-LAST:event_abortButtonActionPerformed

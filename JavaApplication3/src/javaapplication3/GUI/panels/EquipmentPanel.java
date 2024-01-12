@@ -24,20 +24,13 @@ import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
 import oru.inf.InfException;
 
-/**
- *
- * @author mopaj
- */
+
 public class EquipmentPanel extends javax.swing.JPanel {
 
     private DefaultTableModel tableModel;
     private final MainPage Parent;
 
-    /**
-     * Creates new form AgentPanel
-     *
-     * @param Parent
-     */
+    //Skapar en ny instans av EquipmentPanel
     public EquipmentPanel(MainPage Parent) throws NumberFormatException, InfException {
         initComponents();
         this.Parent = Parent;
@@ -45,7 +38,7 @@ public class EquipmentPanel extends javax.swing.JPanel {
         SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
             @Override
             protected Void doInBackground() throws Exception {
-                // Perform long-running data loading tasks here
+      
                 ObjectManager.AgentUtilityHandler.loadList();
                 return null;
             }
@@ -64,13 +57,15 @@ public class EquipmentPanel extends javax.swing.JPanel {
         }
     }
 
+    //Metod som laddar om tabellen
     private void loadTable() {
         tableModel.setRowCount(0);
         for (Utilities item : ObjectManager.UtilitiesHandler.utilitiesList.values()) {
-            addRow(item);
+            addRow(item);//lägger till rad för varje utrustning i tabellen 
         }
     }
 
+    //Metod som lägger till radd
     private void addRow(Utilities item) {
         HashMap<String, String> itemMap = ObjectManager.AgentUtilityHandler.getUtilityInfo(item);
         String[] row = {
@@ -82,31 +77,33 @@ public class EquipmentPanel extends javax.swing.JPanel {
             itemMap.get("Date"),
             itemMap.get("Borrower")
         };
-        tableModel.addRow(row);
+        tableModel.addRow(row);//Lägger till raden i utrustningtabellen
     }
 
     public void reload() {
-        loadTable();
+        loadTable();//Updaterar utrustningstabellen
     }
 
+    //Returnerar ett unikt värde för en given Utilities-instans baserat på dess typ
     private String getSubValue(Utilities utility) {
         String uniqueValue;
         if (utility instanceof Vapen) {
             Vapen weapon = (Vapen) utility;
-            uniqueValue = "Kaliber: " + weapon.getCaliber(); // Replace getCaliber() with the actual method name
+            uniqueValue = "Kaliber: " + weapon.getCaliber(); 
         } else if (utility instanceof Kommunikation) {
             Kommunikation commsDevice = (Kommunikation) utility;
-            uniqueValue = "Överföringsteknik: " + commsDevice.getTransmissionTech(); // Replace getTransmissionTech() with the actual method name
+            uniqueValue = "Överföringsteknik: " + commsDevice.getTransmissionTech(); 
         } else if (utility instanceof Teknik) {
             Teknik tech = (Teknik) utility;
-            uniqueValue = "Kraftkälla: " + tech.getPowersource(); // Replace getPowersource() with the actual method name
+            uniqueValue = "Kraftkälla: " + tech.getPowersource(); 
         } else {
-            // Handle the generic Utilities case or unknown subclass
+            
             uniqueValue = "Unknown Utility Type";
         }
         return uniqueValue;
     }
 
+    //Lägger till en muslyssnare för att hantera klickhändelser i utrustningstabellen
     private void addListener() {
         utilityTable.addMouseListener(new MouseAdapter() {
             @Override
@@ -128,6 +125,7 @@ public class EquipmentPanel extends javax.swing.JPanel {
         });
     }
 
+    //Metoden kontrollerar om valda raderi utrusningstabellen är lediga för lån
     private boolean isFree(int[] rows) {
         for (int i : rows) {
             if (utilityTable.getValueAt(i, 5) != null) {
@@ -287,7 +285,9 @@ public class EquipmentPanel extends javax.swing.JPanel {
                 .addGap(225, 225, 225))
         );
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    
+    //Metod som körs när man trycker på sök knappen
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
         tableModel.setRowCount(0);
         String searched = searchField.getText().toLowerCase();
@@ -301,7 +301,9 @@ public class EquipmentPanel extends javax.swing.JPanel {
         }
 
     }//GEN-LAST:event_searchButtonActionPerformed
-
+    
+    
+    //Metod som körs när man trycker på lägg till knappen
     private void laggTillButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_laggTillButtonActionPerformed
         try {
             PopupHandler.addNewUtilitiesPopup(Parent, this);
@@ -310,23 +312,26 @@ public class EquipmentPanel extends javax.swing.JPanel {
         }
 
     }//GEN-LAST:event_laggTillButtonActionPerformed
-
+    
+    //Metod som körs när man trycker pålägg till knappen 
     private void raderaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_raderaButtonActionPerformed
         ArrayList<Integer> selectedID = new ArrayList<Integer>();
         for (int item : utilityTable.getSelectedRows()) {
             selectedID.add(Integer.parseInt((String) utilityTable.getValueAt(item, 0)));
         }
-        int selectedUtilityCount = selectedID.size(); // Replace with your method
+        int selectedUtilityCount = selectedID.size(); 
         String message = "Ta bort " + selectedUtilityCount + " redskap" + (selectedUtilityCount > 1 ? "s" : "") + " från systemet?";
 
         int response = JOptionPane.showConfirmDialog(null, message, "Bekräfta", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (response == JOptionPane.YES_OPTION) {
-            // Logic to delete the selected aliens
+            
             ObjectManager.UtilitiesHandler.delete(selectedID);
             loadTable();
         }
     }//GEN-LAST:event_raderaButtonActionPerformed
-
+    
+    
+    //Metod som körs närman tryckerpå "låna" knappen
     private void lånaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lånaButtonActionPerformed
         ArrayList<Utilities> selectedUtils = new ArrayList<>();
         for (int i = 0; i < utilityTable.getSelectedRows().length; i++) {
@@ -346,20 +351,21 @@ public class EquipmentPanel extends javax.swing.JPanel {
                 ObjectManager.AgentUtilityHandler.addNew(selectedUtils);
                 loadTable();
 
-                // After successful loan processing, show the completion dialog
+                
                 String completionMessage = selectedUtilCount + " redskap lånade";
                 JOptionPane.showMessageDialog(null, completionMessage, "Loan Completed", JOptionPane.INFORMATION_MESSAGE);
             } catch (InfException ex) {
                 Logger.getLogger(EquipmentPanel.class.getName()).log(Level.SEVERE, null, ex);
-                // Optionally, show an error dialog
+                
                 JOptionPane.showMessageDialog(null, "An error occurred during the loan process.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
 
     }//GEN-LAST:event_lånaButtonActionPerformed
-
+    
+    //MEtod som körs när man trycker på return redskap
     private void returnUtilitiesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnUtilitiesActionPerformed
-        // TODO add your handling code here:
+        
         PopupHandler.returnUtilityPopup(Parent, this);
     }//GEN-LAST:event_returnUtilitiesActionPerformed
 

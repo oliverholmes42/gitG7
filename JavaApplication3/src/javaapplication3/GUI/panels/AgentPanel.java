@@ -30,29 +30,30 @@ import javax.swing.table.DefaultTableModel;
 import oru.inf.InfException;
 
 
-/**
- *
- * @author mopaj
- */
+
 public class AgentPanel extends javax.swing.JPanel {
     
     private MainPage Parent;
     public static DefaultTableModel agentTableModel;
+    //Komponenter för datumväljare 
     private com.github.lgooddatepicker.components.DatePicker startDatePicker;
     private com.github.lgooddatepicker.components.DatePicker endDatePicker;
     
    
 
+    //Konstruktor förAgentPanel
     public AgentPanel(MainPage Parent) throws NumberFormatException, InfException {
         initComponents();
         this.Parent = Parent;
+        //Gömmer knapparna beroende påanvändartyp 
         if (UserSession.getInstance().getType() < 5) {
             removeAgentButton.setVisible(false);
             alterAgentInfoButton.setVisible(false);
         }
 
-        
+        //Laddar agentlistan
         SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+            
             @Override
             protected Void doInBackground() throws Exception {
                 ObjectManager.Agents.LoadList();
@@ -61,8 +62,6 @@ public class AgentPanel extends javax.swing.JPanel {
 
             @Override
             protected void done() {
-                // This method is invoked on the EDT
-                // Update your table and other UI components here
                 loadTable();
                 addListener();
                 fillAreaFilter();
@@ -70,6 +69,7 @@ public class AgentPanel extends javax.swing.JPanel {
             }
         };
         worker.execute();
+        //Initialisera datumväljare
         SpinnerDateModel model = new SpinnerDateModel();
         model.setCalendarField(Calendar.DAY_OF_MONTH);
         agentTableModel = (DefaultTableModel) resultTable.getModel();
@@ -79,18 +79,20 @@ public class AgentPanel extends javax.swing.JPanel {
     
     
     
+    //MEtod för att sätta upp datumväljare
     private void setDatePicker(){
         
         startDatePicker = new com.github.lgooddatepicker.components.DatePicker();
         endDatePicker = new com.github.lgooddatepicker.components.DatePicker();
 
-    // Replace the startDate and endDate panels with DatePicker components
+    
         startDate.setLayout(new BorderLayout());
         endDate.setLayout(new BorderLayout());
         startDate.add(startDatePicker);
         endDate.add(endDatePicker);
     }
     
+    //Metod som fyller upp områdesfilter 
     private void fillAreaFilter() {
         DefaultComboBoxModel<String> dcbm = new DefaultComboBoxModel<>();
         dcbm.addElement("Välj område:");
@@ -100,14 +102,16 @@ public class AgentPanel extends javax.swing.JPanel {
         areaComboBox.setModel(dcbm);
     }
     
+    //Metoden laddar agenttabellen 
     private void loadTable() {
-        agentTableModel.setRowCount(0); // Clear existing rows
+        agentTableModel.setRowCount(0); 
 
         for (Agent item : ObjectManager.Agents.agentList.values()) {
             addRow(item);
         }
     }
     
+    //MEtod för att lägga till en rad i agenttabellen
     private void addRow(Agent item) {
         String[] row = {
             Integer.toString(item.getId()),
@@ -133,6 +137,7 @@ public class AgentPanel extends javax.swing.JPanel {
         }
     }
     
+    // Metoden hanterar specialfall för att hämta unika värden för agenttyper 
     private String getSubValue(Agent item) {
         String uniqueValue;
         if (item instanceof Fältagent) {
@@ -150,6 +155,7 @@ public class AgentPanel extends javax.swing.JPanel {
         return uniqueValue;
     }
     
+    //MEtod för att lägga till lyssnare på tabellklick
     private void addListener() {
         resultTable.addMouseListener(new MouseAdapter() {
             @Override
@@ -165,6 +171,7 @@ public class AgentPanel extends javax.swing.JPanel {
             }
         }); }
     
+    //MEtoden laddar om tabellen
     public void reload(){
         loadTable();
     }
@@ -395,7 +402,8 @@ public class AgentPanel extends javax.swing.JPanel {
                 .addContainerGap(157, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    //Metoden körs när knappen "Ta bort agent" klickas  
     private void removeAgentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeAgentButtonActionPerformed
         ArrayList<Integer> selectedID = new ArrayList<Integer>();
         for (int item : resultTable.getSelectedRows()) {
@@ -407,13 +415,12 @@ public class AgentPanel extends javax.swing.JPanel {
             selectedID.add(id);
             
         }
-        int selectedAgentCount = selectedID.size(); // Replace with your method
+        int selectedAgentCount = selectedID.size(); 
         String message = "Ta bort " + selectedAgentCount + " agent" + (selectedAgentCount > 1 ? "er" : "") + " från systemet?";
 
         int response = JOptionPane.showConfirmDialog(null, message, "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (response == JOptionPane.YES_OPTION) {
             try {
-                // Logic to delete the selected aliens
                 ObjectManager.Agents.delete(selectedID);
 
             } catch (InfException ex) {
@@ -423,7 +430,8 @@ public class AgentPanel extends javax.swing.JPanel {
             loadTable();
         }
     }//GEN-LAST:event_removeAgentButtonActionPerformed
-
+    
+    //Metoden körs när "lägg till agent" klickas  
     private void addAgentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addAgentButtonActionPerformed
         try {
             PopupHandler.addNewAgentPopup(Parent, this);
@@ -431,14 +439,17 @@ public class AgentPanel extends javax.swing.JPanel {
             Logger.getLogger(AgentPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_addAgentButtonActionPerformed
-
+    
+    //Metoden körs när knappen "rensa filter" klickas 
     private void clearFilterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearFilterButtonActionPerformed
         areaComboBox.setSelectedIndex(0);
         startDatePicker.clear();
         endDatePicker.clear();
         searchbarTextfield.setText("");
     }//GEN-LAST:event_clearFilterButtonActionPerformed
-
+    
+    
+    //Metoden körs när knappen "sök" klickas 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
         agentTableModel.setRowCount(0);
 
@@ -462,7 +473,8 @@ public class AgentPanel extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_searchButtonActionPerformed
-
+    
+    //Metoden körs när "redigera aliens" klickas 
     private void alterAgentInfoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alterAgentInfoButtonActionPerformed
         if(resultTable.getSelectedRows().length==1){
             try {

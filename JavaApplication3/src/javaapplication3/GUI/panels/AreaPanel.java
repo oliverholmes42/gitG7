@@ -17,16 +17,13 @@ import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
 import oru.inf.InfException;
 
-/**
- *
- * @author aiham
- */
+
 public class AreaPanel extends javax.swing.JPanel {
 
     public static DefaultTableModel areaTableModel;
 
     /**
-     * Creates new form OmradePanel
+     * Skapar en ny instans av Areapanel 
      */
     public AreaPanel() throws NumberFormatException, InfException {
         initComponents();
@@ -34,7 +31,7 @@ public class AreaPanel extends javax.swing.JPanel {
         SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
             @Override
             protected Void doInBackground() throws Exception {
-                // Perform long-running data loading tasks here
+           
                 ObjectManager.Areas.loadList();
                 return null;
             }
@@ -43,8 +40,8 @@ public class AreaPanel extends javax.swing.JPanel {
             protected void done() {
                 try {
                     areaTableModel = (DefaultTableModel) areaTable.getModel();
-                    loadTable();
-                    addListener();
+                    loadTable();//Laddar områdestabellen med data från områdeslistan
+                    addListener();//Lägger till lyssnare för att hantera händelser i områdestabellen
                 } catch (InfException ex) {
                     Logger.getLogger(AreaPanel.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -177,7 +174,7 @@ public class AreaPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void searchOmradeTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchOmradeTextFieldActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_searchOmradeTextFieldActionPerformed
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
@@ -188,7 +185,7 @@ public class AreaPanel extends javax.swing.JPanel {
             boolean searchMatch = i.getName().toLowerCase().contains(search);
             if (searchMatch) {
                 try {
-                    addRow(i);
+                    addRow(i);//Lägger till raden fördet matchande området i tabellen
                 } catch (InfException ex) {
                }
             }
@@ -213,7 +210,8 @@ public class AreaPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_viewBossActionPerformed
     
-   private void addListener() {
+   
+    private void addListener() {
        areaTable.addMouseListener(new MouseAdapter() {
            @Override
            public void mouseClicked(MouseEvent e) {
@@ -231,17 +229,21 @@ public class AreaPanel extends javax.swing.JPanel {
        });
      
     }
-    private static void loadTable() throws InfException {
+    
+   //Laddar områdestabellen med data från områdeslistan
+   private static void loadTable() throws InfException {
         areaTableModel.setRowCount(0);
         for (Area i : ObjectManager.Areas.areaList.values()) {
             addRow(i);
         }
     }
     
+    //Uppdaterar områdestabellen när ändringar sker 
     public static void reload() throws InfException{
         loadTable();
     }
 
+    //Lägger till en rad för ett område i områdestabellen
     private static void addRow(Area i) throws InfException {
         String[] row = {
             Integer.toString(i.getId()),

@@ -20,18 +20,13 @@ import javax.swing.JSpinner;
 
 
 
-/**
- *
- * @author vilso
- */
+
 public class editAlienDialog extends javax.swing.JDialog {
     private Alien activeAlien;
     private AlienPanel Parent;
 
     /**
-     * Creates new form RegisterNewAlienDialogPopupV2
-     * @param parent
-     * @param modal
+     * Skapar en ny dialogruta för att redigera Aliens. 
      */
     public editAlienDialog(java.awt.Frame parent,AlienPanel home, boolean modal, Alien alien) {
         super(parent, modal);
@@ -47,6 +42,7 @@ public class editAlienDialog extends javax.swing.JDialog {
         
     }
 
+    //Metoden fyller information för det aktuella Alien-objektet i dialogrutan
     private void fillInfo(Alien alien) {
         nameTextField.setText(alien.getName());
         phoneTextField.setText(alien.getTelephone());
@@ -57,20 +53,20 @@ public class editAlienDialog extends javax.swing.JDialog {
         setSpinner(alien,valueSpinner);
     }
     
+   //Metoden hanterar olika Alien typer och ställer in rätt värde i JSpinner
     public void setSpinner(Alien alien, JSpinner spinner) {
         if (alien instanceof Worm) {
             Worm worm = (Worm) alien;
-            spinner.setValue(worm.getLength()); // Assuming length is a double
+            spinner.setValue(worm.getLength()); 
         } else if (alien instanceof Boglodite) {
             Boglodite boglodite = (Boglodite) alien;
             int one = boglodite.getBoogieCount();
-            spinner.setValue(boglodite.getBoogieCount()); // Assuming bolgodAmounts is an int
+            spinner.setValue(boglodite.getBoogieCount()); 
         } else if (alien instanceof Squid) {
             Squid squid = (Squid) alien;
-            spinner.setValue(squid.getArmCount()); // Assuming arms is an int
+            spinner.setValue(squid.getArmCount()); 
         } else {
-            // Handle the case where it's a generic Alien or unknown subclass
-            spinner.setValue(0); // Default value or some other appropriate action
+            spinner.setValue(0); 
         }
     }
 
@@ -299,7 +295,7 @@ public class editAlienDialog extends javax.swing.JDialog {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    //Uppdaterar synligheten av komponenter beroende på vald art.
     private void speciesComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_speciesComboBoxActionPerformed
         
         if (evt.getSource() == speciesComboBox) {
@@ -323,11 +319,12 @@ public class editAlienDialog extends javax.swing.JDialog {
             }
         }
     }//GEN-LAST:event_speciesComboBoxActionPerformed
-
+    //Metoden körs när man tryker på "Avbryt" knappen
     private void abortButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abortButtonActionPerformed
         this.dispose();
     }//GEN-LAST:event_abortButtonActionPerformed
 
+    //Fyller AgentComboBox med Agent objekt från ObjectManager
     private void fillAgentComboBox() {
         DefaultComboBoxModel<String> dcbm = new DefaultComboBoxModel<>();
         for(Agent item : ObjectManager.Agents.agentList.values()){
@@ -336,6 +333,7 @@ public class editAlienDialog extends javax.swing.JDialog {
         agentComboBox.setModel(dcbm);
     }
     
+    //Fyller AreaComboBox med Lovations-objekt från ObjectManager
     private void fillAreaComboBox() {
         DefaultComboBoxModel<String> dcbm = new DefaultComboBoxModel<>();
         for(Location item : ObjectManager.Locations.locationList.values()){
@@ -343,7 +341,7 @@ public class editAlienDialog extends javax.swing.JDialog {
         }
         locationComboBox.setModel(dcbm);
     }
-    
+    //Uppdaterar informationen för det aktiva Alien objektetoch stänger dialogrrutan när man trycker på spara knappen. 
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
         try {
             boolean isNameEmpty = nameTextField.getText().isEmpty();
@@ -468,7 +466,11 @@ public class editAlienDialog extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_registerButtonActionPerformed
 
-    
+    /**
+     * Hanterar händelsen när användaren trycker på en tangent i telefonnummrfältet
+     * Begränsar inmatningen till int och kontrollerar i längden av telefonummret
+     * 
+     */
     private void phoneTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_phoneTextFieldKeyPressed
         String phoneNumber = phoneTextField.getText();
         int length = phoneNumber.length();

@@ -18,17 +18,16 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import oru.inf.InfException;
 
-/**
- *
- * @author mopaj
- */
+
 public class returnEquipmentDialog extends javax.swing.JDialog {
 
     private int shownLayers = 1;
     private HashMap<Integer, Utilities> available = ObjectManager.AgentUtilityHandler.getAgentUtils(ObjectManager.Agents.agentList.get(UserSession.getInstance().getUserId()));
     private EquipmentPanel home;
+    
+    
     /**
-     * Creates new form returnEquipmentDialog
+     * Skapar en ny instans av ReturnEquipmentDialog 
      */
     public returnEquipmentDialog(java.awt.Frame parent,EquipmentPanel home, boolean modal) {
         super(parent, modal);
@@ -40,8 +39,9 @@ public class returnEquipmentDialog extends javax.swing.JDialog {
         setupComboBoxListeners();
     }
 
+    // Gömmer eller visar komponenter beroende på omde ska vara synliga eller inte
     private void setComponentsVisible(boolean visible) {
-        // For JComboBoxes
+        // För JComboBoxes
         U2Box.setVisible(visible);
         U3Box.setVisible(visible);
         U4Box.setVisible(visible);
@@ -52,7 +52,7 @@ public class returnEquipmentDialog extends javax.swing.JDialog {
         U9Box.setVisible(visible);
         U10Box.setVisible(visible);
 
-        // For JLabels
+        // För JLabels
         U2Label.setVisible(visible);
         U3Label.setVisible(visible);
         U4Label.setVisible(visible);
@@ -64,10 +64,11 @@ public class returnEquipmentDialog extends javax.swing.JDialog {
         U10Label.setVisible(visible);
     }
 
+    //Visar lager av utrustningsval
     private void showNextLayer() {
         shownLayers++;
 
-        // Show the next layer based on the currentLayer value
+        // Visar nästa lager baserat på värdet av shownLAyers
         switch (shownLayers) {
             case 2:
                 U2Box.setVisible(true);
@@ -107,19 +108,14 @@ public class returnEquipmentDialog extends javax.swing.JDialog {
                 addLayerButton.setVisible(false);
                 break;
             default:
-                // Handle the case when all layers have been shown
-                // Reset the counter to 2 or implement other logic as needed
-                shownLayers = 1; // Reset to 1, so the next increment will set it to 2
+                // Hanterar fallet när alla lager har visats 
+                // Återställ räknaren till 2 eller implementera annan logik vid behov 
+                shownLayers = 1; // Återställer till 1, så nästa ökning sätter den till 2
                 break;
         }
-
-        // Increment the currentLayer for the next button press
-        // Optional: Reset or stop at a certain point
-        // if (currentLayer > 10) {
-        //     currentLayer = 2; // Reset to start from layer 2 again
-        // }
     }
 
+    //Sätter modellen för ComboBoxes baserat på tillgänglig utrustning
     private void setModel() {
         for (int i = 0; i < 10; i++) {
             DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
@@ -131,6 +127,7 @@ public class returnEquipmentDialog extends javax.swing.JDialog {
         }
     }
 
+    //Metoden skapar en Action listner för Combobox 
     private ActionListener createComboBoxListener() {
         return new ActionListener() {
             @Override
@@ -146,6 +143,7 @@ public class returnEquipmentDialog extends javax.swing.JDialog {
         };
     }
 
+    //Metoden uppdaterar modellerna för andra ComboBoxes när en väljs 
     private void updateOtherComboBoxModels(JComboBox<String> sourceComboBox, String selectedItem) {
         for (int i = 0; i < 10; i++) {
             JComboBox<String> currentBox = getComboBoxByIndex(i);
@@ -156,6 +154,7 @@ public class returnEquipmentDialog extends javax.swing.JDialog {
         }
     }
 
+    // Hämtar rätt ComboBox baserat på index
     private JComboBox<String> getComboBoxByIndex(int index) {
         switch (index) {
             case 0:
@@ -179,10 +178,11 @@ public class returnEquipmentDialog extends javax.swing.JDialog {
             case 9:
                 return U10Box;
             default:
-                return null; // Or handle this case as appropriate
+                return null; 
         }
     }
 
+    //Ställer in ActionListner för ComboBoxes
     private void setupComboBoxListeners() {
         ActionListener comboBoxListener = createComboBoxListener();
 
@@ -198,6 +198,7 @@ public class returnEquipmentDialog extends javax.swing.JDialog {
         U10Box.addActionListener(comboBoxListener);
     }
     
+    //Hämtar ID för valda utrustningar från ComboBoxes
     private ArrayList<Integer> getSelectedID() {
     ArrayList<Integer> selectedIDs = new ArrayList<>();
 
@@ -219,13 +220,8 @@ public class returnEquipmentDialog extends javax.swing.JDialog {
     return selectedIDs;
 }
 
-
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
     @SuppressWarnings("unchecked")
+    //Initialisering av komponenter
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -490,11 +486,13 @@ public class returnEquipmentDialog extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    //Återgärd när knappen klickas
     private void addLayerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addLayerButtonActionPerformed
-        // TODO add your handling code here:
+
         showNextLayer();
     }//GEN-LAST:event_addLayerButtonActionPerformed
 
+    // Metoden körs när returnera vapen klickas
     private void returnItemsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnItemsButtonActionPerformed
         try{
             ArrayList<Integer> items = getSelectedID();
@@ -510,14 +508,12 @@ public class returnEquipmentDialog extends javax.swing.JDialog {
                                       JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_returnItemsButtonActionPerformed
-
+    //Metoden körs när knappen "avbryt" klickas 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         this.dispose();
     }//GEN-LAST:event_cancelButtonActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
