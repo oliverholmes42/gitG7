@@ -18,7 +18,6 @@ public class JavaApplication3 {
         
       
         
-        //Initialisering utav databasuppkoppling:
         new LoginPage().setVisible(true); //Initialiserar loginsidan som förstasida "LoginPage".
         
 

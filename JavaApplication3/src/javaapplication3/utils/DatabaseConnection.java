@@ -10,19 +10,21 @@ import oru.inf.InfException;
  *
  * @author mopaj
  */
+
+//Databasklass som skapar kopplingen och används som referens genom hela projektet.
 public class DatabaseConnection {
     public static InfDB dbInstance;
 
     private DatabaseConnection() { 
-        // Private constructor to prevent external instantiation
+       
     }
-
+    
+    //Hämta nuvarande instance, instancierar om de inte finns
     public static InfDB getInstance() {
         if (dbInstance == null) {
             try {
                 dbInstance = new InfDB("mibdb", "3306", "mibdba", "mibkey");
             } catch (InfException e) {
-                // Handle exception appropriately
                 
             }
         }

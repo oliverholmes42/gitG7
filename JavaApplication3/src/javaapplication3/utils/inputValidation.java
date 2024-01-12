@@ -15,9 +15,7 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
-import javax.swing.JSpinner;
 import javax.swing.JTextField;
-import javax.swing.SpinnerModel;
 import oru.inf.InfDB;
 import oru.inf.InfException;
 
@@ -27,14 +25,11 @@ import oru.inf.InfException;
  * emailfältet, ett lösenord i lösenordsfältet, och det som är angivet
  * kontrolleras genom informationen i databasen samt jämförs med varandra så de
  * stämmer överens.
- *
- * @author vilson, albin, oliver, aiham
  */
 public class inputValidation {
 
-    private static InfDB db = DatabaseConnection.getInstance();
-
-    //Denna metod hanterar fall där epostfältet står tomt när man försöker logga in:
+    private static final InfDB db = DatabaseConnection.getInstance();
+    
     //Denna metod hanterar fall där lösenordsfältet står tomt när man försöker logga in:
     public static boolean isPasswordInputEmpty(JPasswordField input) {
 
@@ -48,14 +43,17 @@ public class inputValidation {
 
         return result;
     }
-
+    
+    /* Valideringsmetod för email. Här sker ett par olika kontroller, först av allt om är formaterat på ett korrekt sätt och ger avslag ifall
+     * det är inkorrekt, sen sker två till kontroller på om emailen redan finns registrerad i emaillistan hos både aliens och agenter och om det
+     * redan finns ges avslag, annars går man vidare. */
     public static boolean emailValidation(JTextField email) {
-        Pattern EMAIL_PATTERN = Pattern.compile("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}");
+        Pattern emailPattern = Pattern.compile("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}");
         Container parent = getTopLevelContainer(email);
         String parentName = parent.getClass().getSimpleName();
         String emailString = email.getText();
         System.out.println(12 + " " + (System.currentTimeMillis() - time));
-        if (!EMAIL_PATTERN.matcher(emailString).matches()) {
+        if (!emailPattern.matcher(emailString).matches()) {
             JOptionPane.showMessageDialog(parent, "Eposten är inte giltig");
             return false;
         }
@@ -83,7 +81,8 @@ public class inputValidation {
         System.out.println(14 + " " + (System.currentTimeMillis() - time));
         return true;
     }
-
+    
+    // Validering för om textfältet saknar input
     public static boolean fieldValidation(JTextField field) {
         if (field.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Fält saknar info");
@@ -91,7 +90,8 @@ public class inputValidation {
         }
         return true;
     }
-
+    
+    // Validering för om textfältet för telefon saknar input
     public static boolean phoneValidation(JTextField field) {
         String text = field.getText();
         if (!text.matches("^[\\d-]+$")) {
@@ -100,7 +100,8 @@ public class inputValidation {
         }
         return true;
     }
-
+    
+    // Validering för om comboboxalternativ saknar input
     public static boolean comboBoxValidation(JComboBox box) {
         if (box.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(null, "Alternativ Saknas");
@@ -109,6 +110,7 @@ public class inputValidation {
         return true;
     }
     
+    // Validering för om textfältet lösenord saknar input
     public static boolean passwordValidaton(JTextField field){
             if(field.getText().matches("(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).+")){
                 if(field.getText().length()>6){
@@ -121,6 +123,7 @@ public class inputValidation {
         return false;
     }
 
+    // Tar in en komponent och returnerar den frame eller dialog som komponenten tillhör
     public static Container getTopLevelContainer(Component component) {
         System.out.println(111 + " " + (System.currentTimeMillis() - time));
         Container parent = component.getParent();
@@ -171,7 +174,8 @@ public class inputValidation {
                     String isKontorsChef = db.fetchSingle("SELECT Agent_ID FROM kontorschef WHERE Agent_ID = " + id);
                     String isOmradesChef = db.fetchSingle("SELECT Agent_ID FROM omradeschef WHERE Agent_ID = " + id);
                     isValidated = true;
-
+                    
+                    // Validering kring vilken åtkomst som ska ges
                     if (isFaltAgent != null) {
                         type = 2;
                     }

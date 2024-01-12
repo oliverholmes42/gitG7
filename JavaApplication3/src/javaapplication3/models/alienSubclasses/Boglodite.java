@@ -10,15 +10,15 @@ import javaapplication3.models.Alien;
 import javaapplication3.models.Location;
 import oru.inf.InfException;
 
-/**
- *
- * @author mopaj
- */
+/* Denna fil hanterar subklassen Boglodite som tillhör superklassen Alien. I denna subklass sker två saker, nya objekt skapas, 
+ * och gamla objekt klonas och ersätts med det nya objektet skapat. */
 public class Boglodite extends Alien {
     private int antal_Boogies;
     
     public Boglodite(HashMap<String, String> alienMap, Location location, Agent agent) {
-        super(alienMap, location, agent); // Call the superclass constructor
+        super(alienMap, location, agent); // Anropar superklassens konstruktor. 
+        
+        // För att se om värdet för "Antal_Boogies" kommer från databasen eller från registrerings-HashMapen sker denna kontroll:
         if(!alienMap.containsKey("Value")){
         antal_Boogies = Integer.parseInt(alienMap.get("Antal_Boogies"));
         }
@@ -28,15 +28,18 @@ public class Boglodite extends Alien {
         }
     }
     
+    // Skapar ett tomt objekt.
     public Boglodite(){
         super();
     }
     
-    public void cloneObject(Boglodite other) {
-        super.cloneObject(other); // Call Alien's cloneObject to handle Alien properties
-        this.antal_Boogies = other.antal_Boogies; // Clone Squid-specific property
+    // Klonar ett redan existerande objekt, för att sedan kunna ersätta med ett nytt redigerat.
+    public void cloneObject(Boglodite other) { 
+        super.cloneObject(other); 
+        this.antal_Boogies = other.antal_Boogies; 
     }
     
+    // Redigerar objektet
     public void editObject(HashMap<String,String> alienMap) throws InfException {
         super.editObject(alienMap);
         double doubleValue = Double.parseDouble(alienMap.get("Antal_Boogies"));
@@ -44,15 +47,13 @@ public class Boglodite extends Alien {
 
     }
 
-    // Getters and setters for the length attribute
+    // Getters för antal boogies
     public int getBoogieCount() {
         return antal_Boogies;
     }
-
+    
+    // Setter för antal boogies
     public void setBoogieCount(int boogieCount) {
         this.antal_Boogies = boogieCount;
     }
-
-    // Other methods...
-
 }

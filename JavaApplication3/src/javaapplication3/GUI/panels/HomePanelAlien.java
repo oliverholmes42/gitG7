@@ -14,9 +14,13 @@ import javaapplication3.models.Agent;
 import javaapplication3.models.Alien;
 import javaapplication3.models.Area;
 import javaapplication3.models.Location;
+import javaapplication3.models.alienSubclasses.Boglodite;
+import javaapplication3.models.alienSubclasses.Squid;
+import javaapplication3.models.alienSubclasses.Worm;
 import javaapplication3.utils.DatabaseConnection;
 import javaapplication3.utils.ObjectManager;
 import javaapplication3.utils.UserSession;
+import javax.swing.JLabel;
 import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
 import oru.inf.InfDB;
@@ -31,6 +35,8 @@ public class HomePanelAlien extends javax.swing.JPanel {
     private UserSession user = UserSession.getInstance();
     private Alien alien;
     private Agent agent;
+    private Area area;
+    public static DefaultTableModel tableModel;
 
 
     /**
@@ -39,7 +45,9 @@ public class HomePanelAlien extends javax.swing.JPanel {
     public HomePanelAlien() throws InfException {
         this.db = DatabaseConnection.getInstance();
         initComponents();
+        areaLabel1.setHorizontalAlignment(JLabel.CENTER);
         mailBoss.setVisible(false);
+        tableModel = (DefaultTableModel) resultTable.getModel();
         SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
             @Override
             protected Void doInBackground() throws Exception {
@@ -51,7 +59,7 @@ public class HomePanelAlien extends javax.swing.JPanel {
             protected void done() {
                 try {
                     telLArea();
-                    mailBoss.setVisible(true);
+                    fillTable();
                 } catch (NumberFormatException ex) {
                     Logger.getLogger(HomePanelAlien.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (InfException ex) {
@@ -64,18 +72,54 @@ public class HomePanelAlien extends javax.swing.JPanel {
         header.setText("Välkommen, "+UserSession.getInstance().getName());
     }
     
+    private void fillTable(){
+        for(Alien item : ObjectManager.Aliens.alienList.values()){
+            if(item.getLocation().getArea()==area){
+                String[] row = {
+            Integer.toString(item.getID()),
+            item.getClass().getSimpleName(),
+            getSubValue(item),
+            item.getName(),
+            item.getTelephone(),
+            item.getEmail(),
+            item.getRegistrationDate().toString(),
+            item.getLocation().getName(),
+            item.getResponsibleAgent().getName()
+        };
+        tableModel.addRow(row);
+            }
+        }
+        resultTable.setModel(tableModel);
+    }
+    
+    private String getSubValue(Alien item) {
+        String uniqueValue;
+        if (item instanceof Worm) {
+            Worm worm = (Worm) item;
+            uniqueValue = "Längd: " + worm.getLength();
+        } else if (item instanceof Squid) {
+            Squid squid = (Squid) item;
+            uniqueValue = "Armar: " + squid.getArmCount(); // Replace getArmCount() with the actual method name
+        } else if (item instanceof Boglodite) {
+            Boglodite boglodite = (Boglodite) item;
+            uniqueValue = "Boogies: " + boglodite.getBoogieCount(); // Replace getBoogieCount() with the actual method name
+        } else {
+            // Handle the generic Alien case or unknown subclass
+            uniqueValue = "Unknown Alien Type";
+        }
+        return uniqueValue;
+    }
     private void telLArea() throws NumberFormatException, InfException{
     int id = user.getUserId();
     alien = ObjectManager.Aliens.alienList.get(id);
     Location location = alien.getLocation();
-    Area area = location.getArea();
+    area = location.getArea();
     agent = ObjectManager.Agents.findOmradeschefForArea(area.getId());
     String message = "Området saknar chef";
     
     if(agent != null){
         message = "Områdeschef: "+agent.getName();
-    }else{
-        mailBoss.setVisible(false);
+        mailBoss.setVisible(true);
     }
     
     
@@ -98,10 +142,12 @@ public class HomePanelAlien extends javax.swing.JPanel {
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         header = new javax.swing.JLabel();
-        areaHeader = new javax.swing.JLabel();
         areaLabel1 = new javax.swing.JLabel();
         areaLabel2 = new javax.swing.JLabel();
         mailBoss = new javax.swing.JButton();
+        resultScrollPane = new javax.swing.JScrollPane();
+        resultTable = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -120,11 +166,7 @@ public class HomePanelAlien extends javax.swing.JPanel {
         header.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         header.setText("Välkommen");
 
-        areaHeader.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        areaHeader.setForeground(new java.awt.Color(0, 0, 0));
-        areaHeader.setText("Du tillhör område:");
-
-        areaLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        areaLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         areaLabel1.setForeground(new java.awt.Color(0, 0, 0));
         areaLabel1.setText(" ");
         areaLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -141,43 +183,81 @@ public class HomePanelAlien extends javax.swing.JPanel {
             }
         });
 
+        resultScrollPane.setViewportBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(63, 63, 63), 3));
+
+        resultTable.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(63, 63, 63), 2));
+        resultTable.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        resultTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Alien ID", "Ras", "Unikt Värde", "Namn", "Telefonnummer", "E-post", "Incheckningsdatum", "Plats", "Ansvarig Agent"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        resultTable.setToolTipText("");
+        resultTable.setRowHeight(60);
+        resultTable.setRowSelectionAllowed(false);
+        resultTable.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        resultTable.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        resultTable.setShowGrid(false);
+        resultTable.getTableHeader().setResizingAllowed(false);
+        resultTable.getTableHeader().setReorderingAllowed(false);
+        resultScrollPane.setViewportView(resultTable);
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setText("Alien i mitt område:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(areaLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 814, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(areaLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 611, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(148, 148, 148))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(67, 67, 67)
                         .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, 977, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(402, 402, 402)
-                        .addComponent(areaHeader))
+                        .addGap(59, 59, 59)
+                        .addComponent(resultScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 1003, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(158, 158, 158)
-                        .addComponent(mailBoss)))
-                .addContainerGap(84, Short.MAX_VALUE))
+                        .addGap(424, 424, 424)
+                        .addComponent(areaLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(mailBoss))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(385, 385, 385)
+                        .addComponent(jLabel1)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(areaLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addComponent(header)
-                .addGap(69, 69, 69)
-                .addComponent(areaHeader)
-                .addGap(45, 45, 45)
+                .addGap(24, 24, 24)
                 .addComponent(areaLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(areaLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(mailBoss)
-                .addContainerGap(420, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(areaLabel2)
+                    .addComponent(mailBoss))
+                .addGap(54, 54, 54)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(resultScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(163, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -214,13 +294,15 @@ public class HomePanelAlien extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel areaHeader;
     private javax.swing.JLabel areaLabel1;
     private javax.swing.JLabel areaLabel2;
     private javax.swing.JLabel header;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JButton mailBoss;
+    private javax.swing.JScrollPane resultScrollPane;
+    private javax.swing.JTable resultTable;
     // End of variables declaration//GEN-END:variables
 }

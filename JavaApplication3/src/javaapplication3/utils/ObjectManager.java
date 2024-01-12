@@ -35,18 +35,23 @@ import java.util.List;
  * @author mopaj
  */
 
+/*
+Stor klass som hanterar alla object som används genom hela projektet. Har interna klasser för varje model och en rad metoder.
+*/
 public class ObjectManager {
 
     public static InfDB db = DatabaseConnection.getInstance();
-
+    
+    
+    //Tömmer alla listorna
     public static void offloadAll() {
         Class<?>[] innerClasses = ObjectManager.class.getDeclaredClasses();
 
         for (Class<?> innerClass : innerClasses) {
             try {
                 Method offloadMethod = innerClass.getDeclaredMethod("offLoad");
-                offloadMethod.setAccessible(true); // In case the method is not public
-                offloadMethod.invoke(null); // Invoke the static method
+                offloadMethod.setAccessible(true); 
+                offloadMethod.invoke(null); 
             } catch (NoSuchMethodException e) {
                 System.out.println(innerClass.getName() + " does not have an offload method.");
             } catch (Exception e) {
@@ -54,14 +59,16 @@ public class ObjectManager {
             }
         }
     }
-
+    
+    
+    //Skapar lösenord, måste matcha regex kravet
     public static String generatePassword() {
         String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
         String saltStr;
         do {
         StringBuilder salt = new StringBuilder();
         Random rnd = new Random();
-        while (salt.length() < 6) { // length of the random string.
+        while (salt.length() < 6) {
             int index = (int) (rnd.nextFloat() * SALTCHARS.length());
             salt.append(SALTCHARS.charAt(index));
         }
@@ -70,16 +77,18 @@ public class ObjectManager {
         return saltStr;
     }
 
+    
+    //Metod som tar in ett object och returnerar en HashMap med alla dess fält och värden.
     public static HashMap<String, String> getFieldMap(Object obj) {
         HashMap<String, String> fieldMap = new HashMap<>();
-        Class<?> objClass = obj.getClass(); // Get the class of the object
+        Class<?> objClass = obj.getClass(); //Hämtar klassen
 
-        // Check if the object is a subclass of Alien, Utilities, or Agents
+        // Kollar om klassen är en subclass till Alien, Agent, eller Utrustning
         if (Alien.class.isAssignableFrom(objClass)
                 || Utilities.class.isAssignableFrom(objClass)
                 || Agent.class.isAssignableFrom(objClass)) {
 
-            // Get the declared fields of the superclass and subclass
+            // Hämtar fälten från subklassen
             Class<?> currentClass = objClass;
             while (currentClass != null) {
                 for (Field field : currentClass.getDeclaredFields()) {
@@ -90,6 +99,8 @@ public class ObjectManager {
                             String stringValue = processFieldValue(value);
 
                             String fieldName = field.getName();
+                            
+                            //Check för om objectet är en subklass till agent, inte är agent samt har ett fält med betäckningen 'omrade' (Områdeschef har två värden med namn område)
                             if (Agent.class.isAssignableFrom(objClass) && !currentClass.equals(Agent.class) && fieldName.equalsIgnoreCase("omrade")) {
                                 fieldName = "ControlAreaId";
                             } else {
@@ -102,10 +113,9 @@ public class ObjectManager {
                         }
                     }
                 }
-                currentClass = currentClass.getSuperclass(); // Move to the superclass
+                currentClass = currentClass.getSuperclass(); // Flytta upp till superklassen
             }
         } else {
-            // If it's not a subclass, treat it as the normal class
             for (Field field : objClass.getDeclaredFields()) {
                 if (!field.getName().equals("db")) {
                     field.setAccessible(true);
@@ -121,17 +131,19 @@ public class ObjectManager {
                 }
             }
         }
-
+        //returnerar HashMapen nu komplett
         return fieldMap;
     }
 
+    //Gör första bokstaven stor
     private static String capitalizeFirstLetter(String input) {
         if (input != null && !input.isEmpty()) {
             return input.substring(0, 1).toUpperCase() + input.substring(1);
         }
         return input;
     }
-
+    
+    //Hämtar ut värden från fälten och gör de till stängar
     private static String processFieldValue(Object value) {
         if (value == null) {
             return "null";
@@ -140,14 +152,14 @@ public class ObjectManager {
         Package classPackage = value.getClass().getPackage();
         if (classPackage != null) {
             String name = classPackage.getName();
-            boolean inModels = name.contains(".models");
+            boolean inModels = name.contains(".models");//kollar om fältets värde tillhör modelels(är ett objekt)
 
             if (inModels) {
                 try {
-                    Method getIdMethod = value.getClass().getMethod("getId");
+                    Method getIdMethod = value.getClass().getMethod("getId");//hämtar ut id för de objektet
                     return String.valueOf(getIdMethod.invoke(value));
                 } catch (Exception e) {
-                    return "N/A"; // or handle the exception as needed
+                    return "N/A"; 
                 }
             }
         }
@@ -155,6 +167,7 @@ public class ObjectManager {
         return String.valueOf(value);
     }
 
+    //Metod som bygger ett update query baserat på 4 parameterar, HashMapen används genom att nyckeln är columnernas namn och värdet det nya värdet
     public static String buildUpdateQuery(String tableName, HashMap<String, String> data, String keyColumn) {
         if (data.isEmpty()) {
             throw new IllegalArgumentException("Data map cannot be empty");
@@ -187,6 +200,7 @@ public class ObjectManager {
         return queryBuilder.toString();
     }
     
+    //Metod som bygger ett insert query, samma princip som buildUpdateQuery
     public static String buildInsertQuery(String tableName, HashMap<String, String> data) {
         if (data.isEmpty()) {
             throw new IllegalArgumentException("Data map cannot be empty");
@@ -216,25 +230,28 @@ public class ObjectManager {
         return queryBuilder.toString();
     }
    
+    //Metod som sköter uppdateringen, både i databasen och lokalt i de olika listorna
     public static void updateObject(Object obj) throws InfException {
         HashMap<String, String> objectMap = getFieldMap(obj);
         Class<?> objClass = obj.getClass();
-        String query= "";// Get the class of the object
+        String query= "";
         
+        //kollar vilken klass objectet tillhör
         switch (objClass.getSimpleName()) {
             case "Worm":
-                HashMap<String, String> wormMap = new HashMap<>();
+                HashMap<String, String> wormMap = new HashMap<>();//skapar en ny hashmap med de unika värderna
                 wormMap.put("Langd", objectMap.get("Langd"));
                 wormMap.put("Alien_ID", objectMap.get("Alien_ID"));
-                objectMap.remove("Langd");
+                objectMap.remove("Langd");//tar bort unika värden från super-mapen
 
-                String wormQuery = buildUpdateQuery("worm", wormMap, "Alien_ID");
-                db.update(wormQuery);
+                String wormQuery = buildUpdateQuery("worm", wormMap, "Alien_ID");//bygger frågan för subklassen
+                db.update(wormQuery);//uppdaterar databasen
 
-                query = buildUpdateQuery("alien", objectMap, "Alien_ID");
+                query = buildUpdateQuery("alien", objectMap, "Alien_ID");//skapar frågan som används i superklassens uppdatering
                 break;
+                
+            //samma som tidigare men med egna värden
             case "Squid":
-                // Code for "Squid" case
                 HashMap<String, String> squidMap = new HashMap<>();
                 squidMap.put("Antal_Armar", objectMap.get("Antal_Armar"));
                 squidMap.put("Alien_ID", objectMap.get("Alien_ID"));
@@ -245,9 +262,9 @@ public class ObjectManager {
 
                 query = buildUpdateQuery("alien", objectMap, "Alien_ID");
                 break;
-
+            
+            //samma som tidigare men med egna värden
             case "Boglodite":
-                // Code for "Booglodite" case
                 HashMap<String, String> boogloditeMap = new HashMap<>();
                 boogloditeMap.put("Antal_Boogies", objectMap.get("Antal_Boogies"));
                 boogloditeMap.put("Alien_ID", objectMap.get("Alien_ID"));
@@ -258,10 +275,13 @@ public class ObjectManager {
 
                 query = buildUpdateQuery("alien", objectMap, "Alien_ID");
                 break;
-
+            
+            //Ifall en alien saknar subklass
             case "Alien":
                 query = buildUpdateQuery("alien", objectMap, "Alien_ID");
                 break;
+                
+            //samma som med alien fast för agent
             case "Fältagent":
                 HashMap<String, String> fältagentMap = new HashMap<>();
                 fältagentMap.put("Agent_ID", objectMap.get("Agent_ID"));
@@ -299,6 +319,8 @@ public class ObjectManager {
             case "Agent":
                 query = buildUpdateQuery("agent", objectMap, "Agent_ID");
                 break;
+            
+            //uppdateringar för övriga klasser
             case "Area":
                 query = buildUpdateQuery("omrade", objectMap, "Omrades_ID");
                 break;
@@ -308,30 +330,35 @@ public class ObjectManager {
             case "Utilities":
                 query = buildUpdateQuery("utrustning", objectMap, "Utrustnings_ID");
                 break;
+                
+            //om klass saknas händer inget
             default:
-                System.out.println("No");
                 break;
         }
+        
+        //kollar om query har fyllts i(görs inom switch casen)
         if (query.length() > 0) {
-            db.update(query);
+            db.update(query);//uppdaterar huvudobjektet
         }
     }
 
-    
+    //Inre klass för platser
     public static class Locations {
-        public static HashMap<Integer, Location> locationList = new HashMap<>();
+        public static HashMap<Integer, Location> locationList = new HashMap<>();//HashMap som innehåller alla aktiva objekt
         
 
-        public static void loadList() throws NumberFormatException, InfException {
-            // Clear the list if it contains items
+        public static void loadList() throws NumberFormatException, InfException {//fyller hashmap med data från databasen
+            // Rensar om den inte är tom
            if (!locationList.isEmpty()) {
                 locationList.clear();
             }
 
-            // Check and load Areas if not already loaded
+            // Laddar in områden om den inte är tom
             if (Areas.areaList.isEmpty()) {
                 Areas.loadList();
             }
+            
+            
             ArrayList<HashMap<String, String>> map = db.fetchRows("SELECT * from plats");
             for(HashMap<String,String> singleMap : map){
                 int id1 = Integer.parseInt(singleMap.get("Plats_ID"));
@@ -342,11 +369,12 @@ public class ObjectManager {
             }
         }
         
-        
+        //tömmer hashmap
         public static void offLoad(){
         locationList.clear();
         }
         
+        //Raderar från böde databas och hashmap
         public static void delete(ArrayList<Integer> list) throws InfException {
             for (int ID : list) {
                 db.delete("Delete from plats where Plats_ID =" + ID);
@@ -355,25 +383,29 @@ public class ObjectManager {
         }
     }
     
-    
+    //inre klas för alien
     public static class Aliens{
-        public static HashMap<Integer, Alien> alienList = new HashMap<>();
-        public static ArrayList<String> emailList = new ArrayList<>();
+        public static HashMap<Integer, Alien> alienList = new HashMap<>(); //objekt hashmap
+        public static ArrayList<String> emailList = new ArrayList<>();//ArrayList med alla emails(för att kolla dubletter)
 
+        //Metod som fyller hashmapen
         public static void loadAlienList() throws NumberFormatException, InfException {
+            //Rensa om inte tom
             if (!alienList.isEmpty()) {
                 alienList.clear();
             }
 
-            // Check and load Locations if not already loaded
+            //Fyll plats om tom
             if (Locations.locationList.isEmpty()) {
                 Locations.loadList();
             }
 
-            // Check and load Agents if not already loaded
+            //fyll alien om tom
             if (Agents.agentList.isEmpty()) {
                 Agents.LoadList();
             }
+            
+            //Query som hömtar från superklass och alla subklasser
             ArrayList<HashMap<String, String>> map = db.fetchRows("SELECT a.*, w.Langd, b.Antal_Boogies, s.Antal_Armar FROM Alien a LEFT JOIN Worm w ON a.Alien_ID = w.Alien_ID LEFT JOIN Boglodite b ON a.Alien_ID = b.Alien_ID LEFT JOIN Squid s ON a.Alien_ID = s.Alien_ID");
             for (HashMap<String, String> singleMap : map) {
             int id = Integer.parseInt(singleMap.get("Alien_ID"));
@@ -382,16 +414,16 @@ public class ObjectManager {
 
             Alien alien;
             if (singleMap.get("Langd")!=null) {
-                // Create a Worm instance
+                // Skapa en ny worm
                 alien = new Worm(singleMap, Locations.locationList.get(platsID), Agents.agentList.get(agentID));
             } else if (singleMap.get("Antal_Boogies")!=null) {
-                // Create a Boglodite instance
+                // Skapa en ny boglodite
                 alien = new Boglodite(singleMap, Locations.locationList.get(platsID), Agents.agentList.get(agentID));
             } else if (singleMap.get("Antal_Armar")!=null) {
-                // Create a Squid instance
+                // Skapa en ny Squid
                 alien = new Squid(singleMap, Locations.locationList.get(platsID), Agents.agentList.get(agentID));
             } else {
-                // Create a generic Alien instance
+                // Skapa en ny tom alien
                 alien = new Alien(singleMap, Locations.locationList.get(platsID), Agents.agentList.get(agentID));
             }
 
@@ -400,28 +432,31 @@ public class ObjectManager {
         }
         }
        
+        //Uppdaterar en instans i databasen
         public static void updateInstance(HashMap<String, String> map) throws InfException {
-            // Build and execute the main update query for the 'alien' table
             HashMap<String, String> alienMap = new HashMap<>(map);
-            alienMap.remove("Antal_Boogies"); // Remove special key for alien table update
-            alienMap.remove("Antal_Armar");   // Similarly for other special keys
+            
+            //unika värden tas bort
+            alienMap.remove("Antal_Boogies"); 
+            alienMap.remove("Antal_Armar");   
             alienMap.remove("Langd");
 
-            String alienQuery = ObjectManager.buildUpdateQuery("alien", alienMap, "Alien_ID");
-            db.update(alienQuery);
+            String alienQuery = ObjectManager.buildUpdateQuery("alien", alienMap, "Alien_ID");//Frpgan byggs via buildUpdateQuery
+            db.update(alienQuery);//updateras
 
         }
-
+       
+        //Metod som uppdaterar subklasser i databasen
         public static void updateSubClass(HashMap<String,String> map, String oldSpecies, String newSpecies) throws InfException {
-                String tableName = newSpecies; // Assuming 'two' is a variable holding the table name
+                String tableName = newSpecies;
                 String alienID = map.get("Alien_ID");
                 String value = map.get("Value");
 
-                // Assuming 'alienID' and 'value' are strings. If they are numeric, remove the single quotes around the placeholders.
+                //Skapar ny instans för nya subklassen
                 String sql = "INSERT INTO " + tableName.toLowerCase() + " VALUES (" + alienID + ", " + value + ");";
-
                 db.insert(sql);
                 
+                //raderar gamla instansen i gamla subklaseen
                 sql = "Delete from " + oldSpecies.toLowerCase() + " where Alien_ID = "+alienID;
                 db.delete(sql);
 
@@ -429,29 +464,31 @@ public class ObjectManager {
         }
 
 
-
+        //rensar hashmap
         public static void offLoad() {
             alienList.clear();
             emailList.clear();
         }
         
+        //skapa ny instans
         public static void addNew(HashMap<String,String> map, Location location, Agent agent, String race) throws InfException{
-            String Query = buildInsertQuery("alien", map);
             
-            db.insert(Query);
+            String Query = buildInsertQuery("alien", map);
+            db.insert(Query);//huvudinstansen skapas
             
             
             switch (race){
                 case "Boglodite":
-                    alienList.put(Integer.parseInt(map.get("Alien_ID")), new Boglodite(map, location, agent));
-                    HashMap<String, String> bogloditeMap = new HashMap<>();
+                    alienList.put(Integer.parseInt(map.get("Alien_ID")), new Boglodite(map, location, agent));//Nytt objekt skapas och läggs i hashmap
+                    HashMap<String, String> bogloditeMap = new HashMap<>();//subklass hashmap skapas och fylls
                     bogloditeMap.put("Alien_ID", map.get("Alien_ID"));
                     bogloditeMap.put("Antal_Boogies", map.get("Value"));
 
-                    String bogloditeQuery = ObjectManager.buildInsertQuery("boglodite", bogloditeMap);
-                    db.insert(bogloditeQuery);
+                    String bogloditeQuery = ObjectManager.buildInsertQuery("boglodite", bogloditeMap);//fråga byggs
+                    db.insert(bogloditeQuery);//subklass uppdateras i databas
                     break;
                 
+                //samma som oven men andra värden
                 case "Squid":
                     alienList.put(Integer.parseInt(map.get("Alien_ID")), new Squid(map, location, agent));
                     HashMap<String, String> squidMap = new HashMap<>();
@@ -462,6 +499,7 @@ public class ObjectManager {
                     db.insert(squidQuery);
                     break;
                 
+                //samma som oven men andra värden    
                 case "Worm":
                     alienList.put(Integer.parseInt(map.get("Alien_ID")), new Worm(map, location, agent));
                     HashMap<String, String> wormMap = new HashMap<>();
@@ -473,11 +511,11 @@ public class ObjectManager {
                     break;
                     
                 default:
-                    System.out.println("Fel inmatning");
             }
-            emailList.add(map.get("Epost"));
+            emailList.add(map.get("Epost"));//epost läggs i epostlistan
         }
         
+        //radera metod
         public static void delete(ArrayList<Integer> list) {
             for(int ID : list){
                 try {
@@ -485,7 +523,7 @@ public class ObjectManager {
                     String objClass = alien.getClass().getSimpleName();
                     
                     if(!objClass.equals("Alien")){
-                        db.delete("Delete from "+objClass.toLowerCase()+" where Alien_ID = "+ID);
+                        db.delete("Delete from "+objClass.toLowerCase()+" where Alien_ID = "+ID);//raderar först från subklass om av den typ
                     }
                     db.delete("Delete from alien where Alien_ID =" +ID);
                     alienList.remove(ID);
@@ -498,7 +536,7 @@ public class ObjectManager {
         }
     }
 
-    
+    //inre klass för agenter, samma upplägg som alien
     public static class Agents {
         public static HashMap<Integer, Agent> agentList = new HashMap<>();
         public static ArrayList<String> emailList = new ArrayList<>();
@@ -512,7 +550,8 @@ public class ObjectManager {
            if (Areas.areaList.isEmpty()) {
                Areas.loadList();
            }
-
+            
+            //Agents subklasser innehåller columner med samma namn som kolumner i superklassen 4 frågor behövet ställas istället för 1
             ArrayList<HashMap<String, String>> map = db.fetchRows("SELECT * FROM agent");
             ArrayList<HashMap<String, String>> Fmap = db.fetchRows("SELECT * FROM faltagent");
             ArrayList<HashMap<String, String>> Omap = db.fetchRows("SELECT * FROM omradeschef");
@@ -522,32 +561,32 @@ public class ObjectManager {
                 int agentId = Integer.parseInt(singleMap.get("Agent_ID"));
                 int areaID = Integer.parseInt(singleMap.get("Omrade"));
 
-                HashMap<String, String> matchingMap = findMatchingMap(agentId, Omap);
+                HashMap<String, String> matchingMap = findMatchingMap(agentId, Omap);//kollar om agenten finns i omap (områdeschef)
                 if (matchingMap != null) {
                     String id = matchingMap.get("Omrade");
                     int intID = Integer.parseInt(id);
                     Area controlArea = Areas.areaList.get(intID);
                     agentList.put(agentId, new Områdeschef(singleMap,Areas.areaList.get(areaID),controlArea));
                     
-                } else if ((matchingMap = findMatchingMap(agentId, Kmap)) != null) {
+                } else if ((matchingMap = findMatchingMap(agentId, Kmap)) != null) {//Kollar om ageenten finns i Kmap (kontorschef)
                     
                     String officeName = matchingMap.get("Kontorsbeteckning");
                     agentList.put(agentId, new KontorsChef(singleMap, Areas.areaList.get(areaID),officeName));
                     
-                } else if ((matchingMap = findMatchingMap(agentId, Fmap)) != null) {
+                } else if ((matchingMap = findMatchingMap(agentId, Fmap)) != null) {//Fmap (fältagent)
                     
                      agentList.put(agentId, new Fältagent(singleMap, Areas.areaList.get(areaID)));
                     
                 } else {
-                    // The agentId does not exist in any of the lists
-                    Agent agent = new Agent(singleMap, Areas.areaList.get(areaID));
+                    
+                    Agent agent = new Agent(singleMap, Areas.areaList.get(areaID));//agent är tom agent
                     agentList.put(agentId, agent);
                 }
-                emailList.add(singleMap.get("Epost").toLowerCase());
+                emailList.add(singleMap.get("Epost").toLowerCase());//lägg till epost
             }
         }
 
-        
+        //Kollar om en hashMap innehåller ett specifikt agentID
         private static HashMap<String, String> findMatchingMap(int agentId, ArrayList<HashMap<String, String>> list) {
             for (HashMap<String, String> map : list) {
                 if (Integer.parseInt(map.get("Agent_ID")) == agentId) {
@@ -563,7 +602,7 @@ public class ObjectManager {
         emailList.clear();
         }
         
-        
+        //samma som tidigare
         public static void addNew(HashMap<String,String> map, Area area, String type) throws InfException{
             String Query = buildInsertQuery("agent", map);
             
@@ -611,6 +650,7 @@ public class ObjectManager {
             emailList.add(map.get("Epost"));
         }
         
+        //samma som tidigare
         public static void delete(ArrayList<Integer> list) throws InfException {
             for (int ID : list) {
 
@@ -629,6 +669,7 @@ public class ObjectManager {
 
         }
         
+        //Rättar till namnet så de matchar tabellerna i db
         private static String swedify(String string){
             switch (string){
                 case "KontorsChef":
@@ -645,6 +686,7 @@ public class ObjectManager {
             }
         }
         
+        //metod som returnerar områdeschef för ett areadId
         public static Områdeschef findOmradeschefForArea(int areaId) throws NumberFormatException, InfException {
             LoadList();
             for (Agent agent : agentList.values()) {
@@ -660,24 +702,26 @@ public class ObjectManager {
             return null;
         }
         
+        //Returnerar en lista med agent i ordning av vem som har mest aliens
         public static List<Map.Entry<Agent, Integer>> findTopThreeAgentsWithMostAliens() throws InfException {
-        ObjectManager.Aliens.loadAlienList(); // Ensure the alien list is loaded
-        HashMap<Agent, Integer> alienCountPerAgent = new HashMap<>();
+        ObjectManager.Aliens.loadAlienList();
+        HashMap<Agent, Integer> alienCountPerAgent = new HashMap<>();//Hashmap med agent och en siffra
 
-        // Count the number of aliens per agent
+        //Kollar alla aliens ansvarig agent, öker den agentens siffra i hashmapen med 1, om saknas lägger till agent i listan
         for (Alien alien : ObjectManager.Aliens.alienList.values()) {
             Agent responsibleAgent = alien.getResponsibleAgent();
             alienCountPerAgent.put(responsibleAgent, alienCountPerAgent.getOrDefault(responsibleAgent, 0) + 1);
         }
 
-        // Create a list from elements of the HashMap and sort it
+        // Skapar en lista från hashmapen och sorterar
         List<Map.Entry<Agent, Integer>> sortedAgents = new ArrayList<>(alienCountPerAgent.entrySet());
         sortedAgents.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
 
-        // Return the top three agents, or fewer if there aren't enough agents
+        // Returnerar top 3 i listan elle hela om litan är kortare än så
         return sortedAgents.size() > 3 ? sortedAgents.subList(0, 3) : sortedAgents;
     }
         
+        //samma som tidigare klasser
         public static void updateSubClass(HashMap<String, String> map, String oldType, String newType) throws InfException {
             String tableName = newType; // The new type's table name
             String agentID = map.get("Agent_ID"); // Getting the agent's ID
@@ -706,7 +750,7 @@ public class ObjectManager {
         }
 
 }
-    
+    //Innreklass areas, samma som tidiare men unika värden
     public static class Areas {
         public static HashMap<Integer, Area> areaList = new HashMap<>();
         
@@ -745,7 +789,7 @@ public class ObjectManager {
     }
     }
 
-    
+    //inreklass utilitiesHandler, samma upplägg som alien men mindre antal metoder
     public static class UtilitiesHandler {
         public static HashMap<Integer, Utilities> utilitiesList = new HashMap<>();
 
@@ -839,10 +883,8 @@ public class ObjectManager {
         }
     }
    
-    
+    //Innre klass för kopping mellan agent och utrustning
     public class AgentUtilityHandler {
-        // HashMap with key as utility ID and value as an AgentUtils object
-
         public static HashMap<Integer, AgentUtils> agentUtilsMap = new HashMap<>();
 
         public static void loadList() throws InfException {
@@ -872,23 +914,24 @@ public class ObjectManager {
                 agentUtilsMap.put(utilityId, item);
             }
         }
-
+        
+        //Matar in en utrustninng och får ut info om den
         public static HashMap<String, String> getUtilityInfo(Utilities utility) {
             HashMap<String, String> statusInfo = new HashMap<>();
-            AgentUtils agentUtil = agentUtilsMap.get(utility.getID());
+            AgentUtils agentUtil = agentUtilsMap.get(utility.getID());//hämtar utrustningsobjektet
 
-            if (agentUtil != null) {
+            if (agentUtil != null) {//Om agentUtil inte är null så är den upptagen
                 statusInfo.put("Status", "Utlånad");
-                statusInfo.put("Borrower", agentUtil.getAgent().getName()); // Assuming Agent has a getName() method
-                statusInfo.put("Date", agentUtil.getBorrowingDate().toString());
-            } else {
+                statusInfo.put("Borrower", agentUtil.getAgent().getName()); //namn på agent
+                statusInfo.put("Date", agentUtil.getBorrowingDate().toString());//datum för lån
+            } else {//ledig
                 statusInfo.put("Status", "Tillgänglig");
-                statusInfo.put("Borrower", null); // Empty string for borrower
-                statusInfo.put("Date", null);     // Empty string for date
-            }
+                statusInfo.put("Borrower", null);
+                statusInfo.put("Date", null);}
             return statusInfo;
         }
         
+        //returnerar  en hashmap med utrustning som en agent har i lån
         public static HashMap<Integer,Utilities> getAgentUtils(Agent agent){
             HashMap<Integer,Utilities> utilMap= new HashMap<>();
             
@@ -902,6 +945,7 @@ public class ObjectManager {
             return utilMap;
         }
         
+        //samma som tidigare
         public static void remove(ArrayList<Integer> idList) throws InfException {
             for(int id : idList){
                 AgentUtils item = agentUtilsMap.get(id);
@@ -910,9 +954,11 @@ public class ObjectManager {
             } 
            
         }
+        
+        //metod för att lägga in ny koppling, lån(när en agent klickar på en utrusting för att låna)
         public static void addNew(ArrayList<Utilities> utilList) throws InfException {
             HashMap<String,String> inputMap = new HashMap<>();
-            int AgentID = UserSession.getInstance().getUserId();
+            int AgentID = UserSession.getInstance().getUserId();//tar inloggade agents id för lånet
             String stringAgentID = Integer.toString(AgentID);
             for(Utilities item: utilList){
                 int ID = item.getID();

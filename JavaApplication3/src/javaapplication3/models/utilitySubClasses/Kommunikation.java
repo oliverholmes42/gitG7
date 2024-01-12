@@ -7,26 +7,28 @@ package javaapplication3.models.utilitySubClasses;
 import java.util.HashMap;
 import javaapplication3.models.Utilities;
 
-/**
- *
- * @author mopaj
- */
+/* Denna klass hanterar subklassen Kommunikation som tillhör superklassen Utrustning. I denna klass kategoriseras utrustning inom kommunikation
+ * för att senare kunna bestämma tillhörigheten för ett nytt utrustningsobjekt som skapas. */
 public class Kommunikation extends Utilities {
     private String overforingsteknik;
 
     public Kommunikation(HashMap<String, String> utilitiesMap) {  
-        super(utilitiesMap);
+        super(utilitiesMap); // Anropar superklassens kontruktor
+        
+        // För att se om värdet för "Överföringsteknik" kommer från databasen eller från registrerings-HashMapen sker denna kontroll:
         if (!utilitiesMap.containsKey("Value")) {
             overforingsteknik = utilitiesMap.get("Overforingsteknik");
         } else {
             overforingsteknik = utilitiesMap.get("Value");
         }
     }
-
+    
+    // Getter för ööverföringsteknik
     public String getTransmissionTech() {
         return overforingsteknik;
     }
-
+    
+    // Setter för överföringsteknik
     public void setTransmissionTech(String overforingsteknik) {
         this.overforingsteknik = overforingsteknik;
     }
